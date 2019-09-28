@@ -160,7 +160,7 @@ public class BulletBehaviour : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<ScoreEnemyBasic>().TakeDmg(m_DamageValue);
-            Destroy(this);  // Change this to gameObject as I'm unsure if this destroys the whole object orjust the script component
+            Destroy(this);  // Change this to gameObject as I'm unsure if this destroys the whole object or just the script component
         }
         else if (other.CompareTag("DestroyBullet"))
         {
@@ -173,6 +173,7 @@ public class BulletBehaviour : MonoBehaviour
     {
         m_CurrentLifeTime += Time.deltaTime;
 
+        // Saved if we wan't physics based projectiles
         //if (m_IsPhysicsBased == false)
         {
             transform.position += m_Force * Time.deltaTime;

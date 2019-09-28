@@ -4599,11 +4599,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 500200625893714849, guid: 3bccd7374e14f4447b0f6b5c461b2edc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 500200625893714848, guid: 3bccd7374e14f4447b0f6b5c461b2edc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4659,45 +4654,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7094990082877444129, guid: 3bccd7374e14f4447b0f6b5c461b2edc,
-        type: 3}
-      propertyPath: m_GunPrefab.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7094990082877444129, guid: 3bccd7374e14f4447b0f6b5c461b2edc,
-        type: 3}
-      propertyPath: m_GunPrefab.Array.data[3]
-      value: 
-      objectReference: {fileID: 1094283486209360666, guid: 0784bf2097a33ae44bbfa61875ad922b,
-        type: 3}
-    - target: {fileID: 7094990082877444129, guid: 3bccd7374e14f4447b0f6b5c461b2edc,
-        type: 3}
-      propertyPath: m_DefaultGun
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7094990082877444129, guid: 3bccd7374e14f4447b0f6b5c461b2edc,
-        type: 3}
-      propertyPath: m_GunPrefab.Array.data[4]
-      value: 
-      objectReference: {fileID: 348376078618119487, guid: 071e815be5c7fcb49a82ee8fbbaad8d0,
-        type: 3}
-    - target: {fileID: 7094990082877444129, guid: 3bccd7374e14f4447b0f6b5c461b2edc,
-        type: 3}
-      propertyPath: m_GunPrefab.Array.data[0]
-      value: 
-      objectReference: {fileID: 1482335385195718745, guid: b3e0a8b2064f0b140aab74c8d682d608,
-        type: 3}
-    - target: {fileID: 7094990082877444129, guid: 3bccd7374e14f4447b0f6b5c461b2edc,
-        type: 3}
-      propertyPath: m_GunPrefab.Array.data[1]
-      value: 
-      objectReference: {fileID: 5194096994477092475, guid: e63a0ae8a80bf8640a458e831dc33824,
-        type: 3}
-    - target: {fileID: 7094990082877444129, guid: 3bccd7374e14f4447b0f6b5c461b2edc,
-        type: 3}
-      propertyPath: m_GunPrefab.Array.data[2]
-      value: 
-      objectReference: {fileID: 6674925974106445704, guid: 2a61f14fde1507f43ad7413628f5db50,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bccd7374e14f4447b0f6b5c461b2edc, type: 3}
