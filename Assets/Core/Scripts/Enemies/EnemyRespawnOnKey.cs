@@ -19,6 +19,7 @@ public class EnemyRespawnOnKey : MonoBehaviour
         Destroy(GetComponent<MeshFilter>());
 
         m_EnemyInstance = Instantiate(m_EnemyToSpawn, transform.position, transform.rotation, transform);
+        m_EnemyInstance.transform.position = transform.position - new Vector3(0.0f, 1.0f, 0.0f);
     }
 
 
@@ -28,10 +29,11 @@ public class EnemyRespawnOnKey : MonoBehaviour
         {
             if (m_EnemyInstance != null)
             {
-                return;
+                return; 
             }
 
             m_EnemyInstance = Instantiate(m_EnemyToSpawn, transform.position, transform.rotation, transform);
+            m_EnemyInstance.transform.position = transform.position - new Vector3(0.0f, 1.0f, 0.0f);
         }
     }
 }

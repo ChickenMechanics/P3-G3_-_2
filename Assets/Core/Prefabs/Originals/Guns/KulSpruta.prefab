@@ -41,9 +41,9 @@ GameObject:
   - component: {fileID: 1416179747012316077}
   - component: {fileID: 7997338803180843419}
   - component: {fileID: 4449776533292272994}
-  - component: {fileID: 5478867697525862943}
+  - component: {fileID: 6879944586967888596}
   m_Layer: 10
-  m_Name: KulSpruta 1
+  m_Name: KulSpruta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,8 +56,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2737095808826702270}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.3950064, y: 8.582418e-18, z: -3.8651774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5923441491645647326}
@@ -110,7 +110,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5478867697525862943
+--- !u!114 &6879944586967888596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0b181a1dcebbc49a656434bf8b5ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PositionOffset: {x: 0.7, y: -0.35, z: 0.5}
-  m_RoundsPerMinute: 600
+  m_PositionOffset: {x: 0.7, y: -0.35, z: 0.8}
+  m_RoundsPerMinute: 900
   m_MagazineSize: 1000
-  m_BulletModelPrefab: {fileID: 1258812700453301312, guid: db95fa4050e9ea14ab8510d4dff6aba3,
+  m_BulletModelPrefab: {fileID: 4705387012690372055, guid: 782e3cdb51e604b4a82b4718b75e6b42,
     type: 3}
