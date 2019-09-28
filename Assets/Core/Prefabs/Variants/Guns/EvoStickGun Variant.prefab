@@ -72,5 +72,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4713237985465307603, guid: 37bfa1476479a0d46bf6d2523cbe0b1a,
         type: 3}
+    - target: {fileID: 9004334808628690, guid: aa03059557fe99e47b69d6280483de51, type: 3}
+      propertyPath: m_MagazineSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982595214852792857, guid: aa03059557fe99e47b69d6280483de51,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.033
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982595214852792857, guid: aa03059557fe99e47b69d6280483de51,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.865
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa03059557fe99e47b69d6280483de51, type: 3}

@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PositionOffset: {x: 0.7, y: -0.35, z: 0.8}
   m_RoundsPerMinute: 900
-  m_MagazineSize: 1000
+  m_MagazineSize: 100
   m_BulletModelPrefab: {fileID: 9000175921578869602, guid: 4836db0dc512a18479437111ccb44237,
     type: 3}
 --- !u!1 &6324509205350841251

@@ -71,7 +71,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BulletModelPrefab
       value: 
-      objectReference: {fileID: 6135155375303446987, guid: e4c319741c4e4ae44a40099270abf590,
+      objectReference: {fileID: 8591128237718027582, guid: d509f3c47bba40f4fbadfa2dfb95129a,
         type: 3}
+    - target: {fileID: 6054469905552319730, guid: 076beec3f91fe8c4fbbcbe63c8a3a892,
+        type: 3}
+      propertyPath: m_RoundsPerMinute
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 6054469905552319730, guid: 076beec3f91fe8c4fbbcbe63c8a3a892,
+        type: 3}
+      propertyPath: m_MagazineSize
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 076beec3f91fe8c4fbbcbe63c8a3a892, type: 3}

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyRespawnOnKey : MonoBehaviour
 {
-    [Header("Press 'R' for respawn")]
+    [Header("Press 'U' for respawn")]
 
     public GameObject m_EnemyToSpawn;
 
@@ -25,7 +25,7 @@ public class EnemyRespawnOnKey : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.U))
         {
             if (m_EnemyInstance != null)
             {
