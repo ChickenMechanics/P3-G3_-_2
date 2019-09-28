@@ -20,6 +20,7 @@ public class GunTemplate : MonoBehaviour
 
     // Gun things
     private Transform m_BulletSpawnPoint;
+    private LayerMask m_AimRayLayerMask;
     // Ammunition things
     private List<GameObject> m_BulletPrefabClones;
     private List<BulletBehaviour> m_BulletBehaviourScripts;
@@ -30,7 +31,6 @@ public class GunTemplate : MonoBehaviour
     private float m_Rpm;
     private float m_TimePastSinceLastFire;
     private int m_NextFreeBullet;
-
 
     //----------------------------------------------------------------------------------------------------
 
@@ -52,6 +52,7 @@ public class GunTemplate : MonoBehaviour
         m_TimePastSinceLastFire = m_Rpm;
 
         m_BulletSpawnPoint = transform.GetChild(0);
+        m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
         
         InitMagazine();
     }
@@ -107,7 +108,7 @@ public class GunTemplate : MonoBehaviour
     }
 
 
-    public void Fire(Transform cameraPoint)
+    public void Fire(Transform cameraPoint)     // Is currently called from FixedUpdate(), so most code, except raycast, chould be moved to Update()
     {
 #if DEBUG
         if (m_BulletBehaviourScripts.Count == 0)
@@ -121,7 +122,7 @@ public class GunTemplate : MonoBehaviour
         {
             Ray ray = new Ray(cameraPoint.position, cameraPoint.forward);
             Vector3 raycastedDir = cameraPoint.forward;
-            if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist))
+            if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist, m_AimRayLayerMask))
             {
                 raycastedDir = (m_RaycastHit.point - m_BulletSpawnPoint.position).normalized;
             }

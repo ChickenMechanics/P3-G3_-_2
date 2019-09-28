@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
     // Lazy gun
     private GunHandler m_Gunhandler;
     private int m_CurrentGunIdx;
+    private bool m_IsFiring;
+    // Lazy gun
 
 
     void Awake()
@@ -74,6 +76,8 @@ public class PlayerController : MonoBehaviour
         m_Gunhandler = GetComponent<GunHandler>();
         m_Gunhandler.Init();
         m_CurrentGunIdx = m_Gunhandler.GetActiveGunIdx();
+        m_IsFiring = false;
+        // Temp gun
     }
 
 
@@ -170,6 +174,20 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void FixedUpdate()
+    {
+        FixedMove();
+
+        // Lazy gun
+        if (m_IsFiring == true)
+        {
+            m_Gunhandler.Fire(m_PlayerEyePoint.transform);
+            m_IsFiring = false;
+        }
+        // Lazy gun
+    }
+
+
     void Update()
     {
         Look();
@@ -194,17 +212,18 @@ public class PlayerController : MonoBehaviour
 
             m_Gunhandler.SetActiveGun(m_CurrentGunIdx);
         }
-
-        if (Input.GetMouseButton(0))
-        {
-            m_Gunhandler.Fire(m_PlayerEyePoint.transform);
-        }
     }
 
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-        FixedMove();
+        // Lazy gun
+        if (Input.GetMouseButton(0))
+        {
+            m_IsFiring = true;
+            //m_Gunhandler.Fire(m_PlayerEyePoint.transform);
+        }
+        // Lazy gun
     }
 
 
