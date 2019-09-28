@@ -71,12 +71,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BulletModelPrefab
       value: 
-      objectReference: {fileID: 8591128237718027582, guid: d509f3c47bba40f4fbadfa2dfb95129a,
+      objectReference: {fileID: 8420254805187990703, guid: d509f3c47bba40f4fbadfa2dfb95129a,
         type: 3}
     - target: {fileID: 6054469905552319730, guid: 076beec3f91fe8c4fbbcbe63c8a3a892,
         type: 3}
       propertyPath: m_RoundsPerMinute
-      value: 400
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 6054469905552319730, guid: 076beec3f91fe8c4fbbcbe63c8a3a892,
         type: 3}
