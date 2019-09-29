@@ -32,7 +32,12 @@ public class ScoreEnemyBasic : MonoBehaviour
 
     private void Awake()
     {
-        m_ScoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        
+        if (FindObjectOfType<ScoreManager>() != null)
+        {
+            m_ScoreManager = FindObjectOfType<ScoreManager>();
+            //GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        }
     }
 
 
@@ -57,8 +62,9 @@ public class ScoreEnemyBasic : MonoBehaviour
             if(m_ScoreManager != null)
             {
                 m_ScoreManager.AddComboPoints(m_ScoreValue);
-                Destroy(gameObject);
             }
+
+            Destroy(gameObject);
         }
     }
 }

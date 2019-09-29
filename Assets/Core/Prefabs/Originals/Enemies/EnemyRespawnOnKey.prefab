@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -233892430446698763}
   - component: {fileID: 2586103860020660805}
   m_Layer: 0
-  m_Name: EnemyRespawnOnKey_Verient
+  m_Name: EnemyRespawnOnKey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,5 +91,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef8aebc63969af44b23233203306c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyToSpawn: {fileID: 2396812996110916925, guid: 6c7f2a2d48572504e9feeedb368bb47b,
-    type: 3}
+  m_EnemyToSpawn: {fileID: 0}
