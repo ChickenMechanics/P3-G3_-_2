@@ -71,7 +71,6 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
             m_AnimScr.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.MELEE);
 
             m_Agent.isStopped = true;
-
         }
     }
 
