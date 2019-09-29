@@ -60,6 +60,8 @@ public class EnemyCrawlerAnimation : MonoBehaviour
 
     private void Update()
     {
+        #region debug animation on keypress
+#if DEBUG
         if (Input.GetKeyDown(KeyCode.I))
         {
             SetAnim(EAnimCrawler.IDLE);
@@ -74,5 +76,7 @@ public class EnemyCrawlerAnimation : MonoBehaviour
         {
             SetAnim(EAnimCrawler.MELEE);
         }
+#endif
+        #endregion
     }
 }
