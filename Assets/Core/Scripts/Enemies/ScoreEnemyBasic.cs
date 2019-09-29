@@ -18,7 +18,7 @@ public class ScoreEnemyBasic : MonoBehaviour
     }
 
 
-    public void TakeDmg(float value)
+    public void DecreaseHealth(float value)
     {
         m_Health -= value;
     }

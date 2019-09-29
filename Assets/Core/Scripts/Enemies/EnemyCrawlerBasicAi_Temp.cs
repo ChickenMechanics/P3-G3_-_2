@@ -95,7 +95,7 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
         m_Agent = GetComponent<NavMeshAgent>();
         m_Agent.enabled = false;
 
-        m_tFormPlayer = GameObject.FindGameObjectWithTag("Player").transform;
+        m_tFormPlayer = PlayerManager.GetInstance.Player.transform;
 
         m_AnimScr = GetComponent<EnemyCrawlerAnimation>();
 
