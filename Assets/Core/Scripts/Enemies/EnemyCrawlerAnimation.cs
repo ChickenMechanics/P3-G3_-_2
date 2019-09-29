@@ -16,6 +16,7 @@ public class EnemyCrawlerAnimation : MonoBehaviour
 
     private void Update()
     {
+        // Update this with the real conditionals
         if (Input.GetKeyDown(KeyCode.I))
         {
             m_Animator.SetBool("Attack", false);

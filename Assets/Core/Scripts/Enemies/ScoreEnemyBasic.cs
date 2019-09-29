@@ -32,17 +32,16 @@ public class ScoreEnemyBasic : MonoBehaviour
 
     private void Awake()
     {
-        
-        if (FindObjectOfType<ScoreManager>() != null)
+        ScoreManager scoreMan = FindObjectOfType<ScoreManager>();
+        if (scoreMan != null)
         {
-            m_ScoreManager = FindObjectOfType<ScoreManager>();
-            //GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+            m_ScoreManager = scoreMan;
         }
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
+    //private void OnTriggerEnter(Collider other)
+    //{
         //if (other.tag == "BulletBasic")
         //{
             // TODO: Fix health - bullet dmg
@@ -52,7 +51,7 @@ public class ScoreEnemyBasic : MonoBehaviour
             //    m_ScoreManager.AddComboPoints(m_ScoreValue);
             //}
         //}
-    }
+    //}
 
 
     private void Update()
