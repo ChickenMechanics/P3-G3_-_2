@@ -221,7 +221,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             m_IsFiring = true;
-            //m_Gunhandler.Fire(m_PlayerEyePoint.transform);
         }
         // Lazy gun
     }

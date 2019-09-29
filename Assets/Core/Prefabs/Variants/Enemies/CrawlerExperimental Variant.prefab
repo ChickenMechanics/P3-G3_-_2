@@ -7,6 +7,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 26552280516407021, guid: bdc1d148b27c80d42a67829096040abf,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 26552280516407021, guid: bdc1d148b27c80d42a67829096040abf,
+        type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 26552280516407021, guid: bdc1d148b27c80d42a67829096040abf,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2433345403979157956, guid: bdc1d148b27c80d42a67829096040abf,
         type: 3}
       propertyPath: m_Name

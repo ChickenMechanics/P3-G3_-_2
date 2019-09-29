@@ -32,6 +32,8 @@ public class GunTemplate : MonoBehaviour
     private float m_TimePastSinceLastFire;
     private int m_NextFreeBullet;
 
+    private bool m_ADS;
+
     //----------------------------------------------------------------------------------------------------
 
 
@@ -100,15 +102,15 @@ public class GunTemplate : MonoBehaviour
         if(transform.parent != null)
         {
             Vector3 offsetPos = (transform.right * m_PositionOffset.x) +
-                    (transform.up * m_PositionOffset.y) +
-                    (transform.forward * m_PositionOffset.z);
+                                (transform.up * m_PositionOffset.y) +
+                                (transform.forward * m_PositionOffset.z);
 
             transform.position = transform.parent.transform.position + offsetPos;
         }
     }
 
 
-    public void Fire(Transform cameraPoint)     // Is currently called from FixedUpdate(), so most code, except raycast, chould be moved to Update()
+    public void Fire(Transform cameraPoint)     // Is currently called from FixedUpdate(), so most code, except raycast, should be moved to Update()
     {
 #if DEBUG
         if (m_BulletBehaviourScripts.Count == 0)
@@ -157,5 +159,22 @@ public class GunTemplate : MonoBehaviour
     private void Update()
     {
         UpdateMagazine();
+
+        if (Input.GetMouseButton(1) == true)
+        {
+            Vector3 forward = transform.parent.forward * 0.2f;
+            Vector3 down = transform.parent.up * -0.4f;
+
+            transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
+        }
+
+        if (Input.GetMouseButton(1) == false)
+        {
+            Vector3 offsetPos = (transform.right * m_PositionOffset.x) +
+                                (transform.up * m_PositionOffset.y) +
+                                (transform.forward * m_PositionOffset.z);
+
+            transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
+        }
     }
 }
