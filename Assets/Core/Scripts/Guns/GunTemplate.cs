@@ -166,6 +166,7 @@ public class GunTemplate : MonoBehaviour
             Vector3 down = transform.parent.up * -0.4f;
 
             transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
         }
 
         if (Input.GetMouseButton(1) == false)
@@ -175,6 +176,7 @@ public class GunTemplate : MonoBehaviour
                                 (transform.forward * m_PositionOffset.z);
 
             transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.15f);
         }
     }
 }
