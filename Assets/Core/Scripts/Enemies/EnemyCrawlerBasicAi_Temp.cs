@@ -11,7 +11,6 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
     private NavMeshAgent m_Agent;
     private Transform m_tFormPlayer;
     private EnemyCrawlerAnimation m_AnimScr;
-    private Vector3 m_LastPlayerPos;
     private ECrawlerState m_CurrentSate;
     private float m_WalkTriggerMinDist;
     private float m_StateDelayTimer;
@@ -28,7 +27,7 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
 
     private void StateUpdate()
     {
-        switch((int)m_CurrentSate)
+        switch ((int)m_CurrentSate)
         {
             case (int)ECrawlerState.IDLE:  IdleState();    break;
             case (int)ECrawlerState.WALK:  WalkState();    break;
@@ -39,7 +38,9 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
 
     private void IdleState()
     {
-        float dist = (m_tFormPlayer.position - transform.position).magnitude;
+        Vector3 currentPlayerPos = m_tFormPlayer.position;
+
+        float dist = (currentPlayerPos - transform.position).magnitude;
         if (dist < m_WalkTriggerMinDist)
         {
             m_CurrentSate = ECrawlerState.MELEE;
@@ -47,17 +48,11 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
 
             return;
         }
+       
+        m_CurrentSate = ECrawlerState.WALK;
+        m_AnimScr.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.WALK);
 
-        Vector3 currentPlayerPos = m_tFormPlayer.position;
-        if (currentPlayerPos != m_LastPlayerPos)
-        {
-            m_CurrentSate = ECrawlerState.WALK;
-            m_AnimScr.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.WALK);
-
-            m_Agent.isStopped = false;
-
-
-        }
+        m_Agent.isStopped = false;
     }
 
 
@@ -99,9 +94,9 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
     private void Awake()
     {
         m_Agent = GetComponent<NavMeshAgent>();
+        m_Agent.enabled = false;
 
         m_tFormPlayer = GameObject.FindGameObjectWithTag("Player").transform;
-        m_LastPlayerPos = m_tFormPlayer.position;
 
         m_AnimScr = GetComponent<EnemyCrawlerAnimation>();
 
@@ -125,6 +120,9 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
             }
 
             m_StateUpdateDelay = false;
+
+            m_Agent.enabled = true;
+            m_Agent.isStopped = false;
         }
 
         StateUpdate();
