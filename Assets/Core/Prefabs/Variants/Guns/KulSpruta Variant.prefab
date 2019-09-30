@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8745436236828110390
+--- !u!1001 &7103972149193793558
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -18,21 +18,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3309858372098177357, guid: abe31888c629d564db95087fd7d8d388,
         type: 3}
-    - target: {fileID: 6879944586967888596, guid: 60b53556ab302e9448fe92f75b23d1d0,
-        type: 3}
-      propertyPath: m_MagazineSize
-      value: 130
-      objectReference: {fileID: 0}
-    - target: {fileID: 6879944586967888596, guid: 60b53556ab302e9448fe92f75b23d1d0,
-        type: 3}
-      propertyPath: m_RoundsPerMinute
-      value: 800
-      objectReference: {fileID: 0}
-    - target: {fileID: 4449776533292272994, guid: 60b53556ab302e9448fe92f75b23d1d0,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 45a9aabdb5f57114a927cfe1e1740fe0, type: 2}
     - target: {fileID: 1416179747012316077, guid: 60b53556ab302e9448fe92f75b23d1d0,
         type: 3}
       propertyPath: m_LocalPosition.x
