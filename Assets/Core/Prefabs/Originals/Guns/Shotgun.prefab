@@ -31,7 +31,7 @@ PrefabInstance:
     - target: {fileID: 8632408652047332225, guid: 8c2e3c2a2a898c948beb58bbd7fe7a07,
         type: 3}
       propertyPath: m_MagazineSize
-      value: 100
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3699964495512172307, guid: 8c2e3c2a2a898c948beb58bbd7fe7a07,
         type: 3}
