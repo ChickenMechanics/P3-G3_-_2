@@ -218,7 +218,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 1
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 3
 --- !u!114 &-1768267483214138816
 MonoBehaviour:
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_TrailRender: {fileID: 5295617487119369753, guid: 4643d40c538014c4e97f27f635d2889a,
     type: 3}
   m_TrailScale: 1
-  m_DamageValue: 50
-  m_Speed: 50
+  m_DamageValue: 175
+  m_Speed: 25
   m_DropOff: 0
   m_MaxLifetimeInSec: 5

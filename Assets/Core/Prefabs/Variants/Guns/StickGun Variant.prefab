@@ -18,6 +18,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4311191690796533032, guid: 1f7ef8026f14ae043900886653cef042,
         type: 3}
+    - target: {fileID: 8632408652047332225, guid: 8c2e3c2a2a898c948beb58bbd7fe7a07,
+        type: 3}
+      propertyPath: m_MagazineSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632408652047332225, guid: 8c2e3c2a2a898c948beb58bbd7fe7a07,
+        type: 3}
+      propertyPath: m_RoundsPerMinute
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 3699964495512172307, guid: 8c2e3c2a2a898c948beb58bbd7fe7a07,
         type: 3}
       propertyPath: m_LocalPosition.x

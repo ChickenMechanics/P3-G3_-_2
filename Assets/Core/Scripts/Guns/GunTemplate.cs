@@ -20,16 +20,22 @@ public class GunTemplate : MonoBehaviour
 
     // Gun things
     private Transform m_BulletSpawnPoint;
+    private LayerMask m_AimRayLayerMask;
     // Ammunition things
     private List<GameObject> m_BulletPrefabClones;
     private List<BulletBehaviour> m_BulletBehaviourScripts;
     private GameObject m_BulletFolder;
+    private Transform m_BulletParent;
     private RaycastHit m_RaycastHit;
     private Vector3 m_SecretSpot;
     private float m_RayMaxDist;
     private float m_Rpm;
     private float m_TimePastSinceLastFire;
     private int m_NextFreeBullet;
+
+    // Test
+    private bool m_ADS;
+    // Test
 
 
     //----------------------------------------------------------------------------------------------------
@@ -40,8 +46,11 @@ public class GunTemplate : MonoBehaviour
         m_BulletPrefabClones = new List<GameObject>();
         m_BulletBehaviourScripts = new List<BulletBehaviour>();
 
-        m_BulletFolder = new GameObject("Bullets");
-        m_BulletFolder.transform.position = new Vector3(5.0f, -10.0f, 0.0f);
+        //m_bulletfolder = new gameobject("bullets");
+        //m_bulletfolder.transform.position = new vector3(5.0f, -10.0f, 0.0f);
+
+        //m_BulletParent = transform.parent.GetComponent<GunHandler>().SharedBulletFolder.transform;
+        //GunHandler hand = transform.parent.GetComponent<GunHandler>();
 
         m_RaycastHit = new RaycastHit();
 
@@ -52,6 +61,7 @@ public class GunTemplate : MonoBehaviour
         m_TimePastSinceLastFire = m_Rpm;
 
         m_BulletSpawnPoint = transform.GetChild(0);
+        m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
         
         InitMagazine();
     }
@@ -61,27 +71,27 @@ public class GunTemplate : MonoBehaviour
     {
         // TODO: Reusing spent bullets is an idea
 
-        if (m_BulletBehaviourScripts.Count > 0) m_BulletBehaviourScripts.Clear();
-        if (m_BulletPrefabClones.Count > 0) m_BulletPrefabClones.Clear();
+        //if (m_BulletBehaviourScripts.Count > 0) m_BulletBehaviourScripts.Clear();
+        //if (m_BulletPrefabClones.Count > 0) m_BulletPrefabClones.Clear();
 
-        Transform tForm = transform.GetChild(0).transform;
-        Vector3 spawnPos = tForm.position;
-        Quaternion spawnRot = tForm.rotation;
+        //Transform tForm = transform.GetChild(0).transform;
+        //Vector3 spawnPos = tForm.position;
+        //Quaternion spawnRot = tForm.rotation;
 
-        for (int i = 0; i < m_MagazineSize; ++i)
-        {
-            GameObject bulletClone = Instantiate(m_BulletModelPrefab, spawnPos, spawnRot);
-            BulletBehaviour bulletScr = bulletClone.GetComponent<BulletBehaviour>();
+        //for (int i = 0; i < m_MagazineSize; ++i)
+        //{
+        //    GameObject bulletClone = Instantiate(m_BulletModelPrefab, spawnPos, spawnRot);
+        //    BulletBehaviour bulletScr = bulletClone.GetComponent<BulletBehaviour>();
 
-            bulletScr.InitBullet();
-            bulletClone.SetActive(false);
-            bulletClone.transform.SetParent(m_BulletFolder.transform);
+        //    bulletScr.InitBullet();
+        //    bulletClone.SetActive(false);
+        //    bulletClone.transform.SetParent(m_BulletFolder.transform);
 
-            m_BulletPrefabClones.Add(bulletClone);
-            m_BulletBehaviourScripts.Add(bulletScr);
-        }
+        //    m_BulletPrefabClones.Add(bulletClone);
+        //    m_BulletBehaviourScripts.Add(bulletScr);
+        //}
         
-        m_NextFreeBullet = m_MagazineSize - 1;
+        //m_NextFreeBullet = m_MagazineSize - 1;
     }
 
 
@@ -99,44 +109,77 @@ public class GunTemplate : MonoBehaviour
         if(transform.parent != null)
         {
             Vector3 offsetPos = (transform.right * m_PositionOffset.x) +
-                    (transform.up * m_PositionOffset.y) +
-                    (transform.forward * m_PositionOffset.z);
+                                (transform.up * m_PositionOffset.y) +
+                                (transform.forward * m_PositionOffset.z);
 
             transform.position = transform.parent.transform.position + offsetPos;
         }
     }
 
 
-    public void Fire(Transform cameraPoint)
+    public void Fire(Transform cameraPoint)     // Is currently called from FixedUpdate(), so most code, except raycast, should be moved to Update()
     {
-#if DEBUG
-        if (m_BulletBehaviourScripts.Count == 0)
-        {
-            Debug.LogWarning("GunTemplate::Fire(): No bollit in clip!");
-            return;
-        }
-#endif
+        //#if DEBUG
+        //        if (m_BulletBehaviourScripts.Count == 0)
+        //        {
+        //            Debug.LogWarning("GunTemplate::Fire(): No bollit in clip!");
+        //            return;
+        //        }
+        //#endif
+
+        //        if (m_TimePastSinceLastFire >= m_Rpm)
+        //        {
+        //            Ray ray = new Ray(cameraPoint.position, cameraPoint.forward);
+        //            Vector3 raycastedDir = cameraPoint.forward;
+        //            if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist, m_AimRayLayerMask))
+        //            {
+        //                raycastedDir = (m_RaycastHit.point - m_BulletSpawnPoint.position).normalized;
+        //            }
+
+        //            BulletBehaviour bulletScr = m_BulletBehaviourScripts[m_NextFreeBullet];
+        //            GameObject bulletClone = m_BulletPrefabClones[m_NextFreeBullet];
+
+        //            bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
+        //            m_BulletBehaviourScripts.Remove(bulletScr);
+        //            m_BulletPrefabClones.Remove(bulletClone);
+
+        //            if (m_NextFreeBullet == 0) return;
+
+        //            --m_NextFreeBullet;
+        //            m_TimePastSinceLastFire = 0.0f;
+        //        }
+
 
         if (m_TimePastSinceLastFire >= m_Rpm)
         {
             Ray ray = new Ray(cameraPoint.position, cameraPoint.forward);
             Vector3 raycastedDir = cameraPoint.forward;
-            if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist))
+            if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist, m_AimRayLayerMask))
             {
                 raycastedDir = (m_RaycastHit.point - m_BulletSpawnPoint.position).normalized;
             }
 
-            BulletBehaviour bulletScr = m_BulletBehaviourScripts[m_NextFreeBullet];
-            GameObject bulletClone = m_BulletPrefabClones[m_NextFreeBullet];
+            Transform tForm = transform.GetChild(0).transform;
+            Vector3 spawnPos = tForm.position;
+            Quaternion spawnRot = tForm.rotation;
+
+            GameObject bulletClone = Instantiate(m_BulletModelPrefab, spawnPos, spawnRot);
+            BulletBehaviour bulletScr = bulletClone.GetComponent<BulletBehaviour>();
+
+            bulletScr.InitBullet();
+            bulletClone.SetActive(false);
+            //bulletClone.transform.SetParent(m_BulletFolder.transform);
+
+
+            //bulletClone.transform.SetParent(m_BulletParent);
+
+
+
+
+
+            m_TimePastSinceLastFire = 0.0f;
 
             bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
-            m_BulletBehaviourScripts.Remove(bulletScr);
-            m_BulletPrefabClones.Remove(bulletClone);
-
-            if (m_NextFreeBullet == 0) return;
-
-            --m_NextFreeBullet;
-            m_TimePastSinceLastFire = 0.0f;
         }
     }
 
@@ -156,5 +199,26 @@ public class GunTemplate : MonoBehaviour
     private void Update()
     {
         UpdateMagazine();
+
+        // Test
+        if (Input.GetMouseButton(1) == true)
+        {
+            Vector3 forward = transform.parent.forward * 0.2f;
+            Vector3 down = transform.parent.up * -0.4f;
+
+            transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
+        }
+
+        if (Input.GetMouseButton(1) == false)
+        {
+            Vector3 offsetPos = (transform.right * m_PositionOffset.x) +
+                                (transform.up * m_PositionOffset.y) +
+                                (transform.forward * m_PositionOffset.z);
+
+            transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.15f);
+        }
+        // Test
     }
 }

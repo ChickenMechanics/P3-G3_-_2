@@ -392,8 +392,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DefaultGun: 0
-  m_GunPrefab:
-  - {fileID: 4695288824835488040, guid: d269fe9f9a62a974d94b7c7afc412d01, type: 3}
-  - {fileID: 4999236839578094142, guid: a8b072711dbd5a24eb0b551c25b6dc5c, type: 3}
-  - {fileID: 2593729530563428278, guid: 95d0b53bbc6dfa74e86fbab9610aa726, type: 3}
-  - {fileID: 348376078618119487, guid: 071e815be5c7fcb49a82ee8fbbaad8d0, type: 3}
+  m_GunPrefab: []

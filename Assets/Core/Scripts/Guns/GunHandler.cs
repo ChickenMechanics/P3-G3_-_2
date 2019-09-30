@@ -12,6 +12,7 @@ public class GunHandler : MonoBehaviour
     #endregion
 
     private GameObject[] m_GunPrefabClone;
+    private GunTemplate[] m_GunTempScrs;
     private GameObject m_ActiveGun;
     private GunTemplate m_ActiveGunScr;
     private int m_ActiveGunIdx;
@@ -68,18 +69,22 @@ public class GunHandler : MonoBehaviour
 
     private void CreateGunInstances()
     {
-        m_GunPrefabClone = new GameObject[m_GunPrefab.Length];
+        int size = m_GunPrefab.Length;
+        m_GunPrefabClone = new GameObject[size];
+        m_GunTempScrs = new GunTemplate[size];
+
         Transform parent = GameObject.Find("Camera Point").transform;
         for (int i = 0; i < m_GunPrefab.Length; ++i)
         {
             m_GunPrefabClone[i] = Instantiate(m_GunPrefab[i], Vector3.zero, Quaternion.identity);
             m_GunPrefabClone[i].SetActive(false);
+            m_GunTempScrs[i] = m_GunPrefabClone[i].GetComponent<GunTemplate>();
 
             Transform tForm = m_GunPrefabClone[i].transform;
             m_GunPrefabClone[i].transform.position = parent.transform.position + tForm.position;
 
             m_GunPrefabClone[i].transform.SetParent(parent);
-            m_GunPrefabClone[i].GetComponent<GunTemplate>().InitGun();
+            m_GunTempScrs[i].InitGun();
 
             ++m_NumOfGuns;
         }
