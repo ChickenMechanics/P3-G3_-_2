@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 4311191690796533032, guid: 336dc2b73a54d6743a0c2d44c76dbf3d,
         type: 3}
       propertyPath: m_Name
-      value: ShotgunSlug
+      value: ShotgunSlug Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1813276792056802680, guid: 336dc2b73a54d6743a0c2d44c76dbf3d,
         type: 3}
@@ -66,6 +66,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325748873237443594, guid: 336dc2b73a54d6743a0c2d44c76dbf3d,
+        type: 3}
+      propertyPath: m_Speed
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325748873237443594, guid: 336dc2b73a54d6743a0c2d44c76dbf3d,
+        type: 3}
+      propertyPath: m_DamageValue
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336dc2b73a54d6743a0c2d44c76dbf3d, type: 3}

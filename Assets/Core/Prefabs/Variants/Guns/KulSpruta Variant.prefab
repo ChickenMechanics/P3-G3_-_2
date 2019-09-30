@@ -21,7 +21,12 @@ PrefabInstance:
     - target: {fileID: 6879944586967888596, guid: 60b53556ab302e9448fe92f75b23d1d0,
         type: 3}
       propertyPath: m_MagazineSize
-      value: 100
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879944586967888596, guid: 60b53556ab302e9448fe92f75b23d1d0,
+        type: 3}
+      propertyPath: m_RoundsPerMinute
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 4449776533292272994, guid: 60b53556ab302e9448fe92f75b23d1d0,
         type: 3}
