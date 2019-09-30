@@ -162,7 +162,7 @@ public class GunTemplate : MonoBehaviour
             Reload();
         }
 
-        // Reload
+        // Reloading time
         if(m_IsReloading == true)
         {
             m_CurrentReloadTime -= Time.deltaTime;  // Had to put this here because switches in C# is weird, or I'm weird...
@@ -184,9 +184,12 @@ public class GunTemplate : MonoBehaviour
     {
         if(m_IsReloading == false)
         {
-            m_IsReloading = true;
-            m_CurrentReloadTime = m_ReloadTimeInSec;
-            m_CurrentGunState = EGunState.RELOADING;
+            if(m_CurrentMagSize < m_MagazineSize)
+            {
+                m_IsReloading = true;
+                m_CurrentReloadTime = m_ReloadTimeInSec;
+                m_CurrentGunState = EGunState.RELOADING;
+            }
         }
     }
 
