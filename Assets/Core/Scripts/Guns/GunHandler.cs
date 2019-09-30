@@ -95,4 +95,10 @@ public class GunHandler : MonoBehaviour
     {
         m_ActiveGunScr.Fire(cameraPoint);
     }
+
+
+    public void Reload()   // Dir equals player camera transform forward
+    {
+        m_ActiveGunScr.Reload();
+    }
 }
