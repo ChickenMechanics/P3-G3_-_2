@@ -82,9 +82,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8893938744355673161, guid: bdc1d148b27c80d42a67829096040abf,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3362526667253282242, guid: bdc1d148b27c80d42a67829096040abf,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7974960543518611725, guid: bdc1d148b27c80d42a67829096040abf,
         type: 3}
       propertyPath: m_OnSpawnAiDelayTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3177542327095180209, guid: bdc1d148b27c80d42a67829096040abf,
+        type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

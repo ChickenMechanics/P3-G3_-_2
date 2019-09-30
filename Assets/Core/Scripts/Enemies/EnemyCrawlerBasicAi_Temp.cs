@@ -11,6 +11,7 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
     private NavMeshAgent m_Agent;
     private Transform m_tFormPlayer;
     private EnemyCrawlerAnimation m_AnimScr;
+    private BoxCollider m_MeleeHitBox;
     private ECrawlerState m_CurrentSate;
     private float m_WalkTriggerMinDist;
     private float m_StateDelayTimer;
@@ -84,8 +85,6 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
             m_AnimScr.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.WALK);
 
             m_Agent.isStopped = false;
-
-            return;
         }
     }
 

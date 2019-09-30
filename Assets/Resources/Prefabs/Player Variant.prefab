@@ -75,7 +75,12 @@ PrefabInstance:
     - target: {fileID: 501765428380445882, guid: 093105622fe22bd49be5210ebe8ea41d,
         type: 3}
       propertyPath: m_MoveAcceleration
-      value: 150
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 501765428380445882, guid: 093105622fe22bd49be5210ebe8ea41d,
+        type: 3}
+      propertyPath: m_MaxMoveSpeed
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7093669475063879485, guid: 093105622fe22bd49be5210ebe8ea41d,
         type: 3}

@@ -8,7 +8,6 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager GetInstance { private set; get; }
 
     #region design vars
-    public GameObject m_PlayerPrefab;
     public float m_Health = 100.0f;
     #endregion
     
@@ -33,7 +32,9 @@ public class PlayerManager : MonoBehaviour
         Destroy(GetComponent<MeshRenderer>());
         Destroy(GetComponent<MeshFilter>());
 
-        Player = Instantiate(m_PlayerPrefab, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity, transform);
+        GameObject resource = (GameObject)Resources.Load("Prefabs/Player Variant");
+        Player = Instantiate(resource, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity, transform);
+        Player.transform.parent = transform;
 
         m_CurrentHealth = m_Health;
 

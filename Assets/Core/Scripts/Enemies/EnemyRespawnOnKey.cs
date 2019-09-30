@@ -11,7 +11,9 @@ public class EnemyRespawnOnKey : MonoBehaviour
     private MeshRenderer m_MeshRenderer;
     private GameObject m_EnemyInstance;
     private float m_ElevSpeed;
-    private bool m_IsRotaterElevator;
+    float m_CurrentSpawnDelayT;
+    private bool m_IsElevator;
+    private bool m_SpawnDelayLocked;
 
 
     public void Elevator()
@@ -20,7 +22,7 @@ public class EnemyRespawnOnKey : MonoBehaviour
         {
             m_EnemyInstance.transform.position = transform.position;
 
-            m_IsRotaterElevator = false;
+            m_IsElevator = false;
             return;
         }
 
@@ -34,12 +36,15 @@ public class EnemyRespawnOnKey : MonoBehaviour
         Destroy(GetComponent<MeshRenderer>());
         Destroy(GetComponent<MeshFilter>());
 
-        m_ElevSpeed = 15.0f;
+        m_ElevSpeed = 18.0f;
 
         m_EnemyInstance = Instantiate(m_EnemyToSpawn, transform.position, transform.rotation, transform);
-        m_EnemyInstance.transform.position = transform.position - new Vector3(0.0f, 1.0f, 0.0f);
+        float boundsSize = m_EnemyInstance.GetComponent<BoxCollider>().bounds.size.magnitude;
+        m_EnemyInstance.transform.position = transform.position - new Vector3(0.0f, boundsSize + 1.0f, 0.0f);
 
-        m_IsRotaterElevator = true;
+        m_CurrentSpawnDelayT = 0.0f;
+        m_IsElevator = true;
+        m_SpawnDelayLocked = false;
     }
 
 
@@ -52,16 +57,28 @@ public class EnemyRespawnOnKey : MonoBehaviour
                 return; 
             }
 
+            if(m_SpawnDelayLocked == false)
+            {
+                m_CurrentSpawnDelayT = Random.Range(0.0f, 0.2f);
+                m_SpawnDelayLocked = true;
+            }
+        }
+
+        m_CurrentSpawnDelayT -= Time.deltaTime;
+        if (m_SpawnDelayLocked == true &&
+            m_CurrentSpawnDelayT <= 0.0f)
+        {
             m_EnemyInstance = Instantiate(m_EnemyToSpawn, transform.position, transform.rotation, transform);
             float boundsSize = m_EnemyInstance.GetComponent<BoxCollider>().bounds.size.magnitude;
             m_EnemyInstance.transform.position = transform.position - new Vector3(0.0f, boundsSize + 1.0f, 0.0f);
 
-            m_IsRotaterElevator = true;
+            m_IsElevator = true;
+            m_SpawnDelayLocked = false;
         }
 
         if (m_EnemyInstance != null)
         {
-            if (m_IsRotaterElevator == true)
+            if (m_IsElevator == true)
             {
                 Elevator();
             }

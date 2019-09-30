@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2737095808826702270, guid: 60b53556ab302e9448fe92f75b23d1d0,
+        type: 3}
+      propertyPath: m_Name
+      value: KulSpruta Variant
+      objectReference: {fileID: 0}
     - target: {fileID: 6879944586967888596, guid: 60b53556ab302e9448fe92f75b23d1d0,
         type: 3}
       propertyPath: m_BulletModelPrefab
@@ -18,11 +23,11 @@ PrefabInstance:
       propertyPath: m_MagazineSize
       value: 100
       objectReference: {fileID: 0}
-    - target: {fileID: 2737095808826702270, guid: 60b53556ab302e9448fe92f75b23d1d0,
+    - target: {fileID: 4449776533292272994, guid: 60b53556ab302e9448fe92f75b23d1d0,
         type: 3}
-      propertyPath: m_Name
-      value: KulSpruta Variant
-      objectReference: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 45a9aabdb5f57114a927cfe1e1740fe0, type: 2}
     - target: {fileID: 1416179747012316077, guid: 60b53556ab302e9448fe92f75b23d1d0,
         type: 3}
       propertyPath: m_LocalPosition.x
