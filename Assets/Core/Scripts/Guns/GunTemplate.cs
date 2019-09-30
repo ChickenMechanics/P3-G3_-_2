@@ -25,7 +25,6 @@ public class GunTemplate : MonoBehaviour
     private List<GameObject> m_BulletPrefabClones;
     private List<BulletBehaviour> m_BulletBehaviourScripts;
     private GameObject m_BulletFolder;
-    private Transform m_BulletParent;
     private RaycastHit m_RaycastHit;
     private Vector3 m_SecretSpot;
     private float m_RayMaxDist;
@@ -46,11 +45,8 @@ public class GunTemplate : MonoBehaviour
         m_BulletPrefabClones = new List<GameObject>();
         m_BulletBehaviourScripts = new List<BulletBehaviour>();
 
-        //m_bulletfolder = new gameobject("bullets");
-        //m_bulletfolder.transform.position = new vector3(5.0f, -10.0f, 0.0f);
-
-        //m_BulletParent = transform.parent.GetComponent<GunHandler>().SharedBulletFolder.transform;
-        //GunHandler hand = transform.parent.GetComponent<GunHandler>();
+        m_BulletFolder = new GameObject("bullets");
+        m_BulletFolder.transform.position = new Vector3(5.0f, -10.0f, 0.0f);
 
         m_RaycastHit = new RaycastHit();
 
@@ -168,14 +164,7 @@ public class GunTemplate : MonoBehaviour
 
             bulletScr.InitBullet();
             bulletClone.SetActive(false);
-            //bulletClone.transform.SetParent(m_BulletFolder.transform);
-
-
-            //bulletClone.transform.SetParent(m_BulletParent);
-
-
-
-
+            bulletClone.transform.SetParent(m_BulletFolder.transform);
 
             m_TimePastSinceLastFire = 0.0f;
 
