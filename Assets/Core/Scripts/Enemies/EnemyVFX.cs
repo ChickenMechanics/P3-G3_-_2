@@ -19,9 +19,9 @@ public class EnemyVFX : MonoBehaviour
 
     private void Awake()
     {
-        GameObject parent = new GameObject("VfxEnemyDeathFolder");
-        parent.transform.rotation = transform.rotation;
-        parent.transform.position = transform.position;
+        GameObject vfxParent = new GameObject("VfxEnemyDeathFolder");
+        vfxParent.transform.rotation = transform.rotation;
+        vfxParent.transform.position = transform.position;
 
         if (m_ExplosionFireVfx != null)
         {
@@ -30,7 +30,7 @@ public class EnemyVFX : MonoBehaviour
             m_ExplosionFireParticle.transform.position = new Vector3(0.0f, -10.0f, 0.0f);
             m_ExplosionFireParticle.transform.localScale = new Vector3(m_ExplosionFireScale, m_ExplosionFireScale, m_ExplosionFireScale);
 
-            m_ExplosionFireParticle.transform.parent = parent.transform;
+            m_ExplosionFireParticle.transform.parent = vfxParent.transform;
         }
 
         if (m_ExplosionSmokeVfx != null)
@@ -40,7 +40,7 @@ public class EnemyVFX : MonoBehaviour
             m_ExplosionSmokeParticle.transform.position = new Vector3(0.0f, -10.0f, 0.0f);
             m_ExplosionSmokeParticle.transform.localScale = new Vector3(m_ExplosionSmokeScale, m_ExplosionSmokeScale, m_ExplosionSmokeScale);
 
-            m_ExplosionSmokeParticle.transform.parent = parent.transform;
+            m_ExplosionSmokeParticle.transform.parent = vfxParent.transform;
         }
     }
 

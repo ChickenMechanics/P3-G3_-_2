@@ -22,27 +22,26 @@ public class GunTemplate : MonoBehaviour
     private Transform m_BulletSpawnPoint;
     private LayerMask m_AimRayLayerMask;
     // Ammunition things
-    private List<GameObject> m_BulletPrefabClones;
-    private List<BulletBehaviour> m_BulletBehaviourScripts;
     private GameObject m_BulletFolder;
     private RaycastHit m_RaycastHit;
     private Vector3 m_SecretSpot;
     private float m_RayMaxDist;
     private float m_Rpm;
     private float m_TimePastSinceLastFire;
-    private int m_NextFreeBullet;
+    private int m_CurrentMagSize;
+    private bool m_IsReload;
 
+    // Test
     private bool m_ADS;
+    // Test
+
 
     //----------------------------------------------------------------------------------------------------
 
 
     public void InitGun()
     {
-        m_BulletPrefabClones = new List<GameObject>();
-        m_BulletBehaviourScripts = new List<BulletBehaviour>();
-
-        m_BulletFolder = new GameObject("Bullets");
+        m_BulletFolder = new GameObject("bullets");
         m_BulletFolder.transform.position = new Vector3(5.0f, -10.0f, 0.0f);
 
         m_RaycastHit = new RaycastHit();
@@ -55,45 +54,34 @@ public class GunTemplate : MonoBehaviour
 
         m_BulletSpawnPoint = transform.GetChild(0);
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
-        
-        InitMagazine();
-    }
 
+        m_CurrentMagSize = m_MagazineSize;
 
-    private void InitMagazine()
-    {
-        // TODO: Reusing spent bullets is an idea
-
-        if (m_BulletBehaviourScripts.Count > 0) m_BulletBehaviourScripts.Clear();
-        if (m_BulletPrefabClones.Count > 0) m_BulletPrefabClones.Clear();
-
-        Transform tForm = transform.GetChild(0).transform;
-        Vector3 spawnPos = tForm.position;
-        Quaternion spawnRot = tForm.rotation;
-
-        for (int i = 0; i < m_MagazineSize; ++i)
-        {
-            GameObject bulletClone = Instantiate(m_BulletModelPrefab, spawnPos, spawnRot);
-            BulletBehaviour bulletScr = bulletClone.GetComponent<BulletBehaviour>();
-
-            bulletScr.InitBullet();
-            bulletClone.SetActive(false);
-            bulletClone.transform.SetParent(m_BulletFolder.transform);
-
-            m_BulletPrefabClones.Add(bulletClone);
-            m_BulletBehaviourScripts.Add(bulletScr);
-        }
-        
-        m_NextFreeBullet = m_MagazineSize - 1;
+        m_IsReload = false;
     }
 
 
     private void UpdateMagazine()
     {
-        // Time is resetted in fire
-
+        // Time is resetted? in fire
         if (m_TimePastSinceLastFire < m_Rpm)
+        {
             m_TimePastSinceLastFire += Time.deltaTime;
+        }
+
+        if(m_CurrentMagSize <= 0.0f)
+        {
+            m_IsReload = true;
+        }
+
+        if(m_IsReload == true)
+        {
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                m_CurrentMagSize = m_MagazineSize;
+                m_IsReload = false;
+            }
+        }
     }
 
 
@@ -112,34 +100,33 @@ public class GunTemplate : MonoBehaviour
 
     public void Fire(Transform cameraPoint)     // Is currently called from FixedUpdate(), so most code, except raycast, should be moved to Update()
     {
-#if DEBUG
-        if (m_BulletBehaviourScripts.Count == 0)
+        if(m_IsReload != true)
         {
-            Debug.LogWarning("GunTemplate::Fire(): No bollit in clip!");
-            return;
-        }
-#endif
-
-        if (m_TimePastSinceLastFire >= m_Rpm)
-        {
-            Ray ray = new Ray(cameraPoint.position, cameraPoint.forward);
-            Vector3 raycastedDir = cameraPoint.forward;
-            if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist, m_AimRayLayerMask))
+            if (m_TimePastSinceLastFire >= m_Rpm)
             {
-                raycastedDir = (m_RaycastHit.point - m_BulletSpawnPoint.position).normalized;
+                Ray ray = new Ray(cameraPoint.position, cameraPoint.forward);
+                Vector3 raycastedDir = cameraPoint.forward;
+                if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist, m_AimRayLayerMask))
+                {
+                    raycastedDir = (m_RaycastHit.point - m_BulletSpawnPoint.position).normalized;
+                }
+
+                Transform tForm = transform.GetChild(0).transform;
+                Vector3 spawnPos = tForm.position;
+                Quaternion spawnRot = tForm.rotation;
+
+                GameObject bulletClone = Instantiate(m_BulletModelPrefab, spawnPos, spawnRot);
+                BulletBehaviour bulletScr = bulletClone.GetComponent<BulletBehaviour>();
+
+                bulletScr.InitBullet();
+                bulletClone.SetActive(false);
+                bulletClone.transform.SetParent(m_BulletFolder.transform);
+
+                m_TimePastSinceLastFire = 0.0f;
+                --m_CurrentMagSize;
+
+                bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
             }
-
-            BulletBehaviour bulletScr = m_BulletBehaviourScripts[m_NextFreeBullet];
-            GameObject bulletClone = m_BulletPrefabClones[m_NextFreeBullet];
-
-            bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
-            m_BulletBehaviourScripts.Remove(bulletScr);
-            m_BulletPrefabClones.Remove(bulletClone);
-
-            if (m_NextFreeBullet == 0) return;
-
-            --m_NextFreeBullet;
-            m_TimePastSinceLastFire = 0.0f;
         }
     }
 
@@ -160,6 +147,7 @@ public class GunTemplate : MonoBehaviour
     {
         UpdateMagazine();
 
+        // Test
         if (Input.GetMouseButton(1) == true)
         {
             Vector3 forward = transform.parent.forward * 0.2f;
@@ -178,5 +166,6 @@ public class GunTemplate : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.15f);
         }
+        // Test
     }
 }

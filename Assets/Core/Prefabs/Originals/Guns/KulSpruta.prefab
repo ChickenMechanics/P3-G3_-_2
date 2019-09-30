@@ -71,7 +71,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2737095808826702270}
-  m_Mesh: {fileID: -4254738273099078601, guid: 77ba7efe350373049a6a7ea30c1a0c08, type: 3}
+  m_Mesh: {fileID: -2907967935975683382, guid: 77ba7efe350373049a6a7ea30c1a0c08, type: 3}
 --- !u!23 &4449776533292272994
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -124,6 +124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PositionOffset: {x: 0.7, y: -0.35, z: 0.8}
   m_RoundsPerMinute: 900
-  m_MagazineSize: 1000
+  m_MagazineSize: 20
   m_BulletModelPrefab: {fileID: 4705387012690372055, guid: 782e3cdb51e604b4a82b4718b75e6b42,
     type: 3}

@@ -81,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 6054469905552319730, guid: 076beec3f91fe8c4fbbcbe63c8a3a892,
         type: 3}
       propertyPath: m_MagazineSize
-      value: 100
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 076beec3f91fe8c4fbbcbe63c8a3a892, type: 3}

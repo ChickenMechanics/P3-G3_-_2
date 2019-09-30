@@ -34,6 +34,8 @@ public class BulletBehaviour : MonoBehaviour
     private Vector3 m_Force;
     private float m_CurrentLifeTime;
 
+    private Vector3 m_ImpactSpot;
+
 
     public void InitBullet()
     {

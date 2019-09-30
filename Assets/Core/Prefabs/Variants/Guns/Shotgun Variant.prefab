@@ -12,6 +12,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shotgun Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6703110027172756710, guid: 0e3c61fbff8d6b2468efa5289cb3119e,
+        type: 3}
+      propertyPath: m_BulletModelPrefab
+      value: 
+      objectReference: {fileID: 9064914176310695144, guid: 45ac216b411b4cd43bafc82d702456c1,
+        type: 3}
+    - target: {fileID: 6703110027172756710, guid: 0e3c61fbff8d6b2468efa5289cb3119e,
+        type: 3}
+      propertyPath: m_MagazineSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6703110027172756710, guid: 0e3c61fbff8d6b2468efa5289cb3119e,
+        type: 3}
+      propertyPath: m_RoundsPerMinute
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 1842720990756927604, guid: 0e3c61fbff8d6b2468efa5289cb3119e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -66,17 +82,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6703110027172756710, guid: 0e3c61fbff8d6b2468efa5289cb3119e,
-        type: 3}
-      propertyPath: m_BulletModelPrefab
-      value: 
-      objectReference: {fileID: 9064914176310695144, guid: 45ac216b411b4cd43bafc82d702456c1,
-        type: 3}
-    - target: {fileID: 6703110027172756710, guid: 0e3c61fbff8d6b2468efa5289cb3119e,
-        type: 3}
-      propertyPath: m_MagazineSize
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e3c61fbff8d6b2468efa5289cb3119e, type: 3}

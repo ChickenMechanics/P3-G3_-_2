@@ -102,13 +102,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_GunPrefab.Array.data[1]
       value: 
-      objectReference: {fileID: 5194096994477092475, guid: e63a0ae8a80bf8640a458e831dc33824,
+      objectReference: {fileID: 6326108177425522790, guid: 95d0b53bbc6dfa74e86fbab9610aa726,
         type: 3}
     - target: {fileID: 7093669475063879485, guid: 093105622fe22bd49be5210ebe8ea41d,
         type: 3}
       propertyPath: m_GunPrefab.Array.data[2]
       value: 
-      objectReference: {fileID: 6674925974106445704, guid: 2a61f14fde1507f43ad7413628f5db50,
+      objectReference: {fileID: 5146065321511459240, guid: 2a61f14fde1507f43ad7413628f5db50,
         type: 3}
     - target: {fileID: 7093669475063879485, guid: 093105622fe22bd49be5210ebe8ea41d,
         type: 3}

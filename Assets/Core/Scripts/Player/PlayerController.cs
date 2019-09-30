@@ -232,9 +232,9 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         {
             // Temp
-            //Cursor.lockState = CursorLockMode.None;
-            //Cursor.visible = true;
-            //LevelManager.GetInstance.ChangeScene(LevelManager.EScene.MAIN_MENU);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.MAIN_MENU);
             // Temp
         }
     }
