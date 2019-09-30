@@ -12,7 +12,6 @@ public class ScoreManager : MonoBehaviour
     public float m_ComboScaler = 1.5f;
     #endregion
 
-    // TODO: Changed all that is named combo to chain
     #region get / set
     [HideInInspector]
     public float ChainTimeLeft { get; private set; }
@@ -32,7 +31,7 @@ public class ScoreManager : MonoBehaviour
 
     private bool m_ComboAlive;
 
-    public enum EText
+    public enum EScoreText
     {
         SCORE = 0,
         TOTAL_CHAINS,

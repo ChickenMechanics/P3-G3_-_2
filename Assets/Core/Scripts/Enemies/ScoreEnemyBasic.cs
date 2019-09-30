@@ -7,6 +7,7 @@ public class ScoreEnemyBasic : MonoBehaviour
     #region design vars
     public float m_ScoreValue = 100.0f;
     public float m_Health = 100.0f;
+    public float m_ExplosiveDamage = 25.0f;
     #endregion
 
     private ScoreManager m_ScoreManager;
@@ -40,18 +41,17 @@ public class ScoreEnemyBasic : MonoBehaviour
     }
 
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-        //if (other.tag == "BulletBasic")
-        //{
-            // TODO: Fix health - bullet dmg
-            //m_Health -= 100.0f;
-            //if(m_Health >= 0.0f)
-            //{
-            //    m_ScoreManager.AddComboPoints(m_ScoreValue);
-            //}
-        //}
-    //}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (m_ScoreManager != null)
+        {
+            m_ScoreManager.AddComboPoints(m_ScoreValue);
+        }
+
+        PlayerManager.GetInstance.DecreaseHealth(m_ExplosiveDamage);
+
+        Destroy(gameObject);
+    }
 
 
     private void Update()

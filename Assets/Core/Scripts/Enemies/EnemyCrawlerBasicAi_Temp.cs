@@ -100,7 +100,7 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
 
         m_CurrentSate = ECrawlerState.IDLE;
 
-        m_WalkTriggerMinDist = 4.0f;
+        m_WalkTriggerMinDist = 2.5f;
         m_StateDelayTimer = m_OnSpawnAiDelayTime;
 
         m_StateUpdateDelay = true;

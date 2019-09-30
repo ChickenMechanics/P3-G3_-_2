@@ -8,19 +8,27 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager GetInstance { private set; get; }
 
     #region design vars
-    public float m_Health = 100.0f;
+    public float m_BaseHealth = 100.0f;
     #endregion
     
     [HideInInspector]
     public GameObject Player { private set; get; }
-    private float m_CurrentHealth;
+    [HideInInspector]
+    public float Health { private set; get; }
     private bool m_IsAlive;
+
+
+    public enum EPlayerText
+    {
+        HEALTH = 0,
+        SIZE
+    }
 
 
     public void DecreaseHealth(float value)
     {
-        m_CurrentHealth -= value;
-        if(m_CurrentHealth <= 0.0f)
+        Health -= value;
+        if(Health <= 0.0f)
         {
             m_IsAlive = false;
         }
@@ -36,7 +44,7 @@ public class PlayerManager : MonoBehaviour
         Player = Instantiate(resource, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity, transform);
         Player.transform.parent = transform;
 
-        m_CurrentHealth = m_Health;
+        Health = m_BaseHealth;
 
         m_IsAlive = true;
     }
