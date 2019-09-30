@@ -72,5 +72,10 @@ PrefabInstance:
       propertyPath: m_Speed
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 3480256734983716195, guid: bb3c811e4761a20458a617d155d241a9,
+        type: 3}
+      propertyPath: m_MaxLifetimeInSec
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb3c811e4761a20458a617d155d241a9, type: 3}

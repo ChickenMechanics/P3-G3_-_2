@@ -124,6 +124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PositionOffset: {x: -0.1, y: -0.05, z: 0.2}
   m_RoundsPerMinute: 50
-  m_MagazineSize: 100
+  m_MagazineSize: 30
   m_BulletModelPrefab: {fileID: 6819690549498726262, guid: 9919921cd237e3d4f866a5dd538c62ca,
     type: 3}

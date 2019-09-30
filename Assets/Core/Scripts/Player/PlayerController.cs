@@ -44,7 +44,8 @@ public class PlayerController : MonoBehaviour
     // Lazy gun
     private GunHandler m_Gunhandler;
     private int m_CurrentGunIdx;
-    private bool m_IsFiring;
+    private bool m_bIsFiring;
+    private bool m_bIsReloading;
     // Lazy gun
 
 
@@ -72,12 +73,13 @@ public class PlayerController : MonoBehaviour
         m_ForwardAccel = m_MoveAcceleration * m_AccelScaler;
         m_StrafeAccel = m_MoveAcceleration * m_AccelScaler;
 
-        // Temp gun
+        // Lazy gun
         m_Gunhandler = GetComponent<GunHandler>();
         m_Gunhandler.Init();
         m_CurrentGunIdx = m_Gunhandler.GetActiveGunIdx();
-        m_IsFiring = false;
-        // Temp gun
+        m_bIsFiring = false;
+        m_bIsReloading = false;
+        // Lazy gun
     }
 
 
@@ -179,10 +181,16 @@ public class PlayerController : MonoBehaviour
         FixedMove();
 
         // Lazy gun
-        if (m_IsFiring == true)
+        if (m_bIsFiring == true)
         {
             m_Gunhandler.Fire(m_PlayerEyePoint.transform);
-            m_IsFiring = false;
+            m_bIsFiring = false;
+        }
+
+        if(m_bIsReloading == true)
+        {
+            m_Gunhandler.Reload();
+            m_bIsReloading = false;
         }
         // Lazy gun
     }
@@ -220,7 +228,12 @@ public class PlayerController : MonoBehaviour
         // Lazy gun
         if (Input.GetMouseButton(0))
         {
-            m_IsFiring = true;
+            m_bIsFiring = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            m_bIsReloading = true;
         }
         // Lazy gun
     }
