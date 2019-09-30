@@ -43,19 +43,24 @@ public class ScoreEnemyBasic : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (m_ScoreManager != null)
+        // Self destructed
+        if(other.gameObject.layer == 8) // 8 == Player
         {
-            m_ScoreManager.AddComboPoints(m_ScoreValue);
+            if (m_ScoreManager != null)
+            {
+                m_ScoreManager.AddComboPoints(m_ScoreValue);
+            }
+
+            PlayerManager.GetInstance.DecreaseHealth(m_ExplosiveDamage);
+
+            Destroy(gameObject);
         }
-
-        PlayerManager.GetInstance.DecreaseHealth(m_ExplosiveDamage);
-
-        Destroy(gameObject);
     }
 
 
     private void Update()
     {
+        // Killed
         if (m_Health <= 0.0f)
         {
             if(m_ScoreManager != null)
