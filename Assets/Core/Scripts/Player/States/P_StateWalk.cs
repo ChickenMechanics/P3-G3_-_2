@@ -16,32 +16,30 @@ public class P_StateWalk : IState
 
     public void Enter()
     {
-        //Debug.Log("Walk");
 
-        //Debug.Log(m_Owner.GetMoveInput());
     }
 
 
     public void FixedUpdate()
     {
-        //m_Owner.FixedUpdatePos(0.0f, ForceMode.Force);
+
     }
 
 
     public void Update()
     {
-        if (m_Owner.GetBasicInput().MoveInput.x == 0.0f &&
-            m_Owner.GetBasicInput().MoveInput.y == 0.0f)
+        m_Owner.UpdateLookInput();
+        m_Owner.UpdateMoveInput();
+
+        Vector3 currentMoveInput = m_Owner.GetBasicInput().MoveInput;
+        if (currentMoveInput.x == 0.0f && currentMoveInput.z == 0.0f)
         {
             IState state = m_Owner.GetState(PlayerCtrl.EP_State.IDLE);
             m_Owner.GetFsm().ChangeState(state);
         }
 
-        //UpdateIdle(dT);
 
-        //m_Owner.IsGrounded();
-        //m_Owner.UpdateGrfxRot();
-        //m_Owner.UpdateMoveDir();
+        Debug.Log("Walk");
     }
 
 

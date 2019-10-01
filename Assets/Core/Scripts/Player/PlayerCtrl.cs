@@ -49,16 +49,14 @@ public class PlayerCtrl : MonoBehaviour, IController
     }
 
 
-    private void UpdateLookInput()
+    public void UpdateLookInput()
     {
-        m_BasicInput.MoveInput.x = 0.0f;
-
         m_BasicInput.LookInput.x = Input.GetAxisRaw("Mouse X");
         m_BasicInput.LookInput.y = Input.GetAxisRaw("Mouse Y");
     }
 
 
-    private void UpdateMoveInput()
+    public void UpdateMoveInput()
     {
         m_BasicInput.MoveInput.x = Input.GetAxisRaw("Horizontal");
         m_BasicInput.MoveInput.z = Input.GetAxisRaw("Vertical");
@@ -95,9 +93,6 @@ public class PlayerCtrl : MonoBehaviour, IController
 
     private void LateUpdate()
     {
-        UpdateLookInput();
-        UpdateMoveInput();
-
         m_FSM.Update();
     }
 }

@@ -39,28 +39,23 @@ public class PlayerMove : MonoBehaviour
         // Rotation
         m_MoveObj.transform.eulerAngles = m_PlayerLookScr.GetPlayerCapsuleRotDir();
 
-        // Move
+        // Position
         Vector3 currentInput = m_PlayerCtrlScr.GetBasicInput().MoveInput;
-        if (currentInput.x != 0.0f ||
-            currentInput.z != 0.0f)
+        if (currentInput.x != 0.0f || currentInput.z != 0.0f)
         {
-            if (m_Rb.velocity.magnitude < 0.1f)
+            if (m_Rb.velocity.magnitude < m_MaxMoveSpeed)
             {
                 m_Rb.AddRelativeForce((m_ForwardForce + m_StrafeForce), ForceMode.Force);
             }
-        }
-        else
-        {
-            m_Rb.velocity = Vector3.zero;
         }
     }
 
 
     private void LateUpdate()
     {
+        // Forces
         Vector3 currentInput = m_PlayerCtrlScr.GetBasicInput().MoveInput;
-        if (currentInput.x != 0.0f &&
-            currentInput.z != 0.0f)
+        if (currentInput.x != 0.0f && currentInput.z != 0.0f)
         {
             currentInput /= Mathf.Sqrt(currentInput.x * currentInput.x + currentInput.z * currentInput.z);
         }

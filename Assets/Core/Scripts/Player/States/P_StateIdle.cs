@@ -16,9 +16,7 @@ public class P_StateIdle : IState
 
     public void Enter()
     {
-        //Debug.Log("Idle");
-
-        //Debug.Log(m_Owner.GetMoveInput());
+        Debug.Log("Idle");
     }
 
 
@@ -30,23 +28,20 @@ public class P_StateIdle : IState
 
     public void Update()
     {
-        if (m_Owner.GetBasicInput().MoveInput.x != 0.0f ||
-            m_Owner.GetBasicInput().MoveInput.y != 0.0f)
+        m_Owner.UpdateLookInput();
+        m_Owner.UpdateMoveInput();
+
+        Vector3 currentMoveInput = m_Owner.GetBasicInput().MoveInput;
+        if (currentMoveInput.x != 0.0f || currentMoveInput.z != 0.0f)
         {
             IState state = m_Owner.GetState(PlayerCtrl.EP_State.WALK);
             m_Owner.GetFsm().ChangeState(state);
         }
-
-        //UpdateIdle(dT);
-
-        //m_Owner.IsGrounded();
-        //m_Owner.UpdateGrfxRot();
-        //m_Owner.UpdateMoveDir();
     }
 
 
     public void Exit()
     {
-
+        Debug.Log("Idle");
     }
 }

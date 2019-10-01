@@ -22,6 +22,7 @@ public class PlayerLook : MonoBehaviour
     private Camera m_FPSCam;
     private GameObject m_PlayerEyePoint;
     private GameObject m_EyePoint;
+    private Vector3 m_EyeOffset;
     private Vector2 m_NextLookRotation;
     private Vector2 m_CurrentLookRotation;
 
@@ -39,10 +40,13 @@ public class PlayerLook : MonoBehaviour
         if (m_PlayerEyePoint == null)
         {
             m_EyePointOffsetZ = 0.4f;
+            m_EyeOffset = new Vector3(0.0f, m_EyeHeight, m_EyePointOffsetZ);
             m_PlayerEyePoint = new GameObject("Eye Point");
             m_PlayerEyePoint.transform.rotation = transform.rotation;
-            m_PlayerEyePoint.transform.position = transform.position + new Vector3(0.0f, m_EyeHeight, m_EyePointOffsetZ);
+            m_PlayerEyePoint.transform.position = transform.position + m_EyeOffset;
             m_PlayerEyePoint.transform.SetParent(transform.Find("Look").transform);
+
+            
         }
 
         if (m_MainCam == null)
@@ -103,10 +107,17 @@ public class PlayerLook : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        m_PlayerEyePoint.transform.position = Vector3.Lerp(
+            m_PlayerEyePoint.transform.position,
+            m_tPlayerMove.position + m_EyeOffset,
+            0.9f);
+    }
+
+
     private void LateUpdate()
     {
         Look();
-
-        transform.position = Vector3.Lerp(transform.position, m_tPlayerMove.position, 0.99f);
     }
 }
