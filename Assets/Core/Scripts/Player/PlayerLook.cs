@@ -15,12 +15,12 @@ public class PlayerLook : MonoBehaviour
     public float m_LookPitchMax = -98.0f;
     #endregion
 
+    private PlayerCtrl m_PlayerCtrlScr;
+    private PlayerMove m_PlayerMoveScr;
     private Camera m_MainCam;
     private Camera m_FPSCam;
     private GameObject m_PlayerEyePoint;
     private GameObject m_EyePoint;
-    private PlayerCtrl m_PlayerCtrlScr;
-
     private Vector2 m_NextLookRotation;
     private Vector2 m_CurrentLookRotation;
 
@@ -83,12 +83,11 @@ public class PlayerLook : MonoBehaviour
 
     private void Awake()
     {
-        // Cursor
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        // Player ctrl scr
+        // Scr
         m_PlayerCtrlScr = GetComponent<PlayerCtrl>();
+        m_PlayerMoveScr = GetComponent<PlayerMove>();
+
+        Debug.Log(m_PlayerMoveScr.m_MoveAcceleration);
 
         // Camera
         CameraSetup();
