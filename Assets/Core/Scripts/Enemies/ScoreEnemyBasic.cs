@@ -44,7 +44,7 @@ public class ScoreEnemyBasic : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Self destructed
-        if(other.gameObject.layer == 8) // 8 == Player
+        if(other.gameObject.layer == 8)     // 8 == Player
         {
             if (m_ScoreManager != null)
             {

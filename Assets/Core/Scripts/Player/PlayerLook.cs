@@ -19,6 +19,7 @@ public class PlayerLook : MonoBehaviour
     private Camera m_FPSCam;
     private GameObject m_PlayerEyePoint;
     private GameObject m_EyePoint;
+    private PlayerCtrl m_PlayerCtrlScr;
 
     private Vector2 m_NextLookRotation;
     private Vector2 m_CurrentLookRotation;
@@ -31,10 +32,10 @@ public class PlayerLook : MonoBehaviour
         if (m_PlayerEyePoint == null)
         {
             m_EyePointOffsetZ = 0.4f;
-            m_PlayerEyePoint = new GameObject("Camera Point");
+            m_PlayerEyePoint = new GameObject("Eye Point");
             m_PlayerEyePoint.transform.rotation = transform.rotation;
             m_PlayerEyePoint.transform.position = transform.position + new Vector3(0.0f, m_EyeHeight, m_EyePointOffsetZ);
-            m_PlayerEyePoint.transform.SetParent(transform);
+            m_PlayerEyePoint.transform.SetParent(transform.Find("Look").transform);
         }
 
         if (m_MainCam == null)
@@ -51,7 +52,7 @@ public class PlayerLook : MonoBehaviour
 
         if (m_FPSCam == null)
         {
-            m_FPSCam = GameObject.Find("FPS Camera").GetComponent<Camera>();
+            m_FPSCam = transform.Find("Look").transform.Find("FPS Camera").GetComponent<Camera>();
             m_FPSCam.transform.rotation = m_PlayerEyePoint.transform.rotation;
             m_FPSCam.transform.position = m_PlayerEyePoint.transform.position;
             m_FPSCam.transform.SetParent(m_PlayerEyePoint.transform);
@@ -61,8 +62,8 @@ public class PlayerLook : MonoBehaviour
 
     private void Look()
     {
-        Vector2 mouseLook = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * m_LookSensitivity;  // X is yaw, Y is pitch
-        m_NextLookRotation = Vector2.Lerp(m_NextLookRotation, mouseLook, m_LookSmooth);
+        Vector2 lookInput = m_PlayerCtrlScr.GetBasicInput().LookInput * m_LookSensitivity;
+        m_NextLookRotation = Vector2.Lerp(m_NextLookRotation, lookInput, m_LookSmooth);
         m_CurrentLookRotation += m_NextLookRotation;
 
         if (m_CurrentLookRotation.x > 360.0f) m_CurrentLookRotation.x = 0.0f;
@@ -80,17 +81,14 @@ public class PlayerLook : MonoBehaviour
     }
 
 
-    private void Position()
-    {
-
-    }
-
-
     private void Awake()
     {
         // Cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        // Player ctrl scr
+        m_PlayerCtrlScr = GetComponent<PlayerCtrl>();
 
         // Camera
         CameraSetup();

@@ -30,8 +30,8 @@ public class P_StateIdle : IState
 
     public void Update()
     {
-        if (m_Owner.GetMoveInput().x != 0.0f ||
-            m_Owner.GetMoveInput().y != 0.0f)
+        if (m_Owner.GetBasicInput().MoveInput.x != 0.0f ||
+            m_Owner.GetBasicInput().MoveInput.y != 0.0f)
         {
             IState state = m_Owner.GetState(PlayerCtrl.EP_State.WALK);
             m_Owner.GetFsm().ChangeState(state);

@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour, IController
 {
+    public struct BasicInput
+    {
+        public Vector2 LookInput;
+        public Vector2 MoveInput;
+    }
+    private BasicInput m_BasicInput;
+
     #region player states
     private IState[] m_States;
     private IState m_IdleState;
@@ -12,11 +19,7 @@ public class PlayerCtrl : MonoBehaviour, IController
     private FSM m_FSM;
     #endregion
 
-
-    private Vector2 m_MouseInput;
-    private Vector2 m_MoveInput;
-    [HideInInspector]
-    public PlayerLook m_PlayerLook { get; private set; }
+    public PlayerLook PlayerLook { get; private set; }
 
     public enum EP_State
     {
@@ -25,6 +28,12 @@ public class PlayerCtrl : MonoBehaviour, IController
         RUN,
         DEAD,
         SIZE
+    }
+
+
+    public BasicInput GetBasicInput()
+    {
+        return m_BasicInput;
     }
 
 
@@ -40,52 +49,48 @@ public class PlayerCtrl : MonoBehaviour, IController
     }
 
 
-    public Vector2 GetMouseInput()
-    {
-        return m_MouseInput;
-    }
-
-
-    public Vector2 GetMoveInput()
-    {
-        return m_MoveInput;
-    }
-
-
     private void UpdateMouseInput()
     {
-        m_MouseInput.x = Input.GetAxisRaw("Mouse X");
-        m_MouseInput.y = Input.GetAxisRaw("Mouse Y");
+        m_BasicInput.MoveInput.x = 0.0f;
+
+        m_BasicInput.LookInput.x = Input.GetAxisRaw("Mouse X");
+        m_BasicInput.LookInput.y = Input.GetAxisRaw("Mouse Y");
     }
 
 
     private void UpdateMoveInput()
     {
-        m_MoveInput.x = Input.GetAxisRaw("Horizontal");
-        m_MoveInput.y = Input.GetAxisRaw("Vertical");
+        m_BasicInput.MoveInput.x = Input.GetAxisRaw("Horizontal");
+        m_BasicInput.MoveInput.y = Input.GetAxisRaw("Vertical");
     }
 
 
     private void Awake()
     {
+        m_BasicInput = new BasicInput();
+        m_BasicInput.LookInput = new Vector2();
+        m_BasicInput.MoveInput = new Vector2();
+
         m_States = new IState[(int)EP_State.SIZE];
         m_States[(int)EP_State.IDLE] = new P_StateIdle((IController)this);
         m_States[(int)EP_State.WALK] = new P_StateWalk((IController)this);
 
         m_FSM = new FSM(m_States[(int)EP_State.IDLE]);
 
-        m_MouseInput = new Vector2();
-        m_MoveInput = new Vector2();
-
-        m_PlayerLook = GetComponent<PlayerLook>();
+        PlayerLook = GetComponent<PlayerLook>();
     }
 
 
-    private void Update()
+    private void FixedUpdate()
+    {
+        m_FSM.FixedUpdate();
+    }
+
+
+    private void LateUpdate()
     {
         UpdateMouseInput();
         UpdateMoveInput();
         m_FSM.Update();
     }
-
 }

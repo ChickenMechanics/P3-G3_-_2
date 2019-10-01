@@ -94,7 +94,10 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
         m_Agent = GetComponent<NavMeshAgent>();
         m_Agent.enabled = false;
 
-        m_tFormPlayer = PlayerManager.GetInstance.Player.transform;
+        if (PlayerManager.GetInstance != null)
+        {
+            m_tFormPlayer = PlayerManager.GetInstance.Player.transform;
+        }
 
         m_AnimScr = GetComponent<EnemyCrawlerAnimation>();
 
@@ -109,7 +112,7 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
 
     private void Update()
     {
-        if (m_StateUpdateDelay == true)
+        if (m_StateUpdateDelay != false)
         {
             m_StateDelayTimer -= Time.deltaTime;
             if (m_StateDelayTimer > 0.0f)
@@ -123,6 +126,9 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
             m_Agent.isStopped = false;
         }
 
-        StateUpdate();
+        if(m_tFormPlayer != null)
+        {
+            StateUpdate();
+        }
     }
 }
