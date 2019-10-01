@@ -15,7 +15,8 @@ public class PlayerManager : MonoBehaviour
     public GameObject Player { private set; get; }
     [HideInInspector]
     public float Health { private set; get; }
-    private bool m_IsAlive;
+    [HideInInspector]
+    public bool IsAlive { private set; get; }
 
 
     public enum EPlayerText
@@ -30,7 +31,7 @@ public class PlayerManager : MonoBehaviour
         Health -= value;
         if(Health <= 0.0f)
         {
-            m_IsAlive = false;
+            IsAlive = false;
         }
     }
 
@@ -40,13 +41,13 @@ public class PlayerManager : MonoBehaviour
         Destroy(GetComponent<MeshRenderer>());
         Destroy(GetComponent<MeshFilter>());
 
-        GameObject resource = (GameObject)Resources.Load("Prefabs/Player Variant");
+        GameObject resource = (GameObject)Resources.Load("Prefabs/Player");
         Player = Instantiate(resource, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity, transform);
         Player.transform.parent = transform;
 
         Health = m_BaseHealth;
 
-        m_IsAlive = true;
+        IsAlive = true;
     }
 
 

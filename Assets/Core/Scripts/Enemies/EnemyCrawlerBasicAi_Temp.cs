@@ -96,7 +96,7 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
 
         if (PlayerManager.GetInstance != null)
         {
-            m_tFormPlayer = PlayerManager.GetInstance.Player.transform;
+            m_tFormPlayer = PlayerManager.GetInstance.Player.transform.Find("Move").transform;
         }
 
         m_AnimScr = GetComponent<EnemyCrawlerAnimation>();

@@ -5,18 +5,17 @@ using UnityEngine;
 
 public class P_StateWalk : IState
 {
-    private PlayerCtrl m_Owner;
-
-
     public P_StateWalk(IController controller)
     {
         m_Owner = (PlayerCtrl)controller;
     }
 
+    private PlayerCtrl m_Owner;
+
 
     public void Enter()
     {
-
+        //Debug.Log("Walk");
     }
 
 
@@ -37,14 +36,11 @@ public class P_StateWalk : IState
             IState state = m_Owner.GetState(PlayerCtrl.EP_State.IDLE);
             m_Owner.GetFsm().ChangeState(state);
         }
-
-
-        Debug.Log("Walk");
     }
 
 
     public void Exit()
     {
-
+        //Debug.Log("Walk");
     }
 }

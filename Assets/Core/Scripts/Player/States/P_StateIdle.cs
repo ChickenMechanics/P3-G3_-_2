@@ -5,24 +5,23 @@ using UnityEngine;
 
 public class P_StateIdle : IState
 {
-    private PlayerCtrl m_Owner;
-
-
     public P_StateIdle(IController controller)
     {
         m_Owner = (PlayerCtrl)controller;
     }
 
+    private PlayerCtrl m_Owner;
+
 
     public void Enter()
     {
-        Debug.Log("Idle");
+        //Debug.Log("Idle");
     }
 
 
     public void FixedUpdate()
     {
-        //m_Owner.FixedUpdatePos(0.0f, ForceMode.Force);
+
     }
 
 
@@ -42,6 +41,6 @@ public class P_StateIdle : IState
 
     public void Exit()
     {
-        Debug.Log("Idle");
+        //Debug.Log("Idle");
     }
 }

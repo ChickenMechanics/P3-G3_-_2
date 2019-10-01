@@ -19,6 +19,7 @@ public class PlayerCtrl : MonoBehaviour, IController
     private FSM m_FSM;
     #endregion
 
+    [HideInInspector]
     public PlayerLook PlayerLook { get; private set; }
 
     public enum EP_State
