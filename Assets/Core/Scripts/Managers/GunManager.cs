@@ -102,7 +102,8 @@ public class GunManager : MonoBehaviour
         m_GunPrefabClone = new GameObject[size];
         m_GunTempScrs = new GunTemplate[size];
 
-        Transform parent = GameObject.Find("Camera Point").transform;
+        Transform parent = PlayerManager.GetInstance.Player.transform.Find("Look");
+        //Transform parent = GameObject.Find("Camera Point").transform;     // Before there was a gun manager and a player manager
         for (int i = 0; i < m_GunPrefab.Length; ++i)
         {
             m_GunPrefabClone[i] = Instantiate(m_GunPrefab[i], Vector3.zero, Quaternion.identity);

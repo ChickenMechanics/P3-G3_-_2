@@ -16,8 +16,8 @@ public class PlayerLook : MonoBehaviour
     #endregion
 
     private PlayerCtrl m_PlayerCtrlScr;
+    private Transform m_tPlayerLook;
     private Transform m_tPlayerMove;
-    private Transform m_tCameraLook;
     private Camera m_MainCam;
     private Camera m_FPSCam;
     private GameObject m_PlayerEyePoint;
@@ -37,17 +37,47 @@ public class PlayerLook : MonoBehaviour
 
     private void CameraSetup()
     {
-        if (m_PlayerEyePoint == null)
-        {
-            m_EyePointOffsetZ = 0.4f;
-            m_EyeOffset = new Vector3(0.0f, m_EyeHeight, m_EyePointOffsetZ);
-            m_PlayerEyePoint = new GameObject("Eye Point");
-            m_PlayerEyePoint.transform.rotation = transform.rotation;
-            m_PlayerEyePoint.transform.position = transform.position + m_EyeOffset;
-            m_PlayerEyePoint.transform.SetParent(transform.Find("Look").transform);
+        //if (m_PlayerEyePoint == null)
+        //{
+        //    m_EyePointOffsetZ = 0.4f;
+        //    m_EyeOffset = new Vector3(0.0f, m_EyeHeight, m_EyePointOffsetZ);
+        //    m_PlayerEyePoint = new GameObject("Eye Point");
+        //    m_PlayerEyePoint.transform.rotation = transform.rotation;
+        //    m_PlayerEyePoint.transform.position = transform.position + m_EyeOffset;
+        //    m_PlayerEyePoint.transform.SetParent(transform.Find("Look").transform);
+        //}
 
-            
-        }
+        //if (m_MainCam == null)
+        //{
+        //    m_MainCam = Camera.main;
+        //    m_MainCam.nearClipPlane = 0.01f;
+        //    m_MainCam.farClipPlane = 800.0f;
+        //    m_MainCam.depth = -1.0f;
+
+        //    m_MainCam.transform.rotation = m_PlayerEyePoint.transform.rotation;
+        //    m_MainCam.transform.position = m_PlayerEyePoint.transform.position;
+        //    m_MainCam.transform.SetParent(m_PlayerEyePoint.transform);
+        //}
+
+        //if (m_FPSCam == null)
+        //{
+        //    m_FPSCam = transform.Find("Look").transform.Find("FPS Camera").GetComponent<Camera>();
+        //    m_FPSCam.transform.rotation = m_PlayerEyePoint.transform.rotation;
+        //    m_FPSCam.transform.position = m_PlayerEyePoint.transform.position;
+        //    m_FPSCam.transform.SetParent(m_PlayerEyePoint.transform);
+        //}
+
+
+
+        //if (m_PlayerEyePoint == null)
+        //{
+        //    m_EyePointOffsetZ = 0.4f;
+        //    m_EyeOffset = new Vector3(0.0f, m_EyeHeight, m_EyePointOffsetZ);
+        //    m_PlayerEyePoint = new GameObject("Eye Point");
+        //    m_PlayerEyePoint.transform.rotation = transform.rotation;
+        //    m_PlayerEyePoint.transform.position = transform.position + m_EyeOffset;
+        //    m_PlayerEyePoint.transform.SetParent(transform.Find("Look").transform);
+        //}
 
         if (m_MainCam == null)
         {
@@ -56,17 +86,17 @@ public class PlayerLook : MonoBehaviour
             m_MainCam.farClipPlane = 800.0f;
             m_MainCam.depth = -1.0f;
 
-            m_MainCam.transform.rotation = m_PlayerEyePoint.transform.rotation;
-            m_MainCam.transform.position = m_PlayerEyePoint.transform.position;
-            m_MainCam.transform.SetParent(m_PlayerEyePoint.transform);
+            m_MainCam.transform.rotation = m_tPlayerLook.transform.rotation;
+            m_MainCam.transform.position = m_tPlayerLook.transform.position;
+            m_MainCam.transform.SetParent(m_tPlayerLook.transform);
         }
 
         if (m_FPSCam == null)
         {
             m_FPSCam = transform.Find("Look").transform.Find("FPS Camera").GetComponent<Camera>();
-            m_FPSCam.transform.rotation = m_PlayerEyePoint.transform.rotation;
-            m_FPSCam.transform.position = m_PlayerEyePoint.transform.position;
-            m_FPSCam.transform.SetParent(m_PlayerEyePoint.transform);
+            m_FPSCam.transform.rotation = m_tPlayerLook.transform.rotation;
+            m_FPSCam.transform.position = m_tPlayerLook.transform.position;
+            m_FPSCam.transform.SetParent(m_tPlayerLook.transform);
         }
     }
 
@@ -83,12 +113,16 @@ public class PlayerLook : MonoBehaviour
         m_CurrentLookRotation.y = Mathf.Clamp(m_CurrentLookRotation.y, m_LookPitchMax, m_LookPitchMin);
 
         // Rotate root point
-        m_tCameraLook.eulerAngles = new Vector3(0.0f, m_CurrentLookRotation.x, 0.0f);
+        m_tPlayerLook.eulerAngles = new Vector3(0.0f, m_CurrentLookRotation.x, 0.0f);
 
         //Camera // Works, but I don't really know...
-        m_PlayerEyePoint.transform.localRotation = Quaternion.AngleAxis(-m_CurrentLookRotation.y, Vector3.right);
-        m_PlayerEyePoint.transform.localRotation = Quaternion.AngleAxis(m_CurrentLookRotation.x, Vector3.up);
-        m_PlayerEyePoint.transform.eulerAngles = new Vector3(-m_CurrentLookRotation.y, m_CurrentLookRotation.x, 0.0f);
+        //m_PlayerEyePoint.transform.localRotation = Quaternion.AngleAxis(-m_CurrentLookRotation.y, Vector3.right);
+        //m_PlayerEyePoint.transform.localRotation = Quaternion.AngleAxis(m_CurrentLookRotation.x, Vector3.up);
+        //m_PlayerEyePoint.transform.eulerAngles = new Vector3(-m_CurrentLookRotation.y, m_CurrentLookRotation.x, 0.0f);
+
+        m_tPlayerLook.transform.localRotation = Quaternion.AngleAxis(-m_CurrentLookRotation.y, Vector3.right);
+        m_tPlayerLook.transform.localRotation = Quaternion.AngleAxis(m_CurrentLookRotation.x, Vector3.up);
+        m_tPlayerLook.transform.eulerAngles = new Vector3(-m_CurrentLookRotation.y, m_CurrentLookRotation.x, 0.0f);
     }
 
 
@@ -96,8 +130,8 @@ public class PlayerLook : MonoBehaviour
     {
         // Scr
         m_PlayerCtrlScr = GetComponent<PlayerCtrl>();
+        m_tPlayerLook = transform.Find("Look").transform;
         m_tPlayerMove = transform.Find("Move").transform;
-        m_tCameraLook = transform.Find("Look").transform;
 
         // Camera
         CameraSetup();
@@ -109,8 +143,13 @@ public class PlayerLook : MonoBehaviour
 
     private void Update()
     {
-        m_PlayerEyePoint.transform.position = Vector3.Lerp(
-            m_PlayerEyePoint.transform.position,
+        //m_PlayerEyePoint.transform.position = Vector3.Lerp(
+        //    m_PlayerEyePoint.transform.position,
+        //    m_tPlayerMove.position + m_EyeOffset,
+        //    0.9f);
+
+        m_tPlayerLook.transform.position = Vector3.Lerp(
+            m_tPlayerLook.transform.position,
             m_tPlayerMove.position + m_EyeOffset,
             0.9f);
     }
