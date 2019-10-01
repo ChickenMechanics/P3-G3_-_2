@@ -37,7 +37,7 @@ public class PlayerMove : MonoBehaviour
         if (m_PlayerCtrlScr.GetBasicInput().MoveInput.x != 0.0f ||
             m_PlayerCtrlScr.GetBasicInput().MoveInput.z != 0.0f)
         {
-            if (m_Rb.velocity.magnitude < m_MaxMoveSpeed)
+            if (m_Rb.velocity.magnitude < 0.1f)
             {
                 m_Rb.AddForce((m_ForwardForce + m_StrafeForce), ForceMode.Force);
             }
@@ -47,12 +47,13 @@ public class PlayerMove : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 currentInput = m_PlayerCtrlScr.GetBasicInput().MoveInput;
-
-        if (m_PlayerCtrlScr.GetBasicInput().MoveInput.x != 0.0f ||
-            m_PlayerCtrlScr.GetBasicInput().MoveInput.z != 0.0f)
+        //if (m_PlayerCtrlScr.GetBasicInput().MoveInput.x != 0.0f ||
+        //    m_PlayerCtrlScr.GetBasicInput().MoveInput.z != 0.0f)
         {
-            if (currentInput.x != 0.0f && currentInput.z != 0.0f)
+            Vector3 currentInput = m_PlayerCtrlScr.GetBasicInput().MoveInput;
+
+            if (currentInput.x != 0.0f &&
+                currentInput.z != 0.0f)
             {
                 currentInput /= Mathf.Sqrt(currentInput.x * currentInput.x + currentInput.z * currentInput.z);
                 

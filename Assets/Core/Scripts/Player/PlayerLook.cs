@@ -16,7 +16,7 @@ public class PlayerLook : MonoBehaviour
     #endregion
 
     private PlayerCtrl m_PlayerCtrlScr;
-    private PlayerMove m_PlayerMoveScr;
+    private Transform m_tPlayerMove;
     private Camera m_MainCam;
     private Camera m_FPSCam;
     private GameObject m_PlayerEyePoint;
@@ -85,9 +85,7 @@ public class PlayerLook : MonoBehaviour
     {
         // Scr
         m_PlayerCtrlScr = GetComponent<PlayerCtrl>();
-        m_PlayerMoveScr = GetComponent<PlayerMove>();
-
-        Debug.Log(m_PlayerMoveScr.m_MoveAcceleration);
+        m_tPlayerMove = transform.Find("Move").transform;
 
         // Camera
         CameraSetup();
@@ -100,5 +98,7 @@ public class PlayerLook : MonoBehaviour
     private void LateUpdate()
     {
         Look();
+
+        transform.position = Vector3.Lerp(transform.position, m_tPlayerMove.position, 0.9f);
     }
 }
