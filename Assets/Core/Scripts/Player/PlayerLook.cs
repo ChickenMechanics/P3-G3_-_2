@@ -17,6 +17,7 @@ public class PlayerLook : MonoBehaviour
 
     private PlayerCtrl m_PlayerCtrlScr;
     private Transform m_tPlayerMove;
+    private Transform m_tCameraLook;
     private Camera m_MainCam;
     private Camera m_FPSCam;
     private GameObject m_PlayerEyePoint;
@@ -25,6 +26,12 @@ public class PlayerLook : MonoBehaviour
     private Vector2 m_CurrentLookRotation;
 
     private float m_EyePointOffsetZ;
+
+
+    public Vector3 GetPlayerCapsuleRotDir()
+    {
+        return new Vector3(0.0f, m_CurrentLookRotation.x, 0.0f);
+    }
 
 
     private void CameraSetup()
@@ -71,10 +78,10 @@ public class PlayerLook : MonoBehaviour
 
         m_CurrentLookRotation.y = Mathf.Clamp(m_CurrentLookRotation.y, m_LookPitchMax, m_LookPitchMin);
 
-        // PlayerCapsule
-        transform.eulerAngles = new Vector3(0.0f, m_CurrentLookRotation.x, 0.0f);
+        // Rotate root point
+        m_tCameraLook.eulerAngles = new Vector3(0.0f, m_CurrentLookRotation.x, 0.0f);
 
-        // Camera // Works, but I don't really know...
+        //Camera // Works, but I don't really know...
         m_PlayerEyePoint.transform.localRotation = Quaternion.AngleAxis(-m_CurrentLookRotation.y, Vector3.right);
         m_PlayerEyePoint.transform.localRotation = Quaternion.AngleAxis(m_CurrentLookRotation.x, Vector3.up);
         m_PlayerEyePoint.transform.eulerAngles = new Vector3(-m_CurrentLookRotation.y, m_CurrentLookRotation.x, 0.0f);
@@ -86,6 +93,7 @@ public class PlayerLook : MonoBehaviour
         // Scr
         m_PlayerCtrlScr = GetComponent<PlayerCtrl>();
         m_tPlayerMove = transform.Find("Move").transform;
+        m_tCameraLook = transform.Find("Look").transform;
 
         // Camera
         CameraSetup();
@@ -99,6 +107,6 @@ public class PlayerLook : MonoBehaviour
     {
         Look();
 
-        transform.position = Vector3.Lerp(transform.position, m_tPlayerMove.position, 0.9f);
+        transform.position = Vector3.Lerp(transform.position, m_tPlayerMove.position, 0.99f);
     }
 }

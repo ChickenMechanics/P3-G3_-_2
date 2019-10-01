@@ -11,6 +11,7 @@ public class PlayerMove : MonoBehaviour
     #endregion
 
     private PlayerCtrl m_PlayerCtrlScr;
+    private PlayerLook m_PlayerLookScr;
     private GameObject m_MoveObj;
     private Rigidbody m_Rb;
     private Vector3 m_ForwardForce;
@@ -25,6 +26,7 @@ public class PlayerMove : MonoBehaviour
         m_MoveObj = transform.Find("Move").gameObject;
         m_Rb = m_MoveObj.GetComponent<Rigidbody>();
         m_PlayerCtrlScr = GetComponent<PlayerCtrl>();
+        m_PlayerLookScr = GetComponent<PlayerLook>();
 
         m_AccelScaler = 50.0f;
         m_ForwardAccel = m_MoveAcceleration * m_AccelScaler;
@@ -34,36 +36,39 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_PlayerCtrlScr.GetBasicInput().MoveInput.x != 0.0f ||
-            m_PlayerCtrlScr.GetBasicInput().MoveInput.z != 0.0f)
+        // Rotation
+        m_MoveObj.transform.eulerAngles = m_PlayerLookScr.GetPlayerCapsuleRotDir();
+
+        // Move
+        Vector3 currentInput = m_PlayerCtrlScr.GetBasicInput().MoveInput;
+        if (currentInput.x != 0.0f ||
+            currentInput.z != 0.0f)
         {
             if (m_Rb.velocity.magnitude < 0.1f)
             {
-                m_Rb.AddForce((m_ForwardForce + m_StrafeForce), ForceMode.Force);
+                m_Rb.AddRelativeForce((m_ForwardForce + m_StrafeForce), ForceMode.Force);
             }
+        }
+        else
+        {
+            m_Rb.velocity = Vector3.zero;
         }
     }
 
 
     private void LateUpdate()
     {
-        //if (m_PlayerCtrlScr.GetBasicInput().MoveInput.x != 0.0f ||
-        //    m_PlayerCtrlScr.GetBasicInput().MoveInput.z != 0.0f)
+        Vector3 currentInput = m_PlayerCtrlScr.GetBasicInput().MoveInput;
+        if (currentInput.x != 0.0f &&
+            currentInput.z != 0.0f)
         {
-            Vector3 currentInput = m_PlayerCtrlScr.GetBasicInput().MoveInput;
-
-            if (currentInput.x != 0.0f &&
-                currentInput.z != 0.0f)
-            {
-                currentInput /= Mathf.Sqrt(currentInput.x * currentInput.x + currentInput.z * currentInput.z);
-                
-            }
-
-            m_ForwardForce = transform.forward;
-            m_ForwardForce *= m_ForwardAccel * currentInput.z * Time.deltaTime;
-
-            m_StrafeForce = transform.right;
-            m_StrafeForce *= m_StrafeAccel * currentInput.x * Time.deltaTime;
+            currentInput /= Mathf.Sqrt(currentInput.x * currentInput.x + currentInput.z * currentInput.z);
         }
+
+        m_ForwardForce = transform.forward;
+        m_ForwardForce *= m_ForwardAccel * currentInput.z * Time.deltaTime;
+
+        m_StrafeForce = transform.right;
+        m_StrafeForce *= m_StrafeAccel * currentInput.x * Time.deltaTime;
     }
 }
