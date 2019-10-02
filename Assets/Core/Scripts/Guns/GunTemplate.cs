@@ -178,18 +178,13 @@ public class GunTemplate : MonoBehaviour
             m_IsFiring = true;
             m_CameraPoint = cameraPoint;
 
-            // TODO: Change this to actual recoil and not poor screenshake like below
-            //GunManager.GetInstance.ActiveGun.transform.position = new Vector3(
-            //Random.Range(GunManager.GetInstance.ActiveGun.transform.position.x - 0.001f, GunManager.GetInstance.ActiveGun.transform.position.x + 0.001f),
-            //Random.Range(GunManager.GetInstance.ActiveGun.transform.position.y - 0.001f, GunManager.GetInstance.ActiveGun.transform.position.y + 0.001f),
-            //Random.Range(GunManager.GetInstance.ActiveGun.transform.position.z - 0.01f, GunManager.GetInstance.ActiveGun.transform.position.z + 0.01f));
-
+            Vector3 lastPos = GunManager.GetInstance.ActiveGun.transform.position;
             Vector3 nextpos = new Vector3(
-            Random.Range(GunManager.GetInstance.ActiveGun.transform.position.x - 0.002f, GunManager.GetInstance.ActiveGun.transform.position.x + 0.002f),
-            Random.Range(GunManager.GetInstance.ActiveGun.transform.position.y - 0.002f, GunManager.GetInstance.ActiveGun.transform.position.y + 0.002f),
-            Random.Range(GunManager.GetInstance.ActiveGun.transform.position.z - 0.02f, GunManager.GetInstance.ActiveGun.transform.position.z + 0.02f));
+                Random.Range(lastPos.x - 0.002f, lastPos.x + 0.002f),
+                Random.Range(lastPos.y - 0.002f, lastPos.y + 0.002f),
+                Random.Range(lastPos.z - 0.02f, lastPos.z + 0.02f));
 
-            GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(GunManager.GetInstance.ActiveGun.transform.position, nextpos, 0.75f);
+            GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(lastPos, nextpos, 0.75f);
         }
     }
 
