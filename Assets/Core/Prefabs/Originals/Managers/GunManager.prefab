@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc9b7fc9a4af342a8eb8852f120aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParentName: Look
   m_DefaultGun: 0
   m_GunPrefab:
   - {fileID: 348376078618119487, guid: 071e815be5c7fcb49a82ee8fbbaad8d0, type: 3}
