@@ -178,11 +178,18 @@ public class GunTemplate : MonoBehaviour
             m_IsFiring = true;
             m_CameraPoint = cameraPoint;
 
-            // TODO: Change this to actual recoil and not some poor regular screenshake like below
-            GunManager.GetInstance.ActiveGun.transform.position = new Vector3(
-            Random.Range(GunManager.GetInstance.ActiveGun.transform.position.x - 0.01f, GunManager.GetInstance.ActiveGun.transform.position.x + 0.01f),
-            Random.Range(GunManager.GetInstance.ActiveGun.transform.position.y - 0.01f, GunManager.GetInstance.ActiveGun.transform.position.y + 0.01f),
-            Random.Range(GunManager.GetInstance.ActiveGun.transform.position.z - 0.01f, GunManager.GetInstance.ActiveGun.transform.position.z + 0.01f));
+            // TODO: Change this to actual recoil and not poor screenshake like below
+            //GunManager.GetInstance.ActiveGun.transform.position = new Vector3(
+            //Random.Range(GunManager.GetInstance.ActiveGun.transform.position.x - 0.001f, GunManager.GetInstance.ActiveGun.transform.position.x + 0.001f),
+            //Random.Range(GunManager.GetInstance.ActiveGun.transform.position.y - 0.001f, GunManager.GetInstance.ActiveGun.transform.position.y + 0.001f),
+            //Random.Range(GunManager.GetInstance.ActiveGun.transform.position.z - 0.01f, GunManager.GetInstance.ActiveGun.transform.position.z + 0.01f));
+
+            Vector3 nextpos = new Vector3(
+            Random.Range(GunManager.GetInstance.ActiveGun.transform.position.x - 0.002f, GunManager.GetInstance.ActiveGun.transform.position.x + 0.002f),
+            Random.Range(GunManager.GetInstance.ActiveGun.transform.position.y - 0.002f, GunManager.GetInstance.ActiveGun.transform.position.y + 0.002f),
+            Random.Range(GunManager.GetInstance.ActiveGun.transform.position.z - 0.02f, GunManager.GetInstance.ActiveGun.transform.position.z + 0.02f));
+
+            GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(GunManager.GetInstance.ActiveGun.transform.position, nextpos, 0.75f);
         }
     }
 

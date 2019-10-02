@@ -50,11 +50,6 @@ public class P_StateIdle : IState
         {
             m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.WALK);
         }
-
-        if (currentInput.DashInput != 0.0f)
-        {
-            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.DASH);
-        }
     }
 
 

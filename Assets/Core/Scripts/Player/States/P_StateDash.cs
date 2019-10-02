@@ -11,7 +11,7 @@ public class P_StateDash : IState
     }
 
     private PlayerCtrl m_Owner;
-    private float m_DashTime = 0.25f;
+    private float m_DashTime;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -39,7 +39,6 @@ public class P_StateDash : IState
     public void LateUpdate()
     {
         m_Owner.UpdateLookInput();
-        //m_Owner.UpdateMoveInput();
 
         GunManager.GetInstance.Fire();
         GunManager.GetInstance.Reload();
@@ -50,8 +49,6 @@ public class P_StateDash : IState
         {
             m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.WALK);
         }
-
-        //Debug.Log(m_CurrentDashTime);
     }
 
 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class P_StateWalk : IState
+public class P_StateRun : MonoBehaviour, IState
 {
-    public P_StateWalk(IController controller)
+    public P_StateRun(IController controller)
     {
         m_Owner = (PlayerCtrl)controller;
     }
@@ -18,7 +18,7 @@ public class P_StateWalk : IState
 
     public void Enter()
     {
-        //Debug.Log("Walk");
+        //Debug.Log("Run");
     }
 
 
@@ -38,28 +38,15 @@ public class P_StateWalk : IState
     {
         m_Owner.UpdateLookInput();
         m_Owner.UpdateMoveInput();
-        m_Owner.UpdateDashInput();
 
         GunManager.GetInstance.Fire();
         GunManager.GetInstance.Reload();
         GunManager.GetInstance.ScrollWeapons();
 
         PlayerCtrl.BasicInput currentInput = m_Owner.GetBasicInput();
-        if (currentInput.MoveInput.x == 0.0f && currentInput.MoveInput.z == 0.0f)
+        if (currentInput.RunInput == 0.0f)
         {
-            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.IDLE);
-            return;
-        }
-
-        //if (currentInput.RunInput != 0.0f)
-        //{
-        //    m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.RUN);
-        //    return;
-        //}
-
-        if (currentInput.DashInput != 0.0f)
-        {
-            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.DASH);
+            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.WALK);
         }
     }
 
