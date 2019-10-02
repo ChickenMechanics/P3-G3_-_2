@@ -235,18 +235,20 @@ public class GunTemplate : MonoBehaviour
         UpdateMagazine();
 
         // Test ADS
-        if (Input.GetMouseButton(1) == true)
         {
-            Vector3 forward = transform.parent.forward * 0.2f;
-            Vector3 down = transform.parent.up * -0.4f;
+            if (Input.GetMouseButton(1) == true && m_IsReloading == false)
+            {
+                Vector3 forward = transform.parent.forward * 0.2f;
+                Vector3 down = transform.parent.up * -0.4f;
 
-            transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
+                transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
+                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
 
-            transform.parent.transform.Find("CrosshairCanvas").gameObject.SetActive(false);
+                transform.parent.transform.Find("CrosshairCanvas").gameObject.SetActive(false);
+            }
         }
 
-        if (Input.GetMouseButton(1) == false)
+        if (Input.GetMouseButton(1) == false || m_IsReloading == true)
         {
             Vector3 offsetPos = (transform.right * m_PositionOffset.x) +
                                 (transform.up * m_PositionOffset.y) +
