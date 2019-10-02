@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerMove : MonoBehaviour
 {
     #region design vars
@@ -16,9 +17,56 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody m_Rb;
     private Vector3 m_ForwardForce;
     private Vector3 m_StrafeForce;
+    private Vector3 m_DashForce;
+    private Vector3 m_CurrentInput;
     private float m_ForwardAccel;
     private float m_StrafeAccel;
     private float m_AccelScaler;
+
+    private int m_CurrentState; // experimental
+
+
+    //----------------------------------------------------------------------------------------------------
+
+
+    private void StateUpdate()
+    {
+        if(m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx != m_CurrentState)
+        {
+            // remove below conditional when all states are known
+            if (m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx == (int)PlayerCtrl.EPlayerState.IDLE ||
+                m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx == (int)PlayerCtrl.EPlayerState.WALK)
+            {
+                m_CurrentState = m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx;
+                switch (m_CurrentState)
+                {
+                    case (int)PlayerCtrl.EPlayerState.IDLE: Idle(); break;
+                    case (int)PlayerCtrl.EPlayerState.WALK: Walk(); break;
+                    case (int)PlayerCtrl.EPlayerState.DASH: Dash(); break;
+                    default: break;
+                }
+            }
+        }
+    }
+
+
+    private void Idle()
+    {
+        //m_DashForce = currentInput;
+        //m_DashForce *= m_DashAccel * Time.deltaTime;
+    }
+
+
+    private void Walk()
+    {
+
+    }
+
+
+    private void Dash()
+    {
+
+    }
 
 
     private void Awake()
@@ -28,9 +76,16 @@ public class PlayerMove : MonoBehaviour
         m_PlayerCtrlScr = GetComponent<PlayerCtrl>();
         m_PlayerLookScr = GetComponent<PlayerLook>();
 
+        m_ForwardForce = Vector3.zero;
+        m_StrafeForce = Vector3.zero;
+        m_DashForce = Vector3.zero;
+        m_CurrentInput = Vector3.zero;
+
         m_AccelScaler = 50.0f;
         m_ForwardAccel = m_MoveAcceleration * m_AccelScaler;
         m_StrafeAccel = m_MoveAcceleration * m_AccelScaler;
+
+        //StateUpdate();
     }
 
 
@@ -40,8 +95,7 @@ public class PlayerMove : MonoBehaviour
         m_MoveObj.transform.eulerAngles = m_PlayerLookScr.GetPlayerCapsuleRotDir();
 
         // Position
-        Vector3 currentInput = m_PlayerCtrlScr.GetBasicInput().MoveInput;
-        if (currentInput.x != 0.0f || currentInput.z != 0.0f)
+        if (m_CurrentInput.x != 0.0f || m_CurrentInput.z != 0.0f)
         {
             if (m_Rb.velocity.magnitude < m_MaxMoveSpeed)
             {
@@ -53,17 +107,18 @@ public class PlayerMove : MonoBehaviour
 
     private void LateUpdate()
     {
-        // Forces
-        Vector3 currentInput = m_PlayerCtrlScr.GetBasicInput().MoveInput;
-        if (currentInput.x != 0.0f && currentInput.z != 0.0f)
+        m_CurrentInput = m_PlayerCtrlScr.GetBasicInput().MoveInput;
+        if (m_CurrentInput.x != 0.0f && m_CurrentInput.z != 0.0f)
         {
-            currentInput /= Mathf.Sqrt(currentInput.x * currentInput.x + currentInput.z * currentInput.z);
+            m_CurrentInput /= Mathf.Sqrt(m_CurrentInput.x * m_CurrentInput.x + m_CurrentInput.z * m_CurrentInput.z);
         }
 
+        StateUpdate();
+
         m_ForwardForce = transform.forward;
-        m_ForwardForce *= m_ForwardAccel * currentInput.z * Time.deltaTime;
+        m_ForwardForce *= m_ForwardAccel * m_CurrentInput.z * Time.deltaTime;
 
         m_StrafeForce = transform.right;
-        m_StrafeForce *= m_StrafeAccel * currentInput.x * Time.deltaTime;
+        m_StrafeForce *= m_StrafeAccel * m_CurrentInput.x * Time.deltaTime;
     }
 }

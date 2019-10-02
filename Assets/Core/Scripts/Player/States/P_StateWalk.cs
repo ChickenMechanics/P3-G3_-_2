@@ -33,8 +33,7 @@ public class P_StateWalk : IState
         Vector3 currentMoveInput = m_Owner.GetBasicInput().MoveInput;
         if (currentMoveInput.x == 0.0f && currentMoveInput.z == 0.0f)
         {
-            IState state = m_Owner.GetState(PlayerCtrl.EP_State.IDLE);
-            m_Owner.GetFsm().ChangeState(state);
+            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.IDLE);
         }
     }
 

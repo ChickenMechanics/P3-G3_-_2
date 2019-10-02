@@ -10,6 +10,7 @@ public class P_StateIdle : IState
         m_Owner = (PlayerCtrl)controller;
     }
 
+    public FSM m_Fsm { set; get; }
     private PlayerCtrl m_Owner;
 
 
@@ -33,8 +34,7 @@ public class P_StateIdle : IState
         Vector3 currentMoveInput = m_Owner.GetBasicInput().MoveInput;
         if (currentMoveInput.x != 0.0f || currentMoveInput.z != 0.0f)
         {
-            IState state = m_Owner.GetState(PlayerCtrl.EP_State.WALK);
-            m_Owner.GetFsm().ChangeState(state);
+            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.WALK);
         }
     }
 

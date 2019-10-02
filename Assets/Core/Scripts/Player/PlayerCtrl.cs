@@ -12,18 +12,15 @@ public class PlayerCtrl : MonoBehaviour, IController
     }
     private BasicInput m_BasicInput;
 
-    #region player states
-    private IState[] m_States;
-    private IState m_IdleState;
-    private IState m_WalkState;
-    private FSM m_FSM;
-    #endregion
+    [HideInInspector]
+    public FSM GetFSM { private set; get; }
 
-    public enum EP_State
+    public enum EPlayerState
     {
         IDLE = 0,
         WALK,
-        RUN,
+        RUN,    // not implemented. Here if needed
+        DASH,   // not implemented
         DEAD,
         SIZE
     }
@@ -40,13 +37,7 @@ public class PlayerCtrl : MonoBehaviour, IController
 
     public FSM GetFsm()
     {
-        return m_FSM;
-    }
-
-
-    public IState GetState(EP_State state)
-    {
-        return m_States[(int)state];
+        return GetFSM;
     }
 
 
@@ -76,28 +67,27 @@ public class PlayerCtrl : MonoBehaviour, IController
         m_BasicInput.MoveInput = Vector3.zero;
         m_BasicInput.LookInput = Vector2.zero;
 
-        m_States = new IState[(int)EP_State.SIZE];
-        m_States[(int)EP_State.IDLE] = new P_StateIdle((IController)this);
-        m_States[(int)EP_State.WALK] = new P_StateWalk((IController)this);
-
-        m_FSM = new FSM(m_States[(int)EP_State.IDLE]);
+        GetFSM = new FSM(this);
+        GetFSM.AddState(new P_StateIdle((IController)this));
+        GetFSM.AddState(new P_StateWalk((IController)this));
+        GetFSM.Init();
     }
 
 
     private void FixedUpdate()
     {
-        m_FSM.FixedUpdate();
+        GetFSM.FixedUpdate();
     }
 
 
     private void Update()
     {
-        m_FSM.Update();
+        GetFSM.Update();
     }
 
 
     private void LateUpdate()
     {
-        m_FSM.LateUpdate();
+        GetFSM.LateUpdate();
     }
 }

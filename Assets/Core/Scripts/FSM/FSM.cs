@@ -5,48 +5,65 @@ using UnityEngine;
 
 public class FSM
 {
-    private IState m_CurrentState;
+    private List<IState> m_States;
+    public IController GetOwner { private set; get; }
+    public IState GetCurrentState { private set; get; }
+    public int GetCurrentStateIdx { private set; get; }
 
 
     //----------------------------------------------------------------------------------------------------
 
 
-    public FSM(IState initState)
+    public void Init()
     {
-        m_CurrentState = initState;
-        m_CurrentState.Enter();
+        GetCurrentState.Enter();
     }
 
 
-    public void ChangeState(IState state)
+    public FSM(IController owner)
     {
-        m_CurrentState.Exit();
-        m_CurrentState = state;
-        m_CurrentState.Enter();
+        GetOwner = owner;
+        m_States = new List<IState>();
+    }
+
+
+    public void AddState(IState state)
+    {
+        m_States.Add(state);
+        GetCurrentState = m_States[0];
+    }
+
+
+    public void ChangeState(PlayerCtrl.EPlayerState state)
+    {
+        GetCurrentState.Exit();
+        GetCurrentStateIdx = (int)state;
+        GetCurrentState = m_States[GetCurrentStateIdx];
+        GetCurrentState.Enter();
     }
 
 
     public void FixedUpdate()
     {
-        if (m_CurrentState != null)
+        if (GetCurrentState != null)
         {
-            m_CurrentState.FixedUpdate();
+            GetCurrentState.FixedUpdate();
         }
     }
 
 
     public void Update()
     {
-        if (m_CurrentState != null)
+        if (GetCurrentState != null)
         {
-            m_CurrentState.Update();
+            GetCurrentState.Update();
         }
     }
 
 
     public void LateUpdate()
     {
-        m_CurrentState.LateUpdate();
+        GetCurrentState.LateUpdate();
     }
 }
 
