@@ -189,6 +189,7 @@ public class GunTemplate : MonoBehaviour
             {
                 m_IsReloading = true;
                 m_CurrentReloadTime = m_ReloadTimeInSec;
+                CurrentMagSize = 0;
                 m_CurrentGunState = EGunState.RELOADING;
             }
         }
