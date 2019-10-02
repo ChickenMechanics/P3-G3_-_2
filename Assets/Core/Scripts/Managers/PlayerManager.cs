@@ -19,6 +19,9 @@ public class PlayerManager : MonoBehaviour
     public bool IsAlive { private set; get; }
 
 
+    //----------------------------------------------------------------------------------------------------
+
+
     public enum EPlayerText
     {
         HEALTH = 0,

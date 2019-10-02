@@ -8,6 +8,9 @@ public class FSM
     private IState m_CurrentState;
 
 
+    //----------------------------------------------------------------------------------------------------
+
+
     public FSM(IState initState)
     {
         m_CurrentState = initState;
@@ -23,21 +26,27 @@ public class FSM
     }
 
 
-    public void Update()
-    {
-        if(m_CurrentState != null)
-        {
-            m_CurrentState.Update();
-        }
-    }
-
-
     public void FixedUpdate()
     {
         if (m_CurrentState != null)
         {
             m_CurrentState.FixedUpdate();
         }
+    }
+
+
+    public void Update()
+    {
+        if (m_CurrentState != null)
+        {
+            m_CurrentState.Update();
+        }
+    }
+
+
+    public void LateUpdate()
+    {
+        m_CurrentState.LateUpdate();
     }
 }
 

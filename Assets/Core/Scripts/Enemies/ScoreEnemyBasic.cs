@@ -13,6 +13,9 @@ public class ScoreEnemyBasic : MonoBehaviour
     private ScoreManager m_ScoreManager;
 
 
+    //----------------------------------------------------------------------------------------------------
+
+
     public float GetHealth()
     {
         return m_Health;

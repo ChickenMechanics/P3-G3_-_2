@@ -19,9 +19,6 @@ public class PlayerCtrl : MonoBehaviour, IController
     private FSM m_FSM;
     #endregion
 
-    [HideInInspector]
-    public PlayerLook LookScr { get; private set; }
-
     public enum EP_State
     {
         IDLE = 0,
@@ -30,6 +27,9 @@ public class PlayerCtrl : MonoBehaviour, IController
         DEAD,
         SIZE
     }
+
+
+    //----------------------------------------------------------------------------------------------------
 
 
     public BasicInput GetBasicInput()
@@ -81,8 +81,6 @@ public class PlayerCtrl : MonoBehaviour, IController
         m_States[(int)EP_State.WALK] = new P_StateWalk((IController)this);
 
         m_FSM = new FSM(m_States[(int)EP_State.IDLE]);
-
-        LookScr = GetComponent<PlayerLook>();
     }
 
 
@@ -92,8 +90,14 @@ public class PlayerCtrl : MonoBehaviour, IController
     }
 
 
-    private void LateUpdate()
+    private void Update()
     {
         m_FSM.Update();
+    }
+
+
+    private void LateUpdate()
+    {
+        m_FSM.LateUpdate();
     }
 }

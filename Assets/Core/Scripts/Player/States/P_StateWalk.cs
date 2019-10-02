@@ -13,6 +13,9 @@ public class P_StateWalk : IState
     private PlayerCtrl m_Owner;
 
 
+    //----------------------------------------------------------------------------------------------------
+
+
     public void Enter()
     {
         //Debug.Log("Walk");
@@ -27,23 +30,6 @@ public class P_StateWalk : IState
 
     public void Update()
     {
-        // rot and pos
-        m_Owner.UpdateLookInput();
-        m_Owner.UpdateMoveInput();
-
-        // fire
-        if (Input.GetMouseButton(0))
-        {
-            GunManager.GetInstance.Fire();
-        }
-
-        // reload
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            GunManager.GetInstance.Reload();
-        }
-
-        // state change
         Vector3 currentMoveInput = m_Owner.GetBasicInput().MoveInput;
         if (currentMoveInput.x == 0.0f && currentMoveInput.z == 0.0f)
         {
@@ -53,8 +39,19 @@ public class P_StateWalk : IState
     }
 
 
+    public void LateUpdate()
+    {
+        m_Owner.UpdateLookInput();
+        m_Owner.UpdateMoveInput();
+
+        GunManager.GetInstance.Fire();
+        GunManager.GetInstance.Reload();
+        GunManager.GetInstance.ScrollWeapons();
+    }
+
+
     public void Exit()
     {
-        //Debug.Log("Walk");
+
     }
 }

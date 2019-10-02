@@ -44,6 +44,9 @@ public class ScoreManager : MonoBehaviour
     }
 
 
+    //----------------------------------------------------------------------------------------------------
+
+
     public float GetComboTimeMax()
     {
         return m_ComboTimeInSecMax;

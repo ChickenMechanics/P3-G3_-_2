@@ -41,7 +41,6 @@ public class GunTemplate : MonoBehaviour
     private bool m_bADS;
     // Test
 
-
     private enum EGunState
     {
         READY = 0,

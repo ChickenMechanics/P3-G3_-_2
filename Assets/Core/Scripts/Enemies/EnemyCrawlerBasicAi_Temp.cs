@@ -26,6 +26,9 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
     }
 
 
+    //----------------------------------------------------------------------------------------------------
+
+
     private void StateUpdate()
     {
         switch ((int)m_CurrentSate)

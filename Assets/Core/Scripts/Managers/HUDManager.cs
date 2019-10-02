@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 
 public class HUDManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class HUDManager : MonoBehaviour
     private PlayerManager m_PlayerMan;
     private GunManager m_GunMan;
     private ScoreManager m_ScoreMan;
+    private int m_ScoreComboDecimalPoints;
 
     // player status
     private Text[] m_arrPlayerStatusText;
@@ -20,6 +22,9 @@ public class HUDManager : MonoBehaviour
 
     // score / combo
     private Text[] m_arrScoreComboText;
+
+
+    //----------------------------------------------------------------------------------------------------
 
 
     private void Init()
@@ -45,6 +50,15 @@ public class HUDManager : MonoBehaviour
         {
             m_arrScoreComboText[i] = score.GetChild(i).GetComponent<Text>();
         }
+
+        // decimals
+        m_ScoreComboDecimalPoints = 2;
+    }
+
+
+    private float TruncateFloat(float value, int nDecimalPoints)
+    {
+        return (float)(Math.Round(value, nDecimalPoints, MidpointRounding.ToEven));
     }
 
 
@@ -71,14 +85,23 @@ public class HUDManager : MonoBehaviour
         m_arrGunsBulletText[0].text = m_GunMan.ActiveGun.GetComponent<GunTemplate>().CurrentMagSize.ToString();
 
         // score / combo
-        int score = (int)m_ScoreMan.PlayerScore;    // Truncuate
+        int score = (int)m_ScoreMan.PlayerScore;
         m_arrScoreComboText[(int)ScoreManager.EScoreText.SCORE].text = score.ToString();
         m_arrScoreComboText[(int)ScoreManager.EScoreText.TOTAL_CHAINS].text = m_ScoreMan.TotalChains.ToString();
         m_arrScoreComboText[(int)ScoreManager.EScoreText.LONGEST_CHAIN].text = m_ScoreMan.LongestChain.ToString();
 
-        m_arrScoreComboText[(int)ScoreManager.EScoreText.CHAIN_TIME_LEFT].text = m_ScoreMan.ChainTimeLeft.ToString();
-        m_arrScoreComboText[(int)ScoreManager.EScoreText.SPARE_CHAIN_TIME].text = m_ScoreMan.SpareChainTime.ToString();
+        // truncated
+        float chainTimeLeft = TruncateFloat(m_ScoreMan.ChainTimeLeft, m_ScoreComboDecimalPoints);
+        m_arrScoreComboText[(int)ScoreManager.EScoreText.CHAIN_TIME_LEFT].text = chainTimeLeft.ToString();
+
+        // truncated
+        float spareChainTime = TruncateFloat(m_ScoreMan.SpareChainTime, m_ScoreComboDecimalPoints);
+        m_arrScoreComboText[(int)ScoreManager.EScoreText.SPARE_CHAIN_TIME].text = spareChainTime.ToString();
+
         m_arrScoreComboText[(int)ScoreManager.EScoreText.CURRENT_CHAIN].text = m_ScoreMan.CurrentChain.ToString();
-        m_arrScoreComboText[(int)ScoreManager.EScoreText.CURRENT_MULTI].text = m_ScoreMan.CurrentComboMultiplier.ToString();
+
+        // truncated
+        float comboMulti = TruncateFloat(m_ScoreMan.CurrentComboMultiplier, m_ScoreComboDecimalPoints);
+        m_arrScoreComboText[(int)ScoreManager.EScoreText.CURRENT_MULTI].text = comboMulti.ToString();
     }
 }
