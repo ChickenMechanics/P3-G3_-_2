@@ -22,10 +22,8 @@ public class PlayerLook : MonoBehaviour
     private Camera m_FPSCam;
     private GameObject m_PlayerEyePoint;
     private GameObject m_EyePoint;
-    private Vector3 m_EyeOffset;
     private Vector2 m_NextLookRotation;
     private Vector2 m_CurrentLookRotation;
-
     private float m_EyePointOffsetZ;
 
 
@@ -78,6 +76,9 @@ public class PlayerLook : MonoBehaviour
         //    m_PlayerEyePoint.transform.position = transform.position + m_EyeOffset;
         //    m_PlayerEyePoint.transform.SetParent(transform.Find("Look").transform);
         //}
+
+
+        m_EyePointOffsetZ = 0.5f;
 
         if (m_MainCam == null)
         {
@@ -143,14 +144,18 @@ public class PlayerLook : MonoBehaviour
 
     private void Update()
     {
-        //m_PlayerEyePoint.transform.position = Vector3.Lerp(
-        //    m_PlayerEyePoint.transform.position,
+        //m_tPlayerLook.transform.position = Vector3.Lerp(
+        //    m_tPlayerLook.transform.position,
         //    m_tPlayerMove.position + m_EyeOffset,
         //    0.9f);
 
+
+
+        Vector3 posOffset = m_tPlayerLook.up * m_EyeHeight + m_tPlayerLook.forward * m_EyePointOffsetZ;
+
         m_tPlayerLook.transform.position = Vector3.Lerp(
             m_tPlayerLook.transform.position,
-            m_tPlayerMove.position + m_EyeOffset,
+            m_tPlayerMove.position + posOffset,
             0.9f);
     }
 
