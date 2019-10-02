@@ -7,8 +7,8 @@ public class PlayerCtrl : MonoBehaviour, IController
 {
     public struct BasicInput
     {
+        public Vector3 MoveInput;
         public Vector2 LookInput;
-        public Vector2 MoveInput;
     }
     private BasicInput m_BasicInput;
 
@@ -19,6 +19,7 @@ public class PlayerCtrl : MonoBehaviour, IController
     private FSM m_FSM;
     #endregion
 
+    [HideInInspector]
     public PlayerLook PlayerLook { get; private set; }
 
     public enum EP_State
@@ -49,27 +50,31 @@ public class PlayerCtrl : MonoBehaviour, IController
     }
 
 
-    private void UpdateMouseInput()
+    public void UpdateLookInput()
     {
-        m_BasicInput.MoveInput.x = 0.0f;
-
         m_BasicInput.LookInput.x = Input.GetAxisRaw("Mouse X");
         m_BasicInput.LookInput.y = Input.GetAxisRaw("Mouse Y");
     }
 
 
-    private void UpdateMoveInput()
+    public void UpdateMoveInput()
     {
         m_BasicInput.MoveInput.x = Input.GetAxisRaw("Horizontal");
-        m_BasicInput.MoveInput.y = Input.GetAxisRaw("Vertical");
+        m_BasicInput.MoveInput.z = Input.GetAxisRaw("Vertical");
     }
 
 
     private void Awake()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        Destroy(GetComponent<MeshRenderer>());
+        Destroy(GetComponent<MeshFilter>());
+
         m_BasicInput = new BasicInput();
-        m_BasicInput.LookInput = new Vector2();
-        m_BasicInput.MoveInput = new Vector2();
+        m_BasicInput.MoveInput = Vector3.zero;
+        m_BasicInput.LookInput = Vector2.zero;
 
         m_States = new IState[(int)EP_State.SIZE];
         m_States[(int)EP_State.IDLE] = new P_StateIdle((IController)this);
@@ -89,8 +94,6 @@ public class PlayerCtrl : MonoBehaviour, IController
 
     private void LateUpdate()
     {
-        UpdateMouseInput();
-        UpdateMoveInput();
         m_FSM.Update();
     }
 }
