@@ -10,7 +10,8 @@ public class P_StateIdle : IState
         m_Owner = (PlayerCtrl)controller;
     }
 
-    public FSM m_Fsm { set; get; }
+
+    //public FSM m_Fsm { set; get; }    // perhaps?
     private PlayerCtrl m_Owner;
 
 
@@ -31,11 +32,7 @@ public class P_StateIdle : IState
 
     public void Update()
     {
-        Vector3 currentMoveInput = m_Owner.GetBasicInput().MoveInput;
-        if (currentMoveInput.x != 0.0f || currentMoveInput.z != 0.0f)
-        {
-            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.WALK);
-        }
+
     }
 
 
@@ -47,6 +44,17 @@ public class P_StateIdle : IState
         GunManager.GetInstance.Fire();
         GunManager.GetInstance.Reload();
         GunManager.GetInstance.ScrollWeapons();
+
+        PlayerCtrl.BasicInput currentInput = m_Owner.GetBasicInput();
+        if (currentInput.MoveInput.x != 0.0f || currentInput.MoveInput.z != 0.0f)
+        {
+            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.WALK);
+        }
+
+        if (currentInput.DashInput != 0.0f)
+        {
+            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.DASH);
+        }
     }
 
 

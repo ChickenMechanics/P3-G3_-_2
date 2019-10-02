@@ -9,6 +9,7 @@ public class PlayerCtrl : MonoBehaviour, IController
     {
         public Vector3 MoveInput;
         public Vector2 LookInput;
+        public float DashInput;
     }
     private BasicInput m_BasicInput;
 
@@ -19,10 +20,10 @@ public class PlayerCtrl : MonoBehaviour, IController
     {
         IDLE = 0,
         WALK,
-        RUN,    // not implemented. Here if needed
-        DASH,   // not implemented
-        DEAD,
+        DASH,
         SIZE
+        //RUN,    // not implemented. Here if needed
+        //DEAD, // not implemented
     }
 
 
@@ -55,6 +56,12 @@ public class PlayerCtrl : MonoBehaviour, IController
     }
 
 
+    public void UpdateDashInput()
+    {
+        m_BasicInput.DashInput = Input.GetAxisRaw("Dash");
+    }
+
+
     private void Awake()
     {
         Cursor.visible = false;
@@ -70,6 +77,7 @@ public class PlayerCtrl : MonoBehaviour, IController
         GetFSM = new FSM(this);
         GetFSM.AddState(new P_StateIdle((IController)this));
         GetFSM.AddState(new P_StateWalk((IController)this));
+        GetFSM.AddState(new P_StateDash((IController)this));
         GetFSM.Init();
     }
 

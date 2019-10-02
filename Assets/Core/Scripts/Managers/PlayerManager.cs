@@ -13,9 +13,12 @@ public class PlayerManager : MonoBehaviour
     
     [HideInInspector]
     public GameObject GetPlayer { private set; get; }
-    private PlayerCtrl m_PlayerCtrlScr;
-    private PlayerLook m_PlayerLook;
-    private PlayerMove m_PlayerMove;
+    [HideInInspector]
+    public PlayerCtrl GetPlayerCtrlScr { private set; get; }
+    [HideInInspector]
+    public PlayerLook GetPlayerLookScr { private set; get; }
+    [HideInInspector]
+    public PlayerMove GetPlayerMoveScr { private set; get; }
     [HideInInspector]
     public float GetHealth { private set; get; }
     [HideInInspector]
@@ -51,9 +54,9 @@ public class PlayerManager : MonoBehaviour
         GetPlayer = Instantiate(resource, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity, transform);
         GetPlayer.transform.parent = transform;
 
-        m_PlayerCtrlScr = GetPlayer.GetComponent<PlayerCtrl>();
-        m_PlayerLook = GetPlayer.GetComponent<PlayerLook>();
-        m_PlayerMove = GetPlayer.GetComponent<PlayerMove>();
+        GetPlayerCtrlScr = GetPlayer.GetComponent<PlayerCtrl>();
+        GetPlayerLookScr = GetPlayer.GetComponent<PlayerLook>();
+        GetPlayerMoveScr = GetPlayer.GetComponent<PlayerMove>();
 
         GetHealth = m_BaseHealth;
 

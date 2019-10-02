@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class P_StateWalk : IState
+public class P_StateDash : IState
 {
-    public P_StateWalk(IController controller)
+    public P_StateDash(IController controller)
     {
         m_Owner = (PlayerCtrl)controller;
     }
 
     private PlayerCtrl m_Owner;
+    private float m_DashTime = 0.25f;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -18,7 +19,8 @@ public class P_StateWalk : IState
 
     public void Enter()
     {
-        //Debug.Log("Walk");
+        //Debug.Log("Dash");
+        m_DashTime = PlayerManager.GetInstance.GetPlayerMoveScr.m_DashTime;
     }
 
 
@@ -37,24 +39,19 @@ public class P_StateWalk : IState
     public void LateUpdate()
     {
         m_Owner.UpdateLookInput();
-        m_Owner.UpdateMoveInput();
-        m_Owner.UpdateDashInput();
+        //m_Owner.UpdateMoveInput();
 
         GunManager.GetInstance.Fire();
         GunManager.GetInstance.Reload();
         GunManager.GetInstance.ScrollWeapons();
 
-        PlayerCtrl.BasicInput currentInput = m_Owner.GetBasicInput();
-        if (currentInput.MoveInput.x == 0.0f && currentInput.MoveInput.z == 0.0f)
+        m_DashTime -= Time.deltaTime;
+        if(m_DashTime < 0.0f)
         {
-            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.IDLE);
-            return;
+            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.WALK);
         }
 
-        if (currentInput.DashInput != 0.0f)
-        {
-            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.DASH);
-        }
+        //Debug.Log(m_CurrentDashTime);
     }
 
 

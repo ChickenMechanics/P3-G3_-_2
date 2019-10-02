@@ -126,6 +126,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveAcceleration: 100
   m_MaxMoveSpeed: 10
+  m_StrafeAcceleration: 100
+  m_DashAcceleration: 1500
+  m_DashTime: 0.25
 --- !u!1 &5245311354510932670
 GameObject:
   m_ObjectHideFlags: 0

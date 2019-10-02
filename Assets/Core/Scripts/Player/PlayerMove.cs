@@ -8,10 +8,13 @@ public class PlayerMove : MonoBehaviour
     #region design vars
     [Header("Movement")]
     public float m_MoveAcceleration = 100.0f;
+    public float m_MaxMoveSpeed = 10.0f;
     [HideInInspector]
     public float m_StrafeAcceleration = 100.0f;
-    public float m_DashAcceleration = 400.0f;
-    public float m_MaxMoveSpeed = 10.0f;
+    [HideInInspector]
+    public float m_DashAcceleration = 1500.0f;
+    [HideInInspector]
+    public float m_DashTime = 0.25f;
     #endregion
 
     private PlayerCtrl m_PlayerCtrlScr;
@@ -37,12 +40,12 @@ public class PlayerMove : MonoBehaviour
     {
         if(m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx != m_CurrentState)
         {
-            // remove below conditional when all states are known
+            // remove below conditional when all states are known as it wont be needed
             if (m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx == (int)PlayerCtrl.EPlayerState.IDLE ||
-                m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx == (int)PlayerCtrl.EPlayerState.WALK)
+                m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx == (int)PlayerCtrl.EPlayerState.WALK ||
+                m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx == (int)PlayerCtrl.EPlayerState.DASH)
             {
                 m_CurrentState = m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx;
-
             }
         }
     }
@@ -68,6 +71,7 @@ public class PlayerMove : MonoBehaviour
     }
 
 
+
     private void Walk()
     {
         m_DashForce = Vector3.zero;
@@ -77,6 +81,8 @@ public class PlayerMove : MonoBehaviour
 
         m_StrafeForce = transform.right;
         m_StrafeForce *= m_StrafeAccel * m_CurrentInput.x * Time.deltaTime;
+
+        //Debug.Log("Walk");
     }
 
 
@@ -87,6 +93,8 @@ public class PlayerMove : MonoBehaviour
 
         m_ForwardForce = Vector3.zero;
         m_StrafeForce = Vector3.zero;
+
+        //Debug.Log("Dash");
     }
 
 
@@ -121,7 +129,7 @@ public class PlayerMove : MonoBehaviour
         {
             if (m_Rb.velocity.magnitude < m_MaxMoveSpeed)
             {
-                m_Rb.AddRelativeForce((m_ForwardForce + m_StrafeForce), ForceMode.Force);
+                m_Rb.AddRelativeForce((m_ForwardForce + m_StrafeForce + m_DashForce), ForceMode.Force);
             }
         }
     }
