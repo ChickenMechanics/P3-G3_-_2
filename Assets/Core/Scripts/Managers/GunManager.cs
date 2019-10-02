@@ -8,6 +8,8 @@ public class GunManager : MonoBehaviour
     public static GunManager GetInstance { private set; get; }
 
     #region design vars
+    [Header("Parent Object")]
+    public string m_ParentName;
     [Header("Gun Locker")]
     public int m_DefaultGun;
     public GameObject[] m_GunPrefab;
@@ -103,7 +105,6 @@ public class GunManager : MonoBehaviour
         m_GunTempScrs = new GunTemplate[size];
 
         Transform parent = PlayerManager.GetInstance.Player.transform.Find("Look");
-        //Transform parent = GameObject.Find("Camera Point").transform;     // Before there was a gun manager and a player manager
         for (int i = 0; i < m_GunPrefab.Length; ++i)
         {
             m_GunPrefabClone[i] = Instantiate(m_GunPrefab[i], Vector3.zero, Quaternion.identity);
@@ -130,5 +131,11 @@ public class GunManager : MonoBehaviour
         GetInstance = this;
 
         Init();
+    }
+
+
+    private void Update()
+    {
+        ScrollWeapons();
     }
 }
