@@ -94,7 +94,7 @@ public class GunTemplate : MonoBehaviour
 
     private void GunReady()
     {
-        if(m_IsFiring == true)
+        if (m_IsFiring == true)
         {
             m_CurrentGunState = EGunState.SHOOTING;
 
@@ -177,6 +177,12 @@ public class GunTemplate : MonoBehaviour
         {
             m_IsFiring = true;
             m_CameraPoint = cameraPoint;
+
+            // TODO: Change this to actual recoil and not some poor regular screenshake like below
+            GunManager.GetInstance.ActiveGun.transform.position = new Vector3(
+            Random.Range(GunManager.GetInstance.ActiveGun.transform.position.x - 0.01f, GunManager.GetInstance.ActiveGun.transform.position.x + 0.01f),
+            Random.Range(GunManager.GetInstance.ActiveGun.transform.position.y - 0.01f, GunManager.GetInstance.ActiveGun.transform.position.y + 0.01f),
+            Random.Range(GunManager.GetInstance.ActiveGun.transform.position.z - 0.01f, GunManager.GetInstance.ActiveGun.transform.position.z + 0.01f));
         }
     }
 

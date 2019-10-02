@@ -33,12 +33,6 @@ public class GunManager : MonoBehaviour
     }
 
 
-    public int GetActiveGunIdx()
-    {
-        return m_ActiveGunIdx;
-    }
-
-
     public void Init()
     {
         m_NumOfGuns = 0;
