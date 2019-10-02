@@ -27,9 +27,23 @@ public class P_StateIdle : IState
 
     public void Update()
     {
+        // rot and pos
         m_Owner.UpdateLookInput();
         m_Owner.UpdateMoveInput();
 
+        // fire
+        if (Input.GetMouseButton(0))
+        {
+            GunManager.GetInstance.Fire();
+        }
+
+        // reload
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GunManager.GetInstance.Reload();
+        }
+
+        // state change
         Vector3 currentMoveInput = m_Owner.GetBasicInput().MoveInput;
         if (currentMoveInput.x != 0.0f || currentMoveInput.z != 0.0f)
         {
@@ -37,6 +51,9 @@ public class P_StateIdle : IState
             m_Owner.GetFsm().ChangeState(state);
         }
     }
+
+
+    
 
 
     public void Exit()

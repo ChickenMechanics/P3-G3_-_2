@@ -9,6 +9,7 @@ public class HUDManager : MonoBehaviour
     public static HUDManager GetInstance { get; private set; }
 
     private PlayerManager m_PlayerMan;
+    private GunManager m_GunMan;
     private ScoreManager m_ScoreMan;
 
     // player status
@@ -31,6 +32,7 @@ public class HUDManager : MonoBehaviour
         m_arrPlayerStatusText[(int)PlayerManager.EPlayerText.HEALTH] = canvas.transform.Find("PlayerStatus").transform.Find("HealthCounter").GetComponent<Text>();
 
         // guns / bulllets
+        m_GunMan = GameObject.Find("GunManager").GetComponent<GunManager>();
         m_arrGunsBulletText = new Text[1];
         m_arrGunsBulletText[0] = canvas.transform.Find("GunBullet").transform.Find("BulletCounter").GetComponent<Text>();
 
@@ -66,7 +68,7 @@ public class HUDManager : MonoBehaviour
         m_arrPlayerStatusText[(int)PlayerManager.EPlayerText.HEALTH].text = m_PlayerMan.Health.ToString();
 
         // guns / bulllets
-
+        m_arrGunsBulletText[0].text = m_GunMan.ActiveGun.GetComponent<GunTemplate>().CurrentMagSize.ToString();
 
         // score / combo
         int score = (int)m_ScoreMan.PlayerScore;    // Truncuate

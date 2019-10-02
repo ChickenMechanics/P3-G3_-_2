@@ -17,8 +17,11 @@ public class GunManager : MonoBehaviour
 
     private GameObject[] m_GunPrefabClone;
     private GunTemplate[] m_GunTempScrs;
-    private GameObject m_ActiveGun;
+    //private GameObject m_ActiveGun;
+    [HideInInspector]
+    public GameObject ActiveGun { private set; get; }
     private GunTemplate m_ActiveGunScr;
+    private Transform m_tParent;
     private int m_ActiveGunIdx;
     private int m_NumOfGuns;
     private int m_CurrentGunIdx;
@@ -43,9 +46,9 @@ public class GunManager : MonoBehaviour
         CreateGunInstances();
 
         m_ActiveGunIdx = m_DefaultGun;
-        m_ActiveGun = m_GunPrefabClone[m_ActiveGunIdx];
-        m_ActiveGun.SetActive(true);
-        m_ActiveGunScr = m_ActiveGun.GetComponent<GunTemplate>();
+        ActiveGun = m_GunPrefabClone[m_ActiveGunIdx];
+        ActiveGun.SetActive(true);
+        m_ActiveGunScr = ActiveGun.GetComponent<GunTemplate>();
     }
 
 
@@ -55,21 +58,20 @@ public class GunManager : MonoBehaviour
         {
             m_ActiveGunIdx = idx;
 
-            m_ActiveGun.SetActive(false);
-            m_ActiveGun = m_GunPrefabClone[m_ActiveGunIdx];
-            m_ActiveGun.SetActive(true);
-            m_ActiveGunScr = m_ActiveGun.GetComponent<GunTemplate>();
+            ActiveGun.SetActive(false);
+            ActiveGun = m_GunPrefabClone[m_ActiveGunIdx];
+            ActiveGun.SetActive(true);
+            m_ActiveGunScr = ActiveGun.GetComponent<GunTemplate>();
         }
     }
 
-
-    public void Fire(Transform cameraPoint)   // Dir equals player camera transform forward
+    public void Fire()   // Dir equals player camera transform forward
     {
-        m_ActiveGunScr.Fire(cameraPoint);
+        m_ActiveGunScr.Fire(m_tParent);
     }
 
 
-    public void Reload()   // Dir equals player camera transform forward
+    public void Reload()
     {
         m_ActiveGunScr.Reload();
     }
@@ -104,7 +106,7 @@ public class GunManager : MonoBehaviour
         m_GunPrefabClone = new GameObject[size];
         m_GunTempScrs = new GunTemplate[size];
 
-        Transform parent = PlayerManager.GetInstance.Player.transform.Find("Look");
+        m_tParent = PlayerManager.GetInstance.Player.transform.Find(m_ParentName);
         for (int i = 0; i < m_GunPrefab.Length; ++i)
         {
             m_GunPrefabClone[i] = Instantiate(m_GunPrefab[i], Vector3.zero, Quaternion.identity);
@@ -112,9 +114,9 @@ public class GunManager : MonoBehaviour
             m_GunTempScrs[i] = m_GunPrefabClone[i].GetComponent<GunTemplate>();
 
             Transform tForm = m_GunPrefabClone[i].transform;
-            m_GunPrefabClone[i].transform.position = parent.transform.position + tForm.position;
+            m_GunPrefabClone[i].transform.position = m_tParent.transform.position + tForm.position;
 
-            m_GunPrefabClone[i].transform.SetParent(parent);
+            m_GunPrefabClone[i].transform.SetParent(m_tParent);
             m_GunTempScrs[i].InitGun();
 
             ++m_NumOfGuns;
@@ -137,5 +139,11 @@ public class GunManager : MonoBehaviour
     private void Update()
     {
         ScrollWeapons();
+    }
+
+
+    private void LateUpdate()
+    {
+
     }
 }

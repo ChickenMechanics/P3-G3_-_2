@@ -29,7 +29,8 @@ public class GunTemplate : MonoBehaviour
     private float m_Rpm;
     private float m_TimePastSinceLastFire;
     private float m_CurrentReloadTime;
-    private int m_CurrentMagSize;
+    [HideInInspector]
+    public int CurrentMagSize { private set; get; }
     private bool m_IsFiring;
     private bool m_IsReloading;
 
@@ -70,7 +71,7 @@ public class GunTemplate : MonoBehaviour
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
 
         m_CurrentReloadTime = m_ReloadTimeInSec;
-        m_CurrentMagSize = m_MagazineSize;
+        CurrentMagSize = m_MagazineSize;
 
         m_IsFiring = false;
         m_IsReloading = false;
@@ -125,7 +126,7 @@ public class GunTemplate : MonoBehaviour
             bulletClone.transform.SetParent(m_BulletFolder.transform);
 
             m_TimePastSinceLastFire = 0.0f;
-            --m_CurrentMagSize;
+            --CurrentMagSize;
 
             bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
 
@@ -141,7 +142,7 @@ public class GunTemplate : MonoBehaviour
         {
             m_IsReloading = false;
             m_TimePastSinceLastFire = 0.0f;
-            m_CurrentMagSize = m_MagazineSize;
+            CurrentMagSize = m_MagazineSize;
             m_CurrentReloadTime = m_ReloadTimeInSec;
             m_CurrentGunState = EGunState.READY;
         }
@@ -157,7 +158,7 @@ public class GunTemplate : MonoBehaviour
         }
 
         // Empty clip
-        if (m_CurrentMagSize <= 0.0f)
+        if (CurrentMagSize <= 0.0f)
         {
             Reload();
         }
@@ -172,7 +173,7 @@ public class GunTemplate : MonoBehaviour
 
     public void Fire(Transform cameraPoint)
     {
-        if(m_IsReloading == false)
+        if (m_IsReloading == false)
         {
             m_IsFiring = true;
             m_CameraPoint = cameraPoint;
@@ -184,7 +185,7 @@ public class GunTemplate : MonoBehaviour
     {
         if(m_IsReloading == false)
         {
-            if(m_CurrentMagSize < m_MagazineSize)
+            if(CurrentMagSize < m_MagazineSize)
             {
                 m_IsReloading = true;
                 m_CurrentReloadTime = m_ReloadTimeInSec;

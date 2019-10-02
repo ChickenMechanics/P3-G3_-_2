@@ -20,7 +20,7 @@ public class PlayerCtrl : MonoBehaviour, IController
     #endregion
 
     [HideInInspector]
-    public PlayerLook PlayerLook { get; private set; }
+    public PlayerLook LookScr { get; private set; }
 
     public enum EP_State
     {
@@ -82,7 +82,7 @@ public class PlayerCtrl : MonoBehaviour, IController
 
         m_FSM = new FSM(m_States[(int)EP_State.IDLE]);
 
-        PlayerLook = GetComponent<PlayerLook>();
+        LookScr = GetComponent<PlayerLook>();
     }
 
 
