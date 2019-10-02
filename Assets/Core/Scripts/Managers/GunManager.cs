@@ -114,7 +114,7 @@ public class GunManager : MonoBehaviour
         m_GunPrefabClone = new GameObject[size];
         m_GunTempScrs = new GunTemplate[size];
 
-        m_tParent = PlayerManager.GetInstance.Player.transform.Find(m_ParentName);
+        m_tParent = PlayerManager.GetInstance.GetPlayer.transform.Find(m_ParentName);
         for (int i = 0; i < m_GunPrefab.Length; ++i)
         {
             m_GunPrefabClone[i] = Instantiate(m_GunPrefab[i], Vector3.zero, Quaternion.identity);

@@ -79,10 +79,19 @@ public class HUDManager : MonoBehaviour
     private void Update()
     {
         // player status
-        m_arrPlayerStatusText[(int)PlayerManager.EPlayerText.HEALTH].text = m_PlayerMan.Health.ToString();
+        m_arrPlayerStatusText[(int)PlayerManager.EPlayerText.HEALTH].text = m_PlayerMan.GetHealth.ToString();
 
         // guns / bulllets
-        m_arrGunsBulletText[0].text = m_GunMan.ActiveGun.GetComponent<GunTemplate>().CurrentMagSize.ToString();
+        int currentMag = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize;
+        if(currentMag > 0)
+        {
+            m_arrGunsBulletText[0].text = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize.ToString();
+        }
+        else
+        {
+            float reloadTime = TruncateFloat(m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentReloadTime, m_ScoreComboDecimalPoints);
+            m_arrGunsBulletText[0].text = reloadTime.ToString();
+        }
 
         // score / combo
         int score = (int)m_ScoreMan.PlayerScore;

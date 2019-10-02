@@ -8,6 +8,9 @@ public class PlayerMove : MonoBehaviour
     #region design vars
     [Header("Movement")]
     public float m_MoveAcceleration = 100.0f;
+    [HideInInspector]
+    public float m_StrafeAcceleration = 100.0f;
+    public float m_DashAcceleration = 400.0f;
     public float m_MaxMoveSpeed = 10.0f;
     #endregion
 
@@ -21,6 +24,7 @@ public class PlayerMove : MonoBehaviour
     private Vector3 m_CurrentInput;
     private float m_ForwardAccel;
     private float m_StrafeAccel;
+    private float m_DashAccel;
     private float m_AccelScaler;
 
     private int m_CurrentState; // experimental
@@ -38,34 +42,51 @@ public class PlayerMove : MonoBehaviour
                 m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx == (int)PlayerCtrl.EPlayerState.WALK)
             {
                 m_CurrentState = m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx;
-                switch (m_CurrentState)
-                {
-                    case (int)PlayerCtrl.EPlayerState.IDLE: Idle(); break;
-                    case (int)PlayerCtrl.EPlayerState.WALK: Walk(); break;
-                    case (int)PlayerCtrl.EPlayerState.DASH: Dash(); break;
-                    default: break;
-                }
+
             }
+        }
+    }
+
+
+    private void RunState()
+    {
+        switch (m_CurrentState)
+        {
+            case (int)PlayerCtrl.EPlayerState.IDLE: Idle(); break;
+            case (int)PlayerCtrl.EPlayerState.WALK: Walk(); break;
+            case (int)PlayerCtrl.EPlayerState.DASH: Dash(); break;
+            default: break;
         }
     }
 
 
     private void Idle()
     {
-        //m_DashForce = currentInput;
-        //m_DashForce *= m_DashAccel * Time.deltaTime;
+        m_DashForce = Vector3.zero;
+        m_ForwardForce = Vector3.zero;
+        m_StrafeForce = Vector3.zero;
     }
 
 
     private void Walk()
     {
+        m_DashForce = Vector3.zero;
 
+        m_ForwardForce = transform.forward;
+        m_ForwardForce *= m_ForwardAccel * m_CurrentInput.z * Time.deltaTime;
+
+        m_StrafeForce = transform.right;
+        m_StrafeForce *= m_StrafeAccel * m_CurrentInput.x * Time.deltaTime;
     }
 
 
     private void Dash()
     {
+        m_DashForce = m_CurrentInput;
+        m_DashForce *= m_DashAccel * Time.deltaTime;
 
+        m_ForwardForce = Vector3.zero;
+        m_StrafeForce = Vector3.zero;
     }
 
 
@@ -83,9 +104,10 @@ public class PlayerMove : MonoBehaviour
 
         m_AccelScaler = 50.0f;
         m_ForwardAccel = m_MoveAcceleration * m_AccelScaler;
-        m_StrafeAccel = m_MoveAcceleration * m_AccelScaler;
+        m_StrafeAccel = m_StrafeAcceleration * m_AccelScaler;
+        m_DashAccel = m_DashAcceleration * m_AccelScaler;
 
-        //StateUpdate();
+        StateUpdate();
     }
 
 
@@ -114,11 +136,6 @@ public class PlayerMove : MonoBehaviour
         }
 
         StateUpdate();
-
-        m_ForwardForce = transform.forward;
-        m_ForwardForce *= m_ForwardAccel * m_CurrentInput.z * Time.deltaTime;
-
-        m_StrafeForce = transform.right;
-        m_StrafeForce *= m_StrafeAccel * m_CurrentInput.x * Time.deltaTime;
+        RunState();
     }
 }

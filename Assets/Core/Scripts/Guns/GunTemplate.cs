@@ -28,9 +28,10 @@ public class GunTemplate : MonoBehaviour
     private float m_RayMaxDist;
     private float m_Rpm;
     private float m_TimePastSinceLastFire;
-    private float m_CurrentReloadTime;
     [HideInInspector]
-    public int CurrentMagSize { private set; get; }
+    public float GetCurrentReloadTime;
+    [HideInInspector]
+    public int GetCurrentMagSize { private set; get; }
     private bool m_IsFiring;
     private bool m_IsReloading;
 
@@ -69,8 +70,8 @@ public class GunTemplate : MonoBehaviour
         m_BulletSpawnPoint = transform.GetChild(0);
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
 
-        m_CurrentReloadTime = m_ReloadTimeInSec;
-        CurrentMagSize = m_MagazineSize;
+        GetCurrentReloadTime = m_ReloadTimeInSec;
+        GetCurrentMagSize = m_MagazineSize;
 
         m_IsFiring = false;
         m_IsReloading = false;
@@ -125,7 +126,7 @@ public class GunTemplate : MonoBehaviour
             bulletClone.transform.SetParent(m_BulletFolder.transform);
 
             m_TimePastSinceLastFire = 0.0f;
-            --CurrentMagSize;
+            --GetCurrentMagSize;
 
             bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
 
@@ -137,12 +138,12 @@ public class GunTemplate : MonoBehaviour
 
     private void GunReloading()
     {
-        if (m_CurrentReloadTime < 0.0f)
+        if (GetCurrentReloadTime < 0.0f)
         {
             m_IsReloading = false;
             m_TimePastSinceLastFire = 0.0f;
-            CurrentMagSize = m_MagazineSize;
-            m_CurrentReloadTime = m_ReloadTimeInSec;
+            GetCurrentMagSize = m_MagazineSize;
+            GetCurrentReloadTime = m_ReloadTimeInSec;
             m_CurrentGunState = EGunState.READY;
         }
     }
@@ -157,7 +158,7 @@ public class GunTemplate : MonoBehaviour
         }
 
         // Empty clip
-        if (CurrentMagSize <= 0.0f)
+        if (GetCurrentMagSize <= 0.0f)
         {
             Reload();
         }
@@ -165,7 +166,7 @@ public class GunTemplate : MonoBehaviour
         // Reloading time
         if(m_IsReloading == true)
         {
-            m_CurrentReloadTime -= Time.deltaTime;  // Had to put this here because switches in C# is weird, or I'm weird...
+            GetCurrentReloadTime -= Time.deltaTime;  // Had to put this here because switches in C# is weird, or I'm weird...
         }
     }
 
@@ -190,11 +191,11 @@ public class GunTemplate : MonoBehaviour
     {
         if(m_IsReloading == false)
         {
-            if(CurrentMagSize < m_MagazineSize)
+            if(GetCurrentMagSize < m_MagazineSize)
             {
                 m_IsReloading = true;
-                m_CurrentReloadTime = m_ReloadTimeInSec;
-                CurrentMagSize = 0;
+                GetCurrentReloadTime = m_ReloadTimeInSec;
+                GetCurrentMagSize = 0;
                 m_CurrentGunState = EGunState.RELOADING;
             }
         }
