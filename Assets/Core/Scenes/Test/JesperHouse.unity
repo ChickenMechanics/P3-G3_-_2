@@ -809,11 +809,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUDManager
       objectReference: {fileID: 0}
-    - target: {fileID: 5467546465831032349, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1484938972225058272, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
         type: 3}
       propertyPath: m_LocalPosition.x
