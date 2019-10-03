@@ -28,6 +28,7 @@ public class PlayerMove : MonoBehaviour
     private Vector3 m_StrafeForce;
     private Vector3 m_RunForce;
     private Vector3 m_DashForce;
+    private Vector3 m_DashDir;
     private float m_ForwardAccel;
     private float m_StrafeAccel;
     private float m_RunAccel;
@@ -55,6 +56,8 @@ public class PlayerMove : MonoBehaviour
                 m_StrafeForce = Vector3.zero;
                 m_RunForce = Vector3.zero;
                 m_DashForce = Vector3.zero;
+
+                m_DashDir = m_Input.MoveInput;
             }
         }
     }
@@ -66,7 +69,7 @@ public class PlayerMove : MonoBehaviour
         {
             case (int)PlayerCtrl.EPlayerState.IDLE: Idle(); break;
             case (int)PlayerCtrl.EPlayerState.WALK: Walk(); break;
-            case (int)PlayerCtrl.EPlayerState.RUN: Run(); break;
+            case (int)PlayerCtrl.EPlayerState.RUN:  Run();  break;
             case (int)PlayerCtrl.EPlayerState.DASH: Dash(); break;
             default: break;
         }
@@ -104,7 +107,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Dash()
     {
-        m_DashForce = m_Input.MoveInput;
+        m_DashForce = m_DashDir;
         m_DashForce *= m_DashAccel * Time.deltaTime;
 
         //Debug.Log("Dash");

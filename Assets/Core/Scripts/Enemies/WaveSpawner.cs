@@ -66,7 +66,7 @@ public class WaveSpawner : MonoBehaviour
         if (IsWaveCompleted(waves[currentWave]))
             WaveCompleted();
 
-        if (timeToNextWave <= timeBetweenWaves && isBetweenWaves /*spawnState != SpawnState.SPAWNING*/)
+        if (timeToNextWave <= timeBetweenWaves && isBetweenWaves)
         {
             StartCoroutine(SpawnWave(waves[currentWave]));
             currentWaveDuration = 0;
@@ -103,6 +103,8 @@ public class WaveSpawner : MonoBehaviour
         }
         else
             currentWave++;
+
+        timeToNextWave = timeBetweenWaves;
 
         isBetweenWaves = true;
     }

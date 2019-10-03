@@ -11,6 +11,7 @@ public class P_StateWalk : IState
     }
 
     private PlayerCtrl m_Owner;
+    public bool GetIsAvailable { get; set; }
 
 
     //----------------------------------------------------------------------------------------------------
@@ -57,10 +58,13 @@ public class P_StateWalk : IState
         //    return;
         //}
 
-        if (currentInput.DashInput != 0.0f)
-        {
-            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.DASH);
-        }
+        //if (currentInput.DashInput != 0.0f)
+        //{
+        //    if(m_Owner.GetFsm().GetCurrentState.GetIsAvailable == true)
+        //    {
+        //        m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.DASH);
+        //    }
+        //}
     }
 
 
