@@ -17,7 +17,6 @@ public class GunManager : MonoBehaviour
 
     private GameObject[] m_GunPrefabClone;
     private GunTemplate[] m_GunTempScrs;
-    //private GameObject m_ActiveGun;
     [HideInInspector]
     public GameObject ActiveGun { private set; get; }
     private GunTemplate m_ActiveGunScr;
@@ -25,6 +24,9 @@ public class GunManager : MonoBehaviour
     private int m_ActiveGunIdx;
     private int m_NumOfGuns;
     private int m_CurrentGunIdx;
+
+
+    //----------------------------------------------------------------------------------------------------
 
 
     public int GetNumOfGuns()
@@ -61,17 +63,29 @@ public class GunManager : MonoBehaviour
 
     public void Fire()   // Dir equals player camera transform forward
     {
-        m_ActiveGunScr.Fire(m_tParent);
+        if (Input.GetMouseButton(0))
+        {
+            m_ActiveGunScr.Fire(m_tParent);
+        }
     }
 
 
     public void Reload()
     {
-        m_ActiveGunScr.Reload();
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            m_ActiveGunScr.Reload();
+        }
     }
 
 
-    private void ScrollWeapons()
+    public void Weaponswitching()
+    {
+        ScrollWeapons();
+    }
+
+
+    public void ScrollWeapons()
     {
         float wheelDir = Input.GetAxisRaw("Mouse ScrollWheel");
         if (wheelDir != 0.0f)
@@ -100,7 +114,7 @@ public class GunManager : MonoBehaviour
         m_GunPrefabClone = new GameObject[size];
         m_GunTempScrs = new GunTemplate[size];
 
-        m_tParent = PlayerManager.GetInstance.Player.transform.Find(m_ParentName);
+        m_tParent = PlayerManager.GetInstance.GetPlayer.transform.Find(m_ParentName);
         for (int i = 0; i < m_GunPrefab.Length; ++i)
         {
             m_GunPrefabClone[i] = Instantiate(m_GunPrefab[i], Vector3.zero, Quaternion.identity);
@@ -127,17 +141,5 @@ public class GunManager : MonoBehaviour
         GetInstance = this;
 
         Init();
-    }
-
-
-    private void Update()
-    {
-        ScrollWeapons();
-    }
-
-
-    private void LateUpdate()
-    {
-
     }
 }

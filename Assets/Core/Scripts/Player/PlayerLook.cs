@@ -99,8 +99,8 @@ public class PlayerLook : MonoBehaviour
     {
         Vector3 posOffset = m_tPlayerLook.up * m_EyeHeight + m_tPlayerLook.forward * m_EyePointOffsetZ;
 
-        m_tPlayerLook.transform.position = Vector3.Lerp(
-            m_tPlayerLook.transform.position,
+        m_tPlayerLook.transform.position =
+            Vector3.Lerp(m_tPlayerLook.transform.position,
             m_tPlayerMove.position + posOffset,
             0.9f);
     }

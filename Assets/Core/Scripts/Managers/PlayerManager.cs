@@ -12,11 +12,20 @@ public class PlayerManager : MonoBehaviour
     #endregion
     
     [HideInInspector]
-    public GameObject Player { private set; get; }
+    public GameObject GetPlayer { private set; get; }
     [HideInInspector]
-    public float Health { private set; get; }
+    public PlayerCtrl GetPlayerCtrlScr { private set; get; }
     [HideInInspector]
-    public bool IsAlive { private set; get; }
+    public PlayerLook GetPlayerLookScr { private set; get; }
+    [HideInInspector]
+    public PlayerMove GetPlayerMoveScr { private set; get; }
+    [HideInInspector]
+    public float GetHealth { private set; get; }
+    [HideInInspector]
+    public bool GetIsAlive { private set; get; }
+
+
+    //----------------------------------------------------------------------------------------------------
 
 
     public enum EPlayerText
@@ -28,10 +37,10 @@ public class PlayerManager : MonoBehaviour
 
     public void DecreaseHealth(float value)
     {
-        Health -= value;
-        if(Health <= 0.0f)
+        GetHealth -= value;
+        if(GetHealth <= 0.0f)
         {
-            IsAlive = false;
+            GetIsAlive = false;
         }
     }
 
@@ -42,12 +51,16 @@ public class PlayerManager : MonoBehaviour
         Destroy(GetComponent<MeshFilter>());
 
         GameObject resource = (GameObject)Resources.Load("Prefabs/Player");
-        Player = Instantiate(resource, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity, transform);
-        Player.transform.parent = transform;
+        GetPlayer = Instantiate(resource, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity, transform);
+        GetPlayer.transform.parent = transform;
 
-        Health = m_BaseHealth;
+        GetPlayerCtrlScr = GetPlayer.GetComponent<PlayerCtrl>();
+        GetPlayerLookScr = GetPlayer.GetComponent<PlayerLook>();
+        GetPlayerMoveScr = GetPlayer.GetComponent<PlayerMove>();
 
-        IsAlive = true;
+        GetHealth = m_BaseHealth;
+
+        GetIsAlive = true;
     }
 
 
