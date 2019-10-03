@@ -7,7 +7,7 @@ using static UnityEngine.AI.NavMeshAgent;
 
 public class DefaultGroundEnemyBehaviour : MonoBehaviour
 {
-    private Transform player;
+    private Transform m_Player;
     //public NavMeshAgent agent;
 
     private Vector3 m_Position;
@@ -23,15 +23,15 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);
+        m_Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
-    public void MoveTowardsPlayer(Transform transform_TODO_RENAME, NavMeshAgent agent)
+    public void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
     {
-        var playerPos = player.position;
-        m_Position = transform_TODO_RENAME.position;
-        var rotation = transform_TODO_RENAME.rotation;
+        var playerPos = m_Player.position;
+        m_Position = agentTransform.position;
+        var rotation = agentTransform.rotation;
 
         var lookPosition = playerPos - m_Position;
 
@@ -41,7 +41,7 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
 
         m_DistanceToPlayer = lookPosition.magnitude;
 
-        transform_TODO_RENAME.rotation = Quaternion.Slerp(rotation, m_LookRotation, 0.1f);
+        agentTransform.rotation = Quaternion.Slerp(rotation, m_LookRotation, 0.1f);
 
         agent.SetDestination(playerPos);
     }

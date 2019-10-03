@@ -157,7 +157,6 @@ public class BulletBehaviour : MonoBehaviour
             m_WallClash.Play();
         }
 
-
         // Projectiles might pass thru some type of force fileds or whatever so some conditional are needed
         if (other.CompareTag("Enemy"))
         {

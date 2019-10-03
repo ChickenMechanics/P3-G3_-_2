@@ -26,6 +26,9 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
     }
 
 
+    //----------------------------------------------------------------------------------------------------
+
+
     private void StateUpdate()
     {
         switch ((int)m_CurrentSate)
@@ -94,13 +97,16 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
         m_Agent = GetComponent<NavMeshAgent>();
         m_Agent.enabled = false;
 
-        m_tFormPlayer = PlayerManager.GetInstance.Player.transform;
+        if (PlayerManager.GetInstance != null)
+        {
+            m_tFormPlayer = PlayerManager.GetInstance.GetPlayer.transform.Find("Move").transform;
+        }
 
         m_AnimScr = GetComponent<EnemyCrawlerAnimation>();
 
         m_CurrentSate = ECrawlerState.IDLE;
 
-        m_WalkTriggerMinDist = 4.0f;
+        m_WalkTriggerMinDist = 2.5f;
         m_StateDelayTimer = m_OnSpawnAiDelayTime;
 
         m_StateUpdateDelay = true;
@@ -109,7 +115,7 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
 
     private void Update()
     {
-        if (m_StateUpdateDelay == true)
+        if (m_StateUpdateDelay != false)
         {
             m_StateDelayTimer -= Time.deltaTime;
             if (m_StateDelayTimer > 0.0f)
@@ -123,6 +129,9 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
             m_Agent.isStopped = false;
         }
 
-        StateUpdate();
+        if(m_tFormPlayer != null)
+        {
+            StateUpdate();
+        }
     }
 }

@@ -5,43 +5,62 @@ using UnityEngine;
 
 public class P_StateWalk : IState
 {
-    private PlayerCtrl m_Owner;
-
-
     public P_StateWalk(IController controller)
     {
         m_Owner = (PlayerCtrl)controller;
     }
 
+    private PlayerCtrl m_Owner;
+
+
+    //----------------------------------------------------------------------------------------------------
+
 
     public void Enter()
     {
         //Debug.Log("Walk");
-
-        //Debug.Log(m_Owner.GetMoveInput());
     }
 
 
     public void FixedUpdate()
     {
-        //m_Owner.FixedUpdatePos(0.0f, ForceMode.Force);
+
     }
 
 
     public void Update()
     {
-        if (m_Owner.GetMoveInput().x == 0.0f &&
-            m_Owner.GetMoveInput().y == 0.0f)
+
+    }
+
+
+    public void LateUpdate()
+    {
+        m_Owner.UpdateLookInput();
+        m_Owner.UpdateMoveInput();
+        m_Owner.UpdateDashInput();
+
+        GunManager.GetInstance.Fire();
+        GunManager.GetInstance.Reload();
+        GunManager.GetInstance.ScrollWeapons();
+
+        PlayerCtrl.BasicInput currentInput = m_Owner.GetBasicInput();
+        if (currentInput.MoveInput.x == 0.0f && currentInput.MoveInput.z == 0.0f)
         {
-            IState state = m_Owner.GetState(PlayerCtrl.EP_State.IDLE);
-            m_Owner.GetFsm().ChangeState(state);
+            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.IDLE);
+            return;
         }
 
-        //UpdateIdle(dT);
+        //if (currentInput.RunInput != 0.0f)
+        //{
+        //    m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.RUN);
+        //    return;
+        //}
 
-        //m_Owner.IsGrounded();
-        //m_Owner.UpdateGrfxRot();
-        //m_Owner.UpdateMoveDir();
+        if (currentInput.DashInput != 0.0f)
+        {
+            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.DASH);
+        }
     }
 
 

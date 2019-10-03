@@ -5,87 +5,101 @@ using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour, IController
 {
-    #region player states
-    private IState[] m_States;
-    private IState m_IdleState;
-    private IState m_WalkState;
-    private FSM m_FSM;
-    #endregion
+    public struct BasicInput
+    {
+        public Vector3 MoveInput;
+        public Vector2 LookInput;
+        public float RunInput;
+        public float DashInput;
+    }
+    private BasicInput m_BasicInput;
 
-
-    private Vector2 m_MouseInput;
-    private Vector2 m_MoveInput;
     [HideInInspector]
-    public PlayerLook m_PlayerLook { get; private set; }
+    public FSM GetFSM { private set; get; }
 
-    public enum EP_State
+    public enum EPlayerState
     {
         IDLE = 0,
         WALK,
         RUN,
-        DEAD,
+        DASH,
         SIZE
+        //DEAD, // not implemented
+    }
+
+
+    //----------------------------------------------------------------------------------------------------
+
+
+    public BasicInput GetBasicInput()
+    {
+        return m_BasicInput;
     }
 
 
     public FSM GetFsm()
     {
-        return m_FSM;
+        return GetFSM;
     }
 
 
-    public IState GetState(EP_State state)
+    public void UpdateLookInput()
     {
-        return m_States[(int)state];
+        m_BasicInput.LookInput.x = Input.GetAxisRaw("Mouse X");
+        m_BasicInput.LookInput.y = Input.GetAxisRaw("Mouse Y");
     }
 
 
-    public Vector2 GetMouseInput()
+    public void UpdateMoveInput()
     {
-        return m_MouseInput;
+        m_BasicInput.MoveInput.x = Input.GetAxisRaw("Horizontal");
+        m_BasicInput.MoveInput.z = Input.GetAxisRaw("Vertical");
+
+        m_BasicInput.RunInput = Input.GetAxisRaw("Run");
     }
 
 
-    public Vector2 GetMoveInput()
+    public void UpdateDashInput()
     {
-        return m_MoveInput;
-    }
-
-
-    private void UpdateMouseInput()
-    {
-        m_MouseInput.x = Input.GetAxisRaw("Mouse X");
-        m_MouseInput.y = Input.GetAxisRaw("Mouse Y");
-    }
-
-
-    private void UpdateMoveInput()
-    {
-        m_MoveInput.x = Input.GetAxisRaw("Horizontal");
-        m_MoveInput.y = Input.GetAxisRaw("Vertical");
+        m_BasicInput.DashInput = Input.GetAxisRaw("Dash");
     }
 
 
     private void Awake()
     {
-        m_States = new IState[(int)EP_State.SIZE];
-        m_States[(int)EP_State.IDLE] = new P_StateIdle((IController)this);
-        m_States[(int)EP_State.WALK] = new P_StateWalk((IController)this);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
-        m_FSM = new FSM(m_States[(int)EP_State.IDLE]);
+        Destroy(GetComponent<MeshRenderer>());
+        Destroy(GetComponent<MeshFilter>());
 
-        m_MouseInput = new Vector2();
-        m_MoveInput = new Vector2();
+        m_BasicInput = new BasicInput();
+        m_BasicInput.MoveInput = Vector3.zero;
+        m_BasicInput.LookInput = Vector2.zero;
 
-        m_PlayerLook = GetComponent<PlayerLook>();
+        GetFSM = new FSM(this);
+        GetFSM.AddState(new P_StateIdle((IController)this));
+        GetFSM.AddState(new P_StateWalk((IController)this));
+        GetFSM.AddState(new P_StateRun((IController)this));
+        GetFSM.AddState(new P_StateDash((IController)this));
+        GetFSM.Init();
+    }
+
+
+    private void FixedUpdate()
+    {
+        GetFSM.FixedUpdate();
     }
 
 
     private void Update()
     {
-        UpdateMouseInput();
-        UpdateMoveInput();
-        m_FSM.Update();
+        GetFSM.Update();
     }
 
+
+    private void LateUpdate()
+    {
+        GetFSM.LateUpdate();
+    }
 }

@@ -5,43 +5,51 @@ using UnityEngine;
 
 public class P_StateIdle : IState
 {
-    private PlayerCtrl m_Owner;
-
-
     public P_StateIdle(IController controller)
     {
         m_Owner = (PlayerCtrl)controller;
     }
 
 
+    //public FSM m_Fsm { set; get; }    // perhaps?
+    private PlayerCtrl m_Owner;
+
+
+    //----------------------------------------------------------------------------------------------------
+
+
     public void Enter()
     {
         //Debug.Log("Idle");
-
-        //Debug.Log(m_Owner.GetMoveInput());
     }
 
 
     public void FixedUpdate()
     {
-        //m_Owner.FixedUpdatePos(0.0f, ForceMode.Force);
+
     }
 
 
     public void Update()
     {
-        if (m_Owner.GetMoveInput().x != 0.0f ||
-            m_Owner.GetMoveInput().y != 0.0f)
+
+    }
+
+
+    public void LateUpdate()
+    {
+        m_Owner.UpdateLookInput();
+        m_Owner.UpdateMoveInput();
+
+        GunManager.GetInstance.Fire();
+        GunManager.GetInstance.Reload();
+        GunManager.GetInstance.ScrollWeapons();
+
+        PlayerCtrl.BasicInput currentInput = m_Owner.GetBasicInput();
+        if (currentInput.MoveInput.x != 0.0f || currentInput.MoveInput.z != 0.0f)
         {
-            IState state = m_Owner.GetState(PlayerCtrl.EP_State.WALK);
-            m_Owner.GetFsm().ChangeState(state);
+            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.WALK);
         }
-
-        //UpdateIdle(dT);
-
-        //m_Owner.IsGrounded();
-        //m_Owner.UpdateGrfxRot();
-        //m_Owner.UpdateMoveDir();
     }
 
 

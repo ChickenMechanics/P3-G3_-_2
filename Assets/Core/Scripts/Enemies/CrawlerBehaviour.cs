@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class Crawler : MonoBehaviour
+public class CrawlerBehaviour : MonoBehaviour
 {
     public NavMeshAgent agent;
 

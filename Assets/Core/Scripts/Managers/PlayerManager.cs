@@ -8,21 +8,39 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager GetInstance { private set; get; }
 
     #region design vars
-    public float m_Health = 100.0f;
+    public float m_BaseHealth = 100.0f;
     #endregion
     
     [HideInInspector]
-    public GameObject Player { private set; get; }
-    private float m_CurrentHealth;
-    private bool m_IsAlive;
+    public GameObject GetPlayer { private set; get; }
+    [HideInInspector]
+    public PlayerCtrl GetPlayerCtrlScr { private set; get; }
+    [HideInInspector]
+    public PlayerLook GetPlayerLookScr { private set; get; }
+    [HideInInspector]
+    public PlayerMove GetPlayerMoveScr { private set; get; }
+    [HideInInspector]
+    public float GetHealth { private set; get; }
+    [HideInInspector]
+    public bool GetIsAlive { private set; get; }
+
+
+    //----------------------------------------------------------------------------------------------------
+
+
+    public enum EPlayerText
+    {
+        HEALTH = 0,
+        SIZE
+    }
 
 
     public void DecreaseHealth(float value)
     {
-        m_CurrentHealth -= value;
-        if(m_CurrentHealth <= 0.0f)
+        GetHealth -= value;
+        if(GetHealth <= 0.0f)
         {
-            m_IsAlive = false;
+            GetIsAlive = false;
         }
     }
 
@@ -32,13 +50,17 @@ public class PlayerManager : MonoBehaviour
         Destroy(GetComponent<MeshRenderer>());
         Destroy(GetComponent<MeshFilter>());
 
-        GameObject resource = (GameObject)Resources.Load("Prefabs/Player Variant");
-        Player = Instantiate(resource, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity, transform);
-        Player.transform.parent = transform;
+        GameObject resource = (GameObject)Resources.Load("Prefabs/Player");
+        GetPlayer = Instantiate(resource, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity, transform);
+        GetPlayer.transform.parent = transform;
 
-        m_CurrentHealth = m_Health;
+        GetPlayerCtrlScr = GetPlayer.GetComponent<PlayerCtrl>();
+        GetPlayerLookScr = GetPlayer.GetComponent<PlayerLook>();
+        GetPlayerMoveScr = GetPlayer.GetComponent<PlayerMove>();
 
-        m_IsAlive = true;
+        GetHealth = m_BaseHealth;
+
+        GetIsAlive = true;
     }
 
 
