@@ -28,13 +28,6 @@ public class PlayerManager : MonoBehaviour
     //----------------------------------------------------------------------------------------------------
 
 
-    public enum EPlayerText
-    {
-        HEALTH = 0,
-        SIZE
-    }
-
-
     public void DecreaseHealth(float value)
     {
         GetHealth -= value;
