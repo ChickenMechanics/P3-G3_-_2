@@ -12,6 +12,7 @@ public class P_StateDash : IState
 
     private PlayerCtrl m_Owner;
     private float m_DashTime;
+    public bool GetIsAvailable { get; set; }
 
 
     //----------------------------------------------------------------------------------------------------

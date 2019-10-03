@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class P_StateRun : MonoBehaviour, IState
+public class P_StateRun : IState
 {
     public P_StateRun(IController controller)
     {
@@ -11,6 +11,7 @@ public class P_StateRun : MonoBehaviour, IState
     }
 
     private PlayerCtrl m_Owner;
+    public bool GetIsAvailable { get; set; }
 
 
     //----------------------------------------------------------------------------------------------------
