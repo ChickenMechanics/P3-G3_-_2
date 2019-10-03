@@ -689,7 +689,6 @@ GameObject:
   - component: {fileID: 8752957055253056627}
   - component: {fileID: 497556620}
   - component: {fileID: 497556618}
-  - component: {fileID: 497556619}
   - component: {fileID: 1825691626019461947}
   - component: {fileID: 6126431961790094942}
   - component: {fileID: 7281316656739095216}
@@ -763,7 +762,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4821284741271786569}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.5, y: 2.5, z: 2.5}
@@ -799,21 +798,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c34ac6ca386904ab8a7853f26228aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &497556619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4821284741271786569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 533c0da48a45dcb47ae45949e7099d8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ScoreValue: 100
-  m_Health: 100
-  m_ExplosiveDamage: 25
 --- !u!114 &1825691626019461947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -843,6 +827,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 7281316656739095216}
+  damageAmount: 100
+  scoreAmount: 100
+  attackRange: 5
+  health: 100
 --- !u!195 &7281316656739095216
 NavMeshAgent:
   m_ObjectHideFlags: 0
