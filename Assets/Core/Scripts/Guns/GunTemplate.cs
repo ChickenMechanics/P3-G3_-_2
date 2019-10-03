@@ -255,7 +255,7 @@ public class GunTemplate : MonoBehaviour
                                 (transform.forward * m_PositionOffset.z);
 
             transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.15f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.1f);
 
             transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(true);
         }

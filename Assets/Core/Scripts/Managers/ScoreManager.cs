@@ -33,18 +33,6 @@ public class ScoreManager : MonoBehaviour
 
     private bool m_ComboAlive;
 
-    public enum EScoreText
-    {
-        SCORE = 0,
-        TOTAL_CHAINS,
-        LONGEST_CHAIN,
-        SPARE_CHAIN_TIME,
-        CHAIN_TIME_LEFT,
-        CURRENT_CHAIN,
-        CURRENT_MULTI,
-        SIZE
-    }
-
 
     //----------------------------------------------------------------------------------------------------
 
