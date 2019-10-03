@@ -24,6 +24,11 @@ public class HUDManager : MonoBehaviour
     private float m_PrevComboMeter;
     private int m_ScoreComboDecimalPoints;
 
+    private float m_MagEmptyBlinkTime;
+    private float m_FlasherThingTimer;
+    private bool m_bFlasherThing;
+
+    // things that probably goes to endscreen
     private Text m_SpareChainTimeTxt;
     private Text m_TotalChainsTxt;
     private Text m_LongestChain;
@@ -55,26 +60,26 @@ public class HUDManager : MonoBehaviour
         // score / combo
         m_ScoreMan = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 
-        m_ScoreTxt = canvas.transform.Find("ScoreCombo").transform.Find("ScoreActual").transform.Find("Score").GetComponent<Text>();
+        m_ScoreTxt = canvas.transform.Find("ScoreCombo").transform.Find("Score").GetComponent<Text>();
         m_ScoreTxt.text = " ";
 
-        m_ComboMeterImg = canvas.transform.Find("ScoreCombo").transform.Find("ScoreActual").transform.Find("ComboMeter").GetComponent<Image>();
+        m_ComboMeterImg = canvas.transform.Find("ScoreCombo").transform.Find("ComboMeter").GetComponent<Image>();
         m_ComboMeterImg.fillAmount = m_ScoreMan.GetChainTimeLeft;
         m_PrevComboMeter = 0.0f;
 
-        m_ChainTxt = canvas.transform.Find("ScoreCombo").transform.Find("ScoreActual").transform.Find("CurrentChain").GetComponent<Text>();
+        m_ChainTxt = canvas.transform.Find("ScoreCombo").transform.Find("CurrentChain").GetComponent<Text>();
         m_ChainTxt.text = "0";
 
-        m_Multiplier = canvas.transform.Find("ScoreCombo").transform.Find("ScoreActual").transform.Find("ComboMultiplier").GetComponent<Text>();
+        m_Multiplier = canvas.transform.Find("ScoreCombo").transform.Find("ComboMultiplier").GetComponent<Text>();
         m_Multiplier.text = "0x";
 
         {
             // things that probably goes to endscreen
-            m_SpareChainTimeTxt = canvas.transform.Find("ScoreCombo").transform.Find("ScoreTitles").transform.Find("SpareChainTimeNum").GetComponent<Text>();
+            m_SpareChainTimeTxt = canvas.transform.Find("ScoreCombo").transform.Find("EndScreen").transform.Find("SpareChainTimeNum").GetComponent<Text>();
             m_SpareChainTimeTxt.text = " ";
-            m_TotalChainsTxt = canvas.transform.Find("ScoreCombo").transform.Find("ScoreTitles").transform.Find("TotalChainsNum").GetComponent<Text>();
+            m_TotalChainsTxt = canvas.transform.Find("ScoreCombo").transform.Find("EndScreen").transform.Find("TotalChainsNum").GetComponent<Text>();
             m_TotalChainsTxt.text = " ";
-            m_LongestChain = canvas.transform.Find("ScoreCombo").transform.Find("ScoreTitles").transform.Find("LongestChainNum").GetComponent<Text>();
+            m_LongestChain = canvas.transform.Find("ScoreCombo").transform.Find("EndScreen").transform.Find("LongestChainNum").GetComponent<Text>();
             m_LongestChain.text = " ";
         }
 
@@ -83,8 +88,11 @@ public class HUDManager : MonoBehaviour
         m_WaveMeterImg = canvas.transform.Find("Waves").transform.Find("WaveSliderImage").GetComponent<Image>();
         m_WaveMeterImg.fillAmount = 1.0f;
 
-        // decimals
+        // randoms
         m_ScoreComboDecimalPoints = 2;
+        m_MagEmptyBlinkTime = 0.15f;
+        m_FlasherThingTimer = m_MagEmptyBlinkTime;
+        m_bFlasherThing = true;
     }
 
 
@@ -97,6 +105,22 @@ public class HUDManager : MonoBehaviour
     private float GetZeroToOneRange(float valueToMod, float baseValue)
     {
         return valueToMod / baseValue;
+    }
+
+
+    private bool FlasherThing(float flashInterval)
+    {
+        if (m_FlasherThingTimer <= flashInterval)
+        {
+            m_FlasherThingTimer -= Time.deltaTime;
+            if (m_FlasherThingTimer < 0.0f)
+            {
+                m_FlasherThingTimer = flashInterval;
+                m_bFlasherThing = !m_bFlasherThing;
+            }
+        }
+
+        return m_bFlasherThing;
     }
 
 
@@ -122,15 +146,15 @@ public class HUDManager : MonoBehaviour
         m_PrevHealth = nextHealth;
 
         // guns / bulllets
-        int currentMag = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize;
-        if(currentMag > 0)
+        bool isReloading = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetIsReloading;
+        if (isReloading == false)
         {
             m_GunBulletText.text = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize.ToString();
         }
-        else
+
+        if(isReloading == true)
         {
-            float reloadTime = TruncateFloat(m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentReloadTime, m_ScoreComboDecimalPoints);
-            m_GunBulletText.text = reloadTime.ToString();
+            m_GunBulletText.text = (FlasherThing(m_MagEmptyBlinkTime) == false) ? "OUT" : " ";
         }
 
         // score / combo
