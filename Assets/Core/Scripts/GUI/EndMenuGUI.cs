@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class OptionsMenuGUI : MonoBehaviour
+public class EndMenuGUI : MonoBehaviour
 {
     public void MainMenu()
     {

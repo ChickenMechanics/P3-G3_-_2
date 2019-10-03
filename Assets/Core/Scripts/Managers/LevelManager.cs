@@ -13,10 +13,12 @@ public class LevelManager : MonoBehaviour
     private int m_CurrentSceneIdx;
 
 
+    // matches the order in build settings
     public enum EScene
     {
         MAIN_MENU = 0,
-        OPTIONS,
+        OPTIONS_MENU,
+        END_SCREEN,
         ARENA
     }
 

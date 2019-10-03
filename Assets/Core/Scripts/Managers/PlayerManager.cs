@@ -70,4 +70,16 @@ public class PlayerManager : MonoBehaviour
 
         Init();
     }
+
+
+    private void Update()
+    {
+        if (GetCurrentHealth <= 0.0f)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END_SCREEN);
+        }
+    }
 }

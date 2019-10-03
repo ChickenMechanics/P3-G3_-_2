@@ -102,4 +102,10 @@ public class PlayerCtrl : MonoBehaviour, IController
     {
         GetFSM.LateUpdate();
     }
+
+
+    private void OnDestroy()
+    {
+        Destroy(this);
+    }
 }
