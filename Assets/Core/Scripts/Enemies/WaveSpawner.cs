@@ -104,6 +104,8 @@ public class WaveSpawner : MonoBehaviour
         else
             currentWave++;
 
+        timeToNextWave = timeBetweenWaves;
+
         isBetweenWaves = true;
     }
 
