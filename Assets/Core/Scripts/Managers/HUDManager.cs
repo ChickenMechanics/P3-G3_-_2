@@ -14,12 +14,16 @@ public class HUDManager : MonoBehaviour
 
     // player status
     private Text[] m_arrPlayerStatusText;
+
+    // new
     private Image m_HealthBar;
     private float m_PrevHealth;
     private Image m_ComboMeter;
     private float m_PrevComboMeter;
     private Text m_CurrentChain;
     private Text m_CurrentComboMultiplier;
+    private Image m_WaveMeter;
+    // new
 
     // guns / bulllets
     private Text[] m_arrGunsBulletText;
@@ -78,6 +82,13 @@ public class HUDManager : MonoBehaviour
 
             m_CurrentComboMultiplier = canvas.transform.Find("ScoreCombo").transform.Find("ScoreActual").transform.Find("CurrentComboMultiplier").GetComponent<Text>();
             m_CurrentComboMultiplier.text = "0x";
+        }
+
+        // waves
+        {
+            // new
+            m_WaveMeter = canvas.transform.Find("Waves").transform.Find("WaveSliderImage").GetComponent<Image>();
+            m_WaveMeter.fillAmount = 1.0f;
         }
 
         // decimals
@@ -141,19 +152,6 @@ public class HUDManager : MonoBehaviour
         m_arrScoreComboText[(int)ScoreManager.EScoreText.TOTAL_CHAINS].text = m_ScoreMan.GetTotalChains.ToString();
         m_arrScoreComboText[(int)ScoreManager.EScoreText.LONGEST_CHAIN].text = m_ScoreMan.GetLongestChain.ToString();
 
-        {
-            // new
-            float nextComboMeter = Mathf.Lerp(m_PrevComboMeter, GetZeroToOneRange(m_ScoreMan.GetChainTimeLeft, m_ScoreMan.GetBaseChainTime), 0.2f);
-            m_ComboMeter.fillAmount = nextComboMeter;
-            m_PrevComboMeter = nextComboMeter;
-
-            m_CurrentChain.text = m_ScoreMan.GetCurrentChain.ToString();
-
-            string scaleSymbol = "x";
-            float multi = TruncateFloat(m_ScoreMan.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);
-            m_CurrentComboMultiplier.text = string.Concat(scaleSymbol, multi.ToString());
-        }
-
         // truncated
         float chainTimeLeft = TruncateFloat(m_ScoreMan.GetChainTimeLeft, m_ScoreComboDecimalPoints);
         m_arrScoreComboText[(int)ScoreManager.EScoreText.CHAIN_TIME_LEFT].text = chainTimeLeft.ToString();
@@ -167,5 +165,25 @@ public class HUDManager : MonoBehaviour
         // truncated
         float comboMulti = TruncateFloat(m_ScoreMan.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);
         m_arrScoreComboText[(int)ScoreManager.EScoreText.CURRENT_MULTI].text = comboMulti.ToString();
+
+        {
+            // new
+            float nextComboMeter = Mathf.Lerp(m_PrevComboMeter, GetZeroToOneRange(m_ScoreMan.GetChainTimeLeft, m_ScoreMan.GetBaseChainTime), 0.2f);
+            m_ComboMeter.fillAmount = nextComboMeter;
+            m_PrevComboMeter = nextComboMeter;
+
+            m_CurrentChain.text = m_ScoreMan.GetCurrentChain.ToString();
+
+            string scaleSymbol = "x";
+            float multi = TruncateFloat(m_ScoreMan.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);
+            m_CurrentComboMultiplier.text = string.Concat(scaleSymbol, multi.ToString());
+        }
+
+
+        // waves
+        {
+            // new
+
+        }
     }
 }
