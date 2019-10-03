@@ -17,6 +17,7 @@ public class HUDManager : MonoBehaviour
     // player status
     private Text[] m_arrPlayerStatusText;
     private Image m_HealthBar;
+    private float m_PrevHealth;
 
     // guns / bulllets
     private Text[] m_arrGunsBulletText;
@@ -44,6 +45,7 @@ public class HUDManager : MonoBehaviour
         m_arrPlayerStatusText[(int)EPlayerText.HEALTH] = canvas.transform.Find("PlayerStatus").transform.Find("HealthCounter").GetComponent<Text>();
 
         m_HealthBar = canvas.transform.Find("PlayerStatus").transform.Find("HealthSliderImage").GetComponent<Image>();
+        m_PrevHealth = m_PlayerMan.GetHealth;
 
         // guns / bulllets
         m_GunMan = GameObject.Find("GunManager").GetComponent<GunManager>();
@@ -90,9 +92,9 @@ public class HUDManager : MonoBehaviour
         // player status
         m_arrPlayerStatusText[(int)EPlayerText.HEALTH].text = m_PlayerMan.GetHealth.ToString();
 
-        // normalized = (x - min(x)) / (max(x) - min(x))
-        float currentHealth = m_PlayerMan.GetHealth;
-        m_HealthBar.fillAmount = (currentHealth - 0.0f) / (100.0f - 0.0f);
+        float nextHealth = Mathf.Lerp(m_PrevHealth, (m_PlayerMan.GetHealth - 0.0f) / (100.0f - 0.0f), 0.25f);
+        m_HealthBar.fillAmount = nextHealth;
+        m_PrevHealth = nextHealth;
 
         // guns / bulllets
         int currentMag = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize;
