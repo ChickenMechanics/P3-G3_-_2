@@ -16,12 +16,19 @@ public class HUDManager : MonoBehaviour
 
     // player status
     private Text[] m_arrPlayerStatusText;
+    private Image m_HealthBar;
 
     // guns / bulllets
     private Text[] m_arrGunsBulletText;
 
     // score / combo
     private Text[] m_arrScoreComboText;
+
+    public enum EPlayerText
+    {
+        HEALTH = 0,
+        SIZE
+    }
 
 
     //----------------------------------------------------------------------------------------------------
@@ -33,8 +40,10 @@ public class HUDManager : MonoBehaviour
 
         // player status
         m_PlayerMan = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
-        m_arrPlayerStatusText = new Text[(int)PlayerManager.EPlayerText.SIZE];
-        m_arrPlayerStatusText[(int)PlayerManager.EPlayerText.HEALTH] = canvas.transform.Find("PlayerStatus").transform.Find("HealthCounter").GetComponent<Text>();
+        m_arrPlayerStatusText = new Text[(int)EPlayerText.SIZE];
+        m_arrPlayerStatusText[(int)EPlayerText.HEALTH] = canvas.transform.Find("PlayerStatus").transform.Find("HealthCounter").GetComponent<Text>();
+
+        m_HealthBar = canvas.transform.Find("PlayerStatus").transform.Find("HealthSliderImage").GetComponent<Image>();
 
         // guns / bulllets
         m_GunMan = GameObject.Find("GunManager").GetComponent<GunManager>();
@@ -79,7 +88,11 @@ public class HUDManager : MonoBehaviour
     private void Update()
     {
         // player status
-        m_arrPlayerStatusText[(int)PlayerManager.EPlayerText.HEALTH].text = m_PlayerMan.GetHealth.ToString();
+        m_arrPlayerStatusText[(int)EPlayerText.HEALTH].text = m_PlayerMan.GetHealth.ToString();
+
+        // normalized = (x - min(x)) / (max(x) - min(x))
+        float currentHealth = m_PlayerMan.GetHealth;
+        m_HealthBar.fillAmount = (currentHealth - 0.0f) / (100.0f - 0.0f);
 
         // guns / bulllets
         int currentMag = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize;
