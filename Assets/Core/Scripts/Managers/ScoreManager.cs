@@ -38,8 +38,8 @@ public class ScoreManager : MonoBehaviour
         SCORE = 0,
         TOTAL_CHAINS,
         LONGEST_CHAIN,
-        CHAIN_TIME_LEFT,
         SPARE_CHAIN_TIME,
+        CHAIN_TIME_LEFT,
         CURRENT_CHAIN,
         CURRENT_MULTI,
         SIZE

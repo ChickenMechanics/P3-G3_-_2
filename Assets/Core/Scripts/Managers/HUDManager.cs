@@ -12,9 +12,6 @@ public class HUDManager : MonoBehaviour
     private ScoreManager m_ScoreMan;
     private int m_ScoreComboDecimalPoints;
 
-    // player status
-    private Text[] m_arrPlayerStatusText;
-
     // new
     private Image m_HealthBar;
     private float m_PrevHealth;
@@ -47,14 +44,8 @@ public class HUDManager : MonoBehaviour
 
         // player status
         m_PlayerMan = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
-        //m_arrPlayerStatusText = new Text[(int)EPlayerText.SIZE];
-        //m_arrPlayerStatusText[(int)EPlayerText.HEALTH] = canvas.transform.Find("PlayerStatus").transform.Find("HealthCounter").GetComponent<Text>();
-
-        {
-            // new
-            m_HealthBar = canvas.transform.Find("PlayerStatus").transform.Find("HealthSliderImage").GetComponent<Image>();
-            m_PrevHealth = m_PlayerMan.GetCurrentHealth;
-        }
+        m_HealthBar = canvas.transform.Find("PlayerStatus").transform.Find("HealthSliderImage").GetComponent<Image>();
+        m_PrevHealth = m_PlayerMan.GetCurrentHealth;
 
         // guns / bulllets
         m_GunMan = GameObject.Find("GunManager").GetComponent<GunManager>();
@@ -63,12 +54,16 @@ public class HUDManager : MonoBehaviour
 
         // score / combo
         m_ScoreMan = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        Transform score = canvas.transform.Find("ScoreCombo").transform.Find("ScoreActual");
-        int size = (int)ScoreManager.EScoreText.SIZE;
-        m_arrScoreComboText = new Text[size];
-        for (int i = 0; i < 3; ++i)
+
         {
-            m_arrScoreComboText[i] = score.GetChild(i).GetComponent<Text>();
+            // old
+            Transform score = canvas.transform.Find("ScoreCombo").transform.Find("ScoreActual");
+            int size = (int)ScoreManager.EScoreText.SIZE;
+            m_arrScoreComboText = new Text[size];
+            for (int i = 0; i < 4; ++i)
+            {
+                m_arrScoreComboText[i] = score.GetChild(i).GetComponent<Text>();
+            }
         }
 
         {
@@ -85,11 +80,8 @@ public class HUDManager : MonoBehaviour
         }
 
         // waves
-        {
-            // new
-            m_WaveMeter = canvas.transform.Find("Waves").transform.Find("WaveSliderImage").GetComponent<Image>();
-            m_WaveMeter.fillAmount = 1.0f;
-        }
+        m_WaveMeter = canvas.transform.Find("Waves").transform.Find("WaveSliderImage").GetComponent<Image>();
+        m_WaveMeter.fillAmount = 1.0f;
 
         // decimals
         m_ScoreComboDecimalPoints = 2;
@@ -124,15 +116,9 @@ public class HUDManager : MonoBehaviour
 
     private void Update()
     {
-        // player status
-        //m_arrPlayerStatusText[(int)EPlayerText.HEALTH].text = m_PlayerMan.GetCurrentHealth.ToString();
-
-        {
-            // new
-            float nextHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerMan.GetCurrentHealth, m_PlayerMan.GetBaseHealth), 0.2f);
-            m_HealthBar.fillAmount = nextHealth;
-            m_PrevHealth = nextHealth;
-        }
+        float nextHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerMan.GetCurrentHealth, m_PlayerMan.GetBaseHealth), 0.2f);
+        m_HealthBar.fillAmount = nextHealth;
+        m_PrevHealth = nextHealth;
 
         // guns / bulllets
         int currentMag = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize;
@@ -147,21 +133,16 @@ public class HUDManager : MonoBehaviour
         }
 
         // score / combo
-        int score = (int)m_ScoreMan.GetPlayerScore;
-        m_arrScoreComboText[(int)ScoreManager.EScoreText.SCORE].text = score.ToString();
-        m_arrScoreComboText[(int)ScoreManager.EScoreText.TOTAL_CHAINS].text = m_ScoreMan.GetTotalChains.ToString();
-        m_arrScoreComboText[(int)ScoreManager.EScoreText.LONGEST_CHAIN].text = m_ScoreMan.GetLongestChain.ToString();
+        {
+            // old
+            int score = (int)m_ScoreMan.GetPlayerScore;
+            m_arrScoreComboText[(int)ScoreManager.EScoreText.SCORE].text = score.ToString();
+            m_arrScoreComboText[(int)ScoreManager.EScoreText.TOTAL_CHAINS].text = m_ScoreMan.GetTotalChains.ToString();
+            m_arrScoreComboText[(int)ScoreManager.EScoreText.LONGEST_CHAIN].text = m_ScoreMan.GetLongestChain.ToString();
 
-        //float chainTimeLeft = TruncateFloat(m_ScoreMan.GetChainTimeLeft, m_ScoreComboDecimalPoints);
-        //m_arrScoreComboText[(int)ScoreManager.EScoreText.CHAIN_TIME_LEFT].text = chainTimeLeft.ToString();
-
-        //float spareChainTime = TruncateFloat(m_ScoreMan.GetSpareChainTime, m_ScoreComboDecimalPoints);
-        //m_arrScoreComboText[(int)ScoreManager.EScoreText.SPARE_CHAIN_TIME].text = spareChainTime.ToString();
-
-        //m_arrScoreComboText[(int)ScoreManager.EScoreText.CURRENT_CHAIN].text = m_ScoreMan.GetCurrentChain.ToString();
-
-        //float comboMulti = TruncateFloat(m_ScoreMan.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);
-        //m_arrScoreComboText[(int)ScoreManager.EScoreText.CURRENT_MULTI].text = comboMulti.ToString();
+            float spareChainTime = TruncateFloat(m_ScoreMan.GetSpareChainTime, m_ScoreComboDecimalPoints);
+            m_arrScoreComboText[(int)ScoreManager.EScoreText.SPARE_CHAIN_TIME].text = spareChainTime.ToString();
+        }
 
         {
             // new
