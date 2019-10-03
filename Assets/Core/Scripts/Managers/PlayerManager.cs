@@ -20,7 +20,9 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector]
     public PlayerMove GetPlayerMoveScr { private set; get; }
     [HideInInspector]
-    public float GetHealth { private set; get; }
+    public float GetBaseHealth { private set; get; }
+    [HideInInspector]
+    public float GetCurrentHealth { private set; get; }
     [HideInInspector]
     public bool GetIsAlive { private set; get; }
 
@@ -30,8 +32,8 @@ public class PlayerManager : MonoBehaviour
 
     public void DecreaseHealth(float value)
     {
-        GetHealth -= value;
-        if(GetHealth <= 0.0f)
+        GetCurrentHealth -= value;
+        if(GetCurrentHealth <= 0.0f)
         {
             GetIsAlive = false;
         }
@@ -51,7 +53,8 @@ public class PlayerManager : MonoBehaviour
         GetPlayerLookScr = GetPlayer.GetComponent<PlayerLook>();
         GetPlayerMoveScr = GetPlayer.GetComponent<PlayerMove>();
 
-        GetHealth = m_BaseHealth;
+        GetBaseHealth = m_BaseHealth;
+        GetCurrentHealth = GetBaseHealth;
 
         GetIsAlive = true;
     }
