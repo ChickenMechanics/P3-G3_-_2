@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 1416179747012316077}
   - component: {fileID: 7997338803180843419}
   - component: {fileID: 4449776533292272994}
-  - component: {fileID: 6879944586967888596}
+  - component: {fileID: -7145239428009654852}
   m_Layer: 10
   m_Name: KulSpruta
   m_TagString: Untagged
@@ -110,7 +110,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &6879944586967888596
+--- !u!114 &-7145239428009654852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,8 +122,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0b181a1dcebbc49a656434bf8b5ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PositionOffset: {x: 0.7, y: -0.35, z: 0.8}
-  m_RoundsPerMinute: 900
-  m_MagazineSize: 20
-  m_BulletModelPrefab: {fileID: 4705387012690372055, guid: 782e3cdb51e604b4a82b4718b75e6b42,
+  m_PositionOffset: {x: 0.7, y: -0.35, z: 0.5}
+  m_RoundsPerMinute: 750
+  m_MagSizeTotal: 30
+  m_ReloadTimeInSec: 1
+  m_AdsSpread: 0.03
+  m_HipSpread: 0.05
+  m_BulletModelPrefab: {fileID: 3309858372098177357, guid: abe31888c629d564db95087fd7d8d388,
     type: 3}
+  GetCurrentReloadTime: 0

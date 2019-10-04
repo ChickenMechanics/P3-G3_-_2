@@ -13,6 +13,10 @@ public class GunTemplate : MonoBehaviour
     public int m_RoundsPerMinute = 500;
     public int m_MagSizeTotal = 30;
     public float m_ReloadTimeInSec = 1.0f;
+    [Range(0.0f, 0.5f)]
+    public float m_AdsSpread = 0.01f;
+    [Range(0.0f, 0.5f)]
+    public float m_HipSpread = 0.04f;
 
     [Header("Bullet Prefab")]
     public GameObject m_BulletModelPrefab;
@@ -42,8 +46,7 @@ public class GunTemplate : MonoBehaviour
     private Transform m_CameraPoint;
 
     // Test
-    private float m_AdsSpread;
-    private float m_HipSpread;
+
     // Test
 
     private enum EGunState
@@ -83,9 +86,6 @@ public class GunTemplate : MonoBehaviour
 
         m_CurrentGunState = EGunState.READY;
         m_CameraPoint = null;
-
-        m_AdsSpread = 0.01f;
-        m_HipSpread = 0.04f;
     }
 
 
@@ -119,7 +119,10 @@ public class GunTemplate : MonoBehaviour
             Vector3 raycastedDir = m_CameraPoint.forward;
             if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist, m_AimRayLayerMask))
             {
-                raycastedDir = (m_RaycastHit.point - m_BulletSpawnPoint.position).normalized;
+                if(m_RaycastHit.distance > 2.0f)    // some protection from clipping while cam is close to ground/wall
+                {
+                    raycastedDir = (m_RaycastHit.point - m_BulletSpawnPoint.position).normalized;
+                }
             }
 
             Transform tForm = transform.GetChild(0).transform;
