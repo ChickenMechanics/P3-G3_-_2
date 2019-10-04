@@ -159,7 +159,7 @@ public class HUDManager : MonoBehaviour
 
         // score / combo
         int score = (int)m_ScoreMan.GetPlayerScore;
-        if(score > 0)
+        //if(score > 0)
         {
             m_ScoreTxt.text = score.ToString();
         }
