@@ -99,6 +99,8 @@ public class GunManager : MonoBehaviour
 
             SetActiveGun(m_CurrentGunIdx);
         }
+
+        
     }
 
 

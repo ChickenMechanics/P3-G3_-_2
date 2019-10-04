@@ -35,12 +35,15 @@ public class GunTemplate : MonoBehaviour
     private bool m_IsFiring;
     [HideInInspector]
     public bool GetIsReloading { private set; get; }
+    [HideInInspector]
+    public bool GetIsADS { private set; get; }
 
     private EGunState m_CurrentGunState;
     private Transform m_CameraPoint;
 
     // Test
-    private bool m_bADS;
+    private float m_AdsSpread;
+    private float m_HipSpread;
     // Test
 
     private enum EGunState
@@ -76,9 +79,13 @@ public class GunTemplate : MonoBehaviour
 
         m_IsFiring = false;
         GetIsReloading = false;
+        GetIsADS = false;
 
         m_CurrentGunState = EGunState.READY;
         m_CameraPoint = null;
+
+        m_AdsSpread = 0.01f;
+        m_HipSpread = 0.04f;
     }
 
 
@@ -130,6 +137,21 @@ public class GunTemplate : MonoBehaviour
             --GetCurrentMagSize;
             m_IsFiring = false;
 
+            if(GetIsADS != true)
+            {
+                float ranNumX = Random.Range(-m_HipSpread, m_HipSpread);
+                float ranNumY = Random.Range(-m_HipSpread, m_HipSpread);
+
+                raycastedDir += new Vector3(ranNumX, ranNumY, 0.0f);
+            }
+            else
+            {
+                float ranNumX = Random.Range(-m_AdsSpread, m_AdsSpread);
+                float ranNumY = Random.Range(-m_AdsSpread, m_AdsSpread);
+
+                raycastedDir += new Vector3(ranNumX, ranNumY, 0.0f);
+            }
+
             bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
             m_CurrentGunState = EGunState.READY;
         }
@@ -146,13 +168,6 @@ public class GunTemplate : MonoBehaviour
             GetCurrentReloadTime = m_ReloadTimeInSec;
             m_CurrentGunState = EGunState.READY;
         }
-
-        //if (Input.GetMouseButton(0))
-        //{
-        //    GetIsReloading = false;
-        //    GetCurrentReloadTime = m_ReloadTimeInSec;
-        //    m_CurrentGunState = EGunState.READY;
-        //}
     }
 
 
@@ -242,27 +257,35 @@ public class GunTemplate : MonoBehaviour
         UpdateMagazine();
 
         // Test ADS
-        if (Input.GetMouseButton(1) == true && GetIsReloading == false)
         {
-            Vector3 forward = transform.parent.forward * 0.2f;
-            Vector3 down = transform.parent.up * -0.4f;
+            // ads fire
+            if (Input.GetMouseButton(1) == true && GetIsReloading == false)
+            {
+                GetIsADS = true;
 
-            transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
+                Vector3 forward = transform.parent.forward * 0.2f;
+                Vector3 down = transform.parent.up * -0.4f;
 
-            transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(false);
-        }
+                transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
+                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
 
-        if (Input.GetMouseButton(1) == false || GetIsReloading == true)
-        {
-            Vector3 offsetPos = (transform.right * m_PositionOffset.x) +
-                                (transform.up * m_PositionOffset.y) +
-                                (transform.forward * m_PositionOffset.z);
+                transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(false);
+            }
 
-            transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.1f);
+            // hip fire
+            if (Input.GetMouseButton(1) == false || GetIsReloading == true)
+            {
+                GetIsADS = false;
 
-            transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(true);
+                Vector3 offsetPos = (transform.right * m_PositionOffset.x) +
+                                    (transform.up * m_PositionOffset.y) +
+                                    (transform.forward * m_PositionOffset.z);
+
+                transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
+                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.1f);
+
+                transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(true);
+            }
         }
         // Test ADS
     }
