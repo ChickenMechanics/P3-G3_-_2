@@ -164,9 +164,19 @@ public class HUDManager : MonoBehaviour
             m_ScoreTxt.text = score.ToString();
         }
 
-        float nextComboMeter = Mathf.Lerp(m_PrevComboMeter, GetZeroToOneRange(m_ScoreMan.GetChainTimeLeft, m_ScoreMan.GetBaseChainTime), 0.2f);
-        m_ComboMeterImg.fillAmount = nextComboMeter;
-        m_PrevComboMeter = nextComboMeter;
+        float translatedToRange = GetZeroToOneRange(m_ScoreMan.GetChainTimeLeft, m_ScoreMan.GetBaseChainTime);
+        if(translatedToRange < 0.98f && translatedToRange > 0.97f)
+        {
+            m_ComboMeterImg.enabled = false;
+            m_ComboMeterImg.fillAmount = 1.0f;
+            m_ComboMeterImg.enabled = true;
+        }
+        if (translatedToRange < 1.0f && translatedToRange >= 0.0f)
+        {
+            float nextComboMeter = Mathf.Lerp(m_PrevComboMeter, translatedToRange, 0.2f);
+            m_ComboMeterImg.fillAmount = nextComboMeter;
+            m_PrevComboMeter = nextComboMeter;
+        }
 
         m_ChainTxt.text = m_ScoreMan.GetCurrentChain.ToString();
 
@@ -183,7 +193,6 @@ public class HUDManager : MonoBehaviour
             float longestChain = TruncateFloat(m_ScoreMan.GetLongestChain, m_ScoreComboDecimalPoints);
             m_LongestChain.text = longestChain.ToString();
         }
-
 
         // waves
         {
