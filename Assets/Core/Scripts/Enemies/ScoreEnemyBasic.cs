@@ -11,20 +11,19 @@ public class ScoreEnemyBasic : MonoBehaviour
     #endregion
 
     private ScoreManager m_ScoreManager;
+    private GameObject m_DebugHealthBar;
+    [HideInInspector]
+    public float GetBaseHealth { private set; get; }
+    [HideInInspector]
+    public float GetCurrentHealth { private set; get; }
 
 
     //----------------------------------------------------------------------------------------------------
 
 
-    public float GetHealth()
-    {
-        return m_Health;
-    }
-
-
     public void DecreaseHealth(float value)
     {
-        m_Health -= value;
+        GetCurrentHealth -= value;
     }
 
 
@@ -41,6 +40,14 @@ public class ScoreEnemyBasic : MonoBehaviour
         {
             m_ScoreManager = scoreMan;
         }
+
+        GetBaseHealth = m_Health;
+        GetCurrentHealth = GetBaseHealth;
+
+#if DEBUG
+        GameObject resource = (GameObject)Resources.Load("Prefabs/DebugEnemyHealth");
+        m_DebugHealthBar = Instantiate(resource, transform.position, Quaternion.identity, transform);
+#endif
     }
 
 
@@ -64,7 +71,7 @@ public class ScoreEnemyBasic : MonoBehaviour
     private void Update()
     {
         // Killed
-        if (m_Health <= 0.0f)
+        if (GetCurrentHealth <= 0.0f)
         {
             if(m_ScoreManager != null)
             {

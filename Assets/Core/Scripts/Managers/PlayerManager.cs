@@ -47,7 +47,6 @@ public class PlayerManager : MonoBehaviour
 
         GameObject resource = (GameObject)Resources.Load("Prefabs/Player");
         GetPlayer = Instantiate(resource, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity, transform);
-        GetPlayer.transform.parent = transform;
 
         GetPlayerCtrlScr = GetPlayer.GetComponent<PlayerCtrl>();
         GetPlayerLookScr = GetPlayer.GetComponent<PlayerLook>();
