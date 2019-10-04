@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Crawler_test_texture
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP
-  m_LightmapFlags: 4
+  m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 9dbd991dc7764e54e91ac77d2f99e3d4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 68eeef813f187834786553d2d38a182d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -36,15 +36,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 2368d036c8221f843ad751df76ee25e1, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3e508b4e3a67a8449bd6f5450f7f5a29, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 750d0feff2d4ad8479ab9c43fab98316, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0b414a0d6f8b18143be7915088df4704, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: e224289885ab5b84682f93310a57b6bc, type: 3}
+        m_Texture: {fileID: 2800000, guid: 112155f9f95130b498bed0084bc7e768, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -74,4 +74,4 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.37892914, g: 0.37892914, b: 0.37892914, a: 1}
+    - _EmissionColor: {r: 0.8773585, g: 0, b: 0.04946822, a: 1}
