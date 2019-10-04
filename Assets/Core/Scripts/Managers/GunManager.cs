@@ -20,8 +20,8 @@ public class GunManager : MonoBehaviour
     private GunTemplate m_ActiveGunScr;
     private Transform m_tParent;
     private int m_ActiveGunIdx;
-    private int m_NumOfGuns;
     private int m_CurrentGunIdx;
+    private int m_NumOfGuns;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -35,11 +35,12 @@ public class GunManager : MonoBehaviour
 
     public void Init()
     {
-        m_NumOfGuns = 0;
+        m_NumOfGuns = -1;
 
         CreateGunInstances();
 
         m_ActiveGunIdx = m_DefaultGun;
+        m_CurrentGunIdx = m_ActiveGunIdx;
         ActiveGun = m_GunPrefabClone[m_ActiveGunIdx];
         ActiveGun.SetActive(true);
         m_ActiveGunScr = ActiveGun.GetComponent<GunTemplate>();
@@ -82,23 +83,21 @@ public class GunManager : MonoBehaviour
         float wheelDir = Input.GetAxisRaw("Mouse ScrollWheel");
         if (wheelDir != 0.0f)
         {
-            if (wheelDir != -0.1f)
+            if (wheelDir == 0.1f)
             {
                 ++m_CurrentGunIdx;
-                if (m_CurrentGunIdx > m_NumOfGuns - 1)
+                if (m_CurrentGunIdx > m_NumOfGuns)
                     m_CurrentGunIdx = 0;
             }
             else
             {
                 --m_CurrentGunIdx;
                 if (m_CurrentGunIdx < 0)
-                    m_CurrentGunIdx = m_NumOfGuns - 1;
+                    m_CurrentGunIdx = m_NumOfGuns;
             }
 
             SetActiveGun(m_CurrentGunIdx);
         }
-
-        
     }
 
 
