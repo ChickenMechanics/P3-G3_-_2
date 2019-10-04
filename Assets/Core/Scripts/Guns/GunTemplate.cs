@@ -33,7 +33,8 @@ public class GunTemplate : MonoBehaviour
     [HideInInspector]
     public int GetCurrentMagSize { private set; get; }
     private bool m_IsFiring;
-    private bool m_IsReloading;
+    [HideInInspector]
+    public bool GetIsReloading { private set; get; }
 
     private EGunState m_CurrentGunState;
     private Transform m_CameraPoint;
@@ -74,7 +75,7 @@ public class GunTemplate : MonoBehaviour
         GetCurrentMagSize = m_MagazineSize;
 
         m_IsFiring = false;
-        m_IsReloading = false;
+        GetIsReloading = false;
 
         m_CurrentGunState = EGunState.READY;
         m_CameraPoint = null;
@@ -127,10 +128,9 @@ public class GunTemplate : MonoBehaviour
 
             m_TimePastSinceLastFire = 0.0f;
             --GetCurrentMagSize;
+            m_IsFiring = false;
 
             bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
-
-            m_IsFiring = false;
             m_CurrentGunState = EGunState.READY;
         }
     }
@@ -140,12 +140,22 @@ public class GunTemplate : MonoBehaviour
     {
         if (GetCurrentReloadTime < 0.0f)
         {
-            m_IsReloading = false;
+            GetIsReloading = false;
             m_TimePastSinceLastFire = 0.0f;
             GetCurrentMagSize = m_MagazineSize;
             GetCurrentReloadTime = m_ReloadTimeInSec;
             m_CurrentGunState = EGunState.READY;
         }
+
+        //if(Input.GetMouseButton(0))
+        //{
+        //    m_TimePastSinceLastFire = 0.0f;
+        //    m_IsFiring = false;
+
+        //    m_IsReloading = false;
+        //    GetCurrentReloadTime = m_ReloadTimeInSec;
+        //    m_CurrentGunState = EGunState.READY;
+        //}
     }
 
 
@@ -164,20 +174,21 @@ public class GunTemplate : MonoBehaviour
         }
 
         // Reloading time
-        if(m_IsReloading == true)
+        if(GetIsReloading == true)
         {
-            GetCurrentReloadTime -= Time.deltaTime;  // Had to put this here because switches in C# is weird, or I'm weird...
+            GetCurrentReloadTime -= Time.deltaTime;  // Put this here because C# switches
         }
     }
 
 
     public void Fire(Transform cameraPoint)
     {
-        if (m_IsReloading == false)
+        if (GetIsReloading == false)
         {
             m_IsFiring = true;
             m_CameraPoint = cameraPoint;
 
+            // TODO: Fix this cheat for a recoil
             Vector3 lastPos = GunManager.GetInstance.ActiveGun.transform.position;
             Vector3 nextpos = new Vector3(
                 Random.Range(lastPos.x - 0.002f, lastPos.x + 0.002f),
@@ -191,11 +202,11 @@ public class GunTemplate : MonoBehaviour
 
     public void Reload()
     {
-        if(m_IsReloading == false)
+        if(GetIsReloading == false)
         {
             if(GetCurrentMagSize < m_MagazineSize)
             {
-                m_IsReloading = true;
+                GetIsReloading = true;
                 GetCurrentReloadTime = m_ReloadTimeInSec;
                 GetCurrentMagSize = 0;
                 m_CurrentGunState = EGunState.RELOADING;
@@ -236,7 +247,7 @@ public class GunTemplate : MonoBehaviour
 
         // Test ADS
         {
-            if (Input.GetMouseButton(1) == true && m_IsReloading == false)
+            if (Input.GetMouseButton(1) == true && GetIsReloading == false)
             {
                 Vector3 forward = transform.parent.forward * 0.2f;
                 Vector3 down = transform.parent.up * -0.4f;
@@ -244,20 +255,20 @@ public class GunTemplate : MonoBehaviour
                 transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
                 Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
 
-                transform.parent.transform.Find("CrosshairCanvas").gameObject.SetActive(false);
+                transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(false);
             }
         }
 
-        if (Input.GetMouseButton(1) == false || m_IsReloading == true)
+        if (Input.GetMouseButton(1) == false || GetIsReloading == true)
         {
             Vector3 offsetPos = (transform.right * m_PositionOffset.x) +
                                 (transform.up * m_PositionOffset.y) +
                                 (transform.forward * m_PositionOffset.z);
 
             transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.15f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.1f);
 
-            transform.parent.transform.Find("CrosshairCanvas").gameObject.SetActive(true);
+            transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(true);
         }
         // Test ADS
     }

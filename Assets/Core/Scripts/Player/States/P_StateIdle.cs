@@ -10,9 +10,8 @@ public class P_StateIdle : IState
         m_Owner = (PlayerCtrl)controller;
     }
 
-
-    //public FSM m_Fsm { set; get; }    // perhaps?
     private PlayerCtrl m_Owner;
+    public bool GetIsAvailable { get; set; }
 
 
     //----------------------------------------------------------------------------------------------------
