@@ -45,14 +45,12 @@ public class GunTemplate : MonoBehaviour
     private EGunState m_CurrentGunState;
     private Transform m_CameraPoint;
 
-    // Test
-
-    // Test
+    private Vector2 m_BulletSpreadDirs;
 
     private enum EGunState
     {
         READY = 0,
-        SHOOTING,
+        FIRING,
         RELOADING,
         SIZE
     }
@@ -86,32 +84,34 @@ public class GunTemplate : MonoBehaviour
 
         m_CurrentGunState = EGunState.READY;
         m_CameraPoint = null;
+
+        m_BulletSpreadDirs = Vector2.zero;
     }
 
 
-    private void GunState()
+    private void GunStateUpdate()
     {
         switch ((int)m_CurrentGunState)
         {
-            case (int)EGunState.READY:      GunReady();     break;
-            case (int)EGunState.SHOOTING:   GunFiring();    break;
-            case (int)EGunState.RELOADING:  GunReloading(); break;
+            case (int)EGunState.READY:      GunReadyState();     break;
+            case (int)EGunState.FIRING:   GunFiringState();    break;
+            case (int)EGunState.RELOADING:  GunReloadingState(); break;
         }
     }
 
 
-    private void GunReady()
+    private void GunReadyState()
     {
         if (m_IsFiring == true)
         {
-            m_CurrentGunState = EGunState.SHOOTING;
+            m_CurrentGunState = EGunState.FIRING;
 
             m_IsFiring = false;
         }
     }
 
 
-    private void GunFiring()
+    private void GunFiringState()
     {
         if (m_TimePastSinceLastFire >= m_Rpm)
         {
@@ -140,20 +140,7 @@ public class GunTemplate : MonoBehaviour
             --GetCurrentMagSize;
             m_IsFiring = false;
 
-            if(GetIsADS != true)
-            {
-                float ranNumX = Random.Range(-m_HipSpread, m_HipSpread);
-                float ranNumY = Random.Range(-m_HipSpread, m_HipSpread);
-
-                raycastedDir += new Vector3(ranNumX, ranNumY, 0.0f);
-            }
-            else
-            {
-                float ranNumX = Random.Range(-m_AdsSpread, m_AdsSpread);
-                float ranNumY = Random.Range(-m_AdsSpread, m_AdsSpread);
-
-                raycastedDir += new Vector3(ranNumX, ranNumY, 0.0f);
-            }
+            raycastedDir += new Vector3(m_BulletSpreadDirs.x, m_BulletSpreadDirs.y, 0.0f);
 
             bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
             m_CurrentGunState = EGunState.READY;
@@ -161,7 +148,7 @@ public class GunTemplate : MonoBehaviour
     }
 
 
-    private void GunReloading()
+    private void GunReloadingState()
     {
         if (GetCurrentReloadTime < 0.0f)
         {
@@ -174,7 +161,7 @@ public class GunTemplate : MonoBehaviour
     }
 
 
-    private void UpdateMagazine()
+    private void MagUpdate()
     {
         // Rate of fire
         if (m_TimePastSinceLastFire < m_Rpm)
@@ -191,7 +178,50 @@ public class GunTemplate : MonoBehaviour
         // Reloading time
         if(GetIsReloading == true)
         {
-            GetCurrentReloadTime -= Time.deltaTime;  // Put this here because C# switches
+            GetCurrentReloadTime -= Time.deltaTime;  // put this here because something with c# switches
+        }
+    }
+
+
+    private void AimPosUpdate()
+    {
+        // ads fire
+        if (Input.GetMouseButton(1) == true &&
+            GetIsReloading == false)
+        {
+            GetIsADS = true;
+
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
+
+            m_BulletSpreadDirs.x = Random.Range(-m_AdsSpread, m_AdsSpread);
+            m_BulletSpreadDirs.y = Random.Range(-m_AdsSpread, m_AdsSpread);
+
+            Vector3 forward = transform.parent.forward * 0.2f;
+            Vector3 down = transform.parent.up * -0.4f;
+
+            transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
+
+            transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(false);
+        }
+
+        // hip fire
+        if (Input.GetMouseButton(1) == false ||
+            GetIsReloading == true)
+        {
+            GetIsADS = false;
+
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.1f);
+
+            m_BulletSpreadDirs.x = Random.Range(-m_HipSpread, m_HipSpread);
+            m_BulletSpreadDirs.y = Random.Range(-m_HipSpread, m_HipSpread);
+
+            Vector3 offsetPos = (transform.right * m_PositionOffset.x) +
+                                (transform.up * m_PositionOffset.y) +
+                                (transform.forward * m_PositionOffset.z);
+
+            transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
+
+            transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(true);
         }
     }
 
@@ -256,40 +286,8 @@ public class GunTemplate : MonoBehaviour
 
     private void Update()
     {
-        GunState();
-        UpdateMagazine();
-
-        // Test ADS
-        {
-            // ads fire
-            if (Input.GetMouseButton(1) == true && GetIsReloading == false)
-            {
-                GetIsADS = true;
-
-                Vector3 forward = transform.parent.forward * 0.2f;
-                Vector3 down = transform.parent.up * -0.4f;
-
-                transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
-                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
-
-                transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(false);
-            }
-
-            // hip fire
-            if (Input.GetMouseButton(1) == false || GetIsReloading == true)
-            {
-                GetIsADS = false;
-
-                Vector3 offsetPos = (transform.right * m_PositionOffset.x) +
-                                    (transform.up * m_PositionOffset.y) +
-                                    (transform.forward * m_PositionOffset.z);
-
-                transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
-                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.1f);
-
-                transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(true);
-            }
-        }
-        // Test ADS
+        GunStateUpdate();
+        MagUpdate();
+        AimPosUpdate();
     }
 }
