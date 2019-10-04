@@ -11,7 +11,7 @@ public class GunTemplate : MonoBehaviour
 
     [Header("Properties")]
     public int m_RoundsPerMinute = 500;
-    public int m_MagazineSize = 30;
+    public int m_MagSizeTotal = 30;
     public float m_ReloadTimeInSec = 1.0f;
 
     [Header("Bullet Prefab")]
@@ -72,7 +72,7 @@ public class GunTemplate : MonoBehaviour
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
 
         GetCurrentReloadTime = m_ReloadTimeInSec;
-        GetCurrentMagSize = m_MagazineSize;
+        GetCurrentMagSize = m_MagSizeTotal;
 
         m_IsFiring = false;
         GetIsReloading = false;
@@ -142,17 +142,14 @@ public class GunTemplate : MonoBehaviour
         {
             GetIsReloading = false;
             m_TimePastSinceLastFire = 0.0f;
-            GetCurrentMagSize = m_MagazineSize;
+            GetCurrentMagSize = m_MagSizeTotal;
             GetCurrentReloadTime = m_ReloadTimeInSec;
             m_CurrentGunState = EGunState.READY;
         }
 
-        //if(Input.GetMouseButton(0))
+        //if (Input.GetMouseButton(0))
         //{
-        //    m_TimePastSinceLastFire = 0.0f;
-        //    m_IsFiring = false;
-
-        //    m_IsReloading = false;
+        //    GetIsReloading = false;
         //    GetCurrentReloadTime = m_ReloadTimeInSec;
         //    m_CurrentGunState = EGunState.READY;
         //}
@@ -204,11 +201,10 @@ public class GunTemplate : MonoBehaviour
     {
         if(GetIsReloading == false)
         {
-            if(GetCurrentMagSize < m_MagazineSize)
+            if(GetCurrentMagSize < m_MagSizeTotal)
             {
                 GetIsReloading = true;
                 GetCurrentReloadTime = m_ReloadTimeInSec;
-                GetCurrentMagSize = 0;
                 m_CurrentGunState = EGunState.RELOADING;
             }
         }
@@ -246,17 +242,15 @@ public class GunTemplate : MonoBehaviour
         UpdateMagazine();
 
         // Test ADS
+        if (Input.GetMouseButton(1) == true && GetIsReloading == false)
         {
-            if (Input.GetMouseButton(1) == true && GetIsReloading == false)
-            {
-                Vector3 forward = transform.parent.forward * 0.2f;
-                Vector3 down = transform.parent.up * -0.4f;
+            Vector3 forward = transform.parent.forward * 0.2f;
+            Vector3 down = transform.parent.up * -0.4f;
 
-                transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
-                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
+            transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
 
-                transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(false);
-            }
+            transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(false);
         }
 
         if (Input.GetMouseButton(1) == false || GetIsReloading == true)

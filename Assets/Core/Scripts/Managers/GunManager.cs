@@ -63,7 +63,7 @@ public class GunManager : MonoBehaviour
 
     public void Fire()   // Dir equals player camera transform forward
     {
-        if (Input.GetMouseButton(0))
+        if(Input.GetMouseButton(0))
         {
             m_ActiveGunScr.Fire(m_tParent);
         }
@@ -76,12 +76,6 @@ public class GunManager : MonoBehaviour
         {
             m_ActiveGunScr.Reload();
         }
-    }
-
-
-    public void Weaponswitching()
-    {
-        ScrollWeapons();
     }
 
 
