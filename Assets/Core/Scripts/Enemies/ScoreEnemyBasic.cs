@@ -42,11 +42,11 @@ public class ScoreEnemyBasic : MonoBehaviour
     {
         if (other.gameObject.layer == 13)    // == projectile
         {
+            DecreaseHealth(other.GetComponent<BulletBehaviour>().GetDamageValue());
 #if DEBUG
             if(SoundManager.GetInstance != null)
 #endif
             {
-                DecreaseHealth(other.GetComponent<BulletBehaviour>().GetDamageValue());
                 SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_BULLET_DAMAGE, other.transform.position);
             }
         }
