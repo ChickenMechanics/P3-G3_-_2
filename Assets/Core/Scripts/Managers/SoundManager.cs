@@ -48,6 +48,7 @@ public class SoundManager : MonoBehaviour
     }
 
     public List<SoundClip> m_SoundClips;
+    private GameObject m_AudioFolder;
 
 
     // ----------------------------------------------------------------------------------------------------
@@ -55,14 +56,15 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySoundClip(ESoundClip soundClipKey, Vector3 position, float startDelay = 0.0f, float dopplerLvl = 0.0f)
     {
-        if(CanPlaySound(soundClipKey) == true)
+        if (CanPlaySound(soundClipKey) == true)
         {
             if (startDelay != 0.0f)
             {
                 startDelay = 44100.0f * startDelay; // seconds to Hz
             }
 
-            GameObject go = new GameObject("PlayerSoundClip");
+            GameObject go = new GameObject("Sound");
+            go.transform.parent = m_AudioFolder.transform;
             go.transform.position = position;
             AudioSource source = go.AddComponent<AudioSource>();
             source.clip = m_SoundClips[(int)soundClipKey].m_AudioClip;
@@ -71,6 +73,8 @@ public class SoundManager : MonoBehaviour
             source.rolloffMode = AudioRolloffMode.Linear;
             source.dopplerLevel = dopplerLvl;
             source.PlayDelayed((ulong)startDelay);
+
+            Destroy(go, source.clip.length);
         }
     }
 
@@ -127,6 +131,9 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
         GetInstance = this;
+
+        m_AudioFolder = new GameObject("AudioFolder");
+        m_AudioFolder.transform.parent = transform;
 
         SoundClip[] tmp = m_SoundClips.ToArray();
         m_SoundClips.Clear();

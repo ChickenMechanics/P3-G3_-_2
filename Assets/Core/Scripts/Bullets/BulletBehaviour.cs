@@ -36,6 +36,12 @@ public class BulletBehaviour : MonoBehaviour
     private float m_CurrentLifeTime;
 
 
+    public float GetDamageValue()
+    {
+        return m_DamageValue;
+    }
+
+
     public void InitBullet()
     {
         m_Rb = GetComponent<Rigidbody>();
@@ -148,25 +154,16 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // TODO: If time, move vfx things to it's own script
+        // TODO: if time, move vfx things to it's own script
+#if DEBUG
         if (m_WallClashParticle != null)
+#endif
         {
-            m_WallClash.transform.parent = null;
             m_WallClash.transform.position = transform.position;
             m_WallClash.Play();
         }
 
-        // Projectiles might pass thru some type of force fileds or whatever so some conditional are needed
-        if (other.CompareTag("Enemy"))
-        {
-            other.GetComponent<ScoreEnemyBasic>().DecreaseHealth(m_DamageValue);
-        }
-        //else if (other.CompareTag("DestroyBullet"))   // I guess in case something unique should happen
-        //{
-        //    Destroy(this);
-        //}
-
-        Destroy(gameObject);
+        Destroy(gameObject, m_WallClashParticle.GetComponent<ParticleSystem>().main.duration);
     }
 
 
