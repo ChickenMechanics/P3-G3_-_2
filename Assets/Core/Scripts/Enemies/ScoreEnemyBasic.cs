@@ -88,7 +88,6 @@ public class ScoreEnemyBasic : MonoBehaviour
 #endif
             {
                 SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_DEATH, transform.position);
-                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.SCORE_POINTS_BASIC, transform.position);
             }
 
             Destroy(gameObject);

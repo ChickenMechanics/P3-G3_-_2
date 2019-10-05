@@ -9,21 +9,23 @@ public class SoundManager : MonoBehaviour
     public enum ESoundClip
     {
         // music ------------------------------------------------------------------------------------------
-        MUSIC_MAIN_MENU,
+        //MUSIC_MAIN_MENU,
         MUSIC_GAMEPLAY,
         // score -----------------------------------------------------------------------------------------
-        SCORE_POINTS_BASIC,
+        //SCORE_POINTS_BASIC,
         // player -----------------------------------------------------------------------------------------
-        PLAYER_WALK,
-        PLAYER_TAKE_DAMAGE,
-        PLAYER_DEATH,
+        //PLAYER_WALK,
+        //PLAYER_TAKE_DAMAGE,
+        //PLAYER_DEATH,
         // gun
-        GUN_AUTOFIRE_SHOT,
-        GUN_AUTOFIRE_RELOAD,
+        GUN_AR1_SHOT,
+        //GUN_AR1_RELOAD,
+        //GUN_AR2_SHOT,
+        //GUN_AR2_RELOAD,
         // bullet -----------------------------------------------------------------------------------------
-        BULLET_AUTOFIRE_DESTROY,
+        //BULLET_AUTOFIRE_DESTROY,
         // enemy ------------------------------------------------------------------------------------------
-        CRAWLER_SPAWN,
+        //CRAWLER_SPAWN,
         CRAWLER_BULLET_DAMAGE,
         CRAWLER_DEATH,
         // size / needed for code -------------------------------------------------------------------------
@@ -42,13 +44,19 @@ public class SoundManager : MonoBehaviour
     {
         public ESoundClip m_ESound;
         public AudioClip m_AudioClip;
-        public float m_TimeTriggerThreshhold;
+        public float m_SpecialBlend = 0.5f;
+        public float m_MaxTriggerInterval = 0.0f;
+        public bool m_Loop = false;
         [HideInInspector]
         public float m_PrevTime;
     }
 
+    [Range(0.0f, 100.0f)]
+    public float m_MasterVolume = 100.0f;
     public List<SoundClip> m_SoundClips;
+
     private GameObject m_AudioFolder;
+    private float m_VolumeScaler;
 
 
     // ----------------------------------------------------------------------------------------------------
@@ -64,16 +72,18 @@ public class SoundManager : MonoBehaviour
             }
 
             GameObject go = new GameObject("Sound");
-            go.transform.parent = m_AudioFolder.transform;
             go.transform.position = position;
+            go.transform.parent = m_AudioFolder.transform;
             AudioSource source = go.AddComponent<AudioSource>();
             source.clip = m_SoundClips[(int)soundClipKey].m_AudioClip;
+            source.spatialBlend = m_SoundClips[(int)soundClipKey].m_SpecialBlend;
+            source.loop = m_SoundClips[(int)soundClipKey].m_Loop;
+            source.volume = m_VolumeScaler;
             source.maxDistance = 100.0f;
-            source.spatialBlend = 1.0f;
             source.rolloffMode = AudioRolloffMode.Linear;
             source.dopplerLevel = dopplerLvl;
-            source.PlayDelayed((ulong)startDelay);
-
+            //source.PlayDelayed((ulong)startDelay);
+            source.PlayOneShot(source.clip);
             Destroy(go, source.clip.length);
         }
     }
@@ -83,8 +93,8 @@ public class SoundManager : MonoBehaviour
     {
         switch(soundClipKey)
         {
-            case ESoundClip.PLAYER_WALK:
-                return TimeChecker(soundClipKey);
+            //case ESoundClip.PLAYER_WALK:
+            //    return TimeChecker(soundClipKey);
                 //break;
 
             default: return true;
@@ -98,9 +108,9 @@ public class SoundManager : MonoBehaviour
         {
             if (m_SoundClips[i].m_ESound == soundClipKey)
             {
-                if (m_SoundClips[i].m_TimeTriggerThreshhold > 0.0f)
+                if (m_SoundClips[i].m_MaxTriggerInterval > 0.0f)
                 {
-                    float localTimer = m_SoundClips[i].m_TimeTriggerThreshhold;
+                    float localTimer = m_SoundClips[i].m_MaxTriggerInterval;
                     float prevTime = m_SoundClips[i].m_PrevTime;
                     float timeNow = Time.time;
                     if (timeNow > localTimer + prevTime)
@@ -133,7 +143,7 @@ public class SoundManager : MonoBehaviour
         GetInstance = this;
 
         m_AudioFolder = new GameObject("AudioFolder");
-        m_AudioFolder.transform.parent = transform;
+        m_AudioFolder.transform.position = Vector3.zero;
 
         SoundClip[] tmp = m_SoundClips.ToArray();
         m_SoundClips.Clear();
@@ -147,5 +157,9 @@ public class SoundManager : MonoBehaviour
         {
             m_SoundClips[(int)tmp[i].m_ESound] = tmp[i];
         }
+
+        m_VolumeScaler = m_MasterVolume / 100.0f;
+
+        //PlaySoundClip(ESoundClip.MUSIC_GAMEPLAY, new Vector3(0.0f, 10.0f, 0.0f));
     }
 }

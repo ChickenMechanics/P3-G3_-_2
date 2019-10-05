@@ -43,20 +43,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91bc3c78065ada43be3d23ced42e423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MasterVolume: 25.5
   m_SoundClips:
-  - m_ESound: 6
-    m_AudioClip: {fileID: 8300000, guid: 2a89d82f3b7365d4589bfd552f5171a8, type: 3}
-    m_TimeTriggerThreshhold: 0
-    m_PrevTime: 0
-  - m_ESound: 10
-    m_AudioClip: {fileID: 8300000, guid: 9b096092285c67149b55601a2f8a04b2, type: 3}
-    m_TimeTriggerThreshhold: 0
-    m_PrevTime: 0
-  - m_ESound: 11
-    m_AudioClip: {fileID: 8300000, guid: 497f9c1b3eba73d438aa16c8a74cf291, type: 3}
-    m_TimeTriggerThreshhold: 0
+  - m_ESound: 1
+    m_AudioClip: {fileID: 8300000, guid: c539dc9d7f43e0442a3e3e23d7ba09d1, type: 3}
+    m_SpecialBlend: 0
+    m_MaxTriggerInterval: 0
+    m_Loop: 0
     m_PrevTime: 0
   - m_ESound: 2
+    m_AudioClip: {fileID: 8300000, guid: 9b096092285c67149b55601a2f8a04b2, type: 3}
+    m_SpecialBlend: 0
+    m_MaxTriggerInterval: 0
+    m_Loop: 0
+    m_PrevTime: 0
+  - m_ESound: 3
     m_AudioClip: {fileID: 8300000, guid: 086104ed9d2c9ff4782b62788fbd17e1, type: 3}
-    m_TimeTriggerThreshhold: 0
+    m_SpecialBlend: 0.5
+    m_MaxTriggerInterval: 0
+    m_Loop: 0
+    m_PrevTime: 0
+  - m_ESound: 0
+    m_AudioClip: {fileID: 8300000, guid: 7f2321e3ad16e8c42af1016022332833, type: 3}
+    m_SpecialBlend: 1
+    m_MaxTriggerInterval: 0
+    m_Loop: 0
     m_PrevTime: 0

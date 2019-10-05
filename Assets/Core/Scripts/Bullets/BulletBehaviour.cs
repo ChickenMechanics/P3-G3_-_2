@@ -163,7 +163,7 @@ public class BulletBehaviour : MonoBehaviour
             m_WallClash.Play();
         }
 
-        Destroy(gameObject, m_WallClashParticle.GetComponent<ParticleSystem>().main.duration);
+        Destroy(gameObject, m_WallClash.main.duration);
     }
 
 

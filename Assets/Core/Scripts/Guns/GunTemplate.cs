@@ -147,7 +147,7 @@ public class GunTemplate : MonoBehaviour
             if(SoundManager.GetInstance != null)
 #endif
             {
-                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_AUTOFIRE_SHOT, Camera.main.transform.position);
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_AR1_SHOT, transform.position);
             }
             
             bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
