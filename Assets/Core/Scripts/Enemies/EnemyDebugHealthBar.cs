@@ -11,7 +11,6 @@ public class EnemyDebugHealthBar : MonoBehaviour
     private Vector3 m_PosOffset;
     
 
-
     private void Awake()
     {
         transform.Find("HealthCanvas").GetComponent<Canvas>().worldCamera = Camera.main;

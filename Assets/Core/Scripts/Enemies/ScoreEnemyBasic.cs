@@ -24,13 +24,7 @@ public class ScoreEnemyBasic : MonoBehaviour
     public void DecreaseHealth(float value)
     {
         GetCurrentHealth -= value;
-    }
-
-
-    private void FlipMaterialColorOnDmgTaken()
-    {
-
-    }   
+    } 
 
 
     private void Awake()
@@ -70,7 +64,6 @@ public class ScoreEnemyBasic : MonoBehaviour
 
     private void Update()
     {
-        // Killed
         if (GetCurrentHealth <= 0.0f)
         {
             if(m_ScoreManager != null)
