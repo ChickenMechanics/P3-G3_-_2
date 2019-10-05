@@ -11,6 +11,8 @@ public class SoundManager : MonoBehaviour
         // music ------------------------------------------------------------------------------------------
         MUSIC_MAIN_MENU,
         MUSIC_GAMEPLAY,
+        // score -----------------------------------------------------------------------------------------
+        SCORE_POINTS_BASIC,
         // player -----------------------------------------------------------------------------------------
         PLAYER_WALK,
         PLAYER_TAKE_DAMAGE,
@@ -22,7 +24,7 @@ public class SoundManager : MonoBehaviour
         BULLET_AUTOFIRE_DESTROY,
         // enemy ------------------------------------------------------------------------------------------
         CRAWLER_SPAWN,
-        CRAWLER_TAKE_DAMAGE,
+        CRAWLER_BULLET_DAMAGE,
         CRAWLER_DEATH,
         // size / needed for code -------------------------------------------------------------------------
         SIZE
@@ -45,19 +47,30 @@ public class SoundManager : MonoBehaviour
         public float m_PrevTime;
     }
 
-    public SoundClip[] m_SoundClips;
+    public List<SoundClip> m_SoundClips;
 
 
     // ----------------------------------------------------------------------------------------------------
 
 
-    public void PlaySoundClip(ESoundClip soundClipKey)
+    public void PlaySoundClip(ESoundClip soundClipKey, Vector3 position, float startDelay = 0.0f, float dopplerLvl = 0.0f)
     {
         if(CanPlaySound(soundClipKey) == true)
         {
+            if (startDelay != 0.0f)
+            {
+                startDelay = 44100.0f * startDelay; // seconds to Hz
+            }
+
             GameObject go = new GameObject("PlayerSoundClip");
+            go.transform.position = position;
             AudioSource source = go.AddComponent<AudioSource>();
-            source.PlayOneShot(m_SoundClips[(int)soundClipKey].m_AudioClip);
+            source.clip = m_SoundClips[(int)soundClipKey].m_AudioClip;
+            source.maxDistance = 100.0f;
+            source.spatialBlend = 1.0f;
+            source.rolloffMode = AudioRolloffMode.Linear;
+            source.dopplerLevel = dopplerLvl;
+            source.PlayDelayed((ulong)startDelay);
         }
     }
 
@@ -70,7 +83,7 @@ public class SoundManager : MonoBehaviour
                 return TimeChecker(soundClipKey);
                 //break;
 
-            default: return false;
+            default: return true;
         }
     }
 
@@ -114,5 +127,18 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
         GetInstance = this;
+
+        SoundClip[] tmp = m_SoundClips.ToArray();
+        m_SoundClips.Clear();
+        m_SoundClips.Capacity = (int)ESoundClip.SIZE;
+        for (int i = 0; i < m_SoundClips.Capacity; ++i)
+        {
+            m_SoundClips.Add(null);
+        }
+
+        for(int i = 0; i < tmp.Length; ++i)
+        {
+            m_SoundClips[(int)tmp[i].m_ESound] = tmp[i];
+        }
     }
 }

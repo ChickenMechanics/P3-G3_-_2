@@ -142,6 +142,7 @@ public class GunTemplate : MonoBehaviour
 
             raycastedDir += new Vector3(m_BulletSpreadDirs.x, m_BulletSpreadDirs.y, 0.0f);
 
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_AUTOFIRE_SHOT, Camera.main.transform.position); ;
             bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
             m_CurrentGunState = EGunState.READY;
         }

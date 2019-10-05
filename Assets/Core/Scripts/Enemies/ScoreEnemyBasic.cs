@@ -10,7 +10,9 @@ public class ScoreEnemyBasic : MonoBehaviour
     public float m_ExplosiveDamage = 25.0f;
     #endregion
 
-    private ScoreManager m_ScoreManager;
+    private PlayerManager m_PlayerManScr;
+    private ScoreManager m_ScoreManScr;
+    private SoundManager m_SoundManScr;
     private GameObject m_DebugHealthBar;
     [HideInInspector]
     public float GetBaseHealth { private set; get; }
@@ -29,10 +31,22 @@ public class ScoreEnemyBasic : MonoBehaviour
 
     private void Awake()
     {
-        ScoreManager scoreMan = FindObjectOfType<ScoreManager>();
+        PlayerManager playerMan = PlayerManager.GetInstance;
+        if (playerMan != null)
+        {
+            m_PlayerManScr = playerMan;
+        }
+
+        ScoreManager scoreMan = ScoreManager.GetInstance;
         if (scoreMan != null)
         {
-            m_ScoreManager = scoreMan;
+            m_ScoreManScr = scoreMan;
+        }
+
+        SoundManager soundMan = SoundManager.GetInstance;
+        if (soundMan != null)
+        {
+            m_SoundManScr = soundMan;
         }
 
         GetBaseHealth = m_Health;
@@ -47,15 +61,31 @@ public class ScoreEnemyBasic : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Self destructed
-        if(other.gameObject.layer == 8)     // 8 == Player
+        if (other.gameObject.layer == 13)    // == projectile
         {
-            if (m_ScoreManager != null)
+#if DEBUG
+            if(m_SoundManScr != null)
+#endif
             {
-                m_ScoreManager.AddComboPoints(m_ScoreValue);
+                m_SoundManScr.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_BULLET_DAMAGE, other.transform.position);
             }
+        }
 
-            PlayerManager.GetInstance.DecreaseHealth(m_ExplosiveDamage);
+        // Self destructed
+        if (other.gameObject.layer == 8)     // 8 == player
+        {
+//#if DEBUG
+//            if (m_ScoreManScr != null)
+//#endif
+//            {
+//                m_ScoreManScr.AddComboPoints(m_ScoreValue);
+//            }
+#if DEBUG
+            if (m_PlayerManScr != null)
+#endif
+            {
+                m_PlayerManScr.DecreaseHealth(m_ExplosiveDamage);
+            }
 
             Destroy(gameObject);
         }
@@ -66,9 +96,19 @@ public class ScoreEnemyBasic : MonoBehaviour
     {
         if (GetCurrentHealth <= 0.0f)
         {
-            if(m_ScoreManager != null)
+#if DEBUG
+            if (m_ScoreManScr != null)
+#endif
             {
-                m_ScoreManager.AddComboPoints(m_ScoreValue);
+                m_ScoreManScr.AddComboPoints(m_ScoreValue);
+            }
+
+#if DEBUG
+            if (m_SoundManScr != null)
+#endif
+            {
+                m_SoundManScr.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_DEATH, transform.position);
+                m_SoundManScr.PlaySoundClip(SoundManager.ESoundClip.SCORE_POINTS_BASIC, transform.position);
             }
 
             Destroy(gameObject);
