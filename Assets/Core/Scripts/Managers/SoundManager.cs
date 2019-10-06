@@ -51,8 +51,8 @@ public class SoundManager : MonoBehaviour
         public float m_PrevTime;
     }
 
-    [Range(0.0f, 100.0f)]
-    public float m_MasterVolume = 100.0f;
+    //[Range(0.0f, 100.0f)]
+    private float m_MasterVolume = 25.0f;
     public List<SoundClip> m_SoundClips;
 
     private GameObject m_AudioFolder;
@@ -94,6 +94,10 @@ public class SoundManager : MonoBehaviour
         switch(soundClipKey)
         {
             case ESoundClip.CRAWLER_DEATH:
+                return TimeChecker(soundClipKey);
+                //break;
+
+            case ESoundClip.CRAWLER_AR_DAMAGE:
                 return TimeChecker(soundClipKey);
                 //break;
 
@@ -144,6 +148,7 @@ public class SoundManager : MonoBehaviour
 
         m_AudioFolder = new GameObject("AudioFolder");
         m_AudioFolder.transform.position = Vector3.zero;
+        m_AudioFolder.transform.parent = transform;
 
         SoundClip[] tmp = m_SoundClips.ToArray();
         m_SoundClips.Clear();
@@ -179,16 +184,15 @@ public class SoundManager : MonoBehaviour
         List<string> tunes = new List<string> { "HempressSativa-RockItInaDance", "Protoje-Protection", "Protoje-WhoKnows", "SamoryI-RastaNuhGangsta" };
         for (int i = 0; i < tunes.Count; ++i)
         {
-            GameObject go = new GameObject("Sound");
+            GameObject go = new GameObject("tunes");
             m_SuperSecret.Add(go);
             go.transform.position = Camera.main.transform.position;
             go.transform.parent = m_AudioFolder.transform;
             AudioSource source = go.AddComponent<AudioSource>();
             source.clip = (AudioClip)Resources.Load("SecretStash/" + tunes[i]);
-            source.loop = true;
-            float volume = m_VolumeScaler - 0.6f;
-            if (volume < 0.0f) volume = 0.0f;
-            source.volume = volume;
+            source.playOnAwake = false;
+            source.loop = false;
+            source.volume = m_VolumeScaler;
             source.maxDistance = 100.0f;
             source.rolloffMode = AudioRolloffMode.Linear;
             source.dopplerLevel = 0.0f;
