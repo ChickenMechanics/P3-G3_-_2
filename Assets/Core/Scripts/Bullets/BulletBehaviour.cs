@@ -36,6 +36,9 @@ public class BulletBehaviour : MonoBehaviour
     private float m_CurrentLifeTime;
 
 
+    // ----------------------------------------------------------------------------------------------------
+
+
     public float GetDamageValue()
     {
         return m_DamageValue;

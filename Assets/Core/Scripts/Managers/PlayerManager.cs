@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour
         Destroy(GetComponent<MeshFilter>());
 
         GameObject resource = (GameObject)Resources.Load("Prefabs/Player");
-        GetPlayer = Instantiate(resource, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity, transform);
+        GetPlayer = Instantiate(resource, transform.position + new Vector3(0.0f, 2.0f, 0.0f), Quaternion.identity, transform);
 
         GetPlayerCtrlScr = GetPlayer.GetComponent<PlayerCtrl>();
         GetPlayerLookScr = GetPlayer.GetComponent<PlayerLook>();

@@ -1812,11 +1812,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_SoundClips.Array.data[2].m_MaxTriggerInterval
-      value: 0.075
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78ec3ab3982babe4085c0183603b6d31, type: 3}
 --- !u!4 &1003054052 stripped

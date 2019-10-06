@@ -59,6 +59,6 @@ MonoBehaviour:
   - m_ESound: 2
     m_AudioClip: {fileID: 8300000, guid: 086104ed9d2c9ff4782b62788fbd17e1, type: 3}
     m_SpecialBlend: 0.8
-    m_MaxTriggerInterval: 0.05
+    m_MaxTriggerInterval: 0.075
     m_Loop: 0
     m_PrevTime: 0
