@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
     {
         // music ------------------------------------------------------------------------------------------
         //MUSIC_MAIN_MENU,
-        MUSIC_GAMEPLAY,
+        //MUSIC_GAMEPLAY,
         // score -----------------------------------------------------------------------------------------
         //SCORE_POINTS_BASIC,
         // player -----------------------------------------------------------------------------------------
@@ -160,6 +160,84 @@ public class SoundManager : MonoBehaviour
 
         m_VolumeScaler = m_MasterVolume / 100.0f;
 
-        //PlaySoundClip(ESoundClip.MUSIC_GAMEPLAY, new Vector3(0.0f, 10.0f, 0.0f));
+#if DEBUG
+        WhatsThis();
+#endif
     }
+
+
+    #region the stash
+#if DEBUG
+    private List<GameObject> m_SuperSecret;
+    private AudioSource m_NowSource;
+    private int nowIdx;
+    private int nxtIdx;
+    private bool IsPaused;
+    private void WhatsThis()
+    {
+        m_SuperSecret = new List<GameObject>();
+        List<string> tunes = new List<string> { "HempressSativa-RockItInaDance", "Protoje-Protection", "Protoje-WhoKnows", "SamoryI-RastaNuhGangsta" };
+        for (int i = 0; i < tunes.Count; ++i)
+        {
+            GameObject go = new GameObject("Sound");
+            m_SuperSecret.Add(go);
+            go.transform.position = Camera.main.transform.position;
+            go.transform.parent = m_AudioFolder.transform;
+            AudioSource source = go.AddComponent<AudioSource>();
+            source.clip = (AudioClip)Resources.Load("SecretStash/" + tunes[i]);
+            source.loop = true;
+            source.volume = m_VolumeScaler;
+            source.maxDistance = 100.0f;
+            source.rolloffMode = AudioRolloffMode.Linear;
+            source.dopplerLevel = 0.0f;
+        }
+
+        nowIdx = 0;
+        nxtIdx = nowIdx;
+        IsPaused = false;
+    }
+    private void ShuffleTune()
+    {
+        m_SuperSecret[nowIdx].GetComponent<AudioSource>().Stop();
+        while (nxtIdx == nowIdx) nxtIdx = Random.Range(0, m_SuperSecret.Count);
+        nowIdx = nxtIdx;
+        m_NowSource = m_SuperSecret[nowIdx].GetComponent<AudioSource>();
+        m_NowSource.Play();
+    }
+    private void NxtTune(int prevOrNxt)
+    {
+        m_SuperSecret[nowIdx].GetComponent<AudioSource>().Stop();
+        nowIdx += prevOrNxt;
+        if (nowIdx > m_SuperSecret.Count - 1) nowIdx = 0;
+        else if(nowIdx < 0) nowIdx = m_SuperSecret.Count - 1;
+        m_NowSource = m_SuperSecret[nowIdx].GetComponent<AudioSource>();
+        m_NowSource.Play();
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.PageUp))
+        {
+            NxtTune(1);
+        }
+        if (Input.GetKeyDown(KeyCode.PageDown))
+        {
+            NxtTune(-1);
+        }
+        if (Input.GetKeyDown(KeyCode.End))
+        {
+            AudioSource source = m_SuperSecret[nowIdx].GetComponent<AudioSource>();
+            if (source.isPlaying) { source.Pause(); } else { source.Play(); }
+            IsPaused = !IsPaused;
+        }
+        if(m_NowSource != null)
+        {
+            if (m_NowSource.isPlaying != true &&
+                !IsPaused)
+            {
+                NxtTune(1);
+            }
+        }
+    }
+#endif
+    #endregion
 }

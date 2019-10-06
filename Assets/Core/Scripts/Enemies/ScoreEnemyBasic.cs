@@ -40,26 +40,20 @@ public class ScoreEnemyBasic : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 13)    // == projectile
+        if (other.gameObject.layer == 13)   // == projectile
         {
             DecreaseHealth(other.GetComponent<BulletBehaviour>().GetDamageValue());
 #if DEBUG
-            if(SoundManager.GetInstance != null)
+            if (SoundManager.GetInstance != null)
 #endif
             {
                 SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_BULLET_DAMAGE, other.transform.position);
             }
         }
 
-        // Self destructed
+        // self destructed
         if (other.gameObject.layer == 8)     // 8 == player
         {
-//#if DEBUG
-//            if (m_ScoreManScr != null)
-//#endif
-//            {
-//                m_ScoreManScr.AddComboPoints(m_ScoreValue);
-//            }
 #if DEBUG
             if (PlayerManager.GetInstance != null)
 #endif
