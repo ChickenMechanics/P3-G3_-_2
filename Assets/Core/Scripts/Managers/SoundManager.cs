@@ -46,7 +46,7 @@ public class SoundManager : MonoBehaviour
         public float m_SpecialBlend = 0.5f;
         [Range(0.0f, 1.0f)]
         public float m_MaxTriggerInterval = 0.0f;
-        public bool m_Loop = false;
+        //public bool m_Loop = false;
         [HideInInspector]
         public float m_PrevTime;
     }
@@ -68,7 +68,7 @@ public class SoundManager : MonoBehaviour
         {
             if (startDelay != 0.0f)
             {
-                startDelay = 44100.0f * startDelay; // seconds to Hz
+                startDelay = 44100.0f * startDelay; // seconds to Hz... or something
             }
 
             GameObject go = new GameObject("Sound");
@@ -77,13 +77,14 @@ public class SoundManager : MonoBehaviour
             AudioSource source = go.AddComponent<AudioSource>();
             source.clip = m_SoundClips[(int)soundClipKey].m_AudioClip;
             source.spatialBlend = m_SoundClips[(int)soundClipKey].m_SpecialBlend;
-            source.loop = m_SoundClips[(int)soundClipKey].m_Loop;
+            source.loop = false;
             source.volume = m_VolumeScaler;
+            source.pitch = Random.Range(1.0f, 1.08f);
             source.maxDistance = 100.0f;
             source.rolloffMode = AudioRolloffMode.Linear;
             source.dopplerLevel = dopplerLvl;
-            //source.PlayDelayed((ulong)startDelay);
-            source.PlayOneShot(source.clip);
+            source.PlayDelayed((ulong)startDelay);
+            //source.PlayOneShot(source.clip);
             Destroy(go, source.clip.length);
         }
     }
