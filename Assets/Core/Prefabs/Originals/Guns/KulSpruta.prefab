@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PositionOffset: {x: 0.7, y: -0.35, z: 0.5}
   m_RoundsPerMinute: 750
-  m_MagSizeTotal: 30
+  m_MagSizeTotal: 25
   m_ReloadTimeInSec: 1
   m_AdsSpread: 0.03
   m_HipSpread: 0.05

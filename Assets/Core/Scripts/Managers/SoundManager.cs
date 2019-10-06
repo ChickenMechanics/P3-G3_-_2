@@ -18,15 +18,13 @@ public class SoundManager : MonoBehaviour
         //PLAYER_TAKE_DAMAGE,
         //PLAYER_DEATH,
         // gun
-        GUN_AR1_SHOT,
-        //GUN_AR1_RELOAD,
-        //GUN_AR2_SHOT,
-        //GUN_AR2_RELOAD,
+        GUN_AR_SHOT,
+        //GUN_AR_RELOAD,
         // bullet -----------------------------------------------------------------------------------------
-        //BULLET_AUTOFIRE_DESTROY,
+        //BULLET_AR_DESTROY,
         // enemy ------------------------------------------------------------------------------------------
         //CRAWLER_SPAWN,
-        CRAWLER_BULLET_DAMAGE,
+        CRAWLER_AR_DAMAGE,
         CRAWLER_DEATH,
         // size / needed for code -------------------------------------------------------------------------
         SIZE
@@ -44,7 +42,9 @@ public class SoundManager : MonoBehaviour
     {
         public ESoundClip m_ESound;
         public AudioClip m_AudioClip;
+        [Range(0.0f, 1.0f)]
         public float m_SpecialBlend = 0.5f;
+        [Range(0.0f, 1.0f)]
         public float m_MaxTriggerInterval = 0.0f;
         public bool m_Loop = false;
         [HideInInspector]
@@ -93,8 +93,8 @@ public class SoundManager : MonoBehaviour
     {
         switch(soundClipKey)
         {
-            //case ESoundClip.PLAYER_WALK:
-            //    return TimeChecker(soundClipKey);
+            case ESoundClip.CRAWLER_DEATH:
+                return TimeChecker(soundClipKey);
                 //break;
 
             default: return true;
@@ -186,7 +186,9 @@ public class SoundManager : MonoBehaviour
             AudioSource source = go.AddComponent<AudioSource>();
             source.clip = (AudioClip)Resources.Load("SecretStash/" + tunes[i]);
             source.loop = true;
-            source.volume = m_VolumeScaler;
+            float volume = m_VolumeScaler - 0.6f;
+            if (volume < 0.0f) volume = 0.0f;
+            source.volume = volume;
             source.maxDistance = 100.0f;
             source.rolloffMode = AudioRolloffMode.Linear;
             source.dopplerLevel = 0.0f;

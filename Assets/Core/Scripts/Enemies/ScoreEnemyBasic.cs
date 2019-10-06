@@ -47,7 +47,7 @@ public class ScoreEnemyBasic : MonoBehaviour
             if (SoundManager.GetInstance != null)
 #endif
             {
-                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_BULLET_DAMAGE, other.transform.position);
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_AR_DAMAGE, other.transform.position);
             }
         }
 

@@ -404,7 +404,7 @@ MonoBehaviour:
     type: 3}
   m_TrailScale: 1
   m_DamageValue: 1000
-  m_Speed: 40
+  m_Speed: 50
   m_DropOff: 0
   m_MaxLifetimeInSec: 5
 --- !u!1 &8014660713142169072

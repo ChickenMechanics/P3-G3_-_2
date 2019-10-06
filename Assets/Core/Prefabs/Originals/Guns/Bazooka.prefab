@@ -123,11 +123,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PositionOffset: {x: 1.2, y: 0.1, z: 1.5}
-  m_RoundsPerMinute: 300
-  m_MagSizeTotal: 1
-  m_ReloadTimeInSec: 2
+  m_RoundsPerMinute: 250
+  m_MagSizeTotal: 16
+  m_ReloadTimeInSec: 2.5
   m_AdsSpread: 0
-  m_HipSpread: 0
+  m_HipSpread: 0.04
   m_BulletModelPrefab: {fileID: 8420254805187990703, guid: d509f3c47bba40f4fbadfa2dfb95129a,
     type: 3}
   GetCurrentReloadTime: 0

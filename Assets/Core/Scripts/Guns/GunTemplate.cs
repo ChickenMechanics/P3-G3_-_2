@@ -147,7 +147,7 @@ public class GunTemplate : MonoBehaviour
             if(SoundManager.GetInstance != null)
 #endif
             {
-                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_AR1_SHOT, transform.position);
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_AR_SHOT, transform.position);
             }
             
             bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
@@ -199,7 +199,7 @@ public class GunTemplate : MonoBehaviour
         {
             GetIsADS = true;
 
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 52.0f, 0.3f);
 
             m_BulletSpreadDirs.x = Random.Range(-m_AdsSpread, m_AdsSpread);
             m_BulletSpreadDirs.y = Random.Range(-m_AdsSpread, m_AdsSpread);
@@ -218,7 +218,7 @@ public class GunTemplate : MonoBehaviour
         {
             GetIsADS = false;
 
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.1f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.05f);
 
             m_BulletSpreadDirs.x = Random.Range(-m_HipSpread, m_HipSpread);
             m_BulletSpreadDirs.y = Random.Range(-m_HipSpread, m_HipSpread);

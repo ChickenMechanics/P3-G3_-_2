@@ -1812,46 +1812,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_SoundClips.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_SoundClips.Array.data[2].m_ESound
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_SoundClips.Array.data[1].m_ESound
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_SoundClips.Array.data[0].m_ESound
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_MasterVolume
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_SoundClips.Array.data[0].m_SpecialBlend
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_SoundClips.Array.data[1].m_SpecialBlend
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_SoundClips.Array.data[2].m_SpecialBlend
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78ec3ab3982babe4085c0183603b6d31, type: 3}
 --- !u!4 &1003054052 stripped
