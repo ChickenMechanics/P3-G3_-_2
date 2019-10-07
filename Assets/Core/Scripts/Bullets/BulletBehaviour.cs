@@ -102,12 +102,6 @@ public class BulletBehaviour : MonoBehaviour
     {
         transform.position = bulletSpawnPoint.position;
 
-        //float randomNumberX = Random.Range(-0.03f, 0.03f);
-        //float randomNumberY = Random.Range(-0.03f, 0.03f);
-
-        //transform.forward = dir;
-        //m_Force = ((dir + new Vector3(randomNumberX, randomNumberY, 0.0f)) * m_Speed) + new Vector3(0.0f, m_DropOff, 0.0f);
-
         transform.forward = dir;
         m_Force = dir * m_Speed + new Vector3(0.0f, m_DropOff, 0.0f);
 
@@ -115,7 +109,6 @@ public class BulletBehaviour : MonoBehaviour
         if (m_WallClash != null)
         {
             m_WallClash.transform.rotation = Camera.main.transform.rotation;
-            //m_WallClash.transform.position = vfxSpawnPoint;
         }
 
         if (m_Glow != null)
@@ -140,10 +133,10 @@ public class BulletBehaviour : MonoBehaviour
     }
 
 
-    private void OnEnable()
-    {
-        gameObject.SetActive(true);
-    }
+    //private void OnEnable()
+    //{
+    //    gameObject.SetActive(true);
+    //}
 
 
     private void OnDisable()
@@ -162,7 +155,6 @@ public class BulletBehaviour : MonoBehaviour
     {
         if (m_WallClashParticle != null)
         {
-            //m_WallClash.transform.parent = null;
             m_WallClash.transform.position = transform.position;
             m_WallClash.Play();
         }
@@ -171,10 +163,6 @@ public class BulletBehaviour : MonoBehaviour
         {
             other.GetComponent<ScoreEnemyBasic>().DecreaseHealth(m_DamageValue);
         }
-        //else if (other.CompareTag("DestroyBullet"))
-        //{
-
-        //}
 
         Destroy(m_WallClash, m_WallClash.main.duration);
     }
