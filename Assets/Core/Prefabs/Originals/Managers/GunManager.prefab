@@ -43,8 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bc9b7fc9a4af342a8eb8852f120aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ParentName: Look
-  m_DefaultGun: 0
+  m_DefaultGun: 1
   m_GunPrefab:
-  - {fileID: 348376078618119487, guid: 071e815be5c7fcb49a82ee8fbbaad8d0, type: 3}
   - {fileID: 6326108177425522790, guid: 95d0b53bbc6dfa74e86fbab9610aa726, type: 3}
+  - {fileID: 5146065321511459240, guid: 2a61f14fde1507f43ad7413628f5db50, type: 3}
+  - {fileID: 1482335385195718745, guid: b3e0a8b2064f0b140aab74c8d682d608, type: 3}

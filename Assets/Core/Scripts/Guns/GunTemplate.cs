@@ -11,8 +11,12 @@ public class GunTemplate : MonoBehaviour
 
     [Header("Properties")]
     public int m_RoundsPerMinute = 500;
-    public int m_MagazineSize = 30;
+    public int m_MagSizeTotal = 30;
     public float m_ReloadTimeInSec = 1.0f;
+    [Range(0.0f, 0.5f)]
+    public float m_AdsSpread = 0.01f;
+    [Range(0.0f, 0.5f)]
+    public float m_HipSpread = 0.04f;
 
     [Header("Bullet Prefab")]
     public GameObject m_BulletModelPrefab;
@@ -33,19 +37,20 @@ public class GunTemplate : MonoBehaviour
     [HideInInspector]
     public int GetCurrentMagSize { private set; get; }
     private bool m_IsFiring;
-    private bool m_IsReloading;
+    [HideInInspector]
+    public bool GetIsReloading { private set; get; }
+    [HideInInspector]
+    public bool GetIsADS { private set; get; }
 
     private EGunState m_CurrentGunState;
     private Transform m_CameraPoint;
 
-    // Test
-    private bool m_bADS;
-    // Test
+    private Vector2 m_BulletSpreadDirs;
 
     private enum EGunState
     {
         READY = 0,
-        SHOOTING,
+        FIRING,
         RELOADING,
         SIZE
     }
@@ -56,7 +61,8 @@ public class GunTemplate : MonoBehaviour
 
     public void InitGun()
     {
-        m_BulletFolder = new GameObject("bullets");
+        m_BulletFolder = new GameObject("BulletFolder");
+        m_BulletFolder.transform.parent = GunManager.GetInstance.transform;
         m_BulletFolder.transform.position = new Vector3(5.0f, -10.0f, 0.0f);
 
         m_RaycastHit = new RaycastHit();
@@ -71,39 +77,42 @@ public class GunTemplate : MonoBehaviour
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
 
         GetCurrentReloadTime = m_ReloadTimeInSec;
-        GetCurrentMagSize = m_MagazineSize;
+        GetCurrentMagSize = m_MagSizeTotal;
 
         m_IsFiring = false;
-        m_IsReloading = false;
+        GetIsReloading = false;
+        GetIsADS = false;
 
         m_CurrentGunState = EGunState.READY;
         m_CameraPoint = null;
+
+        m_BulletSpreadDirs = Vector2.zero;
     }
 
 
-    private void GunState()
+    private void GunStateUpdate()
     {
         switch ((int)m_CurrentGunState)
         {
-            case (int)EGunState.READY:      GunReady();     break;
-            case (int)EGunState.SHOOTING:   GunFiring();    break;
-            case (int)EGunState.RELOADING:  GunReloading(); break;
+            case (int)EGunState.READY:      GunReadyState();     break;
+            case (int)EGunState.FIRING:   GunFiringState();    break;
+            case (int)EGunState.RELOADING:  GunReloadingState(); break;
         }
     }
 
 
-    private void GunReady()
+    private void GunReadyState()
     {
         if (m_IsFiring == true)
         {
-            m_CurrentGunState = EGunState.SHOOTING;
+            m_CurrentGunState = EGunState.FIRING;
 
             m_IsFiring = false;
         }
     }
 
 
-    private void GunFiring()
+    private void GunFiringState()
     {
         if (m_TimePastSinceLastFire >= m_Rpm)
         {
@@ -111,7 +120,10 @@ public class GunTemplate : MonoBehaviour
             Vector3 raycastedDir = m_CameraPoint.forward;
             if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist, m_AimRayLayerMask))
             {
-                raycastedDir = (m_RaycastHit.point - m_BulletSpawnPoint.position).normalized;
+                if(m_RaycastHit.distance > 2.0f)    // some protection from clipping while cam is close to ground/wall
+                {
+                    raycastedDir = (m_RaycastHit.point - m_BulletSpawnPoint.position).normalized;
+                }
             }
 
             Transform tForm = transform.GetChild(0).transform;
@@ -127,29 +139,37 @@ public class GunTemplate : MonoBehaviour
 
             m_TimePastSinceLastFire = 0.0f;
             --GetCurrentMagSize;
-
-            bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
-
             m_IsFiring = false;
+
+            raycastedDir += new Vector3(m_BulletSpreadDirs.x, m_BulletSpreadDirs.y, 0.0f);
+
+#if DEBUG
+            if(SoundManager.GetInstance != null)
+#endif
+            {
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_AR_SHOT, transform.position);
+            }
+            
+            bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
             m_CurrentGunState = EGunState.READY;
         }
     }
 
 
-    private void GunReloading()
+    private void GunReloadingState()
     {
         if (GetCurrentReloadTime < 0.0f)
         {
-            m_IsReloading = false;
+            GetIsReloading = false;
             m_TimePastSinceLastFire = 0.0f;
-            GetCurrentMagSize = m_MagazineSize;
+            GetCurrentMagSize = m_MagSizeTotal;
             GetCurrentReloadTime = m_ReloadTimeInSec;
             m_CurrentGunState = EGunState.READY;
         }
     }
 
 
-    private void UpdateMagazine()
+    private void MagUpdate()
     {
         // Rate of fire
         if (m_TimePastSinceLastFire < m_Rpm)
@@ -164,20 +184,64 @@ public class GunTemplate : MonoBehaviour
         }
 
         // Reloading time
-        if(m_IsReloading == true)
+        if(GetIsReloading == true)
         {
-            GetCurrentReloadTime -= Time.deltaTime;  // Had to put this here because switches in C# is weird, or I'm weird...
+            GetCurrentReloadTime -= Time.deltaTime;  // put this here because something with c# switches
+        }
+    }
+
+
+    private void AimPosUpdate()
+    {
+        // ads fire
+        if (Input.GetMouseButton(1) == true &&
+            GetIsReloading == false)
+        {
+            GetIsADS = true;
+
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 52.0f, 0.3f);
+
+            m_BulletSpreadDirs.x = Random.Range(-m_AdsSpread, m_AdsSpread);
+            m_BulletSpreadDirs.y = Random.Range(-m_AdsSpread, m_AdsSpread);
+
+            Vector3 forward = transform.parent.forward * 0.2f;
+            Vector3 down = transform.parent.up * -0.4f;
+
+            transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
+
+            transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(false);
+        }
+
+        // hip fire
+        if (Input.GetMouseButton(1) == false ||
+            GetIsReloading == true)
+        {
+            GetIsADS = false;
+
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.05f);
+
+            m_BulletSpreadDirs.x = Random.Range(-m_HipSpread, m_HipSpread);
+            m_BulletSpreadDirs.y = Random.Range(-m_HipSpread, m_HipSpread);
+
+            Vector3 offsetPos = (transform.right * m_PositionOffset.x) +
+                                (transform.up * m_PositionOffset.y) +
+                                (transform.forward * m_PositionOffset.z);
+
+            transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
+
+            transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(true);
         }
     }
 
 
     public void Fire(Transform cameraPoint)
     {
-        if (m_IsReloading == false)
+        if (GetIsReloading == false)
         {
             m_IsFiring = true;
             m_CameraPoint = cameraPoint;
 
+            // TODO: Fix this cheat for a recoil
             Vector3 lastPos = GunManager.GetInstance.ActiveGun.transform.position;
             Vector3 nextpos = new Vector3(
                 Random.Range(lastPos.x - 0.002f, lastPos.x + 0.002f),
@@ -191,13 +255,12 @@ public class GunTemplate : MonoBehaviour
 
     public void Reload()
     {
-        if(m_IsReloading == false)
+        if(GetIsReloading == false)
         {
-            if(GetCurrentMagSize < m_MagazineSize)
+            if(GetCurrentMagSize < m_MagSizeTotal)
             {
-                m_IsReloading = true;
+                GetIsReloading = true;
                 GetCurrentReloadTime = m_ReloadTimeInSec;
-                GetCurrentMagSize = 0;
                 m_CurrentGunState = EGunState.RELOADING;
             }
         }
@@ -231,34 +294,8 @@ public class GunTemplate : MonoBehaviour
 
     private void Update()
     {
-        GunState();
-        UpdateMagazine();
-
-        // Test ADS
-        {
-            if (Input.GetMouseButton(1) == true && m_IsReloading == false)
-            {
-                Vector3 forward = transform.parent.forward * 0.2f;
-                Vector3 down = transform.parent.up * -0.4f;
-
-                transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
-                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 54.0f, 0.3f);
-
-                transform.parent.transform.Find("CrosshairCanvas").gameObject.SetActive(false);
-            }
-        }
-
-        if (Input.GetMouseButton(1) == false || m_IsReloading == true)
-        {
-            Vector3 offsetPos = (transform.right * m_PositionOffset.x) +
-                                (transform.up * m_PositionOffset.y) +
-                                (transform.forward * m_PositionOffset.z);
-
-            transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.15f);
-
-            transform.parent.transform.Find("CrosshairCanvas").gameObject.SetActive(true);
-        }
-        // Test ADS
+        GunStateUpdate();
+        MagUpdate();
+        AimPosUpdate();
     }
 }

@@ -32,14 +32,23 @@ public class BulletBehaviour : MonoBehaviour
 
     private Rigidbody m_Rb;
     private Vector3 m_Force;
+    private Vector3 m_ImpactSpot;
     private float m_CurrentLifeTime;
 
-    private Vector3 m_ImpactSpot;
+
+    // ----------------------------------------------------------------------------------------------------
+
+
+    public float GetDamageValue()
+    {
+        return m_DamageValue;
+    }
 
 
     public void InitBullet()
     {
         m_Rb = GetComponent<Rigidbody>();
+        // Saved if we wan't physics based projectiles Part 1
         //if (m_IsPhysicsBased == true)
         //{
         //    m_Rb.useGravity = true;
@@ -98,13 +107,12 @@ public class BulletBehaviour : MonoBehaviour
         transform.position = bulletSpawnPoint.position;
 
         transform.forward = dir;
-        m_Force = (dir * m_Speed) + new Vector3(0.0f, m_DropOff, 0.0f);
+        m_Force = dir * m_Speed + new Vector3(0.0f, m_DropOff, 0.0f);
 
         #region vfx
-        if(m_WallClash != null)
+        if (m_WallClash != null)
         {
             m_WallClash.transform.rotation = Camera.main.transform.rotation;
-            //m_WallClash.transform.position = vfxSpawnPoint;
         }
 
         if (m_Glow != null)
@@ -149,24 +157,16 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // TODO: If time, move vfx things to it's own script
+        // TODO: if time, move vfx things to it's own script
+#if DEBUG
         if (m_WallClashParticle != null)
+#endif
         {
-            m_WallClash.transform.parent = null;
             m_WallClash.transform.position = transform.position;
             m_WallClash.Play();
         }
 
-        // Projectiles might pass thru some type of force fileds or whatever so some conditional are needed
-        if (other.CompareTag("Enemy"))
-        {
-            other.GetComponent<ScoreEnemyBasic>().DecreaseHealth(m_DamageValue);
-            Destroy(this);  // Change this to gameObject as I'm unsure if this destroys the whole object or just the script component
-        }
-        else if (other.CompareTag("DestroyBullet"))
-        {
-            Destroy(this);
-        }
+        Destroy(gameObject, m_WallClash.main.duration);
     }
 
 
@@ -174,7 +174,7 @@ public class BulletBehaviour : MonoBehaviour
     {
         m_CurrentLifeTime += Time.deltaTime;
 
-        // Saved if we wan't physics based projectiles
+        // Saved if we wan't physics based projectiles Part 2
         //if (m_IsPhysicsBased == false)
         {
             transform.position += m_Force * Time.deltaTime;
@@ -186,7 +186,7 @@ public class BulletBehaviour : MonoBehaviour
     }
 
 
-    // Saved if we wan't physics based projectiles
+    // Saved if we wan't physics based projectiles Part 3
     //private void FixedUpdate()
     //{
     //    if (m_IsPhysicsBased == true)

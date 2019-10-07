@@ -1677,7 +1677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7184922104436984895}
-  - component: {fileID: 9004334808628690}
+  - component: {fileID: 2074506839339440396}
   m_Layer: 10
   m_Name: EvoStickGun
   m_TagString: Untagged
@@ -1692,7 +1692,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6192063897319996972}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1731,7 +1731,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9004334808628690
+--- !u!114 &2074506839339440396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1744,10 +1744,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PositionOffset: {x: 0.7, y: -0.35, z: 0.5}
-  m_RoundsPerMinute: 700
-  m_MagazineSize: 30
+  m_RoundsPerMinute: 500
+  m_MagSizeTotal: 45
+  m_ReloadTimeInSec: 1
+  m_AdsSpread: 0.01
+  m_HipSpread: 0.02
   m_BulletModelPrefab: {fileID: 1258812700453301312, guid: db95fa4050e9ea14ab8510d4dff6aba3,
     type: 3}
+  GetCurrentReloadTime: 0
 --- !u!1 &6765981322706080711
 GameObject:
   m_ObjectHideFlags: 0

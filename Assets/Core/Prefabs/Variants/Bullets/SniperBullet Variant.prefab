@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 4705387012690372055, guid: 782e3cdb51e604b4a82b4718b75e6b42,
         type: 3}
       propertyPath: m_Name
-      value: SniperBullet 1 Variant
+      value: SniperBullet Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7183952979071798663, guid: 782e3cdb51e604b4a82b4718b75e6b42,
         type: 3}
@@ -66,16 +66,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6547726749876835573, guid: 782e3cdb51e604b4a82b4718b75e6b42,
-        type: 3}
-      propertyPath: m_DamageValue
-      value: 130
-      objectReference: {fileID: 0}
-    - target: {fileID: 6547726749876835573, guid: 782e3cdb51e604b4a82b4718b75e6b42,
-        type: 3}
-      propertyPath: m_Speed
-      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 782e3cdb51e604b4a82b4718b75e6b42, type: 3}

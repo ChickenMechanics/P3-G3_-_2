@@ -20,7 +20,9 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector]
     public PlayerMove GetPlayerMoveScr { private set; get; }
     [HideInInspector]
-    public float GetHealth { private set; get; }
+    public float GetBaseHealth { private set; get; }
+    [HideInInspector]
+    public float GetCurrentHealth { private set; get; }
     [HideInInspector]
     public bool GetIsAlive { private set; get; }
 
@@ -28,17 +30,10 @@ public class PlayerManager : MonoBehaviour
     //----------------------------------------------------------------------------------------------------
 
 
-    public enum EPlayerText
-    {
-        HEALTH = 0,
-        SIZE
-    }
-
-
     public void DecreaseHealth(float value)
     {
-        GetHealth -= value;
-        if(GetHealth <= 0.0f)
+        GetCurrentHealth -= value;
+        if(GetCurrentHealth <= 0.0f)
         {
             GetIsAlive = false;
         }
@@ -51,14 +46,14 @@ public class PlayerManager : MonoBehaviour
         Destroy(GetComponent<MeshFilter>());
 
         GameObject resource = (GameObject)Resources.Load("Prefabs/Player");
-        GetPlayer = Instantiate(resource, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity, transform);
-        GetPlayer.transform.parent = transform;
+        GetPlayer = Instantiate(resource, transform.position + new Vector3(0.0f, 2.0f, 0.0f), Quaternion.identity, transform);
 
         GetPlayerCtrlScr = GetPlayer.GetComponent<PlayerCtrl>();
         GetPlayerLookScr = GetPlayer.GetComponent<PlayerLook>();
         GetPlayerMoveScr = GetPlayer.GetComponent<PlayerMove>();
 
-        GetHealth = m_BaseHealth;
+        GetBaseHealth = m_BaseHealth;
+        GetCurrentHealth = GetBaseHealth;
 
         GetIsAlive = true;
     }
@@ -73,5 +68,25 @@ public class PlayerManager : MonoBehaviour
         GetInstance = this;
 
         Init();
+    }
+
+
+    private void Update()
+    {
+        if (GetCurrentHealth <= 0.0f)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END_SCREEN);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END_SCREEN);
+        }
     }
 }
