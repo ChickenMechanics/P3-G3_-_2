@@ -82,14 +82,13 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-
     private void Walk()
     {
         m_ForwardForce = transform.forward;
-        m_ForwardForce *= m_ForwardAccel * m_Input.MoveInput.z * Time.deltaTime;
+        m_ForwardForce *= m_ForwardAccel * m_Input.MoveInput.z * Time.fixedDeltaTime;
 
         m_StrafeForce = transform.right;
-        m_StrafeForce *= m_StrafeAccel * m_Input.MoveInput.x * Time.deltaTime;
+        m_StrafeForce *= m_StrafeAccel * m_Input.MoveInput.x * Time.fixedDeltaTime;
 
         //Debug.Log("Walk");
     }
@@ -98,17 +97,17 @@ public class PlayerMove : MonoBehaviour
     private void Run()
     {
         m_RunForce = transform.forward;
-        m_RunForce *= m_RunAccel * m_Input.MoveInput.z * Time.deltaTime;
+        m_RunForce *= m_RunAccel * m_Input.MoveInput.z * Time.fixedDeltaTime;
 
         m_StrafeForce = transform.right;
-        m_StrafeForce *= m_StrafeAccel * m_Input.MoveInput.x * Time.deltaTime;
+        m_StrafeForce *= m_StrafeAccel * m_Input.MoveInput.x * Time.fixedDeltaTime;
     }
 
 
     private void Dash()
     {
         m_DashForce = m_DashDir;
-        m_DashForce *= m_DashAccel * Time.deltaTime;
+        m_DashForce *= m_DashAccel * Time.fixedDeltaTime;
 
         //Debug.Log("Dash");
     }
@@ -153,7 +152,7 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-    private void LateUpdate()
+    private void Update()
     {
         m_Input = m_PlayerCtrlScr.GetBasicInput();
         if (m_Input.MoveInput.x != 0.0f && m_Input.MoveInput.z != 0.0f)

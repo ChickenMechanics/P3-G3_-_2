@@ -124,48 +124,43 @@ public class HUDManager : MonoBehaviour
     }
 
 
-    private void Awake()
+    private void PlayerUpdate()
     {
-        if (GetInstance != null && GetInstance != this)
-        {
-            Destroy(gameObject);
-        }
-        GetInstance = this;
-
-        DontDestroyOnLoad(gameObject);
-
-        Init();
-    }
-
-
-    private void Update()
-    {
-        // health
         float nextHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerMan.GetCurrentHealth, m_PlayerMan.GetBaseHealth), 0.2f);
         m_HealthBarImg.fillAmount = nextHealth;
         m_PrevHealth = nextHealth;
+    }
 
-        // guns / bulllets
+
+    private void GunBulletUpdate()
+    {
         bool isReloading = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetIsReloading;
         if (isReloading == false)
         {
             m_GunBulletText.text = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize.ToString();
         }
 
-        if(isReloading == true)
+        if (isReloading == true)
         {
             m_GunBulletText.text = (FlasherThing(m_MagEmptyBlinkTime) == false) ? "OUT" : " ";
         }
+    }
 
-        // score / combo
+
+    private void ScoreUpdate()
+    {
         int score = (int)m_ScoreMan.GetPlayerScore;
-        //if(score > 0)
+        string strScore = score.ToString();
+        //if (strScore != m_ScoreTxt.text)  // TODO: scale up and down function // return vec3
         {
+            //m_ScoreTxt.transform.sca
+
             m_ScoreTxt.text = score.ToString();
+
         }
 
         float translatedToRange = GetZeroToOneRange(m_ScoreMan.GetChainTimeLeft, m_ScoreMan.GetBaseChainTime);
-        if(translatedToRange < 0.98f && translatedToRange > 0.97f)
+        if (translatedToRange < 0.98f && translatedToRange > 0.97f)
         {
             m_ComboMeterImg.enabled = false;
             m_ComboMeterImg.fillAmount = 1.0f;
@@ -193,6 +188,28 @@ public class HUDManager : MonoBehaviour
             float longestChain = TruncateFloat(m_ScoreMan.GetLongestChain, m_ScoreComboDecimalPoints);
             m_LongestChain.text = longestChain.ToString();
         }
+    }
+
+
+    private void Awake()
+    {
+        if (GetInstance != null && GetInstance != this)
+        {
+            Destroy(gameObject);
+        }
+        GetInstance = this;
+
+        DontDestroyOnLoad(gameObject);
+
+        Init();
+    }
+
+
+    private void Update()
+    {
+        PlayerUpdate();
+        GunBulletUpdate();
+        ScoreUpdate();
 
         // waves
         {

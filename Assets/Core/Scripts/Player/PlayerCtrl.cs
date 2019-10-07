@@ -27,6 +27,8 @@ public class PlayerCtrl : MonoBehaviour, IController
         //DEAD, // not implemented
     }
 
+    private FxRumbleTransform m_FxRumbleScr;
+
 
     //----------------------------------------------------------------------------------------------------
 
@@ -83,6 +85,9 @@ public class PlayerCtrl : MonoBehaviour, IController
         GetFSM.AddState(new P_StateRun((IController)this));
         GetFSM.AddState(new P_StateDash((IController)this));
         GetFSM.Init();
+
+        m_FxRumbleScr = GetComponent<FxRumbleTransform>();
+        m_FxRumbleScr.Init(transform.Find("Look"));
     }
 
 
@@ -95,6 +100,11 @@ public class PlayerCtrl : MonoBehaviour, IController
     private void Update()
     {
         GetFSM.Update();
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            m_FxRumbleScr.ExecuteRumble();
+        }
     }
 
 

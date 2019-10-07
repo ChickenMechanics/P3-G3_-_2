@@ -88,8 +88,8 @@ MonoBehaviour:
   m_TrailRender: {fileID: 5295617487119369753, guid: 4643d40c538014c4e97f27f635d2889a,
     type: 3}
   m_TrailScale: 1
-  m_DamageValue: 50
-  m_Speed: 50
+  m_DamageValue: 75
+  m_Speed: 40
   m_DropOff: 0
   m_MaxLifetimeInSec: 5
 --- !u!1 &3941061347826024015
