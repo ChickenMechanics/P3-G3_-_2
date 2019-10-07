@@ -37,26 +37,23 @@ public class SoundManager : MonoBehaviour
 
     public static SoundManager GetInstance { private set; get; }
 
+    private GameObject m_AudioFolder;
+    private float m_VolumeScaler;
+    //[Range(0.0f, 100.0f)]
+    private float m_MasterVolume = 25.0f;
+
+
     [System.Serializable]
-    public class SoundClip
+    public class SoundObj
     {
         public ESoundClip m_ESound;
-        public AudioClip m_AudioClip;
-        [Range(0.0f, 1.0f)]
-        public float m_SpecialBlend = 0.5f;
+        public GameObject m_SoundSource;
         [Range(0.0f, 1.0f)]
         public float m_MaxTriggerInterval = 0.0f;
-        //public bool m_Loop = false;
         [HideInInspector]
         public float m_PrevTime;
     }
-
-    //[Range(0.0f, 100.0f)]
-    private float m_MasterVolume = 25.0f;
-    public List<SoundClip> m_SoundClips;
-
-    private GameObject m_AudioFolder;
-    private float m_VolumeScaler;
+    public List<SoundObj> m_SoundObjs;
 
 
     // ----------------------------------------------------------------------------------------------------
@@ -71,21 +68,13 @@ public class SoundManager : MonoBehaviour
                 startDelay = 44100.0f * startDelay; // seconds to Hz... or something
             }
 
-            GameObject go = new GameObject("Sound");
-            go.transform.position = position;
-            go.transform.parent = m_AudioFolder.transform;
-            AudioSource source = go.AddComponent<AudioSource>();
-            source.clip = m_SoundClips[(int)soundClipKey].m_AudioClip;
-            source.spatialBlend = m_SoundClips[(int)soundClipKey].m_SpecialBlend;
-            source.loop = false;
-            source.volume = m_VolumeScaler;
-            source.pitch = Random.Range(1.0f, 1.08f);
-            source.maxDistance = 100.0f;
-            source.rolloffMode = AudioRolloffMode.Linear;
-            source.dopplerLevel = dopplerLvl;
-            source.PlayDelayed((ulong)startDelay);
-            //source.PlayOneShot(source.clip);
-            Destroy(go, source.clip.length);
+            if(m_SoundObjs[(int)soundClipKey].m_SoundSource != null)
+            {
+                GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource, position, Quaternion.identity, m_AudioFolder.transform);
+                AudioSource source = obj.GetComponent<AudioSource>();
+                source.PlayDelayed((ulong)startDelay);
+                Destroy(obj, source.clip.length);
+            }
         }
     }
 
@@ -111,16 +100,16 @@ public class SoundManager : MonoBehaviour
     {
         for(int i = 0; i < (int)ESoundClip.SIZE; ++i)
         {
-            if (m_SoundClips[i].m_ESound == soundClipKey)
+            if (m_SoundObjs[i].m_ESound == soundClipKey)
             {
-                if (m_SoundClips[i].m_MaxTriggerInterval > 0.0f)
+                if (m_SoundObjs[i].m_MaxTriggerInterval > 0.0f)
                 {
-                    float localTimer = m_SoundClips[i].m_MaxTriggerInterval;
-                    float prevTime = m_SoundClips[i].m_PrevTime;
+                    float localTimer = m_SoundObjs[i].m_MaxTriggerInterval;
+                    float prevTime = m_SoundObjs[i].m_PrevTime;
                     float timeNow = Time.time;
                     if (timeNow > localTimer + prevTime)
                     {
-                        m_SoundClips[i].m_PrevTime = Time.time;
+                        m_SoundObjs[i].m_PrevTime = Time.time;
                         return true;
                     }
                     else
@@ -151,17 +140,20 @@ public class SoundManager : MonoBehaviour
         m_AudioFolder.transform.position = Vector3.zero;
         m_AudioFolder.transform.parent = transform;
 
-        SoundClip[] tmp = m_SoundClips.ToArray();
-        m_SoundClips.Clear();
-        m_SoundClips.Capacity = (int)ESoundClip.SIZE;
-        for (int i = 0; i < m_SoundClips.Capacity; ++i)
+        if(m_SoundObjs.Count > 0)
         {
-            m_SoundClips.Add(null);
-        }
+            SoundObj[] tmp = m_SoundObjs.ToArray();
+            m_SoundObjs.Clear();
+            m_SoundObjs.Capacity = (int)ESoundClip.SIZE;
+            for (int i = 0; i < m_SoundObjs.Capacity; ++i)
+            {
+                m_SoundObjs.Add(null);
+            }
 
-        for(int i = 0; i < tmp.Length; ++i)
-        {
-            m_SoundClips[(int)tmp[i].m_ESound] = tmp[i];
+            for (int i = 0; i < tmp.Length; ++i)
+            {
+                m_SoundObjs[(int)tmp[i].m_ESound] = tmp[i];
+            }
         }
 
         m_VolumeScaler = m_MasterVolume / 100.0f;

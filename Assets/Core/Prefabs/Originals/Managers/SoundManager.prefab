@@ -43,22 +43,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91bc3c78065ada43be3d23ced42e423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SoundClips:
+  m_SoundObjs:
   - m_ESound: 0
-    m_AudioClip: {fileID: 8300000, guid: 6ce7e20c33625b541afcecc03d0854b2, type: 3}
-    m_SpecialBlend: 0.2
+    m_SoundSource: {fileID: 7351571028268520213, guid: da8aaf1c0aa06644e9cd2d14c4156a77,
+      type: 3}
     m_MaxTriggerInterval: 0
-    m_Loop: 0
     m_PrevTime: 0
   - m_ESound: 1
-    m_AudioClip: {fileID: 8300000, guid: 9b096092285c67149b55601a2f8a04b2, type: 3}
-    m_SpecialBlend: 0.8
+    m_SoundSource: {fileID: 4805238501341093990, guid: 48298c68f52ab644fb183cb3b216c856,
+      type: 3}
     m_MaxTriggerInterval: 0.05
-    m_Loop: 0
     m_PrevTime: 0
   - m_ESound: 2
-    m_AudioClip: {fileID: 8300000, guid: 086104ed9d2c9ff4782b62788fbd17e1, type: 3}
-    m_SpecialBlend: 0.8
-    m_MaxTriggerInterval: 0.075
-    m_Loop: 0
+    m_SoundSource: {fileID: 7906836068178854871, guid: a31339942103c264e84d30cf221b445a,
+      type: 3}
+    m_MaxTriggerInterval: 0.05
     m_PrevTime: 0
