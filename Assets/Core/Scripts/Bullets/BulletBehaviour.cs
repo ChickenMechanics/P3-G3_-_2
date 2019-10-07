@@ -24,7 +24,6 @@ public class BulletBehaviour : MonoBehaviour
 
     #region vfx
     private BulletBehaviour m_BulletBehaviour;
-    private ParticleSystem m_WallClash;
     private ParticleSystem m_Glow;
     private ParticleSystem m_Body;
     private TrailRenderer m_Trail;
@@ -34,7 +33,10 @@ public class BulletBehaviour : MonoBehaviour
     private Vector3 m_Force;
     private Vector3 m_ImpactSpot;
     private float m_CurrentLifeTime;
-    
+
+
+    // ----------------------------------------------------------------------------------------------------
+
 
     public float GetDmgValue()
     {
@@ -55,16 +57,6 @@ public class BulletBehaviour : MonoBehaviour
         {
             m_Rb.isKinematic = true;
             m_Rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-        }
-
-        #region vfx
-        if (m_WallClashParticle != null)
-        {
-            m_WallClash = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>(), transform.position, Quaternion.identity);
-            m_WallClash.Stop();
-            m_WallClash.transform.position = new Vector3(0.0f, -10.0f, 0.0f);
-            m_WallClash.transform.localScale = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
-            m_WallClash.transform.parent = transform;
         }
 
         if (m_GlowParticle != null)
@@ -92,7 +84,6 @@ public class BulletBehaviour : MonoBehaviour
             m_Trail.transform.localScale = new Vector3(m_TrailScale, m_TrailScale, m_TrailScale);
             m_Trail.transform.parent = transform;
         }
-        #endregion
 
         m_CurrentLifeTime = 0.0f;
     }
@@ -106,11 +97,6 @@ public class BulletBehaviour : MonoBehaviour
         m_Force = dir * m_Speed + new Vector3(0.0f, m_DropOff, 0.0f);
 
         #region vfx
-        if (m_WallClash != null)
-        {
-            m_WallClash.transform.rotation = Camera.main.transform.rotation;
-        }
-
         if (m_Glow != null)
         {
             m_Glow.transform.position = transform.position;
@@ -133,12 +119,6 @@ public class BulletBehaviour : MonoBehaviour
     }
 
 
-    //private void OnEnable()
-    //{
-    //    gameObject.SetActive(true);
-    //}
-
-
     private void OnDisable()
     {
         gameObject.SetActive(false);
@@ -155,8 +135,12 @@ public class BulletBehaviour : MonoBehaviour
     {
         if (m_WallClashParticle != null)
         {
-            m_WallClash.transform.position = transform.position;
-            m_WallClash.Play();
+            GameObject go = Instantiate(m_WallClashParticle);
+            go.transform.forward = Camera.main.transform.forward * -1.0f;
+            go.transform.position = transform.position;
+            go.GetComponent<ParticleSystem>().Play();
+            go.GetComponent<ParticleSystem>().transform.localScale = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
+            Destroy(go, 0.5f);
         }
 
         if (other.CompareTag("Enemy"))
@@ -164,7 +148,7 @@ public class BulletBehaviour : MonoBehaviour
             other.GetComponent<ScoreEnemyBasic>().DecreaseHealth(m_DamageValue);
         }
 
-        Destroy(m_WallClash, m_WallClash.main.duration);
+        Destroy(gameObject);
     }
 
 
@@ -176,8 +160,18 @@ public class BulletBehaviour : MonoBehaviour
         //if (m_IsPhysicsBased == false)
         {
             transform.position += m_Force * Time.deltaTime;
+
             if (m_CurrentLifeTime > m_MaxLifetimeInSec)
             {
+                if (m_WallClashParticle != null)
+                {
+                    GameObject go = Instantiate(m_WallClashParticle);
+                    go.transform.forward = Camera.main.transform.forward * -1.0f;
+                    go.transform.position = transform.position;
+                    go.GetComponent<ParticleSystem>().Play();
+                    Destroy(go, 0.5f);
+                }
+
                 Destroy(gameObject);
             }
         }
