@@ -1812,27 +1812,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_SoundObjs.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_SoundObjs.Array.data[4].m_ESound
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_SoundObjs.Array.data[4].m_SoundSource
-      value: 
-      objectReference: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
-        type: 3}
-    - target: {fileID: 3134862302087858282, guid: 78ec3ab3982babe4085c0183603b6d31,
-        type: 3}
-      propertyPath: m_SoundObjs.Array.data[4].m_MaxTriggerInterval
-      value: 0.075
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78ec3ab3982babe4085c0183603b6d31, type: 3}
 --- !u!4 &1003054052 stripped

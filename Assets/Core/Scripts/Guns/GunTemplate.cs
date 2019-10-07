@@ -96,7 +96,7 @@ public class GunTemplate : MonoBehaviour
         switch ((int)m_CurrentGunState)
         {
             case (int)EGunState.READY:      GunReadyState();     break;
-            case (int)EGunState.FIRING:   GunFiringState();    break;
+            case (int)EGunState.FIRING:     GunFiringState();    break;
             case (int)EGunState.RELOADING:  GunReloadingState(); break;
         }
     }
@@ -121,7 +121,7 @@ public class GunTemplate : MonoBehaviour
             Vector3 raycastedDir = m_CameraPoint.forward;
             if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist, m_AimRayLayerMask))
             {
-                if(m_RaycastHit.distance > 2.0f)    // some protection from clipping while cam is close to ground/wall
+                if(m_RaycastHit.distance > 2.0f)    // some protection from keeping the bullet rotation to spawn at a super akward angles when bullet target point is very close to bullet spawn point
                 {
                     raycastedDir = (m_RaycastHit.point - m_BulletSpawnPoint.position).normalized;
                 }
@@ -132,11 +132,9 @@ public class GunTemplate : MonoBehaviour
             Quaternion spawnRot = tForm.rotation;
 
             GameObject bulletClone = Instantiate(m_BulletModelPrefab, spawnPos, spawnRot);
-            BulletBehaviour bulletScr = bulletClone.GetComponent<BulletBehaviour>();
-
-            bulletScr.InitBullet();
             bulletClone.SetActive(false);
             bulletClone.transform.SetParent(m_BulletFolder.transform);
+            BulletBehaviour bulletScr = bulletClone.GetComponent<BulletBehaviour>();
 
             m_TimePastSinceLastFire = 0.0f;
             --GetCurrentMagSize;

@@ -29,7 +29,7 @@ public class BulletBehaviour : MonoBehaviour
     private TrailRenderer m_Trail;
     #endregion
 
-    private Vector3 m_WallScaleVec;
+    private Vector3 m_WallVfxScaleVec;
     private Rigidbody m_Rb;
     private Vector3 m_Force;
     private Vector3 m_ImpactSpot;
@@ -48,8 +48,9 @@ public class BulletBehaviour : MonoBehaviour
     public void InitBullet()
     {
         m_Rb = GetComponent<Rigidbody>();
-        m_WallScaleVec = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
+        m_WallVfxScaleVec = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
 
+        // Saved if we wan't physics based projectiles
         //if (m_IsPhysicsBased == true)
         //{
         //    m_Rb.useGravity = true;
@@ -65,18 +66,17 @@ public class BulletBehaviour : MonoBehaviour
         if (m_GlowParticle != null)
         {
             m_Glow = Instantiate(m_GlowParticle.GetComponent<ParticleSystem>(), transform.position, Quaternion.identity);
-            //m_Glow.Stop();
             m_Glow.transform.position = new Vector3(0.0f, -10.0f, 0.0f);
-            m_Glow.transform.localScale = new Vector3(m_GlowScale, m_GlowScale, m_GlowScale);
+            //m_Glow.transform.localScale = new Vector3(m_GlowScale, m_GlowScale, m_GlowScale);
             m_Glow.transform.parent = transform;
         }
 
         if (m_BodyParticle != null)
         {
             m_Body = Instantiate(m_BodyParticle.GetComponent<ParticleSystem>(), transform.position, Quaternion.identity);
-            //m_Body.Stop();
+            
             m_Body.transform.position = new Vector3(0.0f, -10.0f, 0.0f);
-            m_Body.transform.localScale = new Vector3(m_BodyScale, m_BodyScale, m_BodyScale);
+            //m_Body.transform.localScale = new Vector3(m_BodyScale, m_BodyScale, m_BodyScale);
             m_Body.transform.parent = transform;
         }
 
@@ -84,7 +84,7 @@ public class BulletBehaviour : MonoBehaviour
         {
             m_Trail = Instantiate(m_TrailRender.GetComponent<TrailRenderer>(), transform.position, Quaternion.identity);
             m_Trail.transform.position = new Vector3(0.0f, -10.0f, 0.0f);
-            m_Trail.transform.localScale = new Vector3(m_TrailScale, m_TrailScale, m_TrailScale);
+            //m_Trail.transform.localScale = new Vector3(m_TrailScale, m_TrailScale, m_TrailScale);
             m_Trail.transform.parent = transform;
         }
 
@@ -94,6 +94,8 @@ public class BulletBehaviour : MonoBehaviour
 
     public void Fire(Transform bulletSpawnPoint, Vector3 dir)
     {
+        InitBullet();
+
         transform.position = bulletSpawnPoint.position;
 
         transform.forward = dir;
@@ -130,13 +132,13 @@ public class BulletBehaviour : MonoBehaviour
     {
         if (m_WallClashParticle != null)
         {
-            GameObject go = Instantiate(m_WallClashParticle);
-            if(go != null)
+            ParticleSystem part = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>());
+            if(part != null)
             {
-                go.transform.forward = Camera.main.transform.forward * -1.0f;
-                go.transform.position = transform.position;
-                go.GetComponent<ParticleSystem>().transform.localScale = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
-                Destroy(go, 0.5f);
+                part.transform.forward = Camera.main.transform.forward * -1.0f;
+                part.transform.position = transform.position;
+                part.transform.localScale = m_WallVfxScaleVec;
+                Destroy(part, 0.5f);
             }
         }
 
@@ -162,13 +164,13 @@ public class BulletBehaviour : MonoBehaviour
             {
                 if (m_WallClashParticle != null)
                 {
-                    GameObject go = Instantiate(m_WallClashParticle);
-                    if (go != null)
+                    ParticleSystem part = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>());
+                    if (part != null)
                     {
-                        go.transform.forward = Camera.main.transform.forward * -1.0f;
-                        go.transform.position = transform.position;
-                        go.GetComponent<ParticleSystem>().transform.localScale = m_WallScaleVec;
-                        Destroy(go, 0.5f);
+                        part.transform.forward = Camera.main.transform.forward * -1.0f;
+                        part.transform.position = transform.position;
+                        //part.transform.localScale = m_WallScaleVec;
+                        Destroy(part, 0.5f);
                     }
                 }
 
