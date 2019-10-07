@@ -34,7 +34,7 @@ public class BulletBehaviour : MonoBehaviour
     private Vector3 m_Force;
     private Vector3 m_ImpactSpot;
     private float m_CurrentLifeTime;
-
+    
 
     public float GetDmgValue()
     {
@@ -102,12 +102,6 @@ public class BulletBehaviour : MonoBehaviour
     {
         transform.position = bulletSpawnPoint.position;
 
-        //float randomNumberX = Random.Range(-0.03f, 0.03f);
-        //float randomNumberY = Random.Range(-0.03f, 0.03f);
-
-        //transform.forward = dir;
-        //m_Force = ((dir + new Vector3(randomNumberX, randomNumberY, 0.0f)) * m_Speed) + new Vector3(0.0f, m_DropOff, 0.0f);
-
         transform.forward = dir;
         m_Force = dir * m_Speed + new Vector3(0.0f, m_DropOff, 0.0f);
 
@@ -115,7 +109,6 @@ public class BulletBehaviour : MonoBehaviour
         if (m_WallClash != null)
         {
             m_WallClash.transform.rotation = Camera.main.transform.rotation;
-            //m_WallClash.transform.position = vfxSpawnPoint;
         }
 
         if (m_Glow != null)
@@ -140,10 +133,10 @@ public class BulletBehaviour : MonoBehaviour
     }
 
 
-    private void OnEnable()
-    {
-        gameObject.SetActive(true);
-    }
+    //private void OnEnable()
+    //{
+    //    gameObject.SetActive(true);
+    //}
 
 
     private void OnDisable()
@@ -160,24 +153,18 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // TODO: If time, move vfx things to it's own script
         if (m_WallClashParticle != null)
         {
-            m_WallClash.transform.parent = null;
             m_WallClash.transform.position = transform.position;
             m_WallClash.Play();
         }
 
-        // Projectiles might pass thru some type of force fileds or whatever so some conditional are needed
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<ScoreEnemyBasic>().DecreaseHealth(m_DamageValue);
-            Destroy(this);  // Change this to gameObject as I'm unsure if this destroys the whole object or just the script component
         }
-        else if (other.CompareTag("DestroyBullet"))
-        {
-            Destroy(this);
-        }
+
+        Destroy(m_WallClash, m_WallClash.main.duration);
     }
 
 
@@ -191,7 +178,7 @@ public class BulletBehaviour : MonoBehaviour
             transform.position += m_Force * Time.deltaTime;
             if (m_CurrentLifeTime > m_MaxLifetimeInSec)
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
     }
