@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 4786501476409834014}
   - component: {fileID: 4786501476409834015}
   - component: {fileID: 4786501476409834012}
-  - component: {fileID: 7569006753145791775}
   m_Layer: 0
-  m_Name: FX_Spark_clashing_with_wall
+  m_Name: ParticleBulletWallClash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4812,15 +4811,3 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &7569006753145791775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4786501476409834013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b11f83d23f222e449a99862e7057693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

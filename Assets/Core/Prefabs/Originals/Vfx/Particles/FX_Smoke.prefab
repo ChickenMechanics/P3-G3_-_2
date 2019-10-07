@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1806667383804352172}
   - component: {fileID: 6868772951940865811}
   - component: {fileID: 8855007803685241490}
-  - component: {fileID: 4681370659682023615}
   m_Layer: 0
   m_Name: FX_Smoke
   m_TagString: Untagged
@@ -4812,15 +4811,3 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &4681370659682023615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957335056907592732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b11f83d23f222e449a99862e7057693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -10,22 +10,22 @@ PrefabInstance:
     - target: {fileID: 4786501476409834013, guid: fb76fe54ab20ef14bbbf6969d20b68a0,
         type: 3}
       propertyPath: m_Name
-      value: ParticleBulletWallClash
+      value: ParticleBulletWallClash Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4786501476409834014, guid: fb76fe54ab20ef14bbbf6969d20b68a0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.9530802
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786501476409834014, guid: fb76fe54ab20ef14bbbf6969d20b68a0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.32
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786501476409834014, guid: fb76fe54ab20ef14bbbf6969d20b68a0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786501476409834014, guid: fb76fe54ab20ef14bbbf6969d20b68a0,
         type: 3}

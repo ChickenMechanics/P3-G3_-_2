@@ -29,6 +29,7 @@ public class BulletBehaviour : MonoBehaviour
     private TrailRenderer m_Trail;
     #endregion
 
+    private Vector3 m_WallScaleVec;
     private Rigidbody m_Rb;
     private Vector3 m_Force;
     private Vector3 m_ImpactSpot;
@@ -47,6 +48,8 @@ public class BulletBehaviour : MonoBehaviour
     public void InitBullet()
     {
         m_Rb = GetComponent<Rigidbody>();
+        m_WallScaleVec = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
+
         //if (m_IsPhysicsBased == true)
         //{
         //    m_Rb.useGravity = true;
@@ -164,7 +167,7 @@ public class BulletBehaviour : MonoBehaviour
                     {
                         go.transform.forward = Camera.main.transform.forward * -1.0f;
                         go.transform.position = transform.position;
-                        go.GetComponent<ParticleSystem>().transform.localScale = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
+                        go.GetComponent<ParticleSystem>().transform.localScale = m_WallScaleVec;
                         Destroy(go, 0.5f);
                     }
                 }

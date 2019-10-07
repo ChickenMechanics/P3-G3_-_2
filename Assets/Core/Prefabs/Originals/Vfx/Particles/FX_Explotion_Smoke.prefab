@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 6370801163984929593}
   - component: {fileID: 2458690503059132581}
   - component: {fileID: 5333568408129570823}
-  - component: {fileID: 3865725549224811662}
   m_Layer: 0
-  m_Name: FX_Explotion_Smoke Variant Variant 2
+  m_Name: FX_Explotion_Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4812,15 +4811,3 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &3865725549224811662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1055723291059397838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b11f83d23f222e449a99862e7057693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

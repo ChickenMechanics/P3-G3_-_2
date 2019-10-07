@@ -20,6 +20,7 @@ public class SoundManager : MonoBehaviour
         // gun
         GUN_AR_SHOT,
         //GUN_AR_RELOAD,
+        GUN_CANNON,
         // bullet -----------------------------------------------------------------------------------------
         //BULLET_AR_DESTROY,
         // enemy ------------------------------------------------------------------------------------------
@@ -48,8 +49,8 @@ public class SoundManager : MonoBehaviour
     {
         public ESoundClip m_ESound;
         public GameObject m_SoundSource;
-        [Range(0.0f, 1.0f)]
-        public float m_MaxTriggerInterval = 0.0f;
+        [HideInInspector, Range(0.0f, 1.0f)]
+        public float m_MaxTriggerInterval = 0.075f;
         [HideInInspector]
         public float m_PrevTime;
     }
@@ -61,11 +62,11 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySoundClip(ESoundClip soundClipKey, Vector3 position, float startDelay = 0.0f, float dopplerLvl = 0.0f)
     {
-        if (CanPlaySound(soundClipKey) == true)
+        if (TimeChecker(soundClipKey) == true)
         {
             if (startDelay != 0.0f)
             {
-                startDelay = 44100.0f * startDelay; // seconds to Hz... or something
+                startDelay = 44100.0f * startDelay; // Hz to sec... or something like that
             }
 
             if(m_SoundObjs[(int)soundClipKey].m_SoundSource != null)
@@ -81,15 +82,16 @@ public class SoundManager : MonoBehaviour
 
     private bool CanPlaySound(ESoundClip soundClipKey)
     {
-        switch(soundClipKey)
+        // if we would like to only effect certain sounds with a trigger frequenzy limiter a.k.a TimeChecker()
+        switch (soundClipKey)
         {
             case ESoundClip.CRAWLER_DEATH:
                 return TimeChecker(soundClipKey);
-                //break;
+            //break;
 
             case ESoundClip.CRAWLER_AR_DAMAGE:
                 return TimeChecker(soundClipKey);
-                //break;
+            //break;
 
             default: return true;
         }
