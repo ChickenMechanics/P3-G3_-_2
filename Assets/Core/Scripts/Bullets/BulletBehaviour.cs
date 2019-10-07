@@ -34,7 +34,7 @@ public class BulletBehaviour : MonoBehaviour
     private Vector3 m_Force;
     private Vector3 m_ImpactSpot;
     private float m_CurrentLifeTime;
-
+    
 
     public float GetDmgValue()
     {
