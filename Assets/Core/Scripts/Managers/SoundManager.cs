@@ -27,6 +27,8 @@ public class SoundManager : MonoBehaviour
         //CRAWLER_SPAWN,
         CRAWLER_AR_DAMAGE,
         CRAWLER_DEATH,
+        // misc ------------------------------------------------------------------------------------------
+        MJAU,
         // size / needed for code -------------------------------------------------------------------------
         SIZE
     }
