@@ -62,7 +62,7 @@ public class BulletBehaviour : MonoBehaviour
         if (m_GlowParticle != null)
         {
             m_Glow = Instantiate(m_GlowParticle.GetComponent<ParticleSystem>(), transform.position, Quaternion.identity);
-            m_Glow.Stop();
+            //m_Glow.Stop();
             m_Glow.transform.position = new Vector3(0.0f, -10.0f, 0.0f);
             m_Glow.transform.localScale = new Vector3(m_GlowScale, m_GlowScale, m_GlowScale);
             m_Glow.transform.parent = transform;
@@ -71,7 +71,7 @@ public class BulletBehaviour : MonoBehaviour
         if (m_BodyParticle != null)
         {
             m_Body = Instantiate(m_BodyParticle.GetComponent<ParticleSystem>(), transform.position, Quaternion.identity);
-            m_Body.Stop();
+            //m_Body.Stop();
             m_Body.transform.position = new Vector3(0.0f, -10.0f, 0.0f);
             m_Body.transform.localScale = new Vector3(m_BodyScale, m_BodyScale, m_BodyScale);
             m_Body.transform.parent = transform;
@@ -100,13 +100,11 @@ public class BulletBehaviour : MonoBehaviour
         if (m_Glow != null)
         {
             m_Glow.transform.position = transform.position;
-            m_Glow.Play();
         }
 
         if (m_Body != null)
         {
             m_Body.transform.position = transform.position;
-            m_Body.Play();
         }
 
         if (m_Trail != null)
@@ -125,22 +123,18 @@ public class BulletBehaviour : MonoBehaviour
     }
 
 
-    private void OnDestroy()
-    {
-        Destroy(this);
-    }
-
-
     private void OnTriggerEnter(Collider other)
     {
         if (m_WallClashParticle != null)
         {
             GameObject go = Instantiate(m_WallClashParticle);
-            go.transform.forward = Camera.main.transform.forward * -1.0f;
-            go.transform.position = transform.position;
-            go.GetComponent<ParticleSystem>().Play();
-            go.GetComponent<ParticleSystem>().transform.localScale = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
-            Destroy(go, 0.5f);
+            if(go != null)
+            {
+                go.transform.forward = Camera.main.transform.forward * -1.0f;
+                go.transform.position = transform.position;
+                go.GetComponent<ParticleSystem>().transform.localScale = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
+                Destroy(go, 0.5f);
+            }
         }
 
         if (other.CompareTag("Enemy"))
@@ -156,7 +150,7 @@ public class BulletBehaviour : MonoBehaviour
     {
         m_CurrentLifeTime += Time.deltaTime;
 
-        // Saved if we wan't physics based projectiles
+        // Saved if we want physics based projectiles
         //if (m_IsPhysicsBased == false)
         {
             transform.position += m_Force * Time.deltaTime;
@@ -166,10 +160,13 @@ public class BulletBehaviour : MonoBehaviour
                 if (m_WallClashParticle != null)
                 {
                     GameObject go = Instantiate(m_WallClashParticle);
-                    go.transform.forward = Camera.main.transform.forward * -1.0f;
-                    go.transform.position = transform.position;
-                    go.GetComponent<ParticleSystem>().Play();
-                    Destroy(go, 0.5f);
+                    if (go != null)
+                    {
+                        go.transform.forward = Camera.main.transform.forward * -1.0f;
+                        go.transform.position = transform.position;
+                        go.GetComponent<ParticleSystem>().transform.localScale = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
+                        Destroy(go, 0.5f);
+                    }
                 }
 
                 Destroy(gameObject);
