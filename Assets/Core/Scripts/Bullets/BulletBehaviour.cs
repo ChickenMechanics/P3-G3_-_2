@@ -171,7 +171,7 @@ public class BulletBehaviour : MonoBehaviour
         // Projectiles might pass thru some type of force fileds or whatever so some conditional are needed
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<ScoreEnemyBasic>().DecreaseHealth(m_DamageValue);
+            other.GetComponent<DefaultGroundEnemyBehaviour>().TakeDamage(m_DamageValue);
             Destroy(this);  // Change this to gameObject as I'm unsure if this destroys the whole object or just the script component
         }
         else if (other.CompareTag("DestroyBullet"))
