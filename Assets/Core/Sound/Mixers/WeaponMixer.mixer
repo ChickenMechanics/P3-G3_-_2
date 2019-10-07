@@ -6,7 +6,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bullet_2
+  m_Name: Bullets
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: c298ae3aa4f37984796c632ff17bac3c
   m_Children: []
@@ -15,25 +15,6 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 17222973207906848}
-  m_UserColorIndex: 0
-  m_Mute: 0
-  m_Solo: 0
-  m_BypassEffects: 0
---- !u!243 &-5082354028026889184
-AudioMixerGroupController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Bullet_1
-  m_AudioMixer: {fileID: 24100000}
-  m_GroupID: 9345d27d99bfdf44bb911c784a77238c
-  m_Children: []
-  m_Volume: 4dafda969f4ba6e41a23dccb7ce71326
-  m_Pitch: b32c72108b7fcec4aa803bc97225e365
-  m_Send: 00000000000000000000000000000000
-  m_Effects:
-  - {fileID: 3498040712621269131}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -59,8 +40,6 @@ AudioMixerController:
   - guids:
     - 91eb6a78eac6e0f468f389525c1ce6fe
     - a76de74b883e32c4ea90e80fde90f6bb
-    - 3e6f7f0c861907d48b89a478ec31fd66
-    - 9345d27d99bfdf44bb911c784a77238c
     - c298ae3aa4f37984796c632ff17bac3c
     name: View
   m_CurrentViewIndex: 0
@@ -76,9 +55,7 @@ AudioMixerGroupController:
   m_GroupID: 91eb6a78eac6e0f468f389525c1ce6fe
   m_Children:
   - {fileID: 4514727610261031673}
-  - {fileID: 3402976197984165456}
   - {fileID: -5393913101051198755}
-  - {fileID: -5082354028026889184}
   m_Volume: d1de6051aa70ba744924ee5fdbe0473b
   m_Pitch: 491c95aacd67f4e42b232825967b28b1
   m_Send: 00000000000000000000000000000000
@@ -111,7 +88,9 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 9f74ebdd82b3b564d9a175222310d650
-  m_FloatValues: {}
+  m_FloatValues:
+    abd16462e21c20f408e8ec2c63beeb78: 20
+    12c92484e974bd449acf9b3f8a51d719: -3
   m_TransitionOverrides: {}
 --- !u!244 &17222973207906848
 AudioMixerEffectController:
@@ -127,46 +106,13 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
---- !u!243 &3402976197984165456
-AudioMixerGroupController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Gun_2
-  m_AudioMixer: {fileID: 24100000}
-  m_GroupID: 3e6f7f0c861907d48b89a478ec31fd66
-  m_Children: []
-  m_Volume: e8cf77df2b6eab6469de856f74dbd173
-  m_Pitch: 4a34f712c05f1004ea8daa32f31d8413
-  m_Send: 00000000000000000000000000000000
-  m_Effects:
-  - {fileID: 5190432695205308267}
-  m_UserColorIndex: 0
-  m_Mute: 0
-  m_Solo: 0
-  m_BypassEffects: 0
---- !u!244 &3498040712621269131
-AudioMixerEffectController:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_EffectID: 77ed23ac9e0476447a64703e37fc4083
-  m_EffectName: Attenuation
-  m_MixLevel: 2b8d9faf018dabe4f8602996c8eaa7a6
-  m_Parameters: []
-  m_SendTarget: {fileID: 0}
-  m_EnableWetMix: 0
-  m_Bypass: 0
 --- !u!243 &4514727610261031673
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Gun_1
+  m_Name: Guns
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: a76de74b883e32c4ea90e80fde90f6bb
   m_Children: []
@@ -179,20 +125,6 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
---- !u!244 &5190432695205308267
-AudioMixerEffectController:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_EffectID: 9e4d770bd315cd44883410a9541651a9
-  m_EffectName: Attenuation
-  m_MixLevel: 0b5df738326bb2e4091977deb5f10356
-  m_Parameters: []
-  m_SendTarget: {fileID: 0}
-  m_EnableWetMix: 0
-  m_Bypass: 0
 --- !u!244 &6590141247564403503
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
