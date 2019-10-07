@@ -16,7 +16,7 @@ public class CrawlerBehaviour : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        m_DefaultGroundEnemyBehaviour = gameObject.AddComponent<DefaultGroundEnemyBehaviour>();
+        m_DefaultGroundEnemyBehaviour = gameObject.GetComponent<DefaultGroundEnemyBehaviour>();
         m_DefaultGroundEnemyBehaviour.SetHealth(health);
     }
 
