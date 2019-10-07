@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerLook : MonoBehaviour
 {
     #region design vars
@@ -22,11 +23,10 @@ public class PlayerLook : MonoBehaviour
     private Camera m_FPSCam;
     private GameObject m_PlayerEyePoint;
     private GameObject m_EyePoint;
+    private Vector3 m_PrevPos;
     private Vector2 m_NextLookRotation;
     private Vector2 m_CurrentLookRotation;
     private float m_EyePointOffsetZ;
-
-    private Vector3 m_PrevPos;
 
 
     // ----------------------------------------------------------------------------------------------------

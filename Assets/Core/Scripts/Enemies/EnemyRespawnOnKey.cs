@@ -38,10 +38,6 @@ public class EnemyRespawnOnKey : MonoBehaviour
 
         m_ElevSpeed = 18.0f;
 
-        //m_EnemyInstance = Instantiate(m_EnemyToSpawn, transform.position, transform.rotation, transform);
-        //float boundsSize = m_EnemyInstance.GetComponent<BoxCollider>().bounds.size.magnitude;
-        //m_EnemyInstance.transform.position = transform.position - new Vector3(0.0f, boundsSize + 1.0f, 0.0f);
-
         m_CurrentSpawnDelayT = 0.0f;
         m_IsElevator = true;
         m_SpawnDelayLocked = false;
