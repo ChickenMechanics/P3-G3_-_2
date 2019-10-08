@@ -112,11 +112,11 @@ public class WaveSpawner : MonoBehaviour
 
     private bool IsEnemyAlive()
     {
-        m_SearchCountdown -= Time.deltaTime;
+        //m_SearchCountdown -= Time.deltaTime;
         
-        if (m_SearchCountdown > 0f) return true;
+        //if (m_SearchCountdown > 0f) return true;
 
-        m_SearchCountdown = 1f;
+        //m_SearchCountdown = 1f;
 
         return GameObject.FindGameObjectWithTag("Enemy") != null;
     }
