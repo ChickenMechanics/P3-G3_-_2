@@ -62,6 +62,13 @@ public class ScoreEnemyBasic : MonoBehaviour
                 PlayerManager.GetInstance.DecreaseHealth(m_ExplosiveDamage);
             }
 
+#if DEBUG
+            if (SoundManager.GetInstance != null)
+#endif
+            {
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_DEATH, other.transform.position);
+            }
+
             Destroy(gameObject);
         }
     }

@@ -42,8 +42,7 @@ public class SoundManager : MonoBehaviour
 
     private GameObject m_AudioFolder;
     private float m_VolumeScaler;
-    //[Range(0.0f, 100.0f)]
-    private float m_MasterVolume = 25.0f;
+    public float m_MaxTriggerInterval = 0.05f;
 
 
     [System.Serializable]
@@ -51,9 +50,6 @@ public class SoundManager : MonoBehaviour
     {
         public ESoundClip m_ESound;
         public GameObject m_SoundSource;
-        [HideInInspector, Range(0.0f, 1.0f)]
-        public float m_MaxTriggerInterval = 0.075f;
-        [HideInInspector]
         public float m_PrevTime;
     }
     public List<SoundObj> m_SoundObjs;
@@ -64,7 +60,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySoundClip(ESoundClip soundClipKey, Vector3 position, float startDelay = 0.0f, float dopplerLvl = 0.0f)
     {
-        if (TimeChecker(soundClipKey) == true)
+        if (CanPlaySound(soundClipKey) == true)
         {
             if (startDelay != 0.0f)
             {
@@ -106,9 +102,9 @@ public class SoundManager : MonoBehaviour
         {
             if (m_SoundObjs[i].m_ESound == soundClipKey)
             {
-                if (m_SoundObjs[i].m_MaxTriggerInterval > 0.0f)
+                if (m_MaxTriggerInterval > 0.0f)
                 {
-                    float localTimer = m_SoundObjs[i].m_MaxTriggerInterval;
+                    float localTimer = m_MaxTriggerInterval;
                     float prevTime = m_SoundObjs[i].m_PrevTime;
                     float timeNow = Time.time;
                     if (timeNow > localTimer + prevTime)
@@ -161,8 +157,6 @@ public class SoundManager : MonoBehaviour
             }
         }
 
-        m_VolumeScaler = m_MasterVolume / 100.0f;
-
 #if DEBUG
         WhatsThis();
 #endif
@@ -190,7 +184,6 @@ public class SoundManager : MonoBehaviour
             source.clip = (AudioClip)Resources.Load("SecretStash/" + tunes[i]);
             source.playOnAwake = false;
             source.loop = false;
-            source.volume = m_VolumeScaler;
             source.maxDistance = 100.0f;
             source.rolloffMode = AudioRolloffMode.Linear;
             source.dopplerLevel = 0.0f;
