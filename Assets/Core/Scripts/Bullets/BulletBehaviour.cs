@@ -144,7 +144,7 @@ public class BulletBehaviour : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<ScoreEnemyBasic>().DecreaseHealth(m_DamageValue);
+            other.GetComponent<DefaultGroundEnemyBehaviour>().TakeDamage(m_DamageValue);
         }
 
         Destroy(gameObject);
