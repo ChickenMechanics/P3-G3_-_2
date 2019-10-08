@@ -139,6 +139,7 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
         GetInstance = this;
+        DontDestroyOnLoad(gameObject);
 
         m_AudioFolder = new GameObject("AudioFolder");
         m_AudioFolder.transform.position = Vector3.zero;
@@ -183,7 +184,7 @@ public class SoundManager : MonoBehaviour
         {
             GameObject go = new GameObject("tunes");
             m_SuperSecret.Add(go);
-            go.transform.position = Camera.main.transform.position;
+            go.transform.position = Vector3.zero;
             go.transform.parent = m_AudioFolder.transform;
             AudioSource source = go.AddComponent<AudioSource>();
             source.clip = (AudioClip)Resources.Load("SecretStash/" + tunes[i]);
@@ -234,6 +235,11 @@ public class SoundManager : MonoBehaviour
         }
         if(m_NowSource != null)
         {
+            if(PlayerManager.GetInstance != null)
+            {
+                m_NowSource.transform.position = PlayerManager.GetInstance.GetPlayer.transform.position;
+            }
+
             if (m_NowSource.isPlaying != true &&
                 !IsPaused)
             {

@@ -142,9 +142,10 @@ public class BulletBehaviour : MonoBehaviour
             }
         }
 
+        // saved for reasons
         //if (other.CompareTag("Enemy"))
         //{
-        //    other.GetComponent<DefaultGroundEnemyBehaviour>().TakeDamage(m_DamageValue);
+        //    other.GetComponent<ScoreEnemyBasic>().TakeDamage(m_DamageValue);
         //}
 
         Destroy(gameObject);

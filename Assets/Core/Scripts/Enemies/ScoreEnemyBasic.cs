@@ -33,7 +33,7 @@ public class ScoreEnemyBasic : MonoBehaviour
         GetCurrentHealth = GetBaseHealth;
 
 #if DEBUG
-        GameObject resource = (GameObject)Resources.Load("Prefabs/DebugEnemyHealth");
+        GameObject resource = (GameObject)Resources.Load("Prefabs/DebugEnemyHealthResource");
         m_DebugHealthBar = Instantiate(resource, transform.position, Quaternion.identity, transform);
 #endif
     }
