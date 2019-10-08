@@ -44,7 +44,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ExplosionFireVfx
       value: 
-      objectReference: {fileID: 2509235892984690080, guid: f268646e6d603d7439dfc91565e82ed4,
+      objectReference: {fileID: 1620333661140797012, guid: bef41cd2f7ddd8745a1d54c136ffc490,
         type: 3}
     - target: {fileID: 1702258508912075735, guid: bdc1d148b27c80d42a67829096040abf,
         type: 3}
