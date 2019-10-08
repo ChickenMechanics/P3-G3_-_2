@@ -178,7 +178,12 @@ public class HUDManager : MonoBehaviour
             }
             else
             {
-                text.transform.position += new Vector3(UnityEngine.Random.Range(-shakeRange, shakeRange), UnityEngine.Random.Range(-shakeRange, shakeRange), 0.0f);
+                text.transform.position +=
+                    new Vector3(UnityEngine.Random.Range(
+                    -shakeRange, shakeRange),
+                    UnityEngine.Random.Range(-shakeRange, shakeRange),
+                    0.0f);
+
                 m_RumbleDirFlipper = true;
             }
         }
@@ -201,8 +206,7 @@ public class HUDManager : MonoBehaviour
             if(m_BounceDirFlipper == false) 
             {
                 text.transform.localScale += new Vector3(scaleMultiUp, scaleMultiUp, 0.0f) * Time.deltaTime;
-                if (text.transform.localScale.x > targetScale ||
-                    text.transform.localScale.y > targetScale)
+                if (text.transform.localScale.x > targetScale)
                 {
                     text.transform.localScale = new Vector3(targetScale, targetScale, 1.0f);
                     m_BounceDirFlipper = true;
@@ -211,8 +215,7 @@ public class HUDManager : MonoBehaviour
             else
             {
                 text.transform.localScale -= new Vector3(scoreMultiDown, scoreMultiDown, 0.0f) * Time.deltaTime;
-                if (text.transform.localScale.x < m_BounceInitScale.x ||
-                    text.transform.localScale.y < m_BounceInitScale.y)
+                if (text.transform.localScale.x < m_BounceInitScale.x)
                 {
                     text.transform.localScale = m_BounceInitScale;
                     m_IsBounce = false;
@@ -239,8 +242,7 @@ public class HUDManager : MonoBehaviour
         {
             m_GunBulletText.text = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize.ToString();
         }
-
-        if (isReloading == true)
+        else
         {
             m_GunBulletText.text = (FlasherThing(m_MagEmptyBlinkTime) == false) ? "OUT" : " ";
         }

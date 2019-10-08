@@ -8,6 +8,7 @@ public class GunTemplate : MonoBehaviour
     #region design vars
     [Header("Model")]
     public Vector3 m_PositionOffset;
+
     [Header("Properties")]
     public int m_RoundsPerMinute = 500;
     public int m_MagSizeTotal = 30;
@@ -23,10 +24,10 @@ public class GunTemplate : MonoBehaviour
     public GameObject m_BulletModelPrefab;
     #endregion
 
-    // Gun things
+    // gun things
     private Transform m_BulletSpawnPoint;
     private LayerMask m_AimRayLayerMask;
-    // Ammunition things
+    // ammunition things
     private GameObject m_BulletFolder;
     private RaycastHit m_RaycastHit;
     private Vector3 m_SecretSpot;
@@ -170,19 +171,19 @@ public class GunTemplate : MonoBehaviour
 
     private void MagUpdate()
     {
-        // Rate of fire
+        // rate of fire
         if (m_TimePastSinceLastFire < m_Rpm)
         {
             m_TimePastSinceLastFire += Time.deltaTime;
         }
 
-        // Empty clip
+        // empty clip
         if (GetCurrentMagSize <= 0.0f)
         {
             Reload();
         }
 
-        // Reloading time
+        // reloading time
         if(GetIsReloading == true)
         {
             GetCurrentReloadTime -= Time.deltaTime;  // put this here because something with c# switches

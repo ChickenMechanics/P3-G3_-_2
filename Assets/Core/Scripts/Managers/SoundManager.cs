@@ -80,18 +80,12 @@ public class SoundManager : MonoBehaviour
 
     private bool CanPlaySound(ESoundClip soundClipKey)
     {
-        // if we would like to only effect certain sounds with a trigger frequenzy limiter a.k.a TimeChecker()
+        // only effect certain sounds with a trigger frequenzy limiter, TimeChecker()
         switch (soundClipKey)
         {
-            case ESoundClip.CRAWLER_DEATH:
-                return TimeChecker(soundClipKey);
-            //break;
-
-            case ESoundClip.CRAWLER_AR_DAMAGE:
-                return TimeChecker(soundClipKey);
-            //break;
-
-            default: return true;
+            case ESoundClip.CRAWLER_DEATH:      return TimeChecker(soundClipKey);
+            case ESoundClip.CRAWLER_AR_DAMAGE:  return TimeChecker(soundClipKey);
+            default:                            return true;
         }
     }
 
@@ -183,6 +177,7 @@ public class SoundManager : MonoBehaviour
             AudioSource source = go.AddComponent<AudioSource>();
             source.clip = (AudioClip)Resources.Load("SecretStash/" + tunes[i]);
             source.playOnAwake = false;
+            source.volume = 0.25f;
             source.loop = false;
             source.maxDistance = 100.0f;
             source.rolloffMode = AudioRolloffMode.Linear;
