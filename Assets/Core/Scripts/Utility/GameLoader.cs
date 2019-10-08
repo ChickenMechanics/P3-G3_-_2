@@ -6,7 +6,7 @@ public class GameLoader : MonoBehaviour
 {
     private void Awake()
     {
-        
+        SoundManager
     }
 }
 
