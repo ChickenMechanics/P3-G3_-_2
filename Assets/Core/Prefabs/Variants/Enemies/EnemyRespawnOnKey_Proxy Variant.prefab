@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 2598895618850702798, guid: ddb985d4d79d24e4787c3a436cc7b68e,
         type: 3}
       propertyPath: m_Name
-      value: EnemyRespawnOnKey Variant
+      value: EnemyRespawnOnKey_Proxy Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2598895618850702798, guid: ddb985d4d79d24e4787c3a436cc7b68e,
         type: 3}
@@ -21,7 +21,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_EnemyToSpawn
       value: 
-      objectReference: {fileID: 2396812996110916925, guid: 6c7f2a2d48572504e9feeedb368bb47b,
+      objectReference: {fileID: 1131560115494888729, guid: da5a1f36b052d8a469092de4f7f69274,
         type: 3}
     - target: {fileID: 6080358555210336442, guid: ddb985d4d79d24e4787c3a436cc7b68e,
         type: 3}

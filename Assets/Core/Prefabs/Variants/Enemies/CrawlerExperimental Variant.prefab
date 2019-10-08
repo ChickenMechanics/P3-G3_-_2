@@ -25,6 +25,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: CrawlerExperimental Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2549820934302910494, guid: bdc1d148b27c80d42a67829096040abf,
+        type: 3}
+      propertyPath: m_ExplosionFireScale
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549820934302910494, guid: bdc1d148b27c80d42a67829096040abf,
+        type: 3}
+      propertyPath: m_ExplosionSmokeScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549820934302910494, guid: bdc1d148b27c80d42a67829096040abf,
+        type: 3}
+      propertyPath: m_ExplosionSmokeVfx
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549820934302910494, guid: bdc1d148b27c80d42a67829096040abf,
+        type: 3}
+      propertyPath: m_ExplosionFireVfx
+      value: 
+      objectReference: {fileID: 2509235892984690080, guid: f268646e6d603d7439dfc91565e82ed4,
+        type: 3}
     - target: {fileID: 1702258508912075735, guid: bdc1d148b27c80d42a67829096040abf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -80,27 +101,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2549820934302910494, guid: bdc1d148b27c80d42a67829096040abf,
-        type: 3}
-      propertyPath: m_ExplosionFireScale
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2549820934302910494, guid: bdc1d148b27c80d42a67829096040abf,
-        type: 3}
-      propertyPath: m_ExplosionSmokeScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2549820934302910494, guid: bdc1d148b27c80d42a67829096040abf,
-        type: 3}
-      propertyPath: m_ExplosionSmokeVfx
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2549820934302910494, guid: bdc1d148b27c80d42a67829096040abf,
-        type: 3}
-      propertyPath: m_ExplosionFireVfx
-      value: 
-      objectReference: {fileID: 7308423719157835583, guid: bc717c1c5a512b247938911b978c1539,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdc1d148b27c80d42a67829096040abf, type: 3}
 --- !u!1 &1131560115494888729 stripped
