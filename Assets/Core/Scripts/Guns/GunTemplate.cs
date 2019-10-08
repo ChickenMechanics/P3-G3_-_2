@@ -8,7 +8,6 @@ public class GunTemplate : MonoBehaviour
     #region design vars
     [Header("Model")]
     public Vector3 m_PositionOffset;
-
     [Header("Properties")]
     public int m_RoundsPerMinute = 500;
     public int m_MagSizeTotal = 30;
@@ -17,6 +16,8 @@ public class GunTemplate : MonoBehaviour
     public float m_AdsSpread = 0.01f;
     [Range(0.0f, 0.5f)]
     public float m_HipSpread = 0.04f;
+    [Header("Sound")]
+    public SoundManager.ESoundClip m_EFiringSound;
 
     [Header("Bullet Prefab")]
     public GameObject m_BulletModelPrefab;
@@ -44,8 +45,8 @@ public class GunTemplate : MonoBehaviour
 
     private EGunState m_CurrentGunState;
     private Transform m_CameraPoint;
-
     private Vector2 m_BulletSpreadDirs;
+    private GameObject m_CrossHairObj;
 
     private enum EGunState
     {
@@ -85,8 +86,8 @@ public class GunTemplate : MonoBehaviour
 
         m_CurrentGunState = EGunState.READY;
         m_CameraPoint = null;
-
         m_BulletSpreadDirs = Vector2.zero;
+        m_CrossHairObj = transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject;
     }
 
 
@@ -95,7 +96,7 @@ public class GunTemplate : MonoBehaviour
         switch ((int)m_CurrentGunState)
         {
             case (int)EGunState.READY:      GunReadyState();     break;
-            case (int)EGunState.FIRING:   GunFiringState();    break;
+            case (int)EGunState.FIRING:     GunFiringState();    break;
             case (int)EGunState.RELOADING:  GunReloadingState(); break;
         }
     }
@@ -120,7 +121,7 @@ public class GunTemplate : MonoBehaviour
             Vector3 raycastedDir = m_CameraPoint.forward;
             if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist, m_AimRayLayerMask))
             {
-                if(m_RaycastHit.distance > 2.0f)    // some protection from clipping while cam is close to ground/wall
+                if(m_RaycastHit.distance > 2.0f)    // some protection from keeping the bullet rotation to spawn at a super akward angles when bullet target point is very close to bullet spawn point
                 {
                     raycastedDir = (m_RaycastHit.point - m_BulletSpawnPoint.position).normalized;
                 }
@@ -131,11 +132,9 @@ public class GunTemplate : MonoBehaviour
             Quaternion spawnRot = tForm.rotation;
 
             GameObject bulletClone = Instantiate(m_BulletModelPrefab, spawnPos, spawnRot);
-            BulletBehaviour bulletScr = bulletClone.GetComponent<BulletBehaviour>();
-
-            bulletScr.InitBullet();
             bulletClone.SetActive(false);
             bulletClone.transform.SetParent(m_BulletFolder.transform);
+            BulletBehaviour bulletScr = bulletClone.GetComponent<BulletBehaviour>();
 
             m_TimePastSinceLastFire = 0.0f;
             --GetCurrentMagSize;
@@ -147,7 +146,7 @@ public class GunTemplate : MonoBehaviour
             if(SoundManager.GetInstance != null)
 #endif
             {
-                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_AR_SHOT, transform.position);
+                SoundManager.GetInstance.PlaySoundClip(m_EFiringSound, transform.position);
             }
             
             bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
@@ -199,7 +198,7 @@ public class GunTemplate : MonoBehaviour
         {
             GetIsADS = true;
 
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 52.0f, 0.3f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 52.0f, 0.4f);
 
             m_BulletSpreadDirs.x = Random.Range(-m_AdsSpread, m_AdsSpread);
             m_BulletSpreadDirs.y = Random.Range(-m_AdsSpread, m_AdsSpread);
@@ -209,7 +208,7 @@ public class GunTemplate : MonoBehaviour
 
             transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
 
-            transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(false);
+            m_CrossHairObj.SetActive(false);
         }
 
         // hip fire
@@ -218,7 +217,7 @@ public class GunTemplate : MonoBehaviour
         {
             GetIsADS = false;
 
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.05f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.075f);
 
             m_BulletSpreadDirs.x = Random.Range(-m_HipSpread, m_HipSpread);
             m_BulletSpreadDirs.y = Random.Range(-m_HipSpread, m_HipSpread);
@@ -227,9 +226,9 @@ public class GunTemplate : MonoBehaviour
                                 (transform.up * m_PositionOffset.y) +
                                 (transform.forward * m_PositionOffset.z);
 
-            transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.2f);
+            transform.position = Vector3.Lerp(transform.position, transform.parent.transform.position + offsetPos, 0.175f);
 
-            transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject.SetActive(true);
+            m_CrossHairObj.SetActive(true);
         }
     }
 

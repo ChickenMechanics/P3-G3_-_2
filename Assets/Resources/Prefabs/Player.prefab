@@ -186,7 +186,6 @@ MonoBehaviour:
   m_LookSmooth: 0.6
   m_LookPitchMin: 98
   m_LookPitchMax: -98
-  m_FOV: 0
 --- !u!114 &418144399834814445
 MonoBehaviour:
   m_ObjectHideFlags: 0
