@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Core/Scenes/Game/Arena.unity
     guid: 690867e81b4e620429e7df2c62e5df3e
+  - enabled: 0
+    path: Assets/Core/Scenes/Test/JesperHouse.unity
+    guid: 1e9024992f91b4e4893fe5f77c53fdec
   m_configObjects: {}

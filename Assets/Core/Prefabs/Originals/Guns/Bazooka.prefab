@@ -123,7 +123,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PositionOffset: {x: 1.2, y: 0.1, z: 1.5}
-  m_RoundsPerMinute: 20
-  m_MagazineSize: 30
-  m_BulletModelPrefab: {fileID: 3161119332147350593, guid: bb3c811e4761a20458a617d155d241a9,
+  m_RoundsPerMinute: 250
+  m_MagSizeTotal: 16
+  m_ReloadTimeInSec: 2.5
+  m_AdsSpread: 0
+  m_HipSpread: 0.02
+  m_EFiringSound: 1
+  m_BulletModelPrefab: {fileID: 8420254805187990703, guid: d509f3c47bba40f4fbadfa2dfb95129a,
     type: 3}
+  GetCurrentReloadTime: 0

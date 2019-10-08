@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 7777481642265834019}
   - component: {fileID: 8320690357551679827}
   - component: {fileID: 418144399834814445}
+  - component: {fileID: 2424704128811695116}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -180,9 +181,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da4840cb75df304684a3b4146b3a9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EyeHeight: 0.5
+  m_EyeHeight: 1
   m_LookSensitivity: 4
-  m_LookSmooth: 0.4
+  m_LookSmooth: 0.6
   m_LookPitchMin: 98
   m_LookPitchMax: -98
 --- !u!114 &418144399834814445
@@ -203,6 +204,21 @@ MonoBehaviour:
   m_RunAcceleration: 500
   m_DashAcceleration: 1500
   m_DashTime: 0.25
+--- !u!114 &2424704128811695116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4939325181309289166}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b317846d8fcfc4dab9812d63523434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OneWayLength: 1
+  m_InclineAgressivness: 0.41
+  m_DeclineAgressivness: 0.432
 --- !u!1 &5245311354510932670
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,7 +478,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8900545967479910676}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 536287688393368274}

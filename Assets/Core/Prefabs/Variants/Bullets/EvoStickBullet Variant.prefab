@@ -69,8 +69,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 786693131391917410, guid: db95fa4050e9ea14ab8510d4dff6aba3,
         type: 3}
-      propertyPath: m_MaxLifetimeInSec
-      value: 5
+      propertyPath: m_WallClashScale
+      value: 0.001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db95fa4050e9ea14ab8510d4dff6aba3, type: 3}

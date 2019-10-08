@@ -12,22 +12,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: KulSpruta Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 6879944586967888596, guid: 60b53556ab302e9448fe92f75b23d1d0,
-        type: 3}
-      propertyPath: m_BulletModelPrefab
-      value: 
-      objectReference: {fileID: 3309858372098177357, guid: abe31888c629d564db95087fd7d8d388,
-        type: 3}
-    - target: {fileID: 6879944586967888596, guid: 60b53556ab302e9448fe92f75b23d1d0,
-        type: 3}
-      propertyPath: m_MagazineSize
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6879944586967888596, guid: 60b53556ab302e9448fe92f75b23d1d0,
-        type: 3}
-      propertyPath: m_ReloadTimeInSec
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1416179747012316077, guid: 60b53556ab302e9448fe92f75b23d1d0,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerLook : MonoBehaviour
 {
     #region design vars
@@ -22,9 +23,13 @@ public class PlayerLook : MonoBehaviour
     private Camera m_FPSCam;
     private GameObject m_PlayerEyePoint;
     private GameObject m_EyePoint;
+    private Vector3 m_PrevPos;
     private Vector2 m_NextLookRotation;
     private Vector2 m_CurrentLookRotation;
     private float m_EyePointOffsetZ;
+
+
+    // ----------------------------------------------------------------------------------------------------
 
 
     public Vector3 GetPlayerCapsuleRotDir()
@@ -92,22 +97,30 @@ public class PlayerLook : MonoBehaviour
 
         m_NextLookRotation = Vector2.zero;
         m_CurrentLookRotation = Vector2.zero;
+
+        m_PrevPos = m_tPlayerMove.transform.position;
     }
 
 
     private void Update()
     {
         Vector3 posOffset = m_tPlayerLook.up * m_EyeHeight + m_tPlayerLook.forward * m_EyePointOffsetZ;
+        Vector3 nxtPos = m_tPlayerMove.position + posOffset;
 
-        m_tPlayerLook.transform.position =
-            Vector3.Lerp(m_tPlayerLook.transform.position,
-            m_tPlayerMove.position + posOffset,
-            0.9f);
-    }
+        m_tPlayerLook.position = Vector3.Lerp(m_PrevPos, nxtPos, Time.deltaTime);
 
+        m_PrevPos = nxtPos;
 
-    private void LateUpdate()
-    {
         Look();
+
+
+        //Vector3 posOffset = m_tPlayerLook.up * m_EyeHeight + m_tPlayerLook.forward * m_EyePointOffsetZ;
+
+        //m_tPlayerLook.transform.position =
+        //    Vector3.Lerp(m_tPlayerLook.transform.position,
+        //    m_tPlayerMove.position + posOffset,
+        //    0.9f);
+
+        //Look();
     }
 }

@@ -19,9 +19,13 @@ public class EnemyVFX : MonoBehaviour
 
     private void Awake()
     {
-        GameObject vfxParent = new GameObject("VfxEnemyDeathFolder");
-        vfxParent.transform.rotation = transform.rotation;
-        vfxParent.transform.position = transform.position;
+        GameObject parent = GameObject.Find("VfxFolder");
+        if(parent == null)
+        {
+            parent = new GameObject("VfxFolder");
+            parent.transform.rotation = Quaternion.identity;
+            parent.transform.position = Vector3.zero;
+        }
 
         if (m_ExplosionFireVfx != null)
         {
@@ -30,7 +34,7 @@ public class EnemyVFX : MonoBehaviour
             m_ExplosionFireParticle.transform.position = new Vector3(0.0f, -10.0f, 0.0f);
             m_ExplosionFireParticle.transform.localScale = new Vector3(m_ExplosionFireScale, m_ExplosionFireScale, m_ExplosionFireScale);
 
-            m_ExplosionFireParticle.transform.parent = vfxParent.transform;
+            m_ExplosionFireParticle.transform.parent = parent.transform;
         }
 
         if (m_ExplosionSmokeVfx != null)
@@ -40,7 +44,7 @@ public class EnemyVFX : MonoBehaviour
             m_ExplosionSmokeParticle.transform.position = new Vector3(0.0f, -10.0f, 0.0f);
             m_ExplosionSmokeParticle.transform.localScale = new Vector3(m_ExplosionSmokeScale, m_ExplosionSmokeScale, m_ExplosionSmokeScale);
 
-            m_ExplosionSmokeParticle.transform.parent = vfxParent.transform;
+            m_ExplosionSmokeParticle.transform.parent = parent.transform;
         }
     }
 
@@ -51,12 +55,14 @@ public class EnemyVFX : MonoBehaviour
         {
             m_ExplosionFireParticle.transform.position = transform.position;
             m_ExplosionFireParticle.Play();
+            Destroy(m_ExplosionFireParticle.gameObject, 1.0f);
         }
 
         if (m_ExplosionSmokeParticle != null)
         {
             m_ExplosionSmokeParticle.transform.position = transform.position;
             m_ExplosionSmokeParticle.Play();
+            Destroy(m_ExplosionSmokeParticle.gameObject, 1.0f);
         }
     }
 }

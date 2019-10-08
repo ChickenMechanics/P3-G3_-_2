@@ -3,9 +3,10 @@ using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+[SuppressMessage("ReSharper", "UnassignedField.Global")]
+[SuppressMessage("ReSharper", "UnusedMember.Global")]
 public class WaveSpawner : MonoBehaviour
 {
     public enum SpawnState { SPAWNING, WAITING, COUNTING }
@@ -44,47 +45,47 @@ public class WaveSpawner : MonoBehaviour
     public float safeSpawnDistance;
     public float timeBetweenWaves;
 
-    private Transform player;
-    private int subWaveIndex;
-    private int currentWave;
-    private float searchCountdown = 1f;
-    private float currentWaveDuration;
-    private float timeToNextSpawn;
-    private float timeToNextWave;
-    private bool isBetweenWaves;
+    private Transform m_Player;
+    private int m_SubWaveIndex;
+    private int m_CurrentWave;
+    private float m_SearchCountdown = 1f;
+    private float m_CurrentWaveDuration;
+    private float m_TimeToNextSpawn;
+    private float m_TimeToNextWave;
+    private bool m_IsBetweenWaves;
 
-    private SpawnState spawnState = SpawnState.COUNTING;
+    private SpawnState m_SpawnState = SpawnState.COUNTING;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        m_Player = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(SpawnWave(waves[0]));
     }
 
     private void Update()
     {
-        if (IsWaveCompleted(waves[currentWave]))
+        if (IsWaveCompleted(waves[m_CurrentWave]))
             WaveCompleted();
 
-        if (timeToNextWave <= timeBetweenWaves && isBetweenWaves)
+        if (m_TimeToNextWave <= timeBetweenWaves && m_IsBetweenWaves)
         {
-            StartCoroutine(SpawnWave(waves[currentWave]));
-            currentWaveDuration = 0;
-            isBetweenWaves = false;
+            StartCoroutine(SpawnWave(waves[m_CurrentWave]));
+            m_CurrentWaveDuration = 0;
+            m_IsBetweenWaves = false;
         }
 
-        foreach (var subWave in waves[currentWave].subWaves)
+        foreach (var subWave in waves[m_CurrentWave].subWaves)
         {
-            if (subWave.spawnStartDelay <= currentWaveDuration && subWave.GetHasSpawned() == false)
+            if (subWave.spawnStartDelay <= m_CurrentWaveDuration && subWave.GetHasSpawned() == false)
                 StartCoroutine(SpawnSubWave(subWave));
         }
         
-        currentWaveDuration += Time.deltaTime;
+        m_CurrentWaveDuration += Time.deltaTime;
     }
 
     private bool IsWaveCompleted(Wave wave)
     {
-        if (spawnState == SpawnState.WAITING && IsEnemyAlive() == false)
+        if (m_SpawnState == SpawnState.WAITING && IsEnemyAlive() == false)
             return wave.subWaves.Any(subWave => subWave.GetHasSpawned() == false);
 
         return false;
@@ -94,28 +95,28 @@ public class WaveSpawner : MonoBehaviour
     {
         Debug.Log("Wave Completed");
 
-        spawnState = SpawnState.COUNTING;
+        m_SpawnState = SpawnState.COUNTING;
 
-        if (currentWave == waves.Length - 1)
+        if (m_CurrentWave == waves.Length - 1)
         {
-            currentWave = 0;
+            m_CurrentWave = 0;
             Debug.Log("ALL WAVES COMPLETE! Looping...");
         }
         else
-            currentWave++;
+            m_CurrentWave++;
 
-        timeToNextWave = timeBetweenWaves;
+        m_TimeToNextWave = timeBetweenWaves;
 
-        isBetweenWaves = true;
+        m_IsBetweenWaves = true;
     }
 
     private bool IsEnemyAlive()
     {
-        searchCountdown -= Time.deltaTime;
+        m_SearchCountdown -= Time.deltaTime;
         
-        if (searchCountdown > 0f) return true;
+        if (m_SearchCountdown > 0f) return true;
 
-        searchCountdown = 1f;
+        m_SearchCountdown = 1f;
 
         return GameObject.FindGameObjectWithTag("Enemy") != null;
     }
@@ -124,11 +125,11 @@ public class WaveSpawner : MonoBehaviour
     {
         Debug.Log("Spawning Wave: " + wave.waveName);
 
-        spawnState = SpawnState.SPAWNING;
+        m_SpawnState = SpawnState.SPAWNING;
 
         yield return StartCoroutine(SpawnSubWave(wave.subWaves[0]));
 
-        spawnState = SpawnState.WAITING;
+        m_SpawnState = SpawnState.WAITING;
     }
     
     private IEnumerator SpawnSubWave(SubWave subWave)
@@ -155,14 +156,14 @@ public class WaveSpawner : MonoBehaviour
         if (spawnPoints.Length == 0)
             Debug.LogError("No spawn points referenced");
 
-        var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        var playerPos = player.position;
+        var spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+        var playerPos = m_Player.position;
         var distanceToPlayer = playerPos.magnitude - spawnPoint.position.magnitude;
 
         while (Math.Abs(distanceToPlayer) < safeSpawnDistance)
         {
-            spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            playerPos = player.position;
+            spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+            playerPos = m_Player.position;
             distanceToPlayer = playerPos.magnitude - spawnPoint.position.magnitude;
         }
 
