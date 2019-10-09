@@ -49,7 +49,6 @@ public class HUDManager : MonoBehaviour
     private bool m_RumbleDirFlipper;
 
     private Vector3 m_BounceInitScale;
-    private float m_BounceInitTime;
     private bool m_IsBounce;
     private bool m_BounceDirFlipper;
 
@@ -194,15 +193,6 @@ public class HUDManager : MonoBehaviour
     {
         if(m_IsBounce == true)
         {
-            //if(m_BounceInitTime + m_ScoreBounceTime < Time.time)
-            //{
-            //    text.transform.localScale = m_BounceInitScale;
-            //    m_IsBounce = false;
-            //    m_BounceDirFlipper = false;
-            //    return;
-            //}
-
-            //if (m_BounceInitTime + (m_ScoreBounceTime * 0.5f) > Time.time)
             if(m_BounceDirFlipper == false) 
             {
                 text.transform.localScale += new Vector3(scaleMultiUp, scaleMultiUp, 0.0f) * Time.deltaTime;
@@ -260,7 +250,6 @@ public class HUDManager : MonoBehaviour
 
             m_RumbleInitTime = Time.time;
             m_BounceInitScale = m_ScoreTxt.transform.localScale;
-            m_BounceInitTime = m_RumbleInitTime;
         }
         TextRumbler(m_ScoreTxt, m_ScoreRumbleValue, m_ScoreRumbleTime);
         TextBouncer(m_ScoreTxt, m_ScoreBounceTargetScale, m_ScoreBounceScaleMultiUp, m_ScoreBounceScaleMultiDown);
