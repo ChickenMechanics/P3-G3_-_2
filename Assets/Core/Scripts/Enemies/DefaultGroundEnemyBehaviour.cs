@@ -50,8 +50,11 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
         agent.SetDestination(playerPos);
     }
 
-    public void TakeDamage(float damageValue)
+    public void TakeDamage(float damageValue, Object obj)
     {
         m_Health -= damageValue;
+
+        if (m_Health <= 0)
+            Destroy(obj);
     }
 }
