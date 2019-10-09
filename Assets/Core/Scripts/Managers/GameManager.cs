@@ -7,16 +7,34 @@ public class GameManager : MonoBehaviour, IController
 {
     public static GameManager GetInstance { private set; get; }
 
-    private FSM m_Fsm;
+    private delegate void NowState();
+    private NowState m_NowState;
 
 
     //----------------------------------------------------------------------------------------------------
 
 
-    private void CreateStates()
+    private static void MainMenuState()
     {
-        m_Fsm = new FSM(this);
-        m_Fsm.AddState(new G_StateMainMenu(this));
+
+    }
+
+
+    private static void MainOptionsState()
+    {
+
+    }
+
+
+    private static void GameState()
+    {
+
+    }
+
+
+    private static void EndState()
+    {
+
     }
 
 
@@ -29,18 +47,18 @@ public class GameManager : MonoBehaviour, IController
         GetInstance = this;
         DontDestroyOnLoad(gameObject);
 
-        CreateStates();
+        m_NowState = MainMenuState;
     }
 
 
     private void Update()
     {
-        m_Fsm.Update();
+        m_NowState();
     }
 
 
     private void LateUpdate()
     {
-        m_Fsm.LateUpdate();
+
     }
 }
