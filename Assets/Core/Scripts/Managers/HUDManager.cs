@@ -27,7 +27,8 @@ public class HUDManager : MonoBehaviour
     private ScoreManager m_ScoreMan;
     #endregion
 
-    private Image m_HealthBarImg;
+    private Image m_HealthLeftImg;
+    private Image m_HealthRightImg;
     private Image m_ComboMeterImg;
     private Image m_WaveMeterImg;
     private Text m_ScoreTxt;
@@ -74,28 +75,31 @@ public class HUDManager : MonoBehaviour
 
         // player status
         m_PlayerMan = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
-        m_HealthBarImg = canvas.transform.Find("PlayerStatus").transform.Find("HealthSliderImage").GetComponent<Image>();
+        //m_HealthLeftImg = canvas.transform.Find("PlayerStatus").transform.Find("HealthSliderImage").GetComponent<Image>();
+        m_HealthLeftImg = canvas.transform.Find("PlayerStatus").transform.Find("HealthLeftImg").GetComponent<Image>();
+        m_HealthRightImg = canvas.transform.Find("PlayerStatus").transform.Find("HealthRightImg").GetComponent<Image>();
+
         m_PrevHealth = m_PlayerMan.GetCurrentHealth;
 
         // guns / bulllets
         m_GunMan = GameObject.Find("GunManager").GetComponent<GunManager>();
-        m_GunBulletText = canvas.transform.Find("GunBullet").transform.Find("BulletCounter").GetComponent<Text>();
+        m_GunBulletText = canvas.transform.Find("GunBullet").transform.Find("BulletCounterTxt").GetComponent<Text>();
 
         // score / combo
         m_ScoreMan = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 
-        m_ScoreTxt = canvas.transform.Find("ScoreCombo").transform.Find("Score").GetComponent<Text>();
+        m_ScoreTxt = canvas.transform.Find("ScoreCombo").transform.Find("ScoreTxt").GetComponent<Text>();
         m_ScoreTxt.text = " ";
         m_RumbleInitPos = m_ScoreTxt.transform.position;
 
-        m_ComboMeterImg = canvas.transform.Find("ScoreCombo").transform.Find("ComboMeter").GetComponent<Image>();
+        m_ComboMeterImg = canvas.transform.Find("ScoreCombo").transform.Find("ComboMeterImg").GetComponent<Image>();
         m_ComboMeterImg.fillAmount = m_ScoreMan.GetChainTimeLeft;
         m_PrevComboMeter = 0.0f;
 
-        m_ChainTxt = canvas.transform.Find("ScoreCombo").transform.Find("CurrentChain").GetComponent<Text>();
+        m_ChainTxt = canvas.transform.Find("ScoreCombo").transform.Find("CurrentChainTxt").GetComponent<Text>();
         m_ChainTxt.text = "0";
 
-        m_Multiplier = canvas.transform.Find("ScoreCombo").transform.Find("ComboMultiplier").GetComponent<Text>();
+        m_Multiplier = canvas.transform.Find("ScoreCombo").transform.Find("ComboMultiplierTxt").GetComponent<Text>();
         m_Multiplier.text = "0x";
 
         {
@@ -218,9 +222,14 @@ public class HUDManager : MonoBehaviour
 
     private void PlayerUpdate()
     {
-        float nextHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerMan.GetCurrentHealth, m_PlayerMan.GetBaseHealth), 0.2f);
-        m_HealthBarImg.fillAmount = nextHealth;
-        m_PrevHealth = nextHealth;
+        //float nextHealthSplit = 0.5f * Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerMan.GetCurrentHealth, m_PlayerMan.GetBaseHealth), 0.2f);
+        //m_HealthLeftImg.fillAmount = nextHealthSplit;
+        //m_HealthRightImg.fillAmount = nextHealthSplit;
+        //m_PrevHealth = nextHealthSplit;
+
+        m_PrevHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerMan.GetCurrentHealth, m_PlayerMan.GetBaseHealth), 0.2f);
+        m_HealthLeftImg.fillAmount = m_PrevHealth;
+        m_HealthRightImg.fillAmount = m_PrevHealth;
     }
 
 

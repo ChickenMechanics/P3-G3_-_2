@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 3933820944567991165}
   - component: {fileID: 3898607644965858556}
   m_Layer: 5
-  m_Name: Helmet
+  m_Name: HelmetImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -611,7 +611,7 @@ GameObject:
   - component: {fileID: 9122526658967766557}
   - component: {fileID: 2795713454317022810}
   m_Layer: 5
-  m_Name: Health_Left
+  m_Name: HealthLeftImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -761,7 +761,7 @@ GameObject:
   - component: {fileID: 7847207712885984668}
   - component: {fileID: 8430543041873817888}
   m_Layer: 5
-  m_Name: CurrentChain
+  m_Name: CurrentChainTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -956,7 +956,7 @@ GameObject:
   - component: {fileID: 4775240665671000501}
   - component: {fileID: 7016785220132935955}
   m_Layer: 5
-  m_Name: Health_Right
+  m_Name: HealthRightImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1029,7 +1029,7 @@ GameObject:
   - component: {fileID: 5022600568407254929}
   - component: {fileID: 7363007224459100564}
   m_Layer: 5
-  m_Name: Score
+  m_Name: ScoreTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1106,7 +1106,7 @@ GameObject:
   - component: {fileID: 4143659984112500483}
   - component: {fileID: 7322701575827634873}
   m_Layer: 5
-  m_Name: BulletHeader
+  m_Name: BulletHeaderTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1305,7 +1305,7 @@ GameObject:
   - component: {fileID: 9149790910649288597}
   - component: {fileID: 3578983278727345355}
   m_Layer: 5
-  m_Name: ComboMultiplier
+  m_Name: ComboMultiplierTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1421,7 +1421,7 @@ GameObject:
   - component: {fileID: 8954258599604738548}
   - component: {fileID: 6890765829267722351}
   m_Layer: 5
-  m_Name: HealthBarImage
+  m_Name: HealthBarImageImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1494,7 +1494,7 @@ GameObject:
   - component: {fileID: 3734171899939835409}
   - component: {fileID: 2485449413866521023}
   m_Layer: 5
-  m_Name: HelmetShader
+  m_Name: HelmetShaderImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1607,7 +1607,7 @@ GameObject:
   - component: {fileID: 700210537224356502}
   - component: {fileID: 4574238596105232287}
   m_Layer: 5
-  m_Name: ComboMeter
+  m_Name: ComboMeterImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1761,7 +1761,7 @@ GameObject:
   - component: {fileID: 3849601629811708642}
   - component: {fileID: 5087908715222458529}
   m_Layer: 5
-  m_Name: BulletCounter
+  m_Name: BulletCounterTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
