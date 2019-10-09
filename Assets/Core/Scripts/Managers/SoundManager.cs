@@ -50,6 +50,7 @@ public class SoundManager : MonoBehaviour
     {
         public ESoundClip m_ESound;
         public GameObject m_SoundSource;
+        [HideInInspector]
         public float m_PrevTime;
     }
     public List<SoundObj> m_SoundObjs;
