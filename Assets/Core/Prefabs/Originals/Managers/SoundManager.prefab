@@ -43,29 +43,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91bc3c78065ada43be3d23ced42e423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaxTriggerInterval: 0.05
   m_SoundObjs:
   - m_ESound: 0
-    m_SoundSource: {fileID: 7351571028268520213, guid: da8aaf1c0aa06644e9cd2d14c4156a77,
+    m_SoundSource: {fileID: 4805238501341093990, guid: 48298c68f52ab644fb183cb3b216c856,
       type: 3}
-    m_MaxTriggerInterval: 0
     m_PrevTime: 0
   - m_ESound: 2
     m_SoundSource: {fileID: 4805238501341093990, guid: 48298c68f52ab644fb183cb3b216c856,
       type: 3}
-    m_MaxTriggerInterval: 0.075
     m_PrevTime: 0
   - m_ESound: 3
     m_SoundSource: {fileID: 7906836068178854871, guid: a31339942103c264e84d30cf221b445a,
       type: 3}
-    m_MaxTriggerInterval: 0.075
     m_PrevTime: 0
   - m_ESound: 1
     m_SoundSource: {fileID: 8547104688784681372, guid: 7427f462adb00b84fa16d59e94a13d01,
       type: 3}
-    m_MaxTriggerInterval: 0.075
     m_PrevTime: 0
   - m_ESound: 4
     m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
       type: 3}
-    m_MaxTriggerInterval: 0.075
     m_PrevTime: 0
