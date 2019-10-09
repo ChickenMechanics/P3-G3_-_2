@@ -466,7 +466,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4200596322189478414}
   m_Layer: 9
-  m_Name: Crawler Scout
+  m_Name: Crawler Tank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -840,10 +840,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 7281316656739095216}
-  damageAmount: 5
-  scoreAmount: 75
+  damageAmount: 50
+  scoreAmount: 250
   attackRange: 5
-  health: 100
+  health: 600
 --- !u!195 &7281316656739095216
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -854,7 +854,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 8
+  m_Speed: 2.8
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1140,7 +1140,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 889e76ec4c4cf774781d5bb0af44b7b3, type: 2}
+  - {fileID: 2100000, guid: f05cac3697e142448b1a2334303a7707, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
