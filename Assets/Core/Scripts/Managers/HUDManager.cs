@@ -189,7 +189,7 @@ public class HUDManager : MonoBehaviour
     }
 
 
-    private void TextBouncer(Text text, float targetScale, float scaleMultiUp, float scoreMultiDown)
+    private void TextBouncer(Text text, float targetScale, float scaleMultiUp, float scaleMultiDown)
     {
         if(m_IsBounce == true)
         {
@@ -204,13 +204,12 @@ public class HUDManager : MonoBehaviour
             }
             else
             {
-                text.transform.localScale -= new Vector3(scoreMultiDown, scoreMultiDown, 0.0f) * Time.deltaTime;
+                text.transform.localScale -= new Vector3(scaleMultiDown, scaleMultiDown, 0.0f) * Time.deltaTime;
                 if (text.transform.localScale.x < m_BounceInitScale.x)
                 {
                     text.transform.localScale = m_BounceInitScale;
                     m_IsBounce = false;
                     m_BounceDirFlipper = false;
-                    return;
                 }
             }
         }

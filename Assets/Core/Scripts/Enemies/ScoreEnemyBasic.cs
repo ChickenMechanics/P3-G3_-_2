@@ -24,7 +24,7 @@ public class ScoreEnemyBasic : MonoBehaviour
     public void DecreaseHealth(float value)
     {
         GetCurrentHealth -= value;
-    } 
+    }
 
 
     private void Awake()
