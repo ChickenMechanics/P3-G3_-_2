@@ -50,11 +50,20 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
         agent.SetDestination(playerPos);
     }
 
-    public void TakeDamage(float damageValue, Object obj)
+    private void OnTriggerEnter(Component other)
+    {
+        if (other.CompareTag("BulletBasic"))
+        {
+            TakeDamage(other.GetComponent<BulletBehaviour>().m_DamageValue);
+            Destroy(other.gameObject);
+        }
+    }
+    
+    public void TakeDamage(float damageValue)
     {
         m_Health -= damageValue;
 
         if (m_Health <= 0)
-            Destroy(obj);
+            Destroy(gameObject);
     }
 }
