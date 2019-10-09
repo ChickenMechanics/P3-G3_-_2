@@ -33,7 +33,7 @@ public class ScoreEnemyBasic : MonoBehaviour
         GetCurrentHealth = GetBaseHealth;
 
 #if DEBUG
-        GameObject resource = (GameObject)Resources.Load("Prefabs/DebugEnemyHealth");
+        GameObject resource = (GameObject)Resources.Load("Prefabs/DebugEnemyHealthResource");
         m_DebugHealthBar = Instantiate(resource, transform.position, Quaternion.identity, transform);
 #endif
     }
@@ -60,6 +60,13 @@ public class ScoreEnemyBasic : MonoBehaviour
 #endif
             {
                 PlayerManager.GetInstance.DecreaseHealth(m_ExplosiveDamage);
+            }
+
+#if DEBUG
+            if (SoundManager.GetInstance != null)
+#endif
+            {
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_DEATH, other.transform.position);
             }
 
             Destroy(gameObject);

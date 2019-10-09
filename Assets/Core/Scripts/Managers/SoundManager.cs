@@ -42,8 +42,7 @@ public class SoundManager : MonoBehaviour
 
     private GameObject m_AudioFolder;
     private float m_VolumeScaler;
-    //[Range(0.0f, 100.0f)]
-    private float m_MasterVolume = 25.0f;
+    public float m_MaxTriggerInterval = 0.05f;
 
 
     [System.Serializable]
@@ -51,9 +50,6 @@ public class SoundManager : MonoBehaviour
     {
         public ESoundClip m_ESound;
         public GameObject m_SoundSource;
-        [HideInInspector, Range(0.0f, 1.0f)]
-        public float m_MaxTriggerInterval = 0.075f;
-        [HideInInspector]
         public float m_PrevTime;
     }
     public List<SoundObj> m_SoundObjs;
@@ -64,7 +60,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySoundClip(ESoundClip soundClipKey, Vector3 position, float startDelay = 0.0f, float dopplerLvl = 0.0f)
     {
-        if (TimeChecker(soundClipKey) == true)
+        if (CanPlaySound(soundClipKey) == true)
         {
             if (startDelay != 0.0f)
             {
@@ -84,18 +80,12 @@ public class SoundManager : MonoBehaviour
 
     private bool CanPlaySound(ESoundClip soundClipKey)
     {
-        // if we would like to only effect certain sounds with a trigger frequenzy limiter a.k.a TimeChecker()
+        // only effect certain sounds with a trigger frequenzy limiter, TimeChecker()
         switch (soundClipKey)
         {
-            case ESoundClip.CRAWLER_DEATH:
-                return TimeChecker(soundClipKey);
-            //break;
-
-            case ESoundClip.CRAWLER_AR_DAMAGE:
-                return TimeChecker(soundClipKey);
-            //break;
-
-            default: return true;
+            case ESoundClip.CRAWLER_DEATH:      return TimeChecker(soundClipKey);
+            case ESoundClip.CRAWLER_AR_DAMAGE:  return TimeChecker(soundClipKey);
+            default:                            return true;
         }
     }
 
@@ -106,9 +96,9 @@ public class SoundManager : MonoBehaviour
         {
             if (m_SoundObjs[i].m_ESound == soundClipKey)
             {
-                if (m_SoundObjs[i].m_MaxTriggerInterval > 0.0f)
+                if (m_MaxTriggerInterval > 0.0f)
                 {
-                    float localTimer = m_SoundObjs[i].m_MaxTriggerInterval;
+                    float localTimer = m_MaxTriggerInterval;
                     float prevTime = m_SoundObjs[i].m_PrevTime;
                     float timeNow = Time.time;
                     if (timeNow > localTimer + prevTime)
@@ -139,6 +129,7 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
         GetInstance = this;
+        DontDestroyOnLoad(gameObject);
 
         m_AudioFolder = new GameObject("AudioFolder");
         m_AudioFolder.transform.position = Vector3.zero;
@@ -159,8 +150,6 @@ public class SoundManager : MonoBehaviour
                 m_SoundObjs[(int)tmp[i].m_ESound] = tmp[i];
             }
         }
-
-        m_VolumeScaler = m_MasterVolume / 100.0f;
 
 #if DEBUG
         WhatsThis();
@@ -183,13 +172,13 @@ public class SoundManager : MonoBehaviour
         {
             GameObject go = new GameObject("tunes");
             m_SuperSecret.Add(go);
-            go.transform.position = Camera.main.transform.position;
+            go.transform.position = Vector3.zero;
             go.transform.parent = m_AudioFolder.transform;
             AudioSource source = go.AddComponent<AudioSource>();
             source.clip = (AudioClip)Resources.Load("SecretStash/" + tunes[i]);
             source.playOnAwake = false;
+            source.volume = 0.25f;
             source.loop = false;
-            source.volume = m_VolumeScaler;
             source.maxDistance = 100.0f;
             source.rolloffMode = AudioRolloffMode.Linear;
             source.dopplerLevel = 0.0f;
@@ -234,6 +223,11 @@ public class SoundManager : MonoBehaviour
         }
         if(m_NowSource != null)
         {
+            if(PlayerManager.GetInstance != null)
+            {
+                m_NowSource.transform.position = PlayerManager.GetInstance.GetPlayer.transform.position;
+            }
+
             if (m_NowSource.isPlaying != true &&
                 !IsPaused)
             {
