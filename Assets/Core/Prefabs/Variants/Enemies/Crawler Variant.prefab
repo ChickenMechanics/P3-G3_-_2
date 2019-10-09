@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 2166965269259799050, guid: 1da3812ea1c0d4c45befbafece91c332,
         type: 3}
       propertyPath: m_Name
-      value: CrawlereEnemy Variant
+      value: Crawler Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2903065523992410137, guid: 1da3812ea1c0d4c45befbafece91c332,
         type: 3}
@@ -66,11 +66,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -5653370464728495488, guid: 1da3812ea1c0d4c45befbafece91c332,
-        type: 3}
-      propertyPath: m_Health
-      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1da3812ea1c0d4c45befbafece91c332, type: 3}

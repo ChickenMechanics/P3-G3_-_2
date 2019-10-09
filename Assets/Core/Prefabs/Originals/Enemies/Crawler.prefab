@@ -432,7 +432,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2166965269259799050}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -486,10 +486,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1439883124adc4ca39bcfb8ee3f29a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ExplosionFireVfx: {fileID: 4160680326183258552, guid: b43ab0cce5cd77c4a8e6969b1f59bb7c,
+  m_ExplosionFireVfx: {fileID: 4869357172070798763, guid: 3b4ccfdaf152dd04ba0f15d5d74cc9d8,
     type: 3}
-  m_ExplosionSmokeVfx: {fileID: 33209854485882976, guid: 54b003731e6e78a4995e1f69273226b9,
-    type: 3}
+  m_ExplosionSmokeVfx: {fileID: 0}
   m_ExplosionFireScale: 1
   m_ExplosionSmokeScale: 0.2
 --- !u!114 &-5653370464728495488
@@ -505,7 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ScoreValue: 100
-  m_Health: 100
+  m_Health: 250
   m_ExplosiveDamage: 25
 --- !u!114 &-8723667878015382185
 MonoBehaviour:

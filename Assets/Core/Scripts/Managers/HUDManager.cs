@@ -5,6 +5,20 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
+    #region design vars
+    [Header("Score FX")]
+    [Range(0.0f, 10.0f)]
+    public float m_ScoreRumbleValue;
+    [Range(0.0f, 0.5f)]
+    public float m_ScoreRumbleTime;
+    [Range(1.0f, 5.0f)]
+    public float m_ScoreBounceTargetScale;
+    [Range(0.0f, 10.0f)]
+    public float m_ScoreBounceScaleMultiUp;
+    [Range(0.0f, 10.0f)]
+    public float m_ScoreBounceScaleMultiDown;
+    #endregion
+
     public static HUDManager GetInstance { get; private set; }
 
     #region scr ref
@@ -27,6 +41,17 @@ public class HUDManager : MonoBehaviour
     private float m_MagEmptyBlinkTime;
     private float m_FlasherThingTimer;
     private bool m_bFlasherThing;
+
+    private Vector3 m_RumbleInitPos;
+    private float m_RumbleInitTime;
+    private int m_PrevFrameScore;
+    private bool m_IsRumble;
+    private bool m_RumbleDirFlipper;
+
+    private Vector3 m_BounceInitScale;
+    private float m_BounceInitTime;
+    private bool m_IsBounce;
+    private bool m_BounceDirFlipper;
 
     // things that probably goes to endscreen
     private Text m_SpareChainTimeTxt;
@@ -62,6 +87,7 @@ public class HUDManager : MonoBehaviour
 
         m_ScoreTxt = canvas.transform.Find("ScoreCombo").transform.Find("Score").GetComponent<Text>();
         m_ScoreTxt.text = " ";
+        m_RumbleInitPos = m_ScoreTxt.transform.position;
 
         m_ComboMeterImg = canvas.transform.Find("ScoreCombo").transform.Find("ComboMeter").GetComponent<Image>();
         m_ComboMeterImg.fillAmount = m_ScoreMan.GetChainTimeLeft;
@@ -74,7 +100,7 @@ public class HUDManager : MonoBehaviour
         m_Multiplier.text = "0x";
 
         {
-            // things that probably goes to endscreen
+            // endscreen / probably
             m_SpareChainTimeTxt = canvas.transform.Find("ScoreCombo").transform.Find("EndScreen").transform.Find("SpareChainTimeNum").GetComponent<Text>();
             m_SpareChainTimeTxt.text = " ";
             m_TotalChainsTxt = canvas.transform.Find("ScoreCombo").transform.Find("EndScreen").transform.Find("TotalChainsNum").GetComponent<Text>();
@@ -93,6 +119,15 @@ public class HUDManager : MonoBehaviour
         m_MagEmptyBlinkTime = 0.15f;
         m_FlasherThingTimer = m_MagEmptyBlinkTime;
         m_bFlasherThing = true;
+
+
+        m_RumbleInitTime = 0.0f;
+        m_PrevFrameScore = 0;
+        m_IsRumble = false;
+        m_RumbleDirFlipper = false;
+
+        m_BounceInitScale = Vector3.zero;
+        m_BounceDirFlipper = false;
     }
 
 
@@ -124,6 +159,74 @@ public class HUDManager : MonoBehaviour
     }
 
 
+    private void TextRumbler(Text text, float shakeRange, float shakeTimeTotal)
+    {
+        if (m_IsRumble == true)
+        {
+            if ((m_RumbleInitTime + shakeTimeTotal) < Time.time)
+            {
+                text.transform.position = m_RumbleInitPos;
+                m_IsRumble = false;
+                m_RumbleDirFlipper = false;
+                return;
+            }
+
+            if (m_RumbleDirFlipper == true)
+            {
+                text.transform.position = m_RumbleInitPos;
+                m_RumbleDirFlipper = false;
+            }
+            else
+            {
+                text.transform.position +=
+                    new Vector3(UnityEngine.Random.Range(
+                    -shakeRange, shakeRange),
+                    UnityEngine.Random.Range(-shakeRange, shakeRange),
+                    0.0f);
+
+                m_RumbleDirFlipper = true;
+            }
+        }
+    }
+
+
+    private void TextBouncer(Text text, float targetScale, float scaleMultiUp, float scoreMultiDown)
+    {
+        if(m_IsBounce == true)
+        {
+            //if(m_BounceInitTime + m_ScoreBounceTime < Time.time)
+            //{
+            //    text.transform.localScale = m_BounceInitScale;
+            //    m_IsBounce = false;
+            //    m_BounceDirFlipper = false;
+            //    return;
+            //}
+
+            //if (m_BounceInitTime + (m_ScoreBounceTime * 0.5f) > Time.time)
+            if(m_BounceDirFlipper == false) 
+            {
+                text.transform.localScale += new Vector3(scaleMultiUp, scaleMultiUp, 0.0f) * Time.deltaTime;
+                if (text.transform.localScale.x > targetScale)
+                {
+                    text.transform.localScale = new Vector3(targetScale, targetScale, 1.0f);
+                    m_BounceDirFlipper = true;
+                }
+            }
+            else
+            {
+                text.transform.localScale -= new Vector3(scoreMultiDown, scoreMultiDown, 0.0f) * Time.deltaTime;
+                if (text.transform.localScale.x < m_BounceInitScale.x)
+                {
+                    text.transform.localScale = m_BounceInitScale;
+                    m_IsBounce = false;
+                    m_BounceDirFlipper = false;
+                    return;
+                }
+            }
+        }
+    }
+
+
     private void PlayerUpdate()
     {
         float nextHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerMan.GetCurrentHealth, m_PlayerMan.GetBaseHealth), 0.2f);
@@ -139,8 +242,7 @@ public class HUDManager : MonoBehaviour
         {
             m_GunBulletText.text = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize.ToString();
         }
-
-        if (isReloading == true)
+        else
         {
             m_GunBulletText.text = (FlasherThing(m_MagEmptyBlinkTime) == false) ? "OUT" : " ";
         }
@@ -149,16 +251,24 @@ public class HUDManager : MonoBehaviour
 
     private void ScoreUpdate()
     {
-        int score = (int)m_ScoreMan.GetPlayerScore;
-        string strScore = score.ToString();
-        //if (strScore != m_ScoreTxt.text)  // TODO: scale up and down function // return vec3
+        // score rumble
+        int nowScore = (int)m_ScoreMan.GetPlayerScore;
+        if (nowScore != m_PrevFrameScore)
         {
-            //m_ScoreTxt.transform.sca
+            m_IsRumble = true;
+            m_IsBounce = true;
 
-            m_ScoreTxt.text = score.ToString();
-
+            m_RumbleInitTime = Time.time;
+            m_BounceInitScale = m_ScoreTxt.transform.localScale;
+            m_BounceInitTime = m_RumbleInitTime;
         }
+        TextRumbler(m_ScoreTxt, m_ScoreRumbleValue, m_ScoreRumbleTime);
+        TextBouncer(m_ScoreTxt, m_ScoreBounceTargetScale, m_ScoreBounceScaleMultiUp, m_ScoreBounceScaleMultiDown);
 
+        m_PrevFrameScore = nowScore;
+        m_ScoreTxt.text = nowScore.ToString();
+
+        // combo meter
         float translatedToRange = GetZeroToOneRange(m_ScoreMan.GetChainTimeLeft, m_ScoreMan.GetBaseChainTime);
         if (translatedToRange < 0.98f && translatedToRange > 0.97f)
         {
@@ -173,14 +283,15 @@ public class HUDManager : MonoBehaviour
             m_PrevComboMeter = nextComboMeter;
         }
 
+        // chain multiplier
         m_ChainTxt.text = m_ScoreMan.GetCurrentChain.ToString();
 
         string scaleSymbol = "x ";
         float multi = TruncateFloat(m_ScoreMan.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);
         m_Multiplier.text = string.Concat(scaleSymbol, multi.ToString());
 
+        // things that probably goes to endscreen
         {
-            // things that probably goes to endscreen
             float timeLeft = TruncateFloat(m_ScoreMan.GetChainTimeLeft, m_ScoreComboDecimalPoints);
             m_SpareChainTimeTxt.text = timeLeft.ToString();
             float totalChains = TruncateFloat(m_ScoreMan.GetTotalChains, m_ScoreComboDecimalPoints);
@@ -191,6 +302,12 @@ public class HUDManager : MonoBehaviour
     }
 
 
+    public void WavesUpdate()
+    {
+
+    }
+
+
     private void Awake()
     {
         if (GetInstance != null && GetInstance != this)
@@ -198,7 +315,6 @@ public class HUDManager : MonoBehaviour
             Destroy(gameObject);
         }
         GetInstance = this;
-
         DontDestroyOnLoad(gameObject);
 
         Init();
@@ -210,11 +326,6 @@ public class HUDManager : MonoBehaviour
         PlayerUpdate();
         GunBulletUpdate();
         ScoreUpdate();
-
-        // waves
-        {
-
-
-        }
+        WavesUpdate();
     }
 }

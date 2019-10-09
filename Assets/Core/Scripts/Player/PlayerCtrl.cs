@@ -80,10 +80,10 @@ public class PlayerCtrl : MonoBehaviour, IController
         m_BasicInput.LookInput = Vector2.zero;
 
         GetFSM = new FSM(this);
-        GetFSM.AddState(new P_StateIdle((IController)this));
-        GetFSM.AddState(new P_StateWalk((IController)this));
-        GetFSM.AddState(new P_StateRun((IController)this));
-        GetFSM.AddState(new P_StateDash((IController)this));
+        GetFSM.AddState(new P_StateIdle(this));
+        GetFSM.AddState(new P_StateWalk(this));
+        GetFSM.AddState(new P_StateRun(this));
+        GetFSM.AddState(new P_StateDash(this));
         GetFSM.Init();
 
         m_FxRumbleScr = GetComponent<FxRumbleTransform>();

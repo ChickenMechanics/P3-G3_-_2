@@ -53,7 +53,6 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
         GetInstance = this;
-
         DontDestroyOnLoad(gameObject);
 
         m_NextSceneIdx = -1;
