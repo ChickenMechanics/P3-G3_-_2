@@ -16,9 +16,9 @@ public class LevelManager : MonoBehaviour
     // matches the order in build settings
     public enum EScene
     {
-        MAIN_MENU = 0,
-        OPTIONS_MENU,
-        END_SCREEN,
+        MAIN = 0,
+        OPTIONS,
+        END,
         ARENA
     }
 
