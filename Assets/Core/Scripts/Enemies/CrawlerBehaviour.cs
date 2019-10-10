@@ -4,42 +4,40 @@ using UnityEngine.AI;
 
 public class CrawlerBehaviour : DefaultGroundEnemyBehaviour, IController
 {
-    public NavMeshAgent agent;
     public float damageAmount;
     public float scoreAmount;
     public float attackDuration;
     public float attackRange;
     public float health;
     public float attackAngle;
-
-    public enum State { ATTACK, DEATH, IDLE, MOVE }
-
+    
     private EnemyCrawlerAnimation m_Anims;
-    private int m_CurrentState = (int)State.MOVE;
+    private NavMeshAgent agent;
     private bool m_HasDoneDamage;
 
     // Start is called before the first frame update
     private void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
+        currentState = State.MOVE;
         m_Anims = gameObject.GetComponent<EnemyCrawlerAnimation>();
-        SetHealth(health);
+        HP = health;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        switch (m_CurrentState)
+        switch (currentState)
         {
-            case  (int)State.ATTACK: StartCoroutine(Attack()); break;
-            case  (int)State.DEATH:                 Death();   break;
-            case  (int)State.MOVE:                  Move();    break;
+            case  State.ATTACK: StartCoroutine(Attack()); break;
+            case  State.DEATH:                 Death();   break;
+            case  State.MOVE:                  Move();    break;
             default: /*State.IDLE*/                 Idle();    break;
         }
     }
     
     private IEnumerator Attack()
     {
-        var position = GetPosition();
         var playerPos = PlayerManager.GetInstance.transform.position;
         
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.MELEE);
@@ -53,7 +51,7 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour, IController
         yield return new WaitForSeconds(attackDuration);
 
         m_HasDoneDamage = false;
-        m_CurrentState = (int) State.MOVE;
+        currentState = State.MOVE;
     }
 
     private void Death()
@@ -71,8 +69,8 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour, IController
 
         MoveTowardsPlayer(transform, agent);
 
-        if (GetDistanceToPlayer() < attackRange)
-            m_CurrentState = (int) State.ATTACK;
+        if (distanceToPlayer < attackRange)
+            currentState = (int) State.ATTACK;
     }
 
     private void Idle()
