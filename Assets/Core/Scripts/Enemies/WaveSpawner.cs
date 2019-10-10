@@ -156,17 +156,23 @@ public class WaveSpawner : MonoBehaviour
         if (spawnPoints.Length == 0)
             Debug.LogError("No spawn points referenced");
 
-        var playerPos = m_Player.position;
+        Vector3 playerPos = m_Player.position;
 
-        while (true)
+        System.Random rnd = new System.Random(System.DateTime.Now.Millisecond);
+
+        const int numberOfTries = 100;
+
+        for (int i = 0; i < numberOfTries; i++)
         {
-            var spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
-            var distanceToPlayer = playerPos.magnitude - spawnPoint.position.magnitude;
+            Transform spawnPoint = spawnPoints[rnd.Next(0, spawnPoints.Length)];
+            Vector3 distanceToPlayer = playerPos - spawnPoint.position;
 
-            if (Math.Abs(distanceToPlayer) < safeSpawnDistance) continue;
+            if (distanceToPlayer.magnitude < safeSpawnDistance) continue;
 
             Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
             return;
         }
+
+        Debug.Log("Enemy did not spawn since no spawn point was available");
     }
 }
