@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CrawlerBehaviour : MonoBehaviour, IController
+public class CrawlerBehaviour : DefaultGroundEnemyBehaviour, IController
 {
     public NavMeshAgent agent;
     public float damageAmount;
@@ -14,7 +14,6 @@ public class CrawlerBehaviour : MonoBehaviour, IController
 
     public enum State { ATTACK, DEATH, IDLE, MOVE }
 
-    private readonly ScoreManager m_ScoreManager;
     private EnemyCrawlerAnimation m_Anims;
     private DefaultGroundEnemyBehaviour m_DefaultGroundEnemyBehaviour;
     private int m_CurrentState = (int)State.MOVE;
@@ -31,46 +30,21 @@ public class CrawlerBehaviour : MonoBehaviour, IController
     // Update is called once per frame
     private void Update()
     {
-        RunState();
-
-        //CrawlerMoveState();
-        //if (m_DefaultGroundEnemyBehaviour.GetHealth() < 0)
-        //    State = State.DEATH;
-
-        // CrawlerDeathState();
-
-        //var position = m_DefaultGroundEnemyBehaviour.GetPosition();
-        //var playerPos = PlayerManager.GetInstance.transform.position;
-
-        //if (Vector3.Angle(position, playerPos) < attackAngle &&
-        //    m_DefaultGroundEnemyBehaviour.GetDistanceToPlayer() < attackRange)
-
-        //if (m_DefaultGroundEnemyBehaviour.GetDistanceToPlayer() < attackRange)
-        //{
-        //    var attackState = CrawlerAttackState();
-        //}
-        //else
-        //    CrawlerMoveState();
-
-        // getFSM.Update();
-    }
-
-    private void RunState()
-    {
         switch (m_CurrentState)
         {
-            case (int) State.ATTACK: StartCoroutine(Attack()); break;
-            case (int) State.DEATH:                 Death();   break;
-            case (int) State.MOVE:                  Move();    break;
-            default: /*State.IDLE*/                 Idle();    break;
+            case (int)State.ATTACK: StartCoroutine(Attack()); break;
+            case (int)State.DEATH: Death(); break;
+            case (int)State.MOVE: Move(); break;
+            default: /*State.IDLE*/                 Idle(); break;
         }
-    }
 
+    }
+    
     private IEnumerator Attack()
     {
         var position = m_DefaultGroundEnemyBehaviour.GetPosition();
         var playerPos = PlayerManager.GetInstance.transform.position;
-
+        
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.MELEE);
 
         if (Mathf.Abs(Vector3.Angle(position, playerPos) - 90f) < attackAngle && m_HasDoneDamage == false)
@@ -87,8 +61,9 @@ public class CrawlerBehaviour : MonoBehaviour, IController
 
     private void Death()
     {
-        if (m_ScoreManager != null)
-            m_ScoreManager.AddComboPoints(scoreAmount);
+        ScoreManager.GetInstance.AddComboPoints(scoreAmount);
+
+        Debug.Log(scoreAmount);
 
         Destroy(gameObject);
     }
