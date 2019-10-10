@@ -842,8 +842,10 @@ MonoBehaviour:
   agent: {fileID: 7281316656739095216}
   damageAmount: 20
   scoreAmount: 100
+  attackDuration: 2
   attackRange: 5
   health: 250
+  attackAngle: 45
 --- !u!195 &7281316656739095216
 NavMeshAgent:
   m_ObjectHideFlags: 0
