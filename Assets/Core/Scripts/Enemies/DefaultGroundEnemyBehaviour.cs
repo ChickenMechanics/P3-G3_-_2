@@ -9,7 +9,6 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
 {
     #region Header
 
-    private Transform m_Player;
     private Quaternion m_LookRotation;
 
     private Vector3 m_Position;
@@ -27,12 +26,11 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        m_Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     
     public void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
     {
-        var playerPos = m_Player.position;
+        var playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         m_Position = agentTransform.position;
         var rotation = agentTransform.rotation;
 
