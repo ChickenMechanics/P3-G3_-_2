@@ -108,7 +108,6 @@ public class GunTemplate : MonoBehaviour
         if (m_IsFiring == true)
         {
             m_CurrentGunState = EGunState.FIRING;
-
             m_IsFiring = false;
         }
     }

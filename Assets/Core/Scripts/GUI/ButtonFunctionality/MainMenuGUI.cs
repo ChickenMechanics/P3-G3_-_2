@@ -13,7 +13,7 @@ public class MainMenuGUI : MonoBehaviour
 
     public void Options()
     {
-        LevelManager.GetInstance.ChangeScene(LevelManager.EScene.OPTIONS_MENU);
+        LevelManager.GetInstance.ChangeScene(LevelManager.EScene.OPTIONS);
     }
 
 
