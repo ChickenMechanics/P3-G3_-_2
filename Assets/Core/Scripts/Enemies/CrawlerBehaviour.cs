@@ -32,12 +32,11 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour, IController
     {
         switch (m_CurrentState)
         {
-            case (int)State.ATTACK: StartCoroutine(Attack()); break;
-            case (int)State.DEATH: Death(); break;
-            case (int)State.MOVE: Move(); break;
-            default: /*State.IDLE*/                 Idle(); break;
+            case  (int)State.ATTACK: StartCoroutine(Attack()); break;
+            case  (int)State.DEATH:                 Death();   break;
+            case  (int)State.MOVE:                  Move();    break;
+            default: /*State.IDLE*/                 Idle();    break;
         }
-
     }
     
     private IEnumerator Attack()
