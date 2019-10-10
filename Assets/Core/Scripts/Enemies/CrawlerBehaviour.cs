@@ -15,7 +15,6 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour, IController
     public enum State { ATTACK, DEATH, IDLE, MOVE }
 
     private EnemyCrawlerAnimation m_Anims;
-    private DefaultGroundEnemyBehaviour m_DefaultGroundEnemyBehaviour;
     private int m_CurrentState = (int)State.MOVE;
     private bool m_HasDoneDamage;
 
@@ -23,8 +22,7 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour, IController
     private void Start()
     {
         m_Anims = gameObject.GetComponent<EnemyCrawlerAnimation>();
-        m_DefaultGroundEnemyBehaviour = gameObject.GetComponent<DefaultGroundEnemyBehaviour>();
-        m_DefaultGroundEnemyBehaviour.SetHealth(health);
+        SetHealth(health);
     }
 
     // Update is called once per frame
@@ -41,7 +39,7 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour, IController
     
     private IEnumerator Attack()
     {
-        var position = m_DefaultGroundEnemyBehaviour.GetPosition();
+        var position = GetPosition();
         var playerPos = PlayerManager.GetInstance.transform.position;
         
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.MELEE);
@@ -71,9 +69,9 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour, IController
     {
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.WALK);
 
-        m_DefaultGroundEnemyBehaviour.MoveTowardsPlayer(transform, agent);
+        MoveTowardsPlayer(transform, agent);
 
-        if (m_DefaultGroundEnemyBehaviour.GetDistanceToPlayer() < attackRange)
+        if (GetDistanceToPlayer() < attackRange)
             m_CurrentState = (int) State.ATTACK;
     }
 
