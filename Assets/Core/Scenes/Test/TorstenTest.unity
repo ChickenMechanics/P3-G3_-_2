@@ -34693,7 +34693,7 @@ PrefabInstance:
     - target: {fileID: 3691301364954643396, guid: d03bc41eb27611c48a226960895a7d0a,
         type: 3}
       propertyPath: safeSpawnDistance
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3691301364954643396, guid: d03bc41eb27611c48a226960895a7d0a,
         type: 3}
