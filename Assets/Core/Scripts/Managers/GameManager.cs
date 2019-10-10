@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour, IController
     private delegate void NowState();
     private NowState m_NowState;
 
-
     //----------------------------------------------------------------------------------------------------
 
 

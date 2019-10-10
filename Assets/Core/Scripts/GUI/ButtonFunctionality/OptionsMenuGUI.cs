@@ -7,6 +7,6 @@ public class OptionsMenuGUI : MonoBehaviour
 {
     public void MainMenu()
     {
-        LevelManager.GetInstance.ChangeScene(LevelManager.EScene.MAIN_MENU);
+        LevelManager.GetInstance.ChangeScene(LevelManager.EScene.MAIN);
     }
 }
