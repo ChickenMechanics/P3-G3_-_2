@@ -839,7 +839,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f0ba77d768106e459120bba5d86c793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 7281316656739095216}
   damageAmount: 50
   scoreAmount: 250
   attackDuration: 2
@@ -860,7 +859,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 6
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

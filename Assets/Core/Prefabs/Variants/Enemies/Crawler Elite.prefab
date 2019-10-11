@@ -466,7 +466,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4200596322189478414}
   m_Layer: 9
-  m_Name: Crawler Grunt
+  m_Name: Crawler Elite
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -839,11 +839,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f0ba77d768106e459120bba5d86c793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 20
-  scoreAmount: 100
+  damageAmount: 50
+  scoreAmount: 250
   attackDuration: 2
   attackRange: 5
-  health: 250
+  health: 750
   attackAngle: 45
 --- !u!195 &7281316656739095216
 NavMeshAgent:
@@ -855,7 +855,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3
+  m_Speed: 2.8
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1141,7 +1141,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 67433b32d6032a5408486c9a1fac0fe5, type: 2}
+  - {fileID: 2100000, guid: 9efd8b9e7db3e384595421ef023c8115, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
