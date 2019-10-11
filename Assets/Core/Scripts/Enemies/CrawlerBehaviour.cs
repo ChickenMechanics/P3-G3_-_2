@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CrawlerBehaviour : DefaultGroundEnemyBehaviour, IController
+public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
 {
     public float damageAmount;
     public float scoreAmount;
