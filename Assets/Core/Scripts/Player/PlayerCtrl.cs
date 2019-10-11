@@ -17,6 +17,7 @@ public class PlayerCtrl : MonoBehaviour, IController
     [HideInInspector]
     public FSM GetFSM { private set; get; }
 
+
     public enum EPlayerState
     {
         IDLE = 0,
