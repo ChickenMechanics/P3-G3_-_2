@@ -32,15 +32,19 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour, IController
             case  State.ATTACK: StartCoroutine(Attack()); break;
             case  State.DEATH:                 Death();   break;
             case  State.MOVE:                  Move();    break;
-            default: /*State.IDLE*/                 Idle();    break;
+            default: /*State.IDLE*/            Idle();    break;
         }
     }
     
     private IEnumerator Attack()
     {
-        var playerPos = PlayerManager.GetInstance.transform.position;
-        
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.MELEE);
+
+        m_HasDoneDamage = false;
+
+        yield return new WaitForSeconds(attackDuration);
+
+        var playerPos = PlayerManager.GetInstance.transform.position;
 
         if (Mathf.Abs(Vector3.Angle(position, playerPos) - 90f) < attackAngle && m_HasDoneDamage == false)
         {
@@ -48,17 +52,12 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour, IController
             m_HasDoneDamage = true;
         }
 
-        yield return new WaitForSeconds(attackDuration);
-
-        m_HasDoneDamage = false;
         currentState = State.MOVE;
     }
 
     private void Death()
     {
         ScoreManager.GetInstance.AddComboPoints(scoreAmount);
-
-        Debug.Log(scoreAmount);
 
         Destroy(gameObject);
     }
