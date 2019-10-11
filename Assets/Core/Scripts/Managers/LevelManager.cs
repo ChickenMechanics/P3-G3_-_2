@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 // Should be called SceneManager, but Unity uses that. Perhaps change this to something more descriptive like SceneLoaderManager or equally exciting
@@ -17,7 +18,7 @@ public class LevelManager : MonoBehaviour
     // matches the order in build settings
     public enum EScene
     {
-        MAIN = 0,
+        MAIN = 1,
         OPTIONS,
         END,
         ARENA
@@ -44,6 +45,16 @@ public class LevelManager : MonoBehaviour
         m_CurrentSceneIdx = m_NextSceneIdx;
         m_Animator.SetTrigger("FadeOutGate");
         m_Animator.ResetTrigger("FadeOut");
+
+        StartCoroutine(FadeInDelayedDisable());
+    }
+
+
+    private IEnumerator FadeInDelayedDisable()
+    {
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Find("FadeInGO").SetActive(false);
+        StopCoroutine(FadeInDelayedDisable());
     }
 
 
