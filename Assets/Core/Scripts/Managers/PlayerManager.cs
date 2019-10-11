@@ -78,7 +78,7 @@ public class PlayerManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+            //LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
         }
 
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -86,7 +86,7 @@ public class PlayerManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+            //LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
         }
     }
 }

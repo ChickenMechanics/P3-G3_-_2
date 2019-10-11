@@ -1,47 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.AI.NavMeshAgent;
 
 public class DefaultGroundEnemyBehaviour : MonoBehaviour
 {
     #region Header
+    protected enum State { ATTACK, DEATH, IDLE, MOVE }
+    protected State currentState;
+    protected Vector3 position;
+    protected float distanceToPlayer;
+    protected float HP;
 
     private Quaternion m_LookRotation;
-
-    private Vector3 m_Position;
-    public Vector3 GetPosition() { return m_Position; }
-
-    private float m_Health;
-    public float GetHealth() { return m_Health; }
-    public void SetHealth(float health) { m_Health = health; }
-
-    private float m_DistanceToPlayer;
-    public float GetDistanceToPlayer() { return m_DistanceToPlayer; }
-
     #endregion
 
     // Start is called before the first frame update
     private void Start()
     {
     }
-    
-    public void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
+
+    protected void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
     {
         var playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-        m_Position = agentTransform.position;
+        position = agentTransform.position;
         var rotation = agentTransform.rotation;
 
-        var lookPosition = playerPos - m_Position;
+        var lookPosition = playerPos - position;
 
         lookPosition.y = 0;
 
         if (lookPosition != Vector3.zero)
             m_LookRotation = Quaternion.LookRotation(lookPosition);
 
-        m_DistanceToPlayer = lookPosition.magnitude;
+        distanceToPlayer = lookPosition.magnitude;
 
         agentTransform.rotation = Quaternion.Slerp(rotation, m_LookRotation, 0.1f);
 
@@ -59,9 +49,9 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
     
     public void TakeDamage(float damageValue)
     {
-        m_Health -= damageValue;
+        HP -= damageValue;
 
-        if (m_Health <= 0)
-            Destroy(gameObject);
+        if (HP <= 0)
+            currentState = State.DEATH;
     }
 }
