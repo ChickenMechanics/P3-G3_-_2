@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager GetInstance { get; private set;}
 
+    private Animator m_Animator;
     private int m_NextSceneIdx;
     private int m_CurrentSceneIdx;
 
@@ -32,7 +33,8 @@ public class LevelManager : MonoBehaviour
         }
         
         m_NextSceneIdx = (int)scene;
-        FadeCompleteCallback();
+        m_Animator.SetTrigger("FadeOut");
+        m_Animator.ResetTrigger("FadeOutGate");
     }
 
 
@@ -40,6 +42,8 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(m_NextSceneIdx);
         m_CurrentSceneIdx = m_NextSceneIdx;
+        m_Animator.SetTrigger("FadeOutGate");
+        m_Animator.ResetTrigger("FadeOut");
     }
 
 
@@ -52,6 +56,10 @@ public class LevelManager : MonoBehaviour
         GetInstance = this;
         DontDestroyOnLoad(gameObject);
 
+        DontDestroyOnLoad(transform.Find("FadeCanvas").gameObject);
+        DontDestroyOnLoad(transform.Find("FadeCanvas").transform.Find("FadeImg").gameObject);
+
+        m_Animator = GetComponent<Animator>();
         m_NextSceneIdx = -1;
         m_CurrentSceneIdx = -1;
     }
