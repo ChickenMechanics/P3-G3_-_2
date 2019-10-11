@@ -69,23 +69,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7145239428009654852, guid: 60b53556ab302e9448fe92f75b23d1d0,
         type: 3}
-      propertyPath: m_EFiringSound
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: -7145239428009654852, guid: 60b53556ab302e9448fe92f75b23d1d0,
-        type: 3}
-      propertyPath: m_MagSizeTotal
-      value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: -7145239428009654852, guid: 60b53556ab302e9448fe92f75b23d1d0,
-        type: 3}
-      propertyPath: m_HipSpread
-      value: 0.04
+      propertyPath: m_PositionOffset.x
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: -7145239428009654852, guid: 60b53556ab302e9448fe92f75b23d1d0,
         type: 3}
       propertyPath: m_AdsSpread
-      value: 0.02
+      value: 0.015
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60b53556ab302e9448fe92f75b23d1d0, type: 3}
