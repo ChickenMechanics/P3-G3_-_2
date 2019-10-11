@@ -839,7 +839,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f0ba77d768106e459120bba5d86c793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 7281316656739095216}
   damageAmount: 50
   scoreAmount: 250
   attackDuration: 2
@@ -855,7 +854,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4821284741271786569}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.75
   m_Speed: 2.8
   m_Acceleration: 8
   avoidancePriority: 50
