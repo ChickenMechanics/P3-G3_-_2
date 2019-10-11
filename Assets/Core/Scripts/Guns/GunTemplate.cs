@@ -249,11 +249,11 @@ public class GunTemplate : MonoBehaviour
             //    Random.Range(lastPos.z - 0.02f, lastPos.z + 0.02f));
 
             Vector3 nextpos = new Vector3(
-                Random.Range(Random.Range(lastPos.x - 0.002f, lastPos.x), Random.Range(lastPos.x, lastPos.x + 0.002f)),
-                Random.Range(Random.Range(lastPos.y - 0.002f, lastPos.y), Random.Range(lastPos.y, lastPos.y + 0.002f)),
-                Random.Range(Random.Range(lastPos.z - 0.001f, lastPos.z - 0.005f), Random.Range(lastPos.z + 0.005f, lastPos.z + 0.001f)));    // ...
+                Random.Range(lastPos.x - 0.0015f, lastPos.x + 0.0015f),
+                Random.Range(lastPos.y - 0.0015f,lastPos.y + 0.0015f),
+                Random.Range(lastPos.z - 0.015f, lastPos.z + 0.015f));  // ...
 
-            GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(lastPos, nextpos, 0.75f);
+            GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(lastPos, nextpos, 0.25f);
         }
     }
 

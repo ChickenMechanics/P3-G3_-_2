@@ -92,4 +92,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BaseHealth: 100
-  m_TakeDmgShake: 0.1
+  m_TakeDmgShake: 0.15
