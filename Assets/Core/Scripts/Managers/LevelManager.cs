@@ -32,9 +32,6 @@ public class LevelManager : MonoBehaviour
         }
         
         m_NextSceneIdx = (int)scene;
-        //GameObject.FindGameObjectWithTag("SceneTransitionFade").GetComponent<Animator>().SetTrigger("FadeOut");
-
-        // TODO: Fix the fading between scenes
         FadeCompleteCallback();
     }
 
