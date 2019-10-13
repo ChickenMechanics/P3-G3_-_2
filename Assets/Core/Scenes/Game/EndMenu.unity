@@ -957,36 +957,6 @@ Transform:
   m_Father: {fileID: 1557034359}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1979753678 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5878750141740476964, guid: e9f9a19f21b6e3f438bc75b598ed9fea,
-    type: 3}
-  m_PrefabInstance: {fileID: 760515346}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1979753679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979753678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acd2199b7705fc1448f8fba9c3b74023, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_WallClashParticle: {fileID: 0}
-  m_WallClashScale: 1
-  m_GlowParticle: {fileID: 0}
-  m_GlowScale: 1
-  m_BodyParticle: {fileID: 0}
-  m_BodyScale: 1
-  m_TrailRender: {fileID: 0}
-  m_TrailScale: 1
-  m_DamageValue: 25
-  m_Speed: 50
-  m_DropOff: 0
-  m_MaxLifetimeInSec: 5
 --- !u!1 &2049139005
 GameObject:
   m_ObjectHideFlags: 0
