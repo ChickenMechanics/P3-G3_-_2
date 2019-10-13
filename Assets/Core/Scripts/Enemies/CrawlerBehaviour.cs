@@ -38,7 +38,7 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
     
     private IEnumerator Attack()
     {
-        m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.MELEE);
+        m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.ATTACK);
 
         m_HasDoneDamage = false;
 

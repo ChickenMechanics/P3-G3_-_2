@@ -15,7 +15,7 @@ public class EnemyCrawlerAnimation : MonoBehaviour
     {
         IDLE = 0,
         WALK,
-        MELEE,
+        ATTACK,
         SIZE
     }
 
@@ -74,7 +74,7 @@ public class EnemyCrawlerAnimation : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            SetAnim(EAnimCrawler.MELEE);
+            SetAnim(EAnimCrawler.ATTACK);
         }
 #endif
         #endregion

@@ -138,9 +138,12 @@ public class PlayerManager : MonoBehaviour
         {
             LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
         }
-        if(WaveSpawner.GetInstance.GetIsAllWavesComple == true)
+        if(WaveSpawner.GetInstance != null)
         {
-            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+            if(WaveSpawner.GetInstance.GetIsAllWavesComple == true)
+            {
+                LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+            }
         }
     }
 }
