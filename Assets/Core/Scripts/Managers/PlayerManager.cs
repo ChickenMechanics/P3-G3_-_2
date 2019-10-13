@@ -123,6 +123,8 @@ public class PlayerManager : MonoBehaviour
 
         if (GetCurrentHealth != m_ShakePrevHealth)
         {
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_HURT, transform.position);
+
             m_ShakePrevHealth = GetCurrentHealth;
             m_ShakeStartTime = Time.time;
             StartCoroutine(PlayerScreenShake());

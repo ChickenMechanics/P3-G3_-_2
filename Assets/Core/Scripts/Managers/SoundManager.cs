@@ -15,7 +15,7 @@ public class SoundManager : MonoBehaviour
         //SCORE_POINTS_BASIC,
         // player -----------------------------------------------------------------------------------------
         //PLAYER_WALK,
-        //PLAYER_TAKE_DAMAGE,
+        PLAYER_HURT,
         //PLAYER_DEATH,
         // gun
         GUN_AR_SHOT,
@@ -48,6 +48,7 @@ public class SoundManager : MonoBehaviour
     [System.Serializable]
     public class SoundObj
     {
+        public string AliasName;
         public ESoundClip m_ESound;
         public GameObject m_SoundSource;
         [HideInInspector]

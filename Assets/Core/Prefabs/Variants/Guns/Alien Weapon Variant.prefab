@@ -72,5 +72,10 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5454969125480638664, guid: 9c648400cd4d0314a8beff8858d28e6a,
+        type: 3}
+      propertyPath: m_EFiringSound
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c648400cd4d0314a8beff8858d28e6a, type: 3}
