@@ -32,10 +32,10 @@ public class LevelManager : MonoBehaviour
             Debug.LogError("LevelManager::ChangeScene(): Next scene index and current scene index are the same. No scene change made!");
             return;
         }
-        
+
         m_NextSceneIdx = (int)scene;
-        m_Animator.SetTrigger("FadeOut");
-        m_Animator.ResetTrigger("FadeOutGate");
+        m_Animator.SetBool("FadeIn", false);
+        m_Animator.SetBool("FadeOut", true);
     }
 
 
@@ -43,18 +43,9 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(m_NextSceneIdx);
         m_CurrentSceneIdx = m_NextSceneIdx;
-        m_Animator.SetTrigger("FadeOutGate");
-        m_Animator.ResetTrigger("FadeOut");
 
-        StartCoroutine(FadeInDelayedDisable());
-    }
-
-
-    private IEnumerator FadeInDelayedDisable()
-    {
-        yield return new WaitForSeconds(0.25f);
-        GameObject.Find("FadeInGO").SetActive(false);
-        StopCoroutine(FadeInDelayedDisable());
+        m_Animator.SetBool("FadeOut", false);
+        m_Animator.SetBool("FadeIn", true);
     }
 
 
@@ -73,6 +64,8 @@ public class LevelManager : MonoBehaviour
         m_Animator = GetComponent<Animator>();
         m_NextSceneIdx = -1;
         m_CurrentSceneIdx = -1;
+
+        ChangeScene(EScene.MAIN);
     }
 
 
