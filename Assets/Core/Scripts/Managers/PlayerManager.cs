@@ -84,7 +84,7 @@ public class PlayerManager : MonoBehaviour
         while (Time.time < m_ShakeStartTime + m_TakeDmgShakeTime)
         {
             Vector3 ranPos = new Vector3(Random.Range(-m_TakeDmgShakeIntensity, m_TakeDmgShakeIntensity),
-                Random.Range(-m_TakeDmgShakeIntensity, m_TakeDmgShakeIntensity),
+                Random.Range(0.0f, 0.0f),
                 Random.Range(-m_TakeDmgShakeIntensity, m_TakeDmgShakeIntensity));
 
             Vector3 nowPos = GetPlayerLookScr.gameObject.transform.position;
