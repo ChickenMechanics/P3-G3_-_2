@@ -46,8 +46,8 @@ public class PlayerManager : MonoBehaviour
         {
             return;
         }
-
 #endif
+
         GetCurrentHealth -= value;
         if(GetCurrentHealth <= 0.0f)
         {
@@ -140,7 +140,7 @@ public class PlayerManager : MonoBehaviour
         }
         if(WaveSpawner.GetInstance != null)
         {
-            if(WaveSpawner.GetInstance.GetIsAllWavesComple == true)
+            if(WaveSpawner.GetInstance.GetIsAllWavesCompleted == true)
             {
                 LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
             }

@@ -44,7 +44,7 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
 
         yield return new WaitForSeconds(attackDuration);
 
-        var playerPos = PlayerManager.GetInstance.transform.position;
+        var playerPos = PlayerManager.GetInstance.GetPlayer.transform.position;
 
         if (Mathf.Abs(Vector3.Angle(position, playerPos) - 90f) < attackAngle && m_HasDoneDamage == false)
         {

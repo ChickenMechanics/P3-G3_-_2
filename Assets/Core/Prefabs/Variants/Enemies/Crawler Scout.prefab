@@ -845,7 +845,7 @@ MonoBehaviour:
   attackDuration: 2
   attackRange: 5
   health: 125
-  attackAngle: 45
+  attackAngle: 90
 --- !u!195 &7281316656739095216
 NavMeshAgent:
   m_ObjectHideFlags: 0

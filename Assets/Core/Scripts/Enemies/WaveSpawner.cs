@@ -46,7 +46,7 @@ public class WaveSpawner : MonoBehaviour
     public Transform[] spawnPoints;
     public float safeSpawnDistance;
     public float timeBetweenWaves;
-    public bool GetIsAllWavesComple { private set; get; }
+    public bool GetIsAllWavesCompleted { private set; get; }
 
     private Transform m_Player;
     private int m_SubWaveIndex;
@@ -69,13 +69,16 @@ public class WaveSpawner : MonoBehaviour
 
         m_Player = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(SpawnWave(waves[0]));
-        GetIsAllWavesComple = false;
+        GetIsAllWavesCompleted = false;
     }
 
     private void Update()
     {
         if (IsWaveCompleted(waves[m_CurrentWave]))
+        {
+            GetIsAllWavesCompleted = true;
             WaveCompleted();
+        }
 
         if (m_TimeToNextWave <= timeBetweenWaves && m_IsBetweenWaves)
         {
@@ -110,7 +113,6 @@ public class WaveSpawner : MonoBehaviour
         if (m_CurrentWave == waves.Length - 1)
         {
             m_CurrentWave = 0;
-            GetIsAllWavesComple = true;
             Debug.Log("ALL WAVES COMPLETE! Looping...");
         }
         else
