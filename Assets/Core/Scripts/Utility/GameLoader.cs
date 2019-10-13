@@ -15,7 +15,7 @@ public class GameLoader : MonoBehaviour
         {
             Instantiate(Resources.Load("Prefabs/LevelManagerResource"), new Vector3(0.0f, 10.0f, 0.0f), Quaternion.identity);
         }
-        if(SoundManager.GetInstance == null)
+        if (SoundManager.GetInstance == null)
         {
             Instantiate(Resources.Load("Prefabs/SoundManagerResource"), new Vector3(0.0f, 10.0f, 0.0f), Quaternion.identity);
         }

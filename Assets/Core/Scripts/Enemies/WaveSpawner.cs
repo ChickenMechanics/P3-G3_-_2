@@ -9,6 +9,8 @@ using UnityEngine;
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 public class WaveSpawner : MonoBehaviour
 {
+    public static WaveSpawner GetInstance;
+
     public enum SpawnState { SPAWNING, WAITING, COUNTING }
 
     [Serializable]
@@ -44,6 +46,7 @@ public class WaveSpawner : MonoBehaviour
     public Transform[] spawnPoints;
     public float safeSpawnDistance;
     public float timeBetweenWaves;
+    public bool GetIsAllWavesComple { private set; get; }
 
     private Transform m_Player;
     private int m_SubWaveIndex;
@@ -58,8 +61,15 @@ public class WaveSpawner : MonoBehaviour
 
     private void Start()
     {
+        if (GetInstance != null && GetInstance != this)
+        {
+            Destroy(gameObject);
+        }
+        GetInstance = this;
+
         m_Player = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(SpawnWave(waves[0]));
+        GetIsAllWavesComple = false;
     }
 
     private void Update()
@@ -100,6 +110,7 @@ public class WaveSpawner : MonoBehaviour
         if (m_CurrentWave == waves.Length - 1)
         {
             m_CurrentWave = 0;
+            GetIsAllWavesComple = true;
             Debug.Log("ALL WAVES COMPLETE! Looping...");
         }
         else

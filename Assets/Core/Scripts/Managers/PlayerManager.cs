@@ -128,13 +128,17 @@ public class PlayerManager : MonoBehaviour
             StartCoroutine(PlayerScreenShake());
         }
 
+        // TODO: move below blocks to gamemanager
         if (GetIsAlive == false &&
             GetIsUndead == false)
         {
             LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
         }
-
         if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+        }
+        if(WaveSpawner.GetInstance.GetIsAllWavesComple == true)
         {
             LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
         }

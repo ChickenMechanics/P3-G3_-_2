@@ -135,8 +135,9 @@ public class SoundManager : MonoBehaviour
         m_AudioFolder = new GameObject("AudioFolder");
         m_AudioFolder.transform.position = Vector3.zero;
         m_AudioFolder.transform.parent = transform;
+        DontDestroyOnLoad(m_AudioFolder);
 
-        if(m_SoundObjs.Count > 0)
+        if (m_SoundObjs.Count > 0)
         {
             SoundObj[] tmp = m_SoundObjs.ToArray();
             m_SoundObjs.Clear();
