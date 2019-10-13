@@ -59,6 +59,13 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
     {
         ScoreManager.GetInstance.AddComboPoints(scoreAmount);
 
+#if DEBUG
+        if (SoundManager.GetInstance != null)
+#endif
+        {
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_DEATH, transform.position);
+        }
+
         Destroy(gameObject);
     }
 

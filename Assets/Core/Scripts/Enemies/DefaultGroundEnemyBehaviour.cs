@@ -38,12 +38,17 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
         agent.SetDestination(playerPos);
     }
 
-    private void OnTriggerEnter(Component other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("BulletBasic"))
+        if (other.gameObject.layer == 13)   // == projectile
         {
             TakeDamage(other.GetComponent<BulletBehaviour>().m_DamageValue);
-            Destroy(other.gameObject);
+#if DEBUG
+            if (SoundManager.GetInstance != null)
+#endif
+            {
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_AR_DAMAGE, other.transform.position);
+            }
         }
     }
     
