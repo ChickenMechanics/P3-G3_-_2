@@ -32,29 +32,45 @@ public class LevelManager : MonoBehaviour
             Debug.LogError("LevelManager::ChangeScene(): Next scene index and current scene index are the same. No scene change made!");
             return;
         }
-        
+
         m_NextSceneIdx = (int)scene;
-        m_Animator.SetTrigger("FadeOut");
-        m_Animator.ResetTrigger("FadeOutGate");
+        m_Animator.SetBool("FadeIn", false);
+        m_Animator.SetBool("FadeOut", true);
     }
 
-
+    
     public void FadeCompleteCallback()
     {
         SceneManager.LoadScene(m_NextSceneIdx);
         m_CurrentSceneIdx = m_NextSceneIdx;
-        m_Animator.SetTrigger("FadeOutGate");
-        m_Animator.ResetTrigger("FadeOut");
 
-        StartCoroutine(FadeInDelayedDisable());
-    }
+        m_Animator.SetBool("FadeOut", false);
+        m_Animator.SetBool("FadeIn", true);
 
+        // TODO: Move this to game manager
+        if (m_CurrentSceneIdx == (int)EScene.MAIN)
+        {
+            AudioSource source = SoundManager.GetInstance.GetAudioSourceByAlias("Main Menu Music 1");
+            if(source == null)
+            {
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_MAIN_MENU, Vector3.zero);
+            }
+        }
+        if (m_CurrentSceneIdx == (int)EScene.ARENA)
+        {
+            SoundManager.GetInstance.DestroySoundClip("Main Menu Music 1");
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_COMBAT, Vector3.zero);
+        }
+        if (m_CurrentSceneIdx == (int)EScene.END)
+        {
+            SoundManager.GetInstance.DestroySoundClip("Combat Music");
 
-    private IEnumerator FadeInDelayedDisable()
-    {
-        yield return new WaitForSeconds(0.25f);
-        GameObject.Find("FadeInGO").SetActive(false);
-        StopCoroutine(FadeInDelayedDisable());
+            AudioSource source = SoundManager.GetInstance.GetAudioSourceByAlias("Main Menu Music 1");
+            if (source == null)
+            {
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_MAIN_MENU, Vector3.zero);
+            }
+        }
     }
 
 
@@ -73,6 +89,8 @@ public class LevelManager : MonoBehaviour
         m_Animator = GetComponent<Animator>();
         m_NextSceneIdx = -1;
         m_CurrentSceneIdx = -1;
+
+        ChangeScene(EScene.MAIN);
     }
 
 

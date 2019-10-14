@@ -9,4 +9,11 @@ public class EndMenuGUI : MonoBehaviour
     {
         LevelManager.GetInstance.ChangeScene(LevelManager.EScene.MAIN);
     }
+
+
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 }

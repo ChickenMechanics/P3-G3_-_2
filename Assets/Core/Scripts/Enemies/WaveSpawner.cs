@@ -9,7 +9,9 @@ using UnityEngine;
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 public class WaveSpawner : MonoBehaviour
 {
-    public enum SpawnState { SPAWNING, WAITING, COUNTING }
+    public static WaveSpawner GetInstance;
+
+    public enum SpawnState { SPAWNING, WAITING, BETWEENWAVES }
 
     [Serializable]
     public class Wave
@@ -46,35 +48,34 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenWaves;
 
     private Transform m_Player;
-    private int m_SubWaveIndex;
-    private int m_CurrentWave;
+    private int m_CurrentWaveIndex;
     private float m_SearchCountdown = 1f;
     private float m_CurrentWaveDuration;
-    private float m_TimeToNextSpawn;
-    private float m_TimeToNextWave;
-    private bool m_IsBetweenWaves;
-
-    private SpawnState m_SpawnState = SpawnState.COUNTING;
+    private bool m_HasSpawnedWave;
+    private SpawnState m_SpawnState;
 
     private void Start()
     {
+        if (GetInstance != null && GetInstance != this)
+            Destroy(gameObject);
+        
+        GetInstance = this;
+
         m_Player = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(SpawnWave(waves[0]));
     }
 
     private void Update()
     {
-        if (IsWaveCompleted(waves[m_CurrentWave]))
+        var currentWave = waves[m_CurrentWaveIndex];
+
+        if (m_SpawnState == SpawnState.BETWEENWAVES)
+            StartCoroutine(WaitForNextWave(currentWave));
+
+        if (IsWaveCompleted(currentWave))
             WaveCompleted();
 
-        if (m_TimeToNextWave <= timeBetweenWaves && m_IsBetweenWaves)
-        {
-            StartCoroutine(SpawnWave(waves[m_CurrentWave]));
-            m_CurrentWaveDuration = 0;
-            m_IsBetweenWaves = false;
-        }
-
-        foreach (var subWave in waves[m_CurrentWave].subWaves)
+        foreach (var subWave in currentWave.subWaves)
         {
             if (subWave.spawnStartDelay <= m_CurrentWaveDuration && subWave.GetHasSpawned() == false)
                 StartCoroutine(SpawnSubWave(subWave));
@@ -83,31 +84,34 @@ public class WaveSpawner : MonoBehaviour
         m_CurrentWaveDuration += Time.deltaTime;
     }
 
+    private IEnumerator WaitForNextWave(Wave currentWave)
+    {
+        yield return new WaitForSeconds(timeBetweenWaves);
+
+        if (m_HasSpawnedWave) yield break;
+
+        StartCoroutine(SpawnWave(currentWave));
+        m_CurrentWaveDuration = 0;
+        m_HasSpawnedWave = true;
+    }
+
     private bool IsWaveCompleted(Wave wave)
     {
-        if (m_SpawnState == SpawnState.WAITING && IsEnemyAlive() == false)
-            return wave.subWaves.Any(subWave => subWave.GetHasSpawned() == false);
-
-        return false;
+        return m_SpawnState == SpawnState.WAITING &&
+               IsEnemyAlive() == false &&
+               wave.subWaves.All(subWave => subWave.GetHasSpawned());
     }
 
     private void WaveCompleted()
     {
         Debug.Log("Wave Completed");
 
-        m_SpawnState = SpawnState.COUNTING;
-
-        if (m_CurrentWave == waves.Length - 1)
-        {
-            m_CurrentWave = 0;
-            Debug.Log("ALL WAVES COMPLETE! Looping...");
-        }
+        if (m_CurrentWaveIndex == waves.Length - 1)
+            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
         else
-            m_CurrentWave++;
+            m_CurrentWaveIndex++;
 
-        m_TimeToNextWave = timeBetweenWaves;
-
-        m_IsBetweenWaves = true;
+        m_SpawnState = SpawnState.BETWEENWAVES;
     }
 
     private bool IsEnemyAlive()
