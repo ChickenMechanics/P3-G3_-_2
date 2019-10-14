@@ -8,14 +8,14 @@ public class EnemyCrawlerAnimation : MonoBehaviour
 {
     [HideInInspector]
     public Animator m_Animator { private set; get; }
-    private string[] m_ClipNames = { "Idle", "Walk", "Melee" };
+    private string[] m_ClipNames = { "Walk", "Attack" };
     private int m_CurrentAnimId;
 
     public enum EAnimCrawler
     {
-        IDLE = 0,
         WALK,
         ATTACK,
+        IDLE,
         SIZE
     }
 

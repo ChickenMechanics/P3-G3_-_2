@@ -19,9 +19,9 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
 
     private enum ECrawlerState
     {
-        IDLE = 0,
         WALK,
         MELEE,
+        IDLE,
         SIZE
     }
 
@@ -104,7 +104,7 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
 
         m_AnimScr = GetComponent<EnemyCrawlerAnimation>();
 
-        m_CurrentSate = ECrawlerState.IDLE;
+        m_CurrentSate = ECrawlerState.WALK;
 
         m_WalkTriggerMinDist = 2.5f;
         m_StateDelayTimer = m_OnSpawnAiDelayTime;
