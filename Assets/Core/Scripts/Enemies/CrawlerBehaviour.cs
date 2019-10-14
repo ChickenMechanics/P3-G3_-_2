@@ -12,13 +12,13 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
     public float attackAngle;
     
     private EnemyCrawlerAnimation m_Anims;
-    private NavMeshAgent agent;
+    private NavMeshAgent m_Agent;
     private bool m_HasDoneDamage;
 
     // Start is called before the first frame update
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        m_Agent = GetComponent<NavMeshAgent>();
         currentState = State.MOVE;
         m_Anims = gameObject.GetComponent<EnemyCrawlerAnimation>();
         HP = health;
@@ -73,7 +73,7 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
     {
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.WALK);
 
-        MoveTowardsPlayer(transform, agent);
+        MoveTowardsPlayer(transform, m_Agent);
 
         if (distanceToPlayer < attackRange)
             currentState = (int) State.ATTACK;
