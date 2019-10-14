@@ -80,6 +80,12 @@ public class SoundManager : MonoBehaviour
     }
 
 
+    public void StopSoundClip(ESoundClip soundClipKey)
+    {
+
+    }
+
+
     private bool CanPlaySound(ESoundClip soundClipKey)
     {
         // only effect certain sounds with a trigger frequenzy limiter, TimeChecker()
