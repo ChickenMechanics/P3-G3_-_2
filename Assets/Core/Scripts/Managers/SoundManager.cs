@@ -9,7 +9,7 @@ public class SoundManager : MonoBehaviour
     public enum ESoundClip
     {
         // music ------------------------------------------------------------------------------------------
-        //MUSIC_MAIN_MENU,
+        MUSIC_MAIN_MENU,
         MUSIC_COMBAT,
         // score ------------------------------------------------------------------------------------------
         //SCORE_POINTS_BASIC,
@@ -72,6 +72,7 @@ public class SoundManager : MonoBehaviour
             if(m_SoundObjs[(int)soundClipKey].m_SoundSource != null)
             {
                 GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource, position, Quaternion.identity, m_AudioFolder.transform);
+                obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
                 AudioSource source = obj.GetComponent<AudioSource>();
                 source.PlayDelayed((ulong)startDelay);
                 Destroy(obj, source.clip.length);
@@ -80,14 +81,30 @@ public class SoundManager : MonoBehaviour
     }
 
 
-    public void DestroySoundClip(string goName)
+    public void DestroySoundClip(string aliasName)
     {
-        GameObject go = GameObject.Find(goName);
-        if(go != null)
+        GameObject go = GameObject.Find(aliasName);
+        if(go == null)
         {
-            go.GetComponent<AudioSource>().Stop();
-            Destroy(go);
+            Debug.LogWarning("SoundManager::DestroySoundClip(): Broken!");
+            return;
         }
+
+        go.GetComponent<AudioSource>().Stop();
+        Destroy(go);
+    }
+
+
+    public AudioSource GetAudioSourceByAlias(string aliasName)
+    {
+        GameObject go = GameObject.Find(aliasName);
+        if (go == null)
+        {
+            Debug.LogWarning("SoundManager::GetAudioSourceByAlias(): Broken!");
+            return null;
+        }
+
+        return go.GetComponent<AudioSource>();
     }
 
 

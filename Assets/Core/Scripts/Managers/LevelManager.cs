@@ -48,13 +48,28 @@ public class LevelManager : MonoBehaviour
         m_Animator.SetBool("FadeIn", true);
 
         // TODO: Move this to game manager
-        if(m_CurrentSceneIdx == (int)EScene.ARENA)
+        if (m_CurrentSceneIdx == (int)EScene.MAIN)
         {
+            AudioSource source = SoundManager.GetInstance.GetAudioSourceByAlias("Main Menu Music 1");
+            if(source == null)
+            {
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_MAIN_MENU, Vector3.zero);
+            }
+        }
+        if (m_CurrentSceneIdx == (int)EScene.ARENA)
+        {
+            SoundManager.GetInstance.DestroySoundClip("Main Menu Music 1");
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_COMBAT, Vector3.zero);
         }
         if (m_CurrentSceneIdx == (int)EScene.END)
         {
-            SoundManager.GetInstance.DestroySoundClip("Combat music_2(Clone)");
+            SoundManager.GetInstance.DestroySoundClip("Combat Music");
+
+            AudioSource source = SoundManager.GetInstance.GetAudioSourceByAlias("Main Menu Music 1");
+            if (source == null)
+            {
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_MAIN_MENU, Vector3.zero);
+            }
         }
     }
 

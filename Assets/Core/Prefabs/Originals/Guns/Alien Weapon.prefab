@@ -128,7 +128,7 @@ MonoBehaviour:
   m_ReloadTimeInSec: 1
   m_AdsSpread: 0.01
   m_HipSpread: 0.04
-  m_EFiringSound: 2
+  m_EFiringSound: 3
   m_BulletModelPrefab: {fileID: 1258812700453301312, guid: db95fa4050e9ea14ab8510d4dff6aba3,
     type: 3}
   GetCurrentReloadTime: 0
