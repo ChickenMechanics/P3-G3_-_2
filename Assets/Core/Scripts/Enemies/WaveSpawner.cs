@@ -9,6 +9,8 @@ using UnityEngine;
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 public class WaveSpawner : MonoBehaviour
 {
+    public static WaveSpawner GetInstance;
+
     public enum SpawnState { SPAWNING, WAITING, COUNTING }
 
     [Serializable]
@@ -44,6 +46,7 @@ public class WaveSpawner : MonoBehaviour
     public Transform[] spawnPoints;
     public float safeSpawnDistance;
     public float timeBetweenWaves;
+    public bool GetIsAllWavesCompleted { private set; get; }
 
     private Transform m_Player;
     private int m_SubWaveIndex;
@@ -58,14 +61,24 @@ public class WaveSpawner : MonoBehaviour
 
     private void Start()
     {
+        if (GetInstance != null && GetInstance != this)
+        {
+            Destroy(gameObject);
+        }
+        GetInstance = this;
+
         m_Player = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(SpawnWave(waves[0]));
+        GetIsAllWavesCompleted = false;
     }
 
     private void Update()
     {
         if (IsWaveCompleted(waves[m_CurrentWave]))
+        {
+            GetIsAllWavesCompleted = true;
             WaveCompleted();
+        }
 
         if (m_TimeToNextWave <= timeBetweenWaves && m_IsBetweenWaves)
         {
@@ -112,11 +125,11 @@ public class WaveSpawner : MonoBehaviour
 
     private bool IsEnemyAlive()
     {
-        //m_SearchCountdown -= Time.deltaTime;
+        m_SearchCountdown -= Time.deltaTime;
         
-        //if (m_SearchCountdown > 0f) return true;
+        if (m_SearchCountdown > 0f) return true;
 
-        //m_SearchCountdown = 1f;
+        m_SearchCountdown = 1f;
 
         return GameObject.FindGameObjectWithTag("Enemy") != null;
     }
@@ -156,17 +169,23 @@ public class WaveSpawner : MonoBehaviour
         if (spawnPoints.Length == 0)
             Debug.LogError("No spawn points referenced");
 
-        var playerPos = m_Player.position;
+        Vector3 playerPos = m_Player.position;
 
-        while (true)
+        System.Random rnd = new System.Random(System.DateTime.Now.Millisecond);
+
+        const int numberOfTries = 100;
+
+        for (int i = 0; i < numberOfTries; i++)
         {
-            var spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
-            var distanceToPlayer = playerPos.magnitude - spawnPoint.position.magnitude;
+            Transform spawnPoint = spawnPoints[rnd.Next(0, spawnPoints.Length)];
+            Vector3 distanceToPlayer = playerPos - spawnPoint.position;
 
-            if (Math.Abs(distanceToPlayer) < safeSpawnDistance) continue;
+            if (distanceToPlayer.magnitude < safeSpawnDistance) continue;
 
             Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
             return;
         }
+
+        Debug.Log("Enemy did not spawn since no spawn point was available");
     }
 }

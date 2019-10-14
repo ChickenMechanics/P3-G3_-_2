@@ -139,11 +139,8 @@ public class BulletBehaviour : MonoBehaviour
             }
         }
 
-        // saved for reasons
         //if (other.CompareTag("Enemy"))
-        //{
-        //    other.GetComponent<ScoreEnemyBasic>().TakeDamage(m_DamageValue);
-        //}
+        //    other.GetComponent<DefaultGroundEnemyBehaviour>().TakeDamage(m_DamageValue, other.gameObject);
 
         Destroy(gameObject);
     }
@@ -167,6 +164,8 @@ public class BulletBehaviour : MonoBehaviour
                     {
                         part.transform.forward = Camera.main.transform.forward * -1.0f;
                         part.transform.position = transform.position;
+                        // oncommnet this to remove fireworks
+                        // part.transform.localScale = m_WallVfxScaleVec;
                         Destroy(part.gameObject, 0.5f);
                     }
                 }

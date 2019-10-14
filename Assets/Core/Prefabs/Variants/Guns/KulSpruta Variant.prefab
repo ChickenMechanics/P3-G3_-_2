@@ -67,5 +67,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7145239428009654852, guid: 60b53556ab302e9448fe92f75b23d1d0,
+        type: 3}
+      propertyPath: m_PositionOffset.x
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: -7145239428009654852, guid: 60b53556ab302e9448fe92f75b23d1d0,
+        type: 3}
+      propertyPath: m_AdsSpread
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: -7145239428009654852, guid: 60b53556ab302e9448fe92f75b23d1d0,
+        type: 3}
+      propertyPath: m_EFiringSound
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60b53556ab302e9448fe92f75b23d1d0, type: 3}

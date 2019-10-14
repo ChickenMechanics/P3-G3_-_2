@@ -46,7 +46,7 @@ MonoBehaviour:
   m_MaxTriggerInterval: 0.05
   m_SoundObjs:
   - m_ESound: 0
-    m_SoundSource: {fileID: 4805238501341093990, guid: 48298c68f52ab644fb183cb3b216c856,
+    m_SoundSource: {fileID: 7351571028268520213, guid: da8aaf1c0aa06644e9cd2d14c4156a77,
       type: 3}
     m_PrevTime: 0
   - m_ESound: 2

@@ -17,6 +17,7 @@ public class PlayerCtrl : MonoBehaviour, IController
     [HideInInspector]
     public FSM GetFSM { private set; get; }
 
+
     public enum EPlayerState
     {
         IDLE = 0,
@@ -85,9 +86,6 @@ public class PlayerCtrl : MonoBehaviour, IController
         GetFSM.AddState(new P_StateRun(this));
         GetFSM.AddState(new P_StateDash(this));
         GetFSM.Init();
-
-        m_FxRumbleScr = GetComponent<FxRumbleTransform>();
-        m_FxRumbleScr.Init(transform.Find("Look"));
     }
 
 
@@ -100,11 +98,6 @@ public class PlayerCtrl : MonoBehaviour, IController
     private void Update()
     {
         GetFSM.Update();
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            m_FxRumbleScr.ExecuteRumble();
-        }
     }
 
 

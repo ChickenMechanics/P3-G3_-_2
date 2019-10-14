@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 // Should be called SceneManager, but Unity uses that. Perhaps change this to something more descriptive like SceneLoaderManager or equally exciting
@@ -9,6 +10,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager GetInstance { get; private set;}
 
+    private Animator m_Animator;
     private int m_NextSceneIdx;
     private int m_CurrentSceneIdx;
 
@@ -16,9 +18,9 @@ public class LevelManager : MonoBehaviour
     // matches the order in build settings
     public enum EScene
     {
-        MAIN_MENU = 0,
-        OPTIONS_MENU,
-        END_SCREEN,
+        MAIN = 1,
+        OPTIONS,
+        END,
         ARENA
     }
 
@@ -30,12 +32,10 @@ public class LevelManager : MonoBehaviour
             Debug.LogError("LevelManager::ChangeScene(): Next scene index and current scene index are the same. No scene change made!");
             return;
         }
-        
-        m_NextSceneIdx = (int)scene;
-        //GameObject.FindGameObjectWithTag("SceneTransitionFade").GetComponent<Animator>().SetTrigger("FadeOut");
 
-        // TODO: Fix the fading between scenes
-        FadeCompleteCallback();
+        m_NextSceneIdx = (int)scene;
+        m_Animator.SetBool("FadeIn", false);
+        m_Animator.SetBool("FadeOut", true);
     }
 
 
@@ -43,6 +43,9 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(m_NextSceneIdx);
         m_CurrentSceneIdx = m_NextSceneIdx;
+
+        m_Animator.SetBool("FadeOut", false);
+        m_Animator.SetBool("FadeIn", true);
     }
 
 
@@ -55,8 +58,14 @@ public class LevelManager : MonoBehaviour
         GetInstance = this;
         DontDestroyOnLoad(gameObject);
 
+        DontDestroyOnLoad(transform.Find("FadeCanvas").gameObject);
+        DontDestroyOnLoad(transform.Find("FadeCanvas").transform.Find("FadeImg").gameObject);
+
+        m_Animator = GetComponent<Animator>();
         m_NextSceneIdx = -1;
         m_CurrentSceneIdx = -1;
+
+        ChangeScene(EScene.MAIN);
     }
 
 

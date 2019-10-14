@@ -15,7 +15,7 @@ public class EnemyCrawlerAnimation : MonoBehaviour
     {
         IDLE = 0,
         WALK,
-        MELEE,
+        ATTACK,
         SIZE
     }
 
@@ -37,7 +37,7 @@ public class EnemyCrawlerAnimation : MonoBehaviour
 
     public void ResetAnim()
     {
-        m_CurrentAnimId = (int)EAnimCrawler.IDLE;
+        m_CurrentAnimId = (int)EAnimCrawler.WALK;
 
         int size = (int)EAnimCrawler.SIZE;
         for (int i = 0; i < size; ++i)
@@ -52,7 +52,7 @@ public class EnemyCrawlerAnimation : MonoBehaviour
     {
         m_Animator = GetComponent<Animator>();
 
-        m_CurrentAnimId = (int)EAnimCrawler.IDLE;
+        m_CurrentAnimId = (int)EAnimCrawler.WALK;
 
         ResetAnim();
     }
@@ -74,7 +74,7 @@ public class EnemyCrawlerAnimation : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            SetAnim(EAnimCrawler.MELEE);
+            SetAnim(EAnimCrawler.ATTACK);
         }
 #endif
         #endregion
