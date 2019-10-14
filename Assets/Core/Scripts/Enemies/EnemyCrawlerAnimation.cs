@@ -8,12 +8,11 @@ public class EnemyCrawlerAnimation : MonoBehaviour
 {
     [HideInInspector]
     public Animator m_Animator { private set; get; }
-    private string[] m_ClipNames = { "Idle", "Walk", "Melee" };
+    private string[] m_ClipNames = { "Walk", "Attack" };
     private int m_CurrentAnimId;
 
     public enum EAnimCrawler
     {
-        IDLE = 0,
         WALK,
         ATTACK,
         SIZE
@@ -37,13 +36,13 @@ public class EnemyCrawlerAnimation : MonoBehaviour
 
     public void ResetAnim()
     {
-        m_CurrentAnimId = (int)EAnimCrawler.WALK;
-
         int size = (int)EAnimCrawler.SIZE;
         for (int i = 0; i < size; ++i)
         {
             m_Animator.SetBool(m_ClipNames[i], false);
         }
+
+        m_CurrentAnimId = (int)EAnimCrawler.WALK;
         m_Animator.SetBool(m_ClipNames[m_CurrentAnimId], true);
     }
 
@@ -62,10 +61,10 @@ public class EnemyCrawlerAnimation : MonoBehaviour
     {
         #region debug animation on keypress
 #if DEBUG
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            SetAnim(EAnimCrawler.IDLE);
-        }
+        //if (Input.GetKeyDown(KeyCode.I))
+        //{
+        //    SetAnim(EAnimCrawler.IDLE);
+        //}
 
         if (Input.GetKeyDown(KeyCode.O))
         {

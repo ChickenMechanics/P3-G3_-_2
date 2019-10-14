@@ -122,13 +122,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0b181a1dcebbc49a656434bf8b5ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PositionOffset: {x: 0.33, y: -0.45, z: 0.45}
+  m_PositionOffset: {x: 0.32, y: -0.45, z: 0.45}
   m_RoundsPerMinute: 750
   m_MagSizeTotal: 32
   m_ReloadTimeInSec: 1
-  m_AdsSpread: 0.02
+  m_AdsSpread: 0.015
   m_HipSpread: 0.04
-  m_EFiringSound: 0
+  m_EFiringSound: 2
   m_BulletModelPrefab: {fileID: 3309858372098177357, guid: abe31888c629d564db95087fd7d8d388,
     type: 3}
   GetCurrentReloadTime: 0

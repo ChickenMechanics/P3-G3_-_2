@@ -46,32 +46,37 @@ MonoBehaviour:
   m_MaxTriggerInterval: 0.05
   m_SoundObjs:
   - AliasName: Gun AR Shot
-    m_ESound: 1
+    m_ESound: 2
     m_SoundSource: {fileID: 7351571028268520213, guid: da8aaf1c0aa06644e9cd2d14c4156a77,
       type: 3}
     m_PrevTime: 0
   - AliasName: Enemy Take AR Dmg
-    m_ESound: 3
+    m_ESound: 4
     m_SoundSource: {fileID: 4805238501341093990, guid: 48298c68f52ab644fb183cb3b216c856,
       type: 3}
     m_PrevTime: 0
   - AliasName: Enemy Death
-    m_ESound: 4
+    m_ESound: 5
     m_SoundSource: {fileID: 7906836068178854871, guid: a31339942103c264e84d30cf221b445a,
       type: 3}
     m_PrevTime: 0
   - AliasName: Gun Cannon Shot
-    m_ESound: 2
+    m_ESound: 3
     m_SoundSource: {fileID: 8547104688784681372, guid: 7427f462adb00b84fa16d59e94a13d01,
       type: 3}
     m_PrevTime: 0
   - AliasName: Gun Mjau Shot
-    m_ESound: 5
+    m_ESound: 6
     m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
       type: 3}
     m_PrevTime: 0
   - AliasName: Player Hurt
-    m_ESound: 0
+    m_ESound: 1
     m_SoundSource: {fileID: 8795468680770503695, guid: 2cf6776585899a042a9281f1a6b8b073,
+      type: 3}
+    m_PrevTime: 0
+  - AliasName: Combat Music
+    m_ESound: 0
+    m_SoundSource: {fileID: 6529507564173357111, guid: efc507a5b9c3aee4c85e743ac09adfee,
       type: 3}
     m_PrevTime: 0

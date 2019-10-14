@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
     {
         // music ------------------------------------------------------------------------------------------
         //MUSIC_MAIN_MENU,
-        //MUSIC_GAMEPLAY,
+        MUSIC_COMBAT,
         // score ------------------------------------------------------------------------------------------
         //SCORE_POINTS_BASIC,
         // player -----------------------------------------------------------------------------------------
@@ -76,6 +76,17 @@ public class SoundManager : MonoBehaviour
                 source.PlayDelayed((ulong)startDelay);
                 Destroy(obj, source.clip.length);
             }
+        }
+    }
+
+
+    public void DestroySoundClip(string goName)
+    {
+        GameObject go = GameObject.Find(goName);
+        if(go != null)
+        {
+            go.GetComponent<AudioSource>().Stop();
+            Destroy(go);
         }
     }
 

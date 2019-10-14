@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5638204633348684648}
   - component: {fileID: 5454969125480638664}
   m_Layer: 0
-  m_Name: Alien Weapon 1 1
+  m_Name: Alien Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6197581120467865524}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -80,7 +80,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6197581120467865524}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -124,6 +124,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PositionOffset: {x: 0.7, y: -0.35, z: 0.5}
   m_RoundsPerMinute: 700
-  m_MagazineSize: 100
+  m_MagSizeTotal: 30
+  m_ReloadTimeInSec: 1
+  m_AdsSpread: 0.01
+  m_HipSpread: 0.04
+  m_EFiringSound: 2
   m_BulletModelPrefab: {fileID: 1258812700453301312, guid: db95fa4050e9ea14ab8510d4dff6aba3,
     type: 3}
+  GetCurrentReloadTime: 0

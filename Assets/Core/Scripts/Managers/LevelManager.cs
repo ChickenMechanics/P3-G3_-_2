@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
         m_Animator.SetBool("FadeOut", true);
     }
 
-
+    
     public void FadeCompleteCallback()
     {
         SceneManager.LoadScene(m_NextSceneIdx);
@@ -46,6 +46,16 @@ public class LevelManager : MonoBehaviour
 
         m_Animator.SetBool("FadeOut", false);
         m_Animator.SetBool("FadeIn", true);
+
+        // TODO: Move this to game manager
+        if(m_CurrentSceneIdx == (int)EScene.ARENA)
+        {
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_COMBAT, Vector3.zero);
+        }
+        if (m_CurrentSceneIdx == (int)EScene.END)
+        {
+            SoundManager.GetInstance.DestroySoundClip("Combat music_2(Clone)");
+        }
     }
 
 

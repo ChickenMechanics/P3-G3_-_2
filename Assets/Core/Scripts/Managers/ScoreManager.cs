@@ -116,7 +116,7 @@ public class ScoreManager : MonoBehaviour
     }
 
 
-    public void ResetPlayer()
+    public void ResetPlayerStats()
     {
         GetBaseChainTime = m_ComboTimeInSecMax;
         GetChainTimeLeft = 0.0f;
@@ -145,7 +145,7 @@ public class ScoreManager : MonoBehaviour
             m_ComboScaler = 0.0f;
         }
 
-        ResetPlayer();
+        ResetPlayerStats();
     }
 
 
