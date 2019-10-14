@@ -1743,13 +1743,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0b181a1dcebbc49a656434bf8b5ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PositionOffset: {x: 0.7, y: -0.35, z: 0.5}
+  m_PositionOffset: {x: -0.3, y: -0.4, z: 0.45}
   m_RoundsPerMinute: 500
   m_MagSizeTotal: 45
   m_ReloadTimeInSec: 1
   m_AdsSpread: 0.01
   m_HipSpread: 0.02
-  m_EFiringSound: 4
+  m_EFiringSound: 6
   m_BulletModelPrefab: {fileID: 1258812700453301312, guid: db95fa4050e9ea14ab8510d4dff6aba3,
     type: 3}
   GetCurrentReloadTime: 0
