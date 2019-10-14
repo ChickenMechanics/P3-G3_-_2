@@ -81,6 +81,6 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
 
     private void Idle()
     {
-        m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.IDLE);
+        //m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.IDLE);
     }
 }
