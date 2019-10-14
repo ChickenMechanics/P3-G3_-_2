@@ -34575,7 +34575,7 @@ PrefabInstance:
     - target: {fileID: 3691301364954643397, guid: d03bc41eb27611c48a226960895a7d0a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3691301364954643397, guid: d03bc41eb27611c48a226960895a7d0a,
         type: 3}
@@ -34999,6 +34999,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289513548983759052, guid: d03bc41eb27611c48a226960895a7d0a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936133298519475929, guid: d03bc41eb27611c48a226960895a7d0a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 931178106547877134, guid: d03bc41eb27611c48a226960895a7d0a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d03bc41eb27611c48a226960895a7d0a, type: 3}
@@ -37896,8 +37911,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76222b71f37f3d42bf6093581fe07d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Animator: {fileID: 0}
-  m_SceneToLoadIdx: 0
 --- !u!95 &1192229301
 Animator:
   serializedVersion: 3
@@ -39002,7 +39015,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1620825686
 PrefabInstance:
