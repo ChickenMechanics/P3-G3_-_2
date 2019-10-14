@@ -77,5 +77,6 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Combat Music
     m_ESound: 0
-    m_SoundSource: {fileID: 0}
+    m_SoundSource: {fileID: 6529507564173357111, guid: efc507a5b9c3aee4c85e743ac09adfee,
+      type: 3}
     m_PrevTime: 0
