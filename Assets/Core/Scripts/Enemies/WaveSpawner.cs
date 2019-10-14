@@ -107,10 +107,7 @@ public class WaveSpawner : MonoBehaviour
         Debug.Log("Wave Completed");
 
         if (m_CurrentWaveIndex == waves.Length - 1)
-        {
-            m_CurrentWaveIndex = 0;
-            Debug.Log("ALL WAVES COMPLETE! Looping...");
-        }
+            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
         else
             m_CurrentWaveIndex++;
 
