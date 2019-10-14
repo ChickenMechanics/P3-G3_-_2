@@ -86,7 +86,8 @@ public class HUDManager : MonoBehaviour
         m_GunBulletText = canvas.transform.Find("GunBullet").transform.Find("BulletCounterTxt").GetComponent<Text>();
 
         // score / combo
-        m_ScoreMan = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        //m_ScoreMan = GameObject.Find("ScoreManagerResource").GetComponent<ScoreManager>();
+        m_ScoreMan = ScoreManager.GetInstance.GetComponent<ScoreManager>();
 
         m_ScoreTxt = canvas.transform.Find("ScoreCombo").transform.Find("ScoreTxt").GetComponent<Text>();
         m_ScoreTxt.text = " ";
