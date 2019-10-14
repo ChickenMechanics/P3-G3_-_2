@@ -843,7 +843,7 @@ MonoBehaviour:
   damageAmount: 50
   scoreAmount: 250
   attackDuration: 2
-  attackRange: 5
+  attackRange: 6
   health: 750
   attackAngle: 90
 --- !u!195 &7281316656739095216
