@@ -32,7 +32,6 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
             case  State.ATTACK: StartCoroutine(Attack()); break;
             case  State.DEATH:                 Death();   break;
             case  State.MOVE:                  Move();    break;
-            default: /*State.IDLE*/            Idle();    break;
         }
     }
     
@@ -77,10 +76,5 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
 
         if (distanceToPlayer < attackRange)
             currentState = (int) State.ATTACK;
-    }
-
-    private void Idle()
-    {
-        //m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.IDLE);
     }
 }
