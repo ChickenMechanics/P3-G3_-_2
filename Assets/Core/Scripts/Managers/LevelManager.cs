@@ -52,6 +52,10 @@ public class LevelManager : MonoBehaviour
         {
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_COMBAT, Vector3.zero);
         }
+        if (m_CurrentSceneIdx == (int)EScene.END)
+        {
+            SoundManager.GetInstance.DestroySoundClip("Combat music_2(Clone)");
+        }
     }
 
 

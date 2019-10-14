@@ -80,9 +80,14 @@ public class SoundManager : MonoBehaviour
     }
 
 
-    public void StopSoundClip(ESoundClip soundClipKey)
+    public void DestroySoundClip(string goName)
     {
-
+        GameObject go = GameObject.Find(goName);
+        if(go != null)
+        {
+            go.GetComponent<AudioSource>().Stop();
+            Destroy(go);
+        }
     }
 
 
