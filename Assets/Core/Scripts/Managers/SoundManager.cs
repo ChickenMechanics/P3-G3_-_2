@@ -10,12 +10,12 @@ public class SoundManager : MonoBehaviour
     {
         // music ------------------------------------------------------------------------------------------
         //MUSIC_MAIN_MENU,
-        //MUSIC_GAMEPLAY,
+        MUSIC_COMBAT,
         // score ------------------------------------------------------------------------------------------
         //SCORE_POINTS_BASIC,
         // player -----------------------------------------------------------------------------------------
         //PLAYER_WALK,
-        //PLAYER_TAKE_DAMAGE,
+        PLAYER_HURT,
         //PLAYER_DEATH,
         // gun
         GUN_AR_SHOT,
@@ -48,6 +48,7 @@ public class SoundManager : MonoBehaviour
     [System.Serializable]
     public class SoundObj
     {
+        public string AliasName;
         public ESoundClip m_ESound;
         public GameObject m_SoundSource;
         [HideInInspector]
@@ -75,6 +76,17 @@ public class SoundManager : MonoBehaviour
                 source.PlayDelayed((ulong)startDelay);
                 Destroy(obj, source.clip.length);
             }
+        }
+    }
+
+
+    public void DestroySoundClip(string goName)
+    {
+        GameObject go = GameObject.Find(goName);
+        if(go != null)
+        {
+            go.GetComponent<AudioSource>().Stop();
+            Destroy(go);
         }
     }
 
@@ -135,8 +147,9 @@ public class SoundManager : MonoBehaviour
         m_AudioFolder = new GameObject("AudioFolder");
         m_AudioFolder.transform.position = Vector3.zero;
         m_AudioFolder.transform.parent = transform;
+        DontDestroyOnLoad(m_AudioFolder);
 
-        if(m_SoundObjs.Count > 0)
+        if (m_SoundObjs.Count > 0)
         {
             SoundObj[] tmp = m_SoundObjs.ToArray();
             m_SoundObjs.Clear();

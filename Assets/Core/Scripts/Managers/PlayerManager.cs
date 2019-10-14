@@ -9,9 +9,11 @@ public class PlayerManager : MonoBehaviour
 
     #region design vars
     public float m_BaseHealth = 100.0f;
-    public float m_TakeDmgShake = 0.5f;
+    public float m_TakeDmgShakeIntensity = 0.5f;
+    public float m_TakeDmgShakeTime = 0.25f;
     #endregion
-    
+
+
     [HideInInspector]
     public GameObject GetPlayer { private set; get; }
     [HideInInspector]
@@ -24,13 +26,14 @@ public class PlayerManager : MonoBehaviour
     public float GetBaseHealth { private set; get; }
     [HideInInspector]
     public float GetCurrentHealth { private set; get; }
+    public bool GetIsUndead { private set; get; }
     [HideInInspector]
     public bool GetIsAlive { private set; get; }
+    [HideInInspector]
 
     // screen shakes
     private float m_ShakePrevHealth;
     private float m_ShakeStartTime;
-    private float m_ShakeTime;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -38,6 +41,13 @@ public class PlayerManager : MonoBehaviour
 
     public void DecreaseHealth(float value)
     {
+#if DEBUG
+        if(GetIsUndead == true)
+        {
+            return;
+        }
+#endif
+
         GetCurrentHealth -= value;
         if(GetCurrentHealth <= 0.0f)
         {
@@ -52,7 +62,7 @@ public class PlayerManager : MonoBehaviour
         Destroy(GetComponent<MeshFilter>());
 
         GameObject resource = (GameObject)Resources.Load("Prefabs/Player");
-        GetPlayer = Instantiate(resource, transform.position + new Vector3(0.0f, 2.0f, 0.0f), Quaternion.identity, transform);
+        GetPlayer = Instantiate(resource, transform.position + new Vector3(0.0f, 0.25f, 0.0f), Quaternion.identity, transform);
 
         GetPlayerCtrlScr = GetPlayer.GetComponent<PlayerCtrl>();
         GetPlayerLookScr = GetPlayer.GetComponent<PlayerLook>();
@@ -62,20 +72,20 @@ public class PlayerManager : MonoBehaviour
         GetCurrentHealth = GetBaseHealth;
 
         GetIsAlive = true;
+        GetIsUndead = false;
 
         m_ShakePrevHealth = GetCurrentHealth;
         m_ShakeStartTime = Time.time;
-        m_ShakeTime = 0.25f;
     }
 
 
     private IEnumerator PlayerScreenShake()
     {
-        while (Time.time < m_ShakeStartTime + m_ShakeTime)
+        while (Time.time < m_ShakeStartTime + m_TakeDmgShakeTime)
         {
-            Vector3 ranPos = new Vector3(Random.Range(-m_TakeDmgShake, m_TakeDmgShake),
-                Random.Range(-m_TakeDmgShake, m_TakeDmgShake),
-                Random.Range(-m_TakeDmgShake, m_TakeDmgShake));
+            Vector3 ranPos = new Vector3(Random.Range(-m_TakeDmgShakeIntensity, m_TakeDmgShakeIntensity),
+                Random.Range(0.0f, 0.0f),
+                Random.Range(-m_TakeDmgShakeIntensity, m_TakeDmgShakeIntensity));
 
             Vector3 nowPos = GetPlayerLookScr.gameObject.transform.position;
             GetPlayerLookScr.gameObject.transform.position = nowPos + ranPos;
@@ -101,28 +111,41 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (GetCurrentHealth <= 0.0f)
+#if DEBUG
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            GetIsUndead = !GetIsUndead;
 
-            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+            string msg = GetIsUndead ? "Godmode On" : "Godmode Off";
+            Debug.LogError(msg);
         }
+#endif
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (GetCurrentHealth != m_ShakePrevHealth)
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_HURT, transform.position);
 
-            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
-        }
-
-        // shakes
-        if(GetCurrentHealth != m_ShakePrevHealth)
-        {
             m_ShakePrevHealth = GetCurrentHealth;
             m_ShakeStartTime = Time.time;
             StartCoroutine(PlayerScreenShake());
+        }
+
+        // TODO: move below blocks to gamemanager
+        if (GetIsAlive == false &&
+            GetIsUndead == false)
+        {
+            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+        }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+        }
+        if(WaveSpawner.GetInstance != null)
+        {
+            if(WaveSpawner.GetInstance.GetIsAllWavesCompleted == true)
+            {
+                LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+            }
         }
     }
 }

@@ -823,9 +823,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1439883124adc4ca39bcfb8ee3f29a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ExplosionFireVfx: {fileID: 0}
+  m_ExplosionFireVfx: {fileID: 4869357172070798763, guid: 3b4ccfdaf152dd04ba0f15d5d74cc9d8,
+    type: 3}
   m_ExplosionSmokeVfx: {fileID: 0}
-  m_ExplosionFireScale: 1
+  m_ExplosionFireScale: 0.1
   m_ExplosionSmokeScale: 1
 --- !u!114 &6126431961790094942
 MonoBehaviour:
@@ -844,7 +845,7 @@ MonoBehaviour:
   attackDuration: 2
   attackRange: 5
   health: 125
-  attackAngle: 45
+  attackAngle: 90
 --- !u!195 &7281316656739095216
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -859,7 +860,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 6
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
