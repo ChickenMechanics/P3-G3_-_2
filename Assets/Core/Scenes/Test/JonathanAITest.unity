@@ -600,39 +600,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3691301364954643396, guid: d03bc41eb27611c48a226960895a7d0a,
         type: 3}
-      propertyPath: waves.Array.data[0].subWaves.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3691301364954643396, guid: d03bc41eb27611c48a226960895a7d0a,
-        type: 3}
-      propertyPath: waves.Array.data[0].subWaves.Array.data[0].enemyTypes.Array.size
+      propertyPath: waves.Array.data[0].subWaves.Array.data[1].enemyTypes.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3691301364954643396, guid: d03bc41eb27611c48a226960895a7d0a,
         type: 3}
-      propertyPath: waves.Array.data[0].waveName
-      value: Bob
+      propertyPath: waves.Array.data[0].subWaves.Array.data[0].enemyTypes.Array.data[0].count
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3691301364954643396, guid: d03bc41eb27611c48a226960895a7d0a,
         type: 3}
-      propertyPath: waves.Array.data[0].subWaves.Array.data[0].subWaveName
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3691301364954643396, guid: d03bc41eb27611c48a226960895a7d0a,
-        type: 3}
-      propertyPath: waves.Array.data[0].subWaves.Array.data[0].enemyTypes.Array.data[0].enemy
+      propertyPath: waves.Array.data[0].subWaves.Array.data[1].enemyTypes.Array.data[0].enemy
       value: 
       objectReference: {fileID: 4200596322189478414, guid: 3d572a9ceb8b9d8468b1d1d140e3d0c7,
         type: 3}
     - target: {fileID: 3691301364954643396, guid: d03bc41eb27611c48a226960895a7d0a,
         type: 3}
-      propertyPath: waves.Array.data[0].subWaves.Array.data[0].enemyTypes.Array.data[0].count
+      propertyPath: waves.Array.data[0].subWaves.Array.data[1].enemyTypes.Array.data[0].count
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3691301364954643396, guid: d03bc41eb27611c48a226960895a7d0a,
+        type: 3}
+      propertyPath: waves.Array.data[0].subWaves.Array.data[1].enemyTypes.Array.data[0].rate
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3691301364954643396, guid: d03bc41eb27611c48a226960895a7d0a,
         type: 3}
-      propertyPath: waves.Array.data[0].subWaves.Array.data[0].enemyTypes.Array.data[0].rate
-      value: 1
+      propertyPath: waves.Array.data[0].subWaves.Array.data[1].spawnStartDelay
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d03bc41eb27611c48a226960895a7d0a, type: 3}

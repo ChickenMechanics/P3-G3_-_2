@@ -1,47 +1,80 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.AI;
 
-public class CrawlerBehaviour : MonoBehaviour
+public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
 {
-    public NavMeshAgent agent;
     public float damageAmount;
     public float scoreAmount;
+    public float attackDuration;
     public float attackRange;
     public float health;
-
-    private readonly ScoreManager m_ScoreManager;
-
-    private DefaultGroundEnemyBehaviour m_DefaultGroundEnemyBehaviour;
+    public float attackAngle;
+    
+    private EnemyCrawlerAnimation m_Anims;
+    private NavMeshAgent m_Agent;
+    private bool m_HasDoneDamage;
 
     // Start is called before the first frame update
     private void Start()
     {
-        m_DefaultGroundEnemyBehaviour = gameObject.GetComponent<DefaultGroundEnemyBehaviour>();
-        m_DefaultGroundEnemyBehaviour.SetHealth(health);
+        m_Agent = GetComponent<NavMeshAgent>();
+        currentState = State.MOVE;
+        m_Anims = gameObject.GetComponent<EnemyCrawlerAnimation>();
+        HP = health;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (m_DefaultGroundEnemyBehaviour.GetHealth() > 0)
-            BaseState();
-        else
-            DeathState();
+        switch (currentState)
+        {
+            case  State.ATTACK: StartCoroutine(Attack()); break;
+            case  State.DEATH:                 Death();   break;
+            case  State.MOVE:                  Move();    break;
+        }
     }
-
-    private void BaseState()
+    
+    private IEnumerator Attack()
     {
-        m_DefaultGroundEnemyBehaviour.MoveTowardsPlayer(transform, agent);
+        m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.ATTACK);
 
-        if (m_DefaultGroundEnemyBehaviour.GetDistanceToPlayer() < attackRange)
+        m_HasDoneDamage = false;
+
+        yield return new WaitForSeconds(attackDuration);
+
+        var playerPos = PlayerManager.GetInstance.GetPlayer.transform.position;
+
+        if (Mathf.Abs(Vector3.Angle(position, playerPos) - 90f) < attackAngle && m_HasDoneDamage == false)
+        {
             PlayerManager.GetInstance.DecreaseHealth(damageAmount);
+            m_HasDoneDamage = true;
+        }
+
+        currentState = State.MOVE;
     }
 
-    private void DeathState()
+    private void Death()
     {
-        if (m_ScoreManager != null)
-            m_ScoreManager.AddComboPoints(scoreAmount);
+        ScoreManager.GetInstance.AddComboPoints(scoreAmount);
 
-        Destroy(gameObject);
+#if DEBUG
+        if (SoundManager.GetInstance != null)
+#endif
+        {
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_DEATH, transform.position);
+        }
+
+        Destroy(transform.parent.gameObject);
+    }
+
+    private void Move()
+    {
+        m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.WALK);
+
+        MoveTowardsPlayer(transform, m_Agent);
+
+        if (distanceToPlayer < attackRange)
+            currentState = (int) State.ATTACK;
     }
 }

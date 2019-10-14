@@ -1,60 +1,62 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.AI.NavMeshAgent;
 
 public class DefaultGroundEnemyBehaviour : MonoBehaviour
 {
     #region Header
+    protected enum State { ATTACK, DEATH, IDLE, MOVE }
+    protected State currentState;
+    protected Vector3 position;
+    protected float distanceToPlayer;
+    protected float HP;
 
-    private Transform m_Player;
     private Quaternion m_LookRotation;
-
-    private Vector3 m_Position;
-    public Vector3 GetPosition() { return m_Position; }
-
-    private float m_Health;
-    public float GetHealth() { return m_Health; }
-    public void SetHealth(float health) { m_Health = health; }
-
-    private float m_DistanceToPlayer;
-    public float GetDistanceToPlayer() { return m_DistanceToPlayer; }
-
     #endregion
 
     // Start is called before the first frame update
     private void Start()
     {
-        m_Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
-    
-    public void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
+
+    protected void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
     {
-        var playerPos = m_Player.position;
-        m_Position = agentTransform.position;
+        var playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        position = agentTransform.position;
         var rotation = agentTransform.rotation;
 
-        var lookPosition = playerPos - m_Position;
+        var lookPosition = playerPos - position;
 
         lookPosition.y = 0;
 
         if (lookPosition != Vector3.zero)
             m_LookRotation = Quaternion.LookRotation(lookPosition);
 
-        m_DistanceToPlayer = lookPosition.magnitude;
+        distanceToPlayer = lookPosition.magnitude;
 
         agentTransform.rotation = Quaternion.Slerp(rotation, m_LookRotation, 0.1f);
 
         agent.SetDestination(playerPos);
     }
 
-    public void TakeDamage(float damageValue, Object obj)
+    private void OnTriggerEnter(Collider other)
     {
-        m_Health -= damageValue;
+        if (other.gameObject.layer == 13)   // == projectile
+        {
+            TakeDamage(other.GetComponent<BulletBehaviour>().m_DamageValue);
+#if DEBUG
+            if (SoundManager.GetInstance != null)
+#endif
+            {
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_AR_DAMAGE, other.transform.position);
+            }
+        }
+    }
+    
+    public void TakeDamage(float damageValue)
+    {
+        HP -= damageValue;
 
-        if (m_Health <= 0)
-            Destroy(obj);
+        if (HP <= 0)
+            currentState = State.DEATH;
     }
 }

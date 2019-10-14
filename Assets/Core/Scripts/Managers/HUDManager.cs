@@ -22,12 +22,13 @@ public class HUDManager : MonoBehaviour
     public static HUDManager GetInstance { get; private set; }
 
     #region scr ref
-    private PlayerManager m_PlayerMan;
-    private GunManager m_GunMan;
-    private ScoreManager m_ScoreMan;
+    private PlayerManager m_PlayerManScr;
+    private GunManager m_GunManScr;
+    private ScoreManager m_ScoreManScr;
     #endregion
 
-    private Image m_HealthBarImg;
+    private Image m_HealthLeftImg;
+    private Image m_HealthRightImg;
     private Image m_ComboMeterImg;
     private Image m_WaveMeterImg;
     private Text m_ScoreTxt;
@@ -73,29 +74,31 @@ public class HUDManager : MonoBehaviour
         Transform canvas = transform.Find("HUDCanvas");
 
         // player status
-        m_PlayerMan = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
-        m_HealthBarImg = canvas.transform.Find("PlayerStatus").transform.Find("HealthSliderImage").GetComponent<Image>();
-        m_PrevHealth = m_PlayerMan.GetCurrentHealth;
+        m_PlayerManScr = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        m_HealthLeftImg = canvas.transform.Find("PlayerStatus").transform.Find("HealthLeftImg").GetComponent<Image>();
+        m_HealthRightImg = canvas.transform.Find("PlayerStatus").transform.Find("HealthRightImg").GetComponent<Image>();
+
+        m_PrevHealth = m_PlayerManScr.GetCurrentHealth;
 
         // guns / bulllets
-        m_GunMan = GameObject.Find("GunManager").GetComponent<GunManager>();
-        m_GunBulletText = canvas.transform.Find("GunBullet").transform.Find("BulletCounter").GetComponent<Text>();
+        m_GunManScr = GameObject.Find("GunManager").GetComponent<GunManager>();
+        m_GunBulletText = canvas.transform.Find("GunBullet").transform.Find("BulletCounterTxt").GetComponent<Text>();
 
         // score / combo
-        m_ScoreMan = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        m_ScoreManScr = ScoreManager.GetInstance.GetComponent<ScoreManager>();
 
-        m_ScoreTxt = canvas.transform.Find("ScoreCombo").transform.Find("Score").GetComponent<Text>();
+        m_ScoreTxt = canvas.transform.Find("ScoreCombo").transform.Find("ScoreTxt").GetComponent<Text>();
         m_ScoreTxt.text = " ";
         m_RumbleInitPos = m_ScoreTxt.transform.position;
 
-        m_ComboMeterImg = canvas.transform.Find("ScoreCombo").transform.Find("ComboMeter").GetComponent<Image>();
-        m_ComboMeterImg.fillAmount = m_ScoreMan.GetChainTimeLeft;
+        m_ComboMeterImg = canvas.transform.Find("ScoreCombo").transform.Find("ComboMeterImg").GetComponent<Image>();
+        m_ComboMeterImg.fillAmount = m_ScoreManScr.GetChainTimeLeft;
         m_PrevComboMeter = 0.0f;
 
-        m_ChainTxt = canvas.transform.Find("ScoreCombo").transform.Find("CurrentChain").GetComponent<Text>();
+        m_ChainTxt = canvas.transform.Find("ScoreCombo").transform.Find("CurrentChainTxt").GetComponent<Text>();
         m_ChainTxt.text = "0";
 
-        m_Multiplier = canvas.transform.Find("ScoreCombo").transform.Find("ComboMultiplier").GetComponent<Text>();
+        m_Multiplier = canvas.transform.Find("ScoreCombo").transform.Find("ComboMultiplierTxt").GetComponent<Text>();
         m_Multiplier.text = "0x";
 
         {
@@ -189,7 +192,7 @@ public class HUDManager : MonoBehaviour
     }
 
 
-    private void TextBouncer(Text text, float targetScale, float scaleMultiUp, float scoreMultiDown)
+    private void TextBouncer(Text text, float targetScale, float scaleMultiUp, float scaleMultiDown)
     {
         if(m_IsBounce == true)
         {
@@ -204,13 +207,12 @@ public class HUDManager : MonoBehaviour
             }
             else
             {
-                text.transform.localScale -= new Vector3(scoreMultiDown, scoreMultiDown, 0.0f) * Time.deltaTime;
+                text.transform.localScale -= new Vector3(scaleMultiDown, scaleMultiDown, 0.0f) * Time.deltaTime;
                 if (text.transform.localScale.x < m_BounceInitScale.x)
                 {
                     text.transform.localScale = m_BounceInitScale;
                     m_IsBounce = false;
                     m_BounceDirFlipper = false;
-                    return;
                 }
             }
         }
@@ -219,18 +221,23 @@ public class HUDManager : MonoBehaviour
 
     private void PlayerUpdate()
     {
-        float nextHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerMan.GetCurrentHealth, m_PlayerMan.GetBaseHealth), 0.2f);
-        m_HealthBarImg.fillAmount = nextHealth;
-        m_PrevHealth = nextHealth;
+        //float nextHealthSplit = 0.5f * Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerMan.GetCurrentHealth, m_PlayerMan.GetBaseHealth), 0.2f);
+        //m_HealthLeftImg.fillAmount = nextHealthSplit;
+        //m_HealthRightImg.fillAmount = nextHealthSplit;
+        //m_PrevHealth = nextHealthSplit;
+
+        m_PrevHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerManScr.GetCurrentHealth, m_PlayerManScr.GetBaseHealth), 0.2f);
+        m_HealthLeftImg.fillAmount = m_PrevHealth;
+        m_HealthRightImg.fillAmount = m_PrevHealth;
     }
 
 
     private void GunBulletUpdate()
     {
-        bool isReloading = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetIsReloading;
+        bool isReloading = m_GunManScr.ActiveGun.GetComponent<GunTemplate>().GetIsReloading;
         if (isReloading == false)
         {
-            m_GunBulletText.text = m_GunMan.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize.ToString();
+            m_GunBulletText.text = m_GunManScr.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize.ToString();
         }
         else
         {
@@ -242,7 +249,7 @@ public class HUDManager : MonoBehaviour
     private void ScoreUpdate()
     {
         // score rumble
-        int nowScore = (int)m_ScoreMan.GetPlayerScore;
+        int nowScore = (int)m_ScoreManScr.GetPlayerScore;
         if (nowScore != m_PrevFrameScore)
         {
             m_IsRumble = true;
@@ -258,7 +265,7 @@ public class HUDManager : MonoBehaviour
         m_ScoreTxt.text = nowScore.ToString();
 
         // combo meter
-        float translatedToRange = GetZeroToOneRange(m_ScoreMan.GetChainTimeLeft, m_ScoreMan.GetBaseChainTime);
+        float translatedToRange = GetZeroToOneRange(m_ScoreManScr.GetChainTimeLeft, m_ScoreManScr.GetBaseChainTime);
         if (translatedToRange < 0.98f && translatedToRange > 0.97f)
         {
             m_ComboMeterImg.enabled = false;
@@ -273,19 +280,19 @@ public class HUDManager : MonoBehaviour
         }
 
         // chain multiplier
-        m_ChainTxt.text = m_ScoreMan.GetCurrentChain.ToString();
+        m_ChainTxt.text = m_ScoreManScr.GetCurrentChain.ToString();
 
         string scaleSymbol = "x ";
-        float multi = TruncateFloat(m_ScoreMan.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);
+        float multi = TruncateFloat(m_ScoreManScr.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);
         m_Multiplier.text = string.Concat(scaleSymbol, multi.ToString());
 
         // things that probably goes to endscreen
         {
-            float timeLeft = TruncateFloat(m_ScoreMan.GetChainTimeLeft, m_ScoreComboDecimalPoints);
+            float timeLeft = TruncateFloat(m_ScoreManScr.GetChainTimeLeft, m_ScoreComboDecimalPoints);
             m_SpareChainTimeTxt.text = timeLeft.ToString();
-            float totalChains = TruncateFloat(m_ScoreMan.GetTotalChains, m_ScoreComboDecimalPoints);
+            float totalChains = TruncateFloat(m_ScoreManScr.GetTotalChains, m_ScoreComboDecimalPoints);
             m_TotalChainsTxt.text = totalChains.ToString();
-            float longestChain = TruncateFloat(m_ScoreMan.GetLongestChain, m_ScoreComboDecimalPoints);
+            float longestChain = TruncateFloat(m_ScoreManScr.GetLongestChain, m_ScoreComboDecimalPoints);
             m_LongestChain.text = longestChain.ToString();
         }
     }

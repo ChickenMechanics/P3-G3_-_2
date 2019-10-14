@@ -108,7 +108,6 @@ public class GunTemplate : MonoBehaviour
         if (m_IsFiring == true)
         {
             m_CurrentGunState = EGunState.FIRING;
-
             m_IsFiring = false;
         }
     }
@@ -243,12 +242,18 @@ public class GunTemplate : MonoBehaviour
 
             // TODO: Fix this cheat for a recoil
             Vector3 lastPos = GunManager.GetInstance.ActiveGun.transform.position;
-            Vector3 nextpos = new Vector3(
-                Random.Range(lastPos.x - 0.002f, lastPos.x + 0.002f),
-                Random.Range(lastPos.y - 0.002f, lastPos.y + 0.002f),
-                Random.Range(lastPos.z - 0.02f, lastPos.z + 0.02f));
 
-            GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(lastPos, nextpos, 0.75f);
+            //Vector3 nextpos = new Vector3(
+            //    Random.Range(lastPos.x - 0.002f, lastPos.x + 0.002f),
+            //    Random.Range(lastPos.y - 0.002f, lastPos.y + 0.002f),
+            //    Random.Range(lastPos.z - 0.02f, lastPos.z + 0.02f));
+
+            Vector3 nextpos = new Vector3(
+                Random.Range(lastPos.x - 0.0015f, lastPos.x + 0.0015f),
+                Random.Range(lastPos.y - 0.0015f,lastPos.y + 0.0015f),
+                Random.Range(lastPos.z - 0.015f, lastPos.z + 0.015f));  // ...
+
+            GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(lastPos, nextpos, 0.25f);
         }
     }
 

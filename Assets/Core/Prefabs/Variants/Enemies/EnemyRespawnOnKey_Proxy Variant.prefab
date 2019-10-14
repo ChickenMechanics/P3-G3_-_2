@@ -76,7 +76,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_EnemyToSpawn
       value: 
-      objectReference: {fileID: 2396812996110916925, guid: 6c7f2a2d48572504e9feeedb368bb47b,
+      objectReference: {fileID: 4054492825619381847, guid: e2d089c44810d93438aec1526121c82b,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddb985d4d79d24e4787c3a436cc7b68e, type: 3}

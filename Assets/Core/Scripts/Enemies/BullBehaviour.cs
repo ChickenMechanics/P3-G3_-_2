@@ -2,34 +2,30 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BullBehaviour : MonoBehaviour
+public class BullBehaviour : DefaultGroundEnemyBehaviour
 {
-    public NavMeshAgent agent;
-
     public float rushDistance;
     public float startRushDistance;
-
     public float distanceToEndPoint;
 
-    private DefaultGroundEnemyBehaviour m_DefaultGroundEnemyBehaviour;
-    private bool m_LockOn = false;
-
+    private bool m_LockOn;
+    private NavMeshAgent agent;
     private Vector3 m_RushDirection;
     private Vector3 m_StartRushPosition;
     private Vector3 m_EndRushPosition;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        m_DefaultGroundEnemyBehaviour = gameObject.AddComponent<DefaultGroundEnemyBehaviour>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (m_LockOn)
         {
-            distanceToEndPoint = m_EndRushPosition.magnitude - m_DefaultGroundEnemyBehaviour.GetPosition().magnitude;
+            distanceToEndPoint = m_EndRushPosition.magnitude - position.magnitude;
 
             agent.SetDestination(m_EndRushPosition);
 
@@ -38,12 +34,12 @@ public class BullBehaviour : MonoBehaviour
         }
         else
         {
-            m_DefaultGroundEnemyBehaviour.MoveTowardsPlayer(transform, agent);
+            MoveTowardsPlayer(transform, agent);
 
-            if (m_DefaultGroundEnemyBehaviour.GetDistanceToPlayer() > startRushDistance) return;
+            if (distanceToPlayer > startRushDistance) return;
 
-            m_RushDirection = m_DefaultGroundEnemyBehaviour.transform.forward;
-            m_StartRushPosition = m_DefaultGroundEnemyBehaviour.GetPosition();
+            m_RushDirection = transform.forward;
+            m_StartRushPosition = position;
             m_EndRushPosition = m_StartRushPosition + rushDistance * m_RushDirection;
             m_LockOn = true;
         }

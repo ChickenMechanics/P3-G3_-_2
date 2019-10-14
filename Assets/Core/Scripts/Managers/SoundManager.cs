@@ -9,13 +9,13 @@ public class SoundManager : MonoBehaviour
     public enum ESoundClip
     {
         // music ------------------------------------------------------------------------------------------
-        //MUSIC_MAIN_MENU,
-        //MUSIC_GAMEPLAY,
+        MUSIC_MAIN_MENU,
+        MUSIC_COMBAT,
         // score ------------------------------------------------------------------------------------------
         //SCORE_POINTS_BASIC,
         // player -----------------------------------------------------------------------------------------
         //PLAYER_WALK,
-        //PLAYER_TAKE_DAMAGE,
+        PLAYER_HURT,
         //PLAYER_DEATH,
         // gun
         GUN_AR_SHOT,
@@ -48,6 +48,7 @@ public class SoundManager : MonoBehaviour
     [System.Serializable]
     public class SoundObj
     {
+        public string AliasName;
         public ESoundClip m_ESound;
         public GameObject m_SoundSource;
         [HideInInspector]
@@ -71,11 +72,39 @@ public class SoundManager : MonoBehaviour
             if(m_SoundObjs[(int)soundClipKey].m_SoundSource != null)
             {
                 GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource, position, Quaternion.identity, m_AudioFolder.transform);
+                obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
                 AudioSource source = obj.GetComponent<AudioSource>();
                 source.PlayDelayed((ulong)startDelay);
                 Destroy(obj, source.clip.length);
             }
         }
+    }
+
+
+    public void DestroySoundClip(string aliasName)
+    {
+        GameObject go = GameObject.Find(aliasName);
+        if(go == null)
+        {
+            Debug.LogWarning("SoundManager::DestroySoundClip(): Broken!");
+            return;
+        }
+
+        go.GetComponent<AudioSource>().Stop();
+        Destroy(go);
+    }
+
+
+    public AudioSource GetAudioSourceByAlias(string aliasName)
+    {
+        GameObject go = GameObject.Find(aliasName);
+        if (go == null)
+        {
+            Debug.LogWarning("SoundManager::GetAudioSourceByAlias(): Broken!");
+            return null;
+        }
+
+        return go.GetComponent<AudioSource>();
     }
 
 
@@ -135,8 +164,9 @@ public class SoundManager : MonoBehaviour
         m_AudioFolder = new GameObject("AudioFolder");
         m_AudioFolder.transform.position = Vector3.zero;
         m_AudioFolder.transform.parent = transform;
+        DontDestroyOnLoad(m_AudioFolder);
 
-        if(m_SoundObjs.Count > 0)
+        if (m_SoundObjs.Count > 0)
         {
             SoundObj[] tmp = m_SoundObjs.ToArray();
             m_SoundObjs.Clear();

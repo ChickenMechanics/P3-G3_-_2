@@ -75,13 +75,11 @@ public class PlayerLook : MonoBehaviour
 
         m_CurrentLookRotation.y = Mathf.Clamp(m_CurrentLookRotation.y, m_LookPitchMax, m_LookPitchMin);
 
-        // Rotate root point
-        m_tPlayerLook.eulerAngles = new Vector3(0.0f, m_CurrentLookRotation.x, 0.0f);
+        m_tPlayerLook.eulerAngles = new Vector3(0.0f, m_CurrentLookRotation.x, 0.0f);    // Rotate root point
 
-        //Camera // Works, but I don't really know...
-        m_tPlayerLook.transform.localRotation = Quaternion.AngleAxis(-m_CurrentLookRotation.y, Vector3.right);
-        m_tPlayerLook.transform.localRotation = Quaternion.AngleAxis(m_CurrentLookRotation.x, Vector3.up);
-        m_tPlayerLook.transform.eulerAngles = new Vector3(-m_CurrentLookRotation.y, m_CurrentLookRotation.x, 0.0f);
+        m_tPlayerLook.transform.localRotation = Quaternion.AngleAxis(m_CurrentLookRotation.y, Vector3.left);
+        m_tPlayerLook.transform.localRotation *= Quaternion.AngleAxis(m_CurrentLookRotation.x, Vector3.up);
+        m_tPlayerLook.transform.eulerAngles = new Vector3(-m_CurrentLookRotation.y, m_CurrentLookRotation.x, 0.0f); // fix rotation from bugging out
     }
 
 
