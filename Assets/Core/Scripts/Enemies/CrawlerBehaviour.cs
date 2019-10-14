@@ -65,7 +65,7 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_DEATH, transform.position);
         }
 
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 
     private void Move()
