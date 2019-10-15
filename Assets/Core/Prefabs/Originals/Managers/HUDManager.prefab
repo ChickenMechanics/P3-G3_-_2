@@ -1619,6 +1619,11 @@ MonoBehaviour:
   m_ScoreBounceTargetScale: 2.36
   m_ScoreBounceScaleMultiUp: 8.9
   m_ScoreBounceScaleMultiDown: 6.31
+  m_ChainRumbleValue: 7.65
+  m_ChainRumbleTime: 0.31
+  m_ChainBounceTargetScale: 2.37
+  m_ChainBounceScaleMultiUp: 8.89
+  m_ChainBounceScaleMultiDown: 6.35
 --- !u!1 &5829277867375306004
 GameObject:
   m_ObjectHideFlags: 0
