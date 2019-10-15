@@ -47,7 +47,7 @@ MonoBehaviour:
   m_SoundObjs:
   - AliasName: Gun AR Shot
     m_ESound: 3
-    m_SoundSource: {fileID: 7351571028268520213, guid: da8aaf1c0aa06644e9cd2d14c4156a77,
+    m_SoundSource: {fileID: 7402384876750912980, guid: 92ec899cc1c0f8140be2b3fb6f83ec73,
       type: 3}
     m_PrevTime: 0
   - AliasName: Enemy Take AR Dmg
@@ -67,7 +67,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Gun Mjau Shot
     m_ESound: 7
-    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+    m_SoundSource: {fileID: 3603544679730499000, guid: 91be0dbe2c5708649a370df7d7eaa3f7,
       type: 3}
     m_PrevTime: 0
   - AliasName: Player Hurt
