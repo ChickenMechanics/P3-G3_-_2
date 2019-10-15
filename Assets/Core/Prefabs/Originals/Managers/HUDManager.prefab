@@ -1614,9 +1614,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e209cf8d4aaa3349b7ba21b8505fb24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ScoreRumbleValue: 3.5
-  m_ScoreRumbleTime: 0.25
-  m_ScoreBounceTargetScale: 1.4
+  m_ScoreRumbleValue: 5
+  m_ScoreRumbleTime: 0.15
+  m_ScoreBounceTargetScale: 2
   m_ScoreBounceScaleMultiUp: 7
   m_ScoreBounceScaleMultiDown: 4
 --- !u!1 &5829277867375306004

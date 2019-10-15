@@ -1,10 +1,19 @@
-﻿using System;
+﻿//using System;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.UI;
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 public class HUDManager : MonoBehaviour
 {
+    //public Color m_MultiColor;
+
     #region design vars
     [Header("Score FX")]
     [Range(0.0f, 10.0f)]
@@ -43,15 +52,7 @@ public class HUDManager : MonoBehaviour
     private float m_FlasherThingTimer;
     private bool m_bFlasherThing;
 
-    private Vector3 m_RumbleInitPos;
-    private float m_RumbleInitTime;
     private int m_PrevFrameScore;
-    private bool m_IsRumble;
-    private bool m_RumbleDirFlipper;
-
-    private Vector3 m_BounceInitScale;
-    private bool m_IsBounce;
-    private bool m_BounceDirFlipper;
 
     // things that probably goes to endscreen
     private Text m_SpareChainTimeTxt;
@@ -64,6 +65,31 @@ public class HUDManager : MonoBehaviour
         HEALTH = 0,
         SIZE
     }
+
+    // FX objets
+    struct TxtRumbleFX
+    {
+        public Text TxtRef;
+        public Vector3 RumbleInitPos;
+        public float RumbleRange;
+        public float RumbleTimeTotal;
+        public float RumbleInitTime;
+        public bool RumbleDirFlipper;
+    }
+
+    struct TxtBounceFX
+    {
+        public Text TxtRef;
+        public Vector3 BounceInitScale;
+        public Vector3 BounceInitPos;
+        public float TargetScale;
+        public float ScaleMultiUp;
+        public float ScaleMultiDown;
+        public bool BounceDirFlipper;
+    }
+
+    private TxtRumbleFX m_ScoreRumbleFX;
+    private TxtBounceFX m_ScoreBounceFX;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -89,7 +115,6 @@ public class HUDManager : MonoBehaviour
 
         m_ScoreTxt = canvas.transform.Find("ScoreCombo").transform.Find("ScoreTxt").GetComponent<Text>();
         m_ScoreTxt.text = " ";
-        m_RumbleInitPos = m_ScoreTxt.transform.position;
 
         m_ComboMeterImg = canvas.transform.Find("ScoreCombo").transform.Find("ComboMeterImg").GetComponent<Image>();
         m_ComboMeterImg.fillAmount = m_ScoreManScr.GetChainTimeLeft;
@@ -122,15 +147,24 @@ public class HUDManager : MonoBehaviour
         m_FlasherThingTimer = m_MagEmptyBlinkTime;
         m_bFlasherThing = true;
 
-
-        m_RumbleInitTime = 0.0f;
         m_PrevFrameScore = 0;
-        m_IsRumble = false;
-        m_RumbleDirFlipper = false;
 
-        m_BounceInitScale = Vector3.zero;
-        m_BounceDirFlipper = false;
-    }
+        // FX obj
+        m_ScoreRumbleFX = new TxtRumbleFX { TxtRef = m_ScoreTxt,
+                                            RumbleInitPos = m_ScoreTxt.transform.position,
+                                            RumbleRange = m_ScoreRumbleValue,
+                                            RumbleTimeTotal = m_ScoreRumbleTime,
+                                            RumbleInitTime = 0.0f,
+                                            RumbleDirFlipper = false };
+
+        m_ScoreBounceFX = new TxtBounceFX { TxtRef = m_ScoreTxt,
+                                            BounceInitScale = m_ScoreTxt.transform.localScale,
+                                            BounceInitPos = m_ScoreTxt.transform.localPosition,
+                                            TargetScale = m_ScoreBounceTargetScale,
+                                            ScaleMultiUp = m_ScoreBounceScaleMultiUp,
+                                            ScaleMultiDown = m_ScoreBounceScaleMultiDown,
+                                            BounceDirFlipper = false };
+}
 
 
     private float TruncateFloat(float value, int nDecimalPoints)
@@ -159,73 +193,65 @@ public class HUDManager : MonoBehaviour
 
         return m_bFlasherThing;
     }
+    
 
-
-    private void TextRumbler(Text text, float shakeRange, float shakeTimeTotal)
+    private IEnumerator TxtRumblerFX(TxtRumbleFX rumbleFxObj)
     {
-        if (m_IsRumble == true)
+        while((rumbleFxObj.RumbleInitTime + rumbleFxObj.RumbleTimeTotal) > Time.time)
         {
-            if ((m_RumbleInitTime + shakeTimeTotal) < Time.time)
+            if (rumbleFxObj.RumbleDirFlipper == true)
             {
-                text.transform.position = m_RumbleInitPos;
-                m_IsRumble = false;
-                m_RumbleDirFlipper = false;
-                return;
-            }
-
-            if (m_RumbleDirFlipper == true)
-            {
-                text.transform.position = m_RumbleInitPos;
-                m_RumbleDirFlipper = false;
+                rumbleFxObj.TxtRef.transform.position = rumbleFxObj.RumbleInitPos;
+                rumbleFxObj.RumbleDirFlipper = false;
             }
             else
             {
-                text.transform.position +=
-                    new Vector3(UnityEngine.Random.Range(
-                    -shakeRange, shakeRange),
-                    UnityEngine.Random.Range(-shakeRange, shakeRange),
+                rumbleFxObj.TxtRef.transform.position += new Vector3(
+                    UnityEngine.Random.Range(-rumbleFxObj.RumbleRange, rumbleFxObj.RumbleRange),
+                    UnityEngine.Random.Range(-rumbleFxObj.RumbleRange, rumbleFxObj.RumbleRange),
                     0.0f);
 
-                m_RumbleDirFlipper = true;
+                rumbleFxObj.RumbleDirFlipper = true;
             }
+
+            yield return null;
         }
+
+        rumbleFxObj.TxtRef.transform.position = rumbleFxObj.RumbleInitPos;
+        rumbleFxObj.RumbleDirFlipper = false;
+        StopCoroutine("Rumbler");
     }
 
 
-    private void TextBouncer(Text text, float targetScale, float scaleMultiUp, float scaleMultiDown)
+    private IEnumerator TxtBouncerFX(TxtBounceFX bounceFxObj)
     {
-        if(m_IsBounce == true)
+        while(bounceFxObj.TxtRef.transform.localScale.x >= bounceFxObj.BounceInitScale.x)
         {
-            if(m_BounceDirFlipper == false) 
+            if (bounceFxObj.BounceDirFlipper == false)
             {
-                text.transform.localScale += new Vector3(scaleMultiUp, scaleMultiUp, 0.0f) * Time.deltaTime;
-                if (text.transform.localScale.x > targetScale)
+                bounceFxObj.TxtRef.transform.localScale += new Vector3(bounceFxObj.ScaleMultiUp, bounceFxObj.ScaleMultiUp, 0.0f) * Time.deltaTime;
+                if (bounceFxObj.TxtRef.transform.localScale.x > bounceFxObj.TargetScale)
                 {
-                    text.transform.localScale = new Vector3(targetScale, targetScale, 1.0f);
-                    m_BounceDirFlipper = true;
+                    bounceFxObj.TxtRef.transform.localScale = new Vector3(bounceFxObj.TargetScale, bounceFxObj.TargetScale, 1.0f);
+                    bounceFxObj.BounceDirFlipper = true;
                 }
             }
             else
             {
-                text.transform.localScale -= new Vector3(scaleMultiDown, scaleMultiDown, 0.0f) * Time.deltaTime;
-                if (text.transform.localScale.x < m_BounceInitScale.x)
-                {
-                    text.transform.localScale = m_BounceInitScale;
-                    m_IsBounce = false;
-                    m_BounceDirFlipper = false;
-                }
+                bounceFxObj.TxtRef.transform.localScale -= new Vector3(bounceFxObj.ScaleMultiDown, bounceFxObj.ScaleMultiDown, 0.0f) * Time.deltaTime;
             }
+
+            yield return null;
         }
+
+        bounceFxObj.TxtRef.transform.localScale = bounceFxObj.BounceInitScale;
+        bounceFxObj.BounceDirFlipper = false;
+        StopCoroutine("TxtBouncerFX");
     }
 
 
     private void PlayerUpdate()
     {
-        //float nextHealthSplit = 0.5f * Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerMan.GetCurrentHealth, m_PlayerMan.GetBaseHealth), 0.2f);
-        //m_HealthLeftImg.fillAmount = nextHealthSplit;
-        //m_HealthRightImg.fillAmount = nextHealthSplit;
-        //m_PrevHealth = nextHealthSplit;
-
         m_PrevHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerManScr.GetCurrentHealth, m_PlayerManScr.GetBaseHealth), 0.2f);
         m_HealthLeftImg.fillAmount = m_PrevHealth;
         m_HealthRightImg.fillAmount = m_PrevHealth;
@@ -252,14 +278,11 @@ public class HUDManager : MonoBehaviour
         int nowScore = (int)m_ScoreManScr.GetPlayerScore;
         if (nowScore != m_PrevFrameScore)
         {
-            m_IsRumble = true;
-            m_IsBounce = true;
+            m_ScoreRumbleFX.RumbleInitTime = Time.time;
+            StartCoroutine(TxtRumblerFX(m_ScoreRumbleFX));
 
-            m_RumbleInitTime = Time.time;
-            m_BounceInitScale = m_ScoreTxt.transform.localScale;
+            StartCoroutine(TxtBouncerFX(m_ScoreBounceFX));
         }
-        TextRumbler(m_ScoreTxt, m_ScoreRumbleValue, m_ScoreRumbleTime);
-        TextBouncer(m_ScoreTxt, m_ScoreBounceTargetScale, m_ScoreBounceScaleMultiUp, m_ScoreBounceScaleMultiDown);
 
         m_PrevFrameScore = nowScore;
         m_ScoreTxt.text = nowScore.ToString();
