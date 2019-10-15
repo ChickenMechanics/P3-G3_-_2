@@ -1624,6 +1624,9 @@ MonoBehaviour:
   m_ChainBounceTargetScale: 2.37
   m_ChainBounceScaleMultiUp: 8.89
   m_ChainBounceScaleMultiDown: 6.35
+  m_Full: {r: 1, g: 0, b: 0.026395798, a: 1}
+  m_Semi: {r: 0.93122303, g: 1, b: 0, a: 1}
+  m_Empty: {r: 0.03127098, g: 1, b: 0, a: 1}
 --- !u!1 &5829277867375306004
 GameObject:
   m_ObjectHideFlags: 0
