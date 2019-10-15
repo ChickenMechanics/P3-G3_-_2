@@ -26,6 +26,18 @@ public class HUDManager : MonoBehaviour
     public float m_ScoreBounceScaleMultiUp;
     [Range(0.0f, 10.0f)]
     public float m_ScoreBounceScaleMultiDown;
+
+    [Header("Chain FX")]
+    [Range(0.0f, 10.0f)]
+    public float m_ChainRumbleValue;
+    [Range(0.0f, 0.5f)]
+    public float m_ChainRumbleTime;
+    [Range(1.0f, 5.0f)]
+    public float m_ChainBounceTargetScale;
+    [Range(0.0f, 10.0f)]
+    public float m_ChainBounceScaleMultiUp;
+    [Range(0.0f, 10.0f)]
+    public float m_ChainBounceScaleMultiDown;
     #endregion
 
     public static HUDManager GetInstance { get; private set; }
@@ -91,6 +103,9 @@ public class HUDManager : MonoBehaviour
     private TxtRumbleFX m_ScoreRumbleFX;
     private TxtBounceFX m_ScoreBounceFX;
 
+    private TxtRumbleFX m_ChainRumbleFX;
+    private TxtBounceFX m_ChainBounceFX;
+
 
     //----------------------------------------------------------------------------------------------------
 
@@ -150,20 +165,47 @@ public class HUDManager : MonoBehaviour
         m_PrevFrameScore = 0;
 
         // FX obj
-        m_ScoreRumbleFX = new TxtRumbleFX { TxtRef = m_ScoreTxt,
-                                            RumbleInitPos = m_ScoreTxt.transform.position,
-                                            RumbleRange = m_ScoreRumbleValue,
-                                            RumbleTimeTotal = m_ScoreRumbleTime,
-                                            RumbleInitTime = 0.0f,
-                                            RumbleDirFlipper = false };
+        m_ScoreRumbleFX = new TxtRumbleFX
+        {
+            TxtRef = m_ScoreTxt,
+            RumbleInitPos = m_ScoreTxt.transform.position,
+            RumbleRange = m_ScoreRumbleValue,
+            RumbleTimeTotal = m_ScoreRumbleTime,
+            RumbleInitTime = 0.0f,
+            RumbleDirFlipper = false
+        };
 
-        m_ScoreBounceFX = new TxtBounceFX { TxtRef = m_ScoreTxt,
-                                            BounceInitScale = m_ScoreTxt.transform.localScale,
-                                            BounceInitPos = m_ScoreTxt.transform.localPosition,
-                                            TargetScale = m_ScoreBounceTargetScale,
-                                            ScaleMultiUp = m_ScoreBounceScaleMultiUp,
-                                            ScaleMultiDown = m_ScoreBounceScaleMultiDown,
-                                            BounceDirFlipper = false };
+        m_ScoreBounceFX = new TxtBounceFX
+        {
+            TxtRef = m_ScoreTxt,
+            BounceInitScale = m_ScoreTxt.transform.localScale,
+            BounceInitPos = m_ScoreTxt.transform.localPosition,
+            TargetScale = m_ScoreBounceTargetScale,
+            ScaleMultiUp = m_ScoreBounceScaleMultiUp,
+            ScaleMultiDown = m_ScoreBounceScaleMultiDown,
+            BounceDirFlipper = false
+        };
+
+        m_ChainRumbleFX = new TxtRumbleFX
+        {
+            TxtRef = m_ChainTxt,
+            RumbleInitPos = m_ChainTxt.transform.position,
+            RumbleRange = m_ChainRumbleValue,
+            RumbleTimeTotal = m_ChainRumbleTime,
+            RumbleInitTime = 0.0f,
+            RumbleDirFlipper = false
+        };
+
+        m_ChainBounceFX = new TxtBounceFX
+        {
+            TxtRef = m_ChainTxt,
+            BounceInitScale = m_ChainTxt.transform.localScale,
+            BounceInitPos = m_ChainTxt.transform.localPosition,
+            TargetScale = m_ChainBounceTargetScale,
+            ScaleMultiUp = m_ChainBounceScaleMultiUp,
+            ScaleMultiDown = m_ChainBounceScaleMultiDown,
+            BounceDirFlipper = false
+        };
 }
 
 
@@ -274,18 +316,21 @@ public class HUDManager : MonoBehaviour
 
     private void ScoreUpdate()
     {
-        // score rumble
-        int nowScore = (int)m_ScoreManScr.GetPlayerScore;
+        int nowScore = (int)m_ScoreManScr.GetPlayerScore;   // resetted at the bottom of the file
+
+        // score and chain FX
         if (nowScore != m_PrevFrameScore)
         {
             m_ScoreRumbleFX.RumbleInitTime = Time.time;
             StartCoroutine(TxtRumblerFX(m_ScoreRumbleFX));
 
             StartCoroutine(TxtBouncerFX(m_ScoreBounceFX));
-        }
 
-        m_PrevFrameScore = nowScore;
+            m_ChainRumbleFX.RumbleInitTime = Time.time;
+            StartCoroutine(TxtRumblerFX(m_ChainRumbleFX));
+        }
         m_ScoreTxt.text = nowScore.ToString();
+        m_ChainTxt.text = m_ScoreManScr.GetCurrentChain.ToString();
 
         // combo meter
         float translatedToRange = GetZeroToOneRange(m_ScoreManScr.GetChainTimeLeft, m_ScoreManScr.GetBaseChainTime);
@@ -302,9 +347,6 @@ public class HUDManager : MonoBehaviour
             m_PrevComboMeter = nextComboMeter;
         }
 
-        // chain multiplier
-        m_ChainTxt.text = m_ScoreManScr.GetCurrentChain.ToString();
-
         string scaleSymbol = "x ";
         float multi = TruncateFloat(m_ScoreManScr.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);
         m_Multiplier.text = string.Concat(scaleSymbol, multi.ToString());
@@ -318,6 +360,8 @@ public class HUDManager : MonoBehaviour
             float longestChain = TruncateFloat(m_ScoreManScr.GetLongestChain, m_ScoreComboDecimalPoints);
             m_LongestChain.text = longestChain.ToString();
         }
+
+        m_PrevFrameScore = nowScore;
     }
 
 
