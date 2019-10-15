@@ -111,7 +111,9 @@ public class HUDManager : MonoBehaviour
     private TxtBounceFX m_ChainBounceFX;
 
     // Color FX
-    private Color m_NowColor;
+    private GradientColorKey[] m_ColorKey;
+    private GradientAlphaKey[] m_AlphaKey;
+    private Gradient m_RingGradient;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -214,9 +216,27 @@ public class HUDManager : MonoBehaviour
         };
 
         // Color FX
-        m_NowColor = m_Empty;
         m_ComboMeterImg.color = m_Empty;
-}
+
+        m_ColorKey = new GradientColorKey[3];
+        m_AlphaKey = new GradientAlphaKey[3];
+
+        m_RingGradient = new Gradient();
+
+        m_ColorKey[0].color = m_Full;
+        m_ColorKey[0].time = 1.0f;
+        m_ColorKey[1].color = m_Semi;
+        m_ColorKey[1].time = 0.5f;
+        m_ColorKey[2].color = m_Empty;
+        m_ColorKey[2].time = 0.0f;
+
+        m_AlphaKey[0].alpha = 1.0f;
+        m_AlphaKey[0].time = 1.0f;
+        m_AlphaKey[1].alpha = 1.0f;
+        m_AlphaKey[1].time = 0.5f;
+        m_AlphaKey[2].alpha = 1.0f;
+        m_AlphaKey[2].time = 0.0f;
+    }
 
 
     private float TruncateFloat(float value, int nDecimalPoints)
@@ -352,32 +372,10 @@ public class HUDManager : MonoBehaviour
         }
         if (translatedToRange < 1.0f && translatedToRange >= 0.0f)
         {
-            if(translatedToRange > 0.0f)
-            {
-                m_ComboMeterImg.fillAmount = Mathf.Lerp(m_ComboMeterImg.fillAmount, translatedToRange, 0.25f);
+            m_ComboMeterImg.fillAmount = Mathf.Lerp(m_ComboMeterImg.fillAmount, translatedToRange, 0.25f);
 
-                GradientColorKey[] cKey = new GradientColorKey[3];
-                GradientAlphaKey[] aKey = new GradientAlphaKey[3];
-
-                cKey[0].color = m_Full;
-                cKey[0].time = 1.0f;
-                cKey[1].color = m_Semi;
-                cKey[1].time = 0.5f;
-                cKey[2].color = m_Empty;
-                cKey[2].time = 0.0f;
-
-                aKey[0].alpha = 1.0f;
-                aKey[0].time = 1.0f;
-                aKey[1].alpha = 1.0f;
-                aKey[1].time = 0.5f;
-                aKey[2].alpha = 1.0f;
-                aKey[2].time = 0.0f;
-
-                Gradient g = new Gradient();
-                g.SetKeys(cKey, aKey);
-
-                m_ComboMeterImg.color = g.Evaluate(translatedToRange);
-            }
+            m_RingGradient.SetKeys(m_ColorKey, m_AlphaKey);
+            m_ComboMeterImg.color = m_RingGradient.Evaluate(translatedToRange);
         }
 
         string scaleSymbol = "x ";
