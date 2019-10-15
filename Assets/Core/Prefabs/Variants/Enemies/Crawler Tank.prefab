@@ -844,7 +844,7 @@ MonoBehaviour:
   scoreAmount: 250
   attackDuration: 2
   attackRange: 6
-  health: 750
+  health: 600
   attackAngle: 90
 --- !u!195 &7281316656739095216
 NavMeshAgent:
@@ -856,7 +856,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1.75
-  m_Speed: 2.8
+  m_Speed: 5.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
