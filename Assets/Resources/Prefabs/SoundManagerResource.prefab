@@ -47,7 +47,7 @@ MonoBehaviour:
   m_SoundObjs:
   - AliasName: Gun AR Shot
     m_ESound: 3
-    m_SoundSource: {fileID: 7402384876750912980, guid: 92ec899cc1c0f8140be2b3fb6f83ec73,
+    m_SoundSource: {fileID: 8470185352058736508, guid: 92ec899cc1c0f8140be2b3fb6f83ec73,
       type: 3}
     m_PrevTime: 0
   - AliasName: Enemy Take AR Dmg
@@ -83,5 +83,10 @@ MonoBehaviour:
   - AliasName: Main Menu Music 1
     m_ESound: 0
     m_SoundSource: {fileID: 2021842973882309019, guid: ec23bd9b743fead4dacf47183d83c223,
+      type: 3}
+    m_PrevTime: 0
+  - AliasName: Reloading (overheating)
+    m_ESound: 8
+    m_SoundSource: {fileID: 5514915353858606332, guid: 6878d40bc0c95844ca74fc38b7866e92,
       type: 3}
     m_PrevTime: 0
