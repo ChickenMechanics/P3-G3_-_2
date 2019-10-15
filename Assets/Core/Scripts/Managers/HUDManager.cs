@@ -27,7 +27,7 @@ public class HUDManager : MonoBehaviour
     [Range(0.0f, 10.0f)]
     public float m_ScoreBounceScaleMultiDown;
 
-    [Header("Chain FX")]
+    [Header("Score Chain FX")]
     [Range(0.0f, 10.0f)]
     public float m_ChainRumbleValue;
     [Range(0.0f, 0.5f)]
@@ -38,6 +38,11 @@ public class HUDManager : MonoBehaviour
     public float m_ChainBounceScaleMultiUp;
     [Range(0.0f, 10.0f)]
     public float m_ChainBounceScaleMultiDown;
+
+    [Header("Combo Meter FX")]
+    public Color m_Full;
+    public Color m_Semi;
+    public Color m_Empty;
     #endregion
 
     public static HUDManager GetInstance { get; private set; }
@@ -57,7 +62,6 @@ public class HUDManager : MonoBehaviour
     private Text m_Multiplier;
     private Text m_GunBulletText;
     private float m_PrevHealth;
-    private float m_PrevComboMeter;
     private int m_ScoreComboDecimalPoints;
 
     private float m_MagEmptyBlinkTime;
@@ -106,6 +110,9 @@ public class HUDManager : MonoBehaviour
     private TxtRumbleFX m_ChainRumbleFX;
     private TxtBounceFX m_ChainBounceFX;
 
+    // Color FX
+    private Color m_NowColor;
+
 
     //----------------------------------------------------------------------------------------------------
 
@@ -133,7 +140,6 @@ public class HUDManager : MonoBehaviour
 
         m_ComboMeterImg = canvas.transform.Find("ScoreCombo").transform.Find("ComboMeterImg").GetComponent<Image>();
         m_ComboMeterImg.fillAmount = m_ScoreManScr.GetChainTimeLeft;
-        m_PrevComboMeter = 0.0f;
 
         m_ChainTxt = canvas.transform.Find("ScoreCombo").transform.Find("CurrentChainTxt").GetComponent<Text>();
         m_ChainTxt.text = "0";
@@ -206,6 +212,9 @@ public class HUDManager : MonoBehaviour
             ScaleMultiDown = m_ChainBounceScaleMultiDown,
             BounceDirFlipper = false
         };
+
+        // Color FX
+        m_NowColor = m_Empty;
 }
 
 
@@ -342,9 +351,11 @@ public class HUDManager : MonoBehaviour
         }
         if (translatedToRange < 1.0f && translatedToRange >= 0.0f)
         {
-            float nextComboMeter = Mathf.Lerp(m_PrevComboMeter, translatedToRange, 0.2f);
-            m_ComboMeterImg.fillAmount = nextComboMeter;
-            m_PrevComboMeter = nextComboMeter;
+            m_ComboMeterImg.fillAmount = Mathf.Lerp(m_ComboMeterImg.fillAmount, translatedToRange, 0.25f);
+
+            //float r = GetZeroToOneRange(m_NowColor.r, 255.0f);
+            //float g = GetZeroToOneRange(m_NowColor.g, 255.0f);
+            //float b = GetZeroToOneRange(m_NowColor.b, 255.0f);
         }
 
         string scaleSymbol = "x ";

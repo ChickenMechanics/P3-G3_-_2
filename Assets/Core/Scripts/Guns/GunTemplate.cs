@@ -266,6 +266,7 @@ public class GunTemplate : MonoBehaviour
             {
                 GetIsReloading = true;
                 GetCurrentReloadTime = m_ReloadTimeInSec;
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_RELOAD_1, transform.position);
                 m_CurrentGunState = EGunState.RELOADING;
             }
         }

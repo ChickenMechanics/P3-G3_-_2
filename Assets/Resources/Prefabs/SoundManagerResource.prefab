@@ -85,3 +85,7 @@ MonoBehaviour:
     m_SoundSource: {fileID: 2021842973882309019, guid: ec23bd9b743fead4dacf47183d83c223,
       type: 3}
     m_PrevTime: 0
+  - AliasName: 
+    m_ESound: 8
+    m_SoundSource: {fileID: 0}
+    m_PrevTime: 0
