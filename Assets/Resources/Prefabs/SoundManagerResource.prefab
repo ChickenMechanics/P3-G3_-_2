@@ -47,7 +47,7 @@ MonoBehaviour:
   m_SoundObjs:
   - AliasName: Gun AR Shot
     m_ESound: 3
-    m_SoundSource: {fileID: 7402384876750912980, guid: 92ec899cc1c0f8140be2b3fb6f83ec73,
+    m_SoundSource: {fileID: 8731207991689328421, guid: 59e654e58a76f1d478a828044c7d4704,
       type: 3}
     m_PrevTime: 0
   - AliasName: Enemy Take AR Dmg

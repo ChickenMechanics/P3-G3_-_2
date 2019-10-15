@@ -7,35 +7,32 @@ public class GameManager : MonoBehaviour, IController
 {
     public static GameManager GetInstance { private set; get; }
 
-    private delegate void NowState();
-    private NowState m_NowState;
+    public FSM GetFsm { private set; get; }
+
+
+    private enum EGameState
+    {
+        INIT,
+        LOADING,
+        MAIN,
+        OPTIONS,
+        ARENA,
+        SIZE
+    }
+    private EGameState m_NowState;
 
 
     //----------------------------------------------------------------------------------------------------
 
 
-    private static void MainMenuState()
+    private void OnServerInitialized()
     {
-
+        //GetFsm = new FSM(this);
+        //GetFsm.
     }
 
 
-    private static void MainOptionsState()
-    {
 
-    }
-
-
-    private static void GameState()
-    {
-
-    }
-
-
-    private static void EndState()
-    {
-
-    }
 
 
     private void Awake()
@@ -47,13 +44,13 @@ public class GameManager : MonoBehaviour, IController
         GetInstance = this;
         DontDestroyOnLoad(gameObject);
 
-        m_NowState = MainMenuState;
+        m_NowState = EGameState.INIT;
     }
 
 
     private void Update()
     {
-        m_NowState();
+
     }
 
 

@@ -953,6 +953,31 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 621986973}
+    - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
+        type: 3}
+      propertyPath: m_ChainBounceTargetScale
+      value: 2.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
+        type: 3}
+      propertyPath: m_ChainRumbleValue
+      value: 7.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
+        type: 3}
+      propertyPath: m_ChainRumbleTime
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
+        type: 3}
+      propertyPath: m_ChainBounceScaleMultiUp
+      value: 8.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
+        type: 3}
+      propertyPath: m_ChainBounceScaleMultiDown
+      value: 6.35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9981ed4f40be37e41b8ebe8c7327b3d0, type: 3}
 --- !u!4 &570631241 stripped
