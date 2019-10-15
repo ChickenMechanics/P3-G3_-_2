@@ -33,7 +33,7 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
         agent.SetDestination(playerPos);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Component other)
     {
         if (other.gameObject.layer == 13)   // == projectile
         {
