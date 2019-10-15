@@ -45,7 +45,9 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
 
         var playerPos = PlayerManager.GetInstance.GetPlayer.transform.position;
 
-        if (Mathf.Abs(Vector3.Angle(position, playerPos) - 90f) < attackAngle && m_HasDoneDamage == false)
+        if (Mathf.Abs(Vector3.Angle(position, playerPos) - 90f) < attackAngle &&
+            m_HasDoneDamage == false &&
+            distanceToPlayer <= attackRange)
         {
             PlayerManager.GetInstance.DecreaseHealth(damageAmount);
             m_HasDoneDamage = true;
