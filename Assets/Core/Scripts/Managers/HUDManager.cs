@@ -215,6 +215,7 @@ public class HUDManager : MonoBehaviour
 
         // Color FX
         m_NowColor = m_Empty;
+        m_ComboMeterImg.color = m_Empty;
 }
 
 
@@ -351,11 +352,32 @@ public class HUDManager : MonoBehaviour
         }
         if (translatedToRange < 1.0f && translatedToRange >= 0.0f)
         {
-            m_ComboMeterImg.fillAmount = Mathf.Lerp(m_ComboMeterImg.fillAmount, translatedToRange, 0.25f);
+            if(translatedToRange > 0.0f)
+            {
+                m_ComboMeterImg.fillAmount = Mathf.Lerp(m_ComboMeterImg.fillAmount, translatedToRange, 0.25f);
 
-            //float r = GetZeroToOneRange(m_NowColor.r, 255.0f);
-            //float g = GetZeroToOneRange(m_NowColor.g, 255.0f);
-            //float b = GetZeroToOneRange(m_NowColor.b, 255.0f);
+                GradientColorKey[] cKey = new GradientColorKey[3];
+                GradientAlphaKey[] aKey = new GradientAlphaKey[3];
+
+                cKey[0].color = m_Full;
+                cKey[0].time = 1.0f;
+                cKey[1].color = m_Semi;
+                cKey[1].time = 0.5f;
+                cKey[2].color = m_Empty;
+                cKey[2].time = 0.0f;
+
+                aKey[0].alpha = 1.0f;
+                aKey[0].time = 1.0f;
+                aKey[1].alpha = 1.0f;
+                aKey[1].time = 0.5f;
+                aKey[2].alpha = 1.0f;
+                aKey[2].time = 0.0f;
+
+                Gradient g = new Gradient();
+                g.SetKeys(cKey, aKey);
+
+                m_ComboMeterImg.color = g.Evaluate(translatedToRange);
+            }
         }
 
         string scaleSymbol = "x ";
