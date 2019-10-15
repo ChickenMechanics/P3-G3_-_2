@@ -9,7 +9,7 @@ public class BullBehaviour : DefaultGroundEnemyBehaviour
     public float distanceToEndPoint;
 
     private bool m_LockOn;
-    private NavMeshAgent agent;
+    private NavMeshAgent m_Agent;
     private Vector3 m_RushDirection;
     private Vector3 m_StartRushPosition;
     private Vector3 m_EndRushPosition;
@@ -17,7 +17,7 @@ public class BullBehaviour : DefaultGroundEnemyBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        m_Agent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -27,14 +27,14 @@ public class BullBehaviour : DefaultGroundEnemyBehaviour
         {
             distanceToEndPoint = m_EndRushPosition.magnitude - position.magnitude;
 
-            agent.SetDestination(m_EndRushPosition);
+            m_Agent.SetDestination(m_EndRushPosition);
 
             if (Math.Abs(distanceToEndPoint) < 0.1)
                 m_LockOn = false;
         }
         else
         {
-            MoveTowardsPlayer(transform, agent);
+            MoveTowardsPlayer(transform, m_Agent);
 
             if (distanceToPlayer > startRushDistance) return;
 
