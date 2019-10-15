@@ -4,19 +4,14 @@ using UnityEngine.AI;
 public class DefaultGroundEnemyBehaviour : MonoBehaviour
 {
     #region Header
-    protected enum State { ATTACK, DEATH, IDLE, MOVE }
+    protected enum State { ATTACK, DEATH, MOVE }
     protected State currentState;
     protected Vector3 position;
     protected float distanceToPlayer;
-    protected float HP;
+    protected float hp;
 
     private Quaternion m_LookRotation;
     #endregion
-
-    // Start is called before the first frame update
-    private void Start()
-    {
-    }
 
     protected void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
     {
@@ -54,9 +49,9 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
     
     public void TakeDamage(float damageValue)
     {
-        HP -= damageValue;
+        hp -= damageValue;
 
-        if (HP <= 0)
+        if (hp <= 0)
             currentState = State.DEATH;
     }
 }

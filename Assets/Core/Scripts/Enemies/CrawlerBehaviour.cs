@@ -21,7 +21,7 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
         m_Agent = GetComponent<NavMeshAgent>();
         currentState = State.MOVE;
         m_Anims = gameObject.GetComponent<EnemyCrawlerAnimation>();
-        HP = health;
+        hp = health;
     }
 
     // Update is called once per frame
