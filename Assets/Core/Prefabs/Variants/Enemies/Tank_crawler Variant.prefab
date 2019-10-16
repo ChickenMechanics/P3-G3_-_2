@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3642190635007590323, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
       propertyPath: m_Name
-      value: Grunt_crawler_Strong Variant
+      value: Tank_crawler Variant
       objectReference: {fileID: 0}
     - target: {fileID: 347041935446724000, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
@@ -66,6 +66,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 57123397192469119, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: m_Speed
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 57123397192469119, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: damageAmount
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: scoreAmount
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: attackDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: attackRange
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: health
+      value: 550
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: attackAngle
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e45a82755a8a69b40940a97ad802ef12, type: 3}
