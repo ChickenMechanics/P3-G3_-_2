@@ -1843,9 +1843,9 @@ GameObject:
   - component: {fileID: -7732944795371425387}
   - component: {fileID: -2273220401559267678}
   - component: {fileID: -6932520422145311426}
-  - component: {fileID: -3001080580840605476}
   - component: {fileID: -3128318555117141572}
-  - component: {fileID: -1216341474502370567}
+  - component: {fileID: 332921080250156802}
+  - component: {fileID: 5943007691072722692}
   m_Layer: 9
   m_Name: Grunt_crawler
   m_TagString: Enemy
@@ -1944,21 +1944,6 @@ MonoBehaviour:
   m_ExplosionSmokeVfx: {fileID: 0}
   m_ExplosionFireScale: 0.1
   m_ExplosionSmokeScale: 1
---- !u!114 &-3001080580840605476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5923005840423871342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 533c0da48a45dcb47ae45949e7099d8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ScoreValue: 100
-  m_Health: 100
-  m_ExplosiveDamage: 25
 --- !u!114 &-3128318555117141572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1966,12 +1951,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5923005840423871342}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7c34ac6ca386904ab8a7853f26228aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-1216341474502370567
+--- !u!114 &332921080250156802
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1980,10 +1965,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 5923005840423871342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30c63908563cdc4429d495490967fec1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f0ba77d768106e459120bba5d86c793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OnSpawnAiDelayTime: 1
+  damageAmount: 20
+  scoreAmount: 100
+  attackDuration: 2
+  attackRange: 6
+  health: 250
+  attackAngle: 90
+--- !u!114 &5943007691072722692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5923005840423871342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0977f0ae5dad2fa48ab7dd7872d54908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6047612592498726121
 GameObject:
   m_ObjectHideFlags: 0

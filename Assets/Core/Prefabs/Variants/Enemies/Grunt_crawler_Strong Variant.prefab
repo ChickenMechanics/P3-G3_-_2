@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3642190635007590323, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
       propertyPath: m_Name
-      value: Grunt_crawler_Strong
+      value: Grunt_crawler_Strong Variant
       objectReference: {fileID: 0}
     - target: {fileID: 347041935446724000, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
