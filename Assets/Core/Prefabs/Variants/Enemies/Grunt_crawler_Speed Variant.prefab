@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 4870995517318680427, guid: c81e3e980cff26843bdfe68bf54a4c15,
         type: 3}
       propertyPath: m_Name
-      value: Grunt_crawler_Speed
+      value: Grunt_crawler_Speed Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8485372433805229432, guid: c81e3e980cff26843bdfe68bf54a4c15,
         type: 3}

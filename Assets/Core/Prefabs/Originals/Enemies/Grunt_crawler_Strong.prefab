@@ -1050,9 +1050,9 @@ GameObject:
   - component: {fileID: 8364900665805827400}
   - component: {fileID: 57123397192469119}
   - component: {fileID: 9183871102861304291}
-  - component: {fileID: 3955025132934325249}
   - component: {fileID: 3759641071858752865}
-  - component: {fileID: 1128073248279414308}
+  - component: {fileID: 3067297880893053305}
+  - component: {fileID: 8019714435313989823}
   m_Layer: 9
   m_Name: Grunt_crawler_Strong
   m_TagString: Enemy
@@ -1151,21 +1151,6 @@ MonoBehaviour:
   m_ExplosionSmokeVfx: {fileID: 0}
   m_ExplosionFireScale: 0.1
   m_ExplosionSmokeScale: 1
---- !u!114 &3955025132934325249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3642190635007590323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 533c0da48a45dcb47ae45949e7099d8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ScoreValue: 100
-  m_Health: 100
-  m_ExplosiveDamage: 25
 --- !u!114 &3759641071858752865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1173,12 +1158,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3642190635007590323}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7c34ac6ca386904ab8a7853f26228aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1128073248279414308
+--- !u!114 &3067297880893053305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1187,10 +1172,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 3642190635007590323}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30c63908563cdc4429d495490967fec1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0977f0ae5dad2fa48ab7dd7872d54908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OnSpawnAiDelayTime: 1
+--- !u!114 &8019714435313989823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3642190635007590323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0ba77d768106e459120bba5d86c793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 0
+  scoreAmount: 0
+  attackDuration: 0
+  attackRange: 0
+  health: 0
+  attackAngle: 0
 --- !u!1 &3698714129959618612
 GameObject:
   m_ObjectHideFlags: 0
