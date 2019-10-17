@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour, IController
         if(PlayerManager.GetInstance != null)
         {
             if (PlayerManager.GetInstance.GetIsAlive == false &&
-                PlayerManager.GetInstance.GetIsUndead == false)
+                PlayerManager.GetInstance.GetIsGod == false)
             {
                 LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
 
@@ -72,9 +72,9 @@ public class GameManager : MonoBehaviour, IController
 #if DEBUG
             if (Input.GetKeyDown(KeyCode.G))
             {
-                PlayerManager.GetInstance.GetIsUndead = !PlayerManager.GetInstance.GetIsUndead;
+                PlayerManager.GetInstance.GetIsGod = !PlayerManager.GetInstance.GetIsGod;
 
-                string msg = PlayerManager.GetInstance.GetIsUndead ? "Godmode On" : "Godmode Off";
+                string msg = PlayerManager.GetInstance.GetIsGod ? "Godmode On" : "Godmode Off";
                 Debug.LogError(msg);
             }
 #endif

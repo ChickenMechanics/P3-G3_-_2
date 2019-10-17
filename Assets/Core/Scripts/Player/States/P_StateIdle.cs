@@ -11,7 +11,6 @@ public class P_StateIdle : IState
     }
 
     private PlayerCtrl m_Owner;
-    public bool GetIsAvailable { get; set; }
 
 
     //----------------------------------------------------------------------------------------------------
@@ -44,7 +43,7 @@ public class P_StateIdle : IState
         GunManager.GetInstance.Reload();
         GunManager.GetInstance.ScrollWeapons();
 
-        PlayerCtrl.BasicInput currentInput = m_Owner.GetBasicInput();
+        PlayerCtrl.BasicInput currentInput = m_Owner.GetBasicInput;
         if (currentInput.MoveInput.x != 0.0f || currentInput.MoveInput.z != 0.0f)
         {
             m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.WALK);
