@@ -8,12 +8,26 @@ public class P_StateIdle : IState
     public P_StateIdle(IController controller)
     {
         m_Owner = (PlayerCtrl)controller;
+        m_IsAvailable = true;
     }
 
     private PlayerCtrl m_Owner;
+    private bool m_IsAvailable;
 
 
     //----------------------------------------------------------------------------------------------------
+
+
+    public bool GetIsAvailable()
+    {
+        return m_IsAvailable;
+    }
+
+
+    public void SetIsAvailable(bool isAvailable)
+    {
+        m_IsAvailable = isAvailable;
+    }
 
 
     public void Enter()

@@ -13,10 +13,9 @@ public class PlayerMove : MonoBehaviour
     public float m_StrafeAcceleration = 100.0f;
     [HideInInspector]
     public float m_RunAcceleration = 500.0f;
-    [HideInInspector]
     public float m_DashAcceleration = 1500.0f;
-    [HideInInspector]
-    public float m_DashTime = 0.25f;
+    public float m_DashActiveTime = 0.25f;
+    public float m_DashCooldown = 2.0f;
     #endregion
 
     private PlayerCtrl m_PlayerCtrlScr;
@@ -44,7 +43,7 @@ public class PlayerMove : MonoBehaviour
     {
         if(m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx != m_CurrentState)
         {
-            // remove below conditional when all states are known as it wont be needed
+            // remove below conditional when all states are known as it won't be needed
             if (m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx == (int)PlayerCtrl.EPlayerState.IDLE ||
                 m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx == (int)PlayerCtrl.EPlayerState.WALK ||
                 m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx == (int)PlayerCtrl.EPlayerState.RUN ||

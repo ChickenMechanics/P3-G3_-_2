@@ -70,6 +70,25 @@ public class PlayerCtrl : MonoBehaviour, IController
     }
 
 
+    public void TriggerDashCooldown(float cooldownTimer)
+    {
+        StartCoroutine(DashCooldown(cooldownTimer));
+    }
+
+
+    private IEnumerator DashCooldown(float cooldownTimer)
+    {
+        while(cooldownTimer > 0.0f)
+        {
+            cooldownTimer -= Time.deltaTime;
+            yield return null;
+        }
+
+        GetFSM.GetState(EPlayerState.DASH).SetIsAvailable(true);
+        StopCoroutine("DashCooldown");
+    }
+
+
     private void Awake()
     {
         Cursor.visible = false;
