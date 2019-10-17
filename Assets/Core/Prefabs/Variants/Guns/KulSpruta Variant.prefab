@@ -72,5 +72,15 @@ PrefabInstance:
       propertyPath: m_MagSizeTotal
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 5923441491645647326, guid: 60b53556ab302e9448fe92f75b23d1d0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923441491645647326, guid: 60b53556ab302e9448fe92f75b23d1d0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60b53556ab302e9448fe92f75b23d1d0, type: 3}
