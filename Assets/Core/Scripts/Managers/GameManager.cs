@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour, IController
 
     public FSM GetFsm { private set; get; }
 
-
     private enum EGameState
     {
         INIT,
@@ -25,14 +24,11 @@ public class GameManager : MonoBehaviour, IController
     //----------------------------------------------------------------------------------------------------
 
 
-    private void OnServerInitialized()
-    {
-        //GetFsm = new FSM(this);
-        //GetFsm.
-    }
-
-
-
+    //private void Init()
+    //{
+    //    GetFsm = new FSM(this);
+    //    GetFsm.
+    //}
 
 
     private void Awake()
@@ -50,12 +46,35 @@ public class GameManager : MonoBehaviour, IController
 
     private void Update()
     {
+        if(PlayerManager.GetInstance != null)
+        {
+            PlayerManager playerManScr = PlayerManager.GetInstance.GetComponent<PlayerManager>();
 
+            if (playerManScr.GetIsAlive == false &&
+                playerManScr.GetIsUndead == false)
+            {
+                LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+
+                if (ScoreManager.GetInstance != null)
+                {
+                    ScoreManager.GetInstance.ResetPlayerStats();
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+
+                if (ScoreManager.GetInstance != null)
+                {
+                    ScoreManager.GetInstance.ResetPlayerStats();
+                }
+            }
+        }
     }
 
 
-    private void LateUpdate()
-    {
+    //private void LateUpdate()
+    //{
 
-    }
+    //}
 }

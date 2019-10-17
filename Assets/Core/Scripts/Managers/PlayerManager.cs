@@ -129,17 +129,5 @@ public class PlayerManager : MonoBehaviour
             m_ShakeStartTime = Time.time;
             StartCoroutine(PlayerScreenShake());
         }
-
-        // TODO: move below blocks to gamemanager
-        if (GetIsAlive == false &&
-            GetIsUndead == false)
-        {
-            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
-        }
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
-        }
-                
     }
 }
