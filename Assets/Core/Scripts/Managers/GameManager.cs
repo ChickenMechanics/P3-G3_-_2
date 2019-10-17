@@ -46,12 +46,11 @@ public class GameManager : MonoBehaviour, IController
 
     private void Update()
     {
+        // TODO. Move and clean this to game manager when/if that is up
         if(PlayerManager.GetInstance != null)
         {
-            PlayerManager playerManScr = PlayerManager.GetInstance.GetComponent<PlayerManager>();
-
-            if (playerManScr.GetIsAlive == false &&
-                playerManScr.GetIsUndead == false)
+            if (PlayerManager.GetInstance.GetIsAlive == false &&
+                PlayerManager.GetInstance.GetIsUndead == false)
             {
                 LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
 
@@ -69,12 +68,16 @@ public class GameManager : MonoBehaviour, IController
                     ScoreManager.GetInstance.ResetPlayerStats();
                 }
             }
+
+#if DEBUG
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                PlayerManager.GetInstance.GetIsUndead = !PlayerManager.GetInstance.GetIsUndead;
+
+                string msg = PlayerManager.GetInstance.GetIsUndead ? "Godmode On" : "Godmode Off";
+                Debug.LogError(msg);
+            }
+#endif
         }
     }
-
-
-    //private void LateUpdate()
-    //{
-
-    //}
 }

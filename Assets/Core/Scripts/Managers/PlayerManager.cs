@@ -26,7 +26,8 @@ public class PlayerManager : MonoBehaviour
     public float GetBaseHealth { private set; get; }
     [HideInInspector]
     public float GetCurrentHealth { private set; get; }
-    public bool GetIsUndead { private set; get; }
+    [HideInInspector]
+    public bool GetIsUndead { set; get; }
     [HideInInspector]
     public bool GetIsAlive { private set; get; }
     [HideInInspector]
@@ -111,15 +112,15 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-#if DEBUG
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            GetIsUndead = !GetIsUndead;
+//#if DEBUG
+//        if (Input.GetKeyDown(KeyCode.G))
+//        {
+//            GetIsUndead = !GetIsUndead;
 
-            string msg = GetIsUndead ? "Godmode On" : "Godmode Off";
-            Debug.LogError(msg);
-        }
-#endif
+//            string msg = GetIsUndead ? "Godmode On" : "Godmode Off";
+//            Debug.LogError(msg);
+//        }
+//#endif
 
         if (GetCurrentHealth != m_ShakePrevHealth)
         {
