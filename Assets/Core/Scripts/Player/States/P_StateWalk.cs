@@ -8,12 +8,26 @@ public class P_StateWalk : IState
     public P_StateWalk(IController controller)
     {
         m_Owner = (PlayerCtrl)controller;
+        m_IsAvailable = true;
     }
 
     private PlayerCtrl m_Owner;
+    private bool m_IsAvailable;
 
 
     //----------------------------------------------------------------------------------------------------
+
+
+    public bool GetIsAvailable()
+    {
+        return m_IsAvailable;
+    }
+
+
+    public void SetIsAvailable(bool isAvailable)
+    {
+        m_IsAvailable = isAvailable;
+    }
 
 
     public void Enter()
@@ -59,7 +73,10 @@ public class P_StateWalk : IState
 
         if (currentInput.DashInput != 0.0f)
         {
-            m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.DASH);
+            if(m_Owner.GetFsm().GetState(PlayerCtrl.EPlayerState.DASH).GetIsAvailable() == true)
+            {
+                m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.DASH);
+            }
         }
     }
 

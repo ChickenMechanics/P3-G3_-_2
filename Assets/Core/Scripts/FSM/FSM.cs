@@ -36,6 +36,17 @@ public class FSM
     }
 
 
+    public IState GetState(PlayerCtrl.EPlayerState state)
+    {
+        if(m_States[(int)state] == null)
+        {
+            return null;
+        }
+
+        return m_States[(int)state];
+    }
+
+
     public void ChangeState(PlayerCtrl.EPlayerState state)
     {
         GetCurrentState.Exit();
