@@ -66,7 +66,7 @@ public class PlayerLook : MonoBehaviour
 
     private void Look()
     {
-        Vector2 lookInput = m_PlayerCtrlScr.GetBasicInput().LookInput * m_LookSensitivity;
+        Vector2 lookInput = m_PlayerCtrlScr.GetBasicInput.LookInput * m_LookSensitivity;
         m_NextLookRotation = Vector2.Lerp(m_NextLookRotation, lookInput, m_LookSmooth);
         m_CurrentLookRotation += m_NextLookRotation;
 

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public interface IState
 {
-
-    bool GetIsAvailable { get; set; }
+    bool GetIsAvailable();
+    void SetIsAvailable(bool isAvailable);
     void Enter();
     void FixedUpdate();
     void Update();
