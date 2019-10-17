@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour, IController
 
     public FSM GetFsm { private set; get; }
 
-
     private enum EGameState
     {
         INIT,
@@ -25,14 +24,11 @@ public class GameManager : MonoBehaviour, IController
     //----------------------------------------------------------------------------------------------------
 
 
-    private void OnServerInitialized()
-    {
-        //GetFsm = new FSM(this);
-        //GetFsm.
-    }
-
-
-
+    //private void Init()
+    //{
+    //    GetFsm = new FSM(this);
+    //    GetFsm.
+    //}
 
 
     private void Awake()
@@ -50,12 +46,38 @@ public class GameManager : MonoBehaviour, IController
 
     private void Update()
     {
+        // TODO. Move and clean this to game manager when/if that is up
+        if(PlayerManager.GetInstance != null)
+        {
+            if (PlayerManager.GetInstance.GetIsAlive == false &&
+                PlayerManager.GetInstance.GetIsGod == false)
+            {
+                LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
 
-    }
+                if (ScoreManager.GetInstance != null)
+                {
+                    ScoreManager.GetInstance.ResetPlayerStats();
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
 
+                if (ScoreManager.GetInstance != null)
+                {
+                    ScoreManager.GetInstance.ResetPlayerStats();
+                }
+            }
 
-    private void LateUpdate()
-    {
+#if DEBUG
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                PlayerManager.GetInstance.GetIsGod = !PlayerManager.GetInstance.GetIsGod;
 
+                string msg = PlayerManager.GetInstance.GetIsGod ? "Godmode On" : "Godmode Off";
+                Debug.LogError(msg);
+            }
+#endif
+        }
     }
 }

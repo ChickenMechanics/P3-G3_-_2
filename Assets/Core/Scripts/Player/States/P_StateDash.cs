@@ -12,7 +12,6 @@ public class P_StateDash : IState
 
     private PlayerCtrl m_Owner;
     private float m_DashTime;
-    public bool GetIsAvailable { get; set; }
 
 
     //----------------------------------------------------------------------------------------------------
@@ -55,6 +54,6 @@ public class P_StateDash : IState
 
     public void Exit()
     {
-
+        m_Owner.GetBasicInput.DashInput = 0.0f;
     }
 }

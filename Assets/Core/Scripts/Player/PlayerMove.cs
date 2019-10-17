@@ -16,7 +16,7 @@ public class PlayerMove : MonoBehaviour
     [HideInInspector]
     public float m_DashAcceleration = 1500.0f;
     [HideInInspector]
-    public float m_DashTime = 1.0f;
+    public float m_DashTime = 0.25f;
     #endregion
 
     private PlayerCtrl m_PlayerCtrlScr;
@@ -106,8 +106,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Dash()
     {
-        m_DashForce = m_DashDir;
-        m_DashForce *= m_DashAccel * Time.fixedDeltaTime;
+        m_DashForce = m_DashDir * m_DashAccel * Time.fixedDeltaTime;
 
         //Debug.Log("Dash");
     }
@@ -120,7 +119,7 @@ public class PlayerMove : MonoBehaviour
         m_PlayerCtrlScr = GetComponent<PlayerCtrl>();
         m_PlayerLookScr = GetComponent<PlayerLook>();
 
-        m_Input = m_PlayerCtrlScr.GetBasicInput();
+        m_Input = m_PlayerCtrlScr.GetBasicInput;
 
         m_ForwardForce = Vector3.zero;
         m_StrafeForce = Vector3.zero;
@@ -154,7 +153,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        m_Input = m_PlayerCtrlScr.GetBasicInput();
+        m_Input = m_PlayerCtrlScr.GetBasicInput;
         if (m_Input.MoveInput.x != 0.0f && m_Input.MoveInput.z != 0.0f)
         {
             m_Input.MoveInput /= Mathf.Sqrt(m_Input.MoveInput.x * m_Input.MoveInput.x + m_Input.MoveInput.z * m_Input.MoveInput.z);
