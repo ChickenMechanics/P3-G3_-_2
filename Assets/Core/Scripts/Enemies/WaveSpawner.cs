@@ -9,15 +9,19 @@ using UnityEngine;
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 public class WaveSpawner : MonoBehaviour
 {
-    public static WaveSpawner GetInstance;
-
-    public enum SpawnState { SPAWNING, WAITING, BETWEENWAVES }
+    public enum SpawnState
+    {
+        SPAWN,
+        WAIT,
+        BETWEENWAVES
+    }
 
     [Serializable]
     public class Wave
     {
         public string waveName;
         public SubWave[] subWaves;
+        public int waveIndex;
     }
 
     [Serializable]
@@ -27,10 +31,13 @@ public class WaveSpawner : MonoBehaviour
         public float spawnStartDelay;
         public EnemyType[] enemyTypes;
 
-        public bool GetHasSpawned() { return m_HasSpawned; }
-        public void SetHasSpawned( bool hasBeenSpawned ) { m_HasSpawned = hasBeenSpawned; }
+        public bool GetHasSpawned()
+        {
+            return m_HasSpawned;
+        }
 
         private bool m_HasSpawned;
+        public int index;
     }
 
     [Serializable]
@@ -48,58 +55,77 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenWaves;
 
     private Transform m_Player;
+    private const float SearchCountdown = 1f;
+
     private int m_CurrentWaveIndex;
-    private float m_SearchCountdown = 1f;
+    private int m_CurrentSubWaveIndex;
     private float m_CurrentWaveDuration;
-    private bool m_HasSpawnedWave;
+
+    private float m_DelayToNextSubWave;
+    //private bool m_HasSpawnedWave;
+
     private SpawnState m_SpawnState;
 
     private void Start()
     {
-        if (GetInstance != null && GetInstance != this)
-            Destroy(gameObject);
-        
-        GetInstance = this;
-
         m_Player = GameObject.FindGameObjectWithTag("Player").transform;
-        StartCoroutine(SpawnWave(waves[0]));
+        m_SpawnState = SpawnState.SPAWN;
     }
 
     private void Update()
     {
-        var currentWave = waves[m_CurrentWaveIndex];
-
-        if (m_SpawnState == SpawnState.BETWEENWAVES)
-            StartCoroutine(WaitForNextWave(currentWave));
-
-        if (IsWaveCompleted(currentWave))
-            WaveCompleted();
-
-        foreach (var subWave in currentWave.subWaves)
+        switch (m_SpawnState)
         {
-            if (subWave.spawnStartDelay <= m_CurrentWaveDuration && subWave.GetHasSpawned() == false)
-                StartCoroutine(SpawnSubWave(subWave));
+            case SpawnState.SPAWN:
+                Spawn();
+                break;
+            case SpawnState.WAIT:
+                StartCoroutine(Wait());
+                break;
+            case SpawnState.BETWEENWAVES:
+                StartCoroutine(WaitForNextWave());
+                break;
         }
-        
-        m_CurrentWaveDuration += Time.deltaTime;
     }
 
-    private IEnumerator WaitForNextWave(Wave currentWave)
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(SearchCountdown);
+
+        if (m_DelayToNextSubWave > m_CurrentWaveDuration)
+            m_SpawnState = SpawnState.SPAWN;
+        else if (IsWaveCompleted(waves[m_CurrentWaveIndex]))
+            WaveCompleted();
+    }
+
+    private void Spawn()
+    {
+        if (m_CurrentSubWaveIndex < waves[m_CurrentWaveIndex].subWaves.Length)
+        {
+            StartCoroutine(
+                SpawnSubWave(
+                    waves[m_CurrentWaveIndex].subWaves[m_CurrentSubWaveIndex]));
+
+            m_CurrentSubWaveIndex++;
+        }
+
+        m_SpawnState = SpawnState.WAIT;
+    }
+
+    private IEnumerator WaitForNextWave()
     {
         yield return new WaitForSeconds(timeBetweenWaves);
 
-        if (m_HasSpawnedWave) yield break;
-
-        StartCoroutine(SpawnWave(currentWave));
+        m_SpawnState = SpawnState.SPAWN;
         m_CurrentWaveDuration = 0;
-        m_HasSpawnedWave = true;
     }
 
-    private bool IsWaveCompleted(Wave wave)
+    private static bool IsWaveCompleted(Wave wave)
     {
-        return m_SpawnState == SpawnState.WAITING &&
-               IsEnemyAlive() == false &&
-               wave.subWaves.All(subWave => subWave.GetHasSpawned());
+        var allSubWavesSpawned = wave.subWaves.All(subWave => subWave.GetHasSpawned());
+        var anyEnemiesAlive = GameObject.FindGameObjectWithTag("Enemy") != null;
+
+        return anyEnemiesAlive == false && allSubWavesSpawned;
     }
 
     private void WaveCompleted()
@@ -109,54 +135,76 @@ public class WaveSpawner : MonoBehaviour
         if (m_CurrentWaveIndex == waves.Length - 1)
             LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
         else
+        {
             m_CurrentWaveIndex++;
-
-        m_SpawnState = SpawnState.BETWEENWAVES;
-    }
-
-    private bool IsEnemyAlive()
-    {
-        m_SearchCountdown -= Time.deltaTime;
-        
-        if (m_SearchCountdown > 0f) return true;
-
-        m_SearchCountdown = 1f;
-
-        return GameObject.FindGameObjectWithTag("Enemy") != null;
+            m_SpawnState = SpawnState.BETWEENWAVES;
+        }
     }
 
     private IEnumerator SpawnWave(Wave wave)
     {
         Debug.Log("Spawning Wave: " + wave.waveName);
 
-        m_SpawnState = SpawnState.SPAWNING;
+        if (wave.subWaves[m_CurrentSubWaveIndex] != null)
+        {
+            m_SpawnState = SpawnState.SPAWN;
 
-        yield return StartCoroutine(SpawnSubWave(wave.subWaves[0]));
+            yield return
+                StartCoroutine(
+                    SpawnSubWave(
+                        wave.subWaves[m_CurrentSubWaveIndex]));
+        }
+        else
+            Debug.Log("First subwave does not exist");
 
-        m_SpawnState = SpawnState.WAITING;
+        m_SpawnState = SpawnState.WAIT;
     }
-    
+
     private IEnumerator SpawnSubWave(SubWave subWave)
     {
-        subWave.SetHasSpawned(true);
+        if (subWave.enemyTypes.Length == 0)
+        {
+            Debug.Log("No enemyTypes to spawn");
+            yield break;
+        }
 
         foreach (var enemyType in subWave.enemyTypes)
         {
-            var spawnRate = 1f / enemyType.rate;
-    
-            for (var i = 0; i < enemyType.count; ++i)
+            if (enemyType.enemy == null)
             {
+                Debug.Log("No enemies to spawn");
+                yield break;
+            }
+
+            SpawnEnemy(enemyType.enemy);
+
+            var spawnRate = 1f / enemyType.rate;
+
+            for (var i = 1; i < enemyType.count; ++i)
+            {
+                if (enemyType.count == 0)
+                {
+                    Debug.Log("No " + enemyType.name + "s to spawn");
+                    yield break;
+                }
+
+                if (enemyType.enemy == null)
+                    Debug.Log("No enemies to spawn");
+
                 yield return new WaitForSeconds(spawnRate);
-    
+
                 SpawnEnemy(enemyType.enemy);
             }
         }
+
+        if (subWave.index >= waves[m_CurrentWaveIndex].subWaves.Length) yield break;
+        
+        subWave.index++;
+        m_DelayToNextSubWave = subWave.spawnStartDelay - m_CurrentWaveDuration;
     }
 
     private void SpawnEnemy(Transform enemy)
     {
-        Debug.Log("Spawning Enemy: " + enemy.name);
-
         if (spawnPoints.Length == 0)
             Debug.LogError("No spawn points referenced");
 
@@ -173,6 +221,7 @@ public class WaveSpawner : MonoBehaviour
 
             if (distanceToPlayer.magnitude < safeSpawnDistance) continue;
 
+            //Debug.Log("Spawning Enemy: " + enemy.name);
             Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
             return;
         }
