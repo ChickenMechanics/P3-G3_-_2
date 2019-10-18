@@ -86,6 +86,8 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
         {
             m_CurrentSate = ECrawlerState.WALK;
             m_AnimScr.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.WALK);
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ENEMY_ATTACK, transform.position);
+
 
             m_Agent.isStopped = false;
         }

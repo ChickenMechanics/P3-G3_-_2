@@ -12,6 +12,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: KulSpruta Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7997338803180843419, guid: 60b53556ab302e9448fe92f75b23d1d0,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449776533292272994, guid: 60b53556ab302e9448fe92f75b23d1d0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1416179747012316077, guid: 60b53556ab302e9448fe92f75b23d1d0,
         type: 3}
       propertyPath: m_LocalPosition.x
