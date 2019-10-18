@@ -9,28 +9,43 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
     protected Vector3 position;
     protected float distanceToPlayer;
     protected float hp;
+    protected Vector3 playerPos;
+    protected Vector3 lookPosition;
 
     private Quaternion m_LookRotation;
     #endregion
 
     protected void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
     {
-        var playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        UpdatePlayerPos();
+        playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         position = agentTransform.position;
         var rotation = agentTransform.rotation;
 
-        var lookPosition = playerPos - position;
-
-        lookPosition.y = 0;
+        UpdateDistanceToPlayer();
 
         if (lookPosition != Vector3.zero)
             m_LookRotation = Quaternion.LookRotation(lookPosition);
 
-        distanceToPlayer = lookPosition.magnitude;
-
         agentTransform.rotation = Quaternion.Slerp(rotation, m_LookRotation, 0.1f);
 
         agent.SetDestination(playerPos);
+    }
+
+    protected void UpdatePlayerPos()
+    {
+        playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+    }
+
+    protected void UpdateDistanceToPlayer()
+    {
+        UpdatePlayerPos();
+
+        lookPosition = playerPos - position;
+
+        lookPosition.y = 0;
+
+        distanceToPlayer = lookPosition.magnitude;
     }
 
     private void OnTriggerEnter(Component other)
