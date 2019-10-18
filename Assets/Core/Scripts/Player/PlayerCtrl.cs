@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour, IController
 {
+    [HideInInspector]
     public struct BasicInput
     {
         public Vector3 MoveInput;
@@ -12,7 +13,8 @@ public class PlayerCtrl : MonoBehaviour, IController
         public float RunInput;
         public float DashInput;
     }
-    private BasicInput m_BasicInput;
+    [HideInInspector]
+    public BasicInput GetBasicInput;
 
     [HideInInspector]
     public FSM GetFSM { private set; get; }
@@ -25,7 +27,7 @@ public class PlayerCtrl : MonoBehaviour, IController
         RUN,
         DASH,
         SIZE
-        //DEAD, // not implemented
+        //DEAD, // Exists in player manager. Should prob be organized in a better way
     }
 
     private FxRumbleTransform m_FxRumbleScr;
@@ -34,10 +36,10 @@ public class PlayerCtrl : MonoBehaviour, IController
     //----------------------------------------------------------------------------------------------------
 
 
-    public BasicInput GetBasicInput()
-    {
-        return m_BasicInput;
-    }
+    //public BasicInput GetBasicInput()
+    //{
+    //    return GetBasicInput;
+    //}
 
 
     public FSM GetFsm()
@@ -48,23 +50,42 @@ public class PlayerCtrl : MonoBehaviour, IController
 
     public void UpdateLookInput()
     {
-        m_BasicInput.LookInput.x = Input.GetAxisRaw("Mouse X");
-        m_BasicInput.LookInput.y = Input.GetAxisRaw("Mouse Y");
+        GetBasicInput.LookInput.x = Input.GetAxisRaw("Mouse X");
+        GetBasicInput.LookInput.y = Input.GetAxisRaw("Mouse Y");
     }
 
 
     public void UpdateMoveInput()
     {
-        m_BasicInput.MoveInput.x = Input.GetAxisRaw("Horizontal");
-        m_BasicInput.MoveInput.z = Input.GetAxisRaw("Vertical");
+        GetBasicInput.MoveInput.x = Input.GetAxisRaw("Horizontal");
+        GetBasicInput.MoveInput.z = Input.GetAxisRaw("Vertical");
 
-        m_BasicInput.RunInput = Input.GetAxisRaw("Run");
+        GetBasicInput.RunInput = Input.GetAxisRaw("Run");
     }
 
 
     public void UpdateDashInput()
     {
-        m_BasicInput.DashInput = Input.GetAxisRaw("Dash");
+        GetBasicInput.DashInput = Input.GetAxisRaw("Dash");
+    }
+
+
+    public void TriggerDashCooldown(float cooldownTimer)
+    {
+        StartCoroutine(DashCooldown(cooldownTimer));
+    }
+
+
+    private IEnumerator DashCooldown(float cooldownTimer)
+    {
+        while(cooldownTimer > 0.0f)
+        {
+            cooldownTimer -= Time.deltaTime;
+            yield return null;
+        }
+
+        GetFSM.GetState(EPlayerState.DASH).SetIsAvailable(true);
+        StopCoroutine("DashCooldown");
     }
 
 
@@ -76,10 +97,13 @@ public class PlayerCtrl : MonoBehaviour, IController
         Destroy(GetComponent<MeshRenderer>());
         Destroy(GetComponent<MeshFilter>());
 
-        m_BasicInput = new BasicInput();
-        m_BasicInput.MoveInput = Vector3.zero;
-        m_BasicInput.LookInput = Vector2.zero;
+        GetBasicInput = new BasicInput();
+        GetBasicInput.MoveInput = Vector3.zero;
+        GetBasicInput.LookInput = Vector2.zero;
+        GetBasicInput.RunInput = 0.0f;
+        GetBasicInput.DashInput = 0.0f;
 
+        // add states in the same order as they appear in the state enum, located in this file
         GetFSM = new FSM(this);
         GetFSM.AddState(new P_StateIdle(this));
         GetFSM.AddState(new P_StateWalk(this));

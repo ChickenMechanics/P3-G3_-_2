@@ -370,12 +370,13 @@ public class HUDManager : MonoBehaviour
             m_ComboMeterImg.fillAmount = 1.0f;
             m_ComboMeterImg.enabled = true;
         }
+
         if (translatedToRange < 1.0f && translatedToRange >= 0.0f)
         {
-            m_ComboMeterImg.fillAmount = Mathf.Lerp(m_ComboMeterImg.fillAmount, translatedToRange, 0.25f);
-
             m_RingGradient.SetKeys(m_ColorKey, m_AlphaKey);
             m_ComboMeterImg.color = m_RingGradient.Evaluate(translatedToRange);
+
+            m_ComboMeterImg.fillAmount = Mathf.Lerp(m_ComboMeterImg.fillAmount, translatedToRange, 0.25f);
         }
 
         string scaleSymbol = "x ";

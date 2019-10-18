@@ -26,7 +26,8 @@ public class PlayerManager : MonoBehaviour
     public float GetBaseHealth { private set; get; }
     [HideInInspector]
     public float GetCurrentHealth { private set; get; }
-    public bool GetIsUndead { private set; get; }
+    [HideInInspector]
+    public bool GetIsGod { set; get; }
     [HideInInspector]
     public bool GetIsAlive { private set; get; }
     [HideInInspector]
@@ -42,7 +43,7 @@ public class PlayerManager : MonoBehaviour
     public void DecreaseHealth(float value)
     {
 #if DEBUG
-        if(GetIsUndead == true)
+        if(GetIsGod == true)
         {
             return;
         }
@@ -72,7 +73,7 @@ public class PlayerManager : MonoBehaviour
         GetCurrentHealth = GetBaseHealth;
 
         GetIsAlive = true;
-        GetIsUndead = false;
+        GetIsGod = false;
 
         m_ShakePrevHealth = GetCurrentHealth;
         m_ShakeStartTime = Time.time;
@@ -81,7 +82,7 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator PlayerScreenShake()
     {
-        while (Time.time < m_ShakeStartTime + m_TakeDmgShakeTime)
+        while(Time.time < m_ShakeStartTime + m_TakeDmgShakeTime)
         {
             Vector3 ranPos = new Vector3(Random.Range(-m_TakeDmgShakeIntensity, m_TakeDmgShakeIntensity),
                 Random.Range(0.0f, 0.0f),
@@ -111,17 +112,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-#if DEBUG
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            GetIsUndead = !GetIsUndead;
-
-            string msg = GetIsUndead ? "Godmode On" : "Godmode Off";
-            Debug.LogError(msg);
-        }
-#endif
-
-        if (GetCurrentHealth != m_ShakePrevHealth)
+        if(GetCurrentHealth != m_ShakePrevHealth)
         {
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_HURT, transform.position);
 
@@ -129,17 +120,5 @@ public class PlayerManager : MonoBehaviour
             m_ShakeStartTime = Time.time;
             StartCoroutine(PlayerScreenShake());
         }
-
-        // TODO: move below blocks to gamemanager
-        if (GetIsAlive == false &&
-            GetIsUndead == false)
-        {
-            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
-        }
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
-        }
-                
     }
 }
