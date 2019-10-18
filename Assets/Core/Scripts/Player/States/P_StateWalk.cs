@@ -44,12 +44,6 @@ public class P_StateWalk : IState
 
     public void Update()
     {
-
-    }
-
-
-    public void LateUpdate()
-    {
         m_Owner.UpdateLookInput();
         m_Owner.UpdateMoveInput();
         m_Owner.UpdateDashInput();
@@ -73,11 +67,17 @@ public class P_StateWalk : IState
 
         if (currentInput.DashInput != 0.0f)
         {
-            if(m_Owner.GetFsm().GetState(PlayerCtrl.EPlayerState.DASH).GetIsAvailable() == true)
+            if (m_Owner.GetFsm().GetState(PlayerCtrl.EPlayerState.DASH).GetIsAvailable() == true)
             {
                 m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.DASH);
             }
         }
+    }
+
+
+    public void LateUpdate()
+    {
+
     }
 
 

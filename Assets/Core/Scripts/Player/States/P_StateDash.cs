@@ -49,12 +49,6 @@ public class P_StateDash : IState
 
     public void Update()
     {
-
-    }
-
-
-    public void LateUpdate()
-    {
         m_Owner.UpdateLookInput();
 
         GunManager.GetInstance.Fire();
@@ -62,10 +56,16 @@ public class P_StateDash : IState
         GunManager.GetInstance.ScrollWeapons();
 
         m_DashTimePassed -= Time.deltaTime;
-        if(m_DashTimePassed < 0.0f)
+        if (m_DashTimePassed < 0.0f)
         {
             m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.WALK);
         }
+    }
+
+
+    public void LateUpdate()
+    {
+
     }
 
 

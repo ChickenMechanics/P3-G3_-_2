@@ -52,12 +52,12 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Enemy Take AR Dmg
     m_ESound: 5
-    m_SoundSource: {fileID: 4805238501341093990, guid: 48298c68f52ab644fb183cb3b216c856,
+    m_SoundSource: {fileID: 8407672108453145708, guid: b111580c0f4b42c4e8772b0fd27ea87e,
       type: 3}
     m_PrevTime: 0
   - AliasName: Enemy Death
     m_ESound: 6
-    m_SoundSource: {fileID: 7906836068178854871, guid: a31339942103c264e84d30cf221b445a,
+    m_SoundSource: {fileID: 8641429501918756741, guid: 0fbda2280ab496c42bd6eaf6769d257a,
       type: 3}
     m_PrevTime: 0
   - AliasName: Gun Cannon Shot
@@ -88,5 +88,15 @@ MonoBehaviour:
   - AliasName: Reloading (overheating)
     m_ESound: 8
     m_SoundSource: {fileID: 5514915353858606332, guid: 6878d40bc0c95844ca74fc38b7866e92,
+      type: 3}
+    m_PrevTime: 0
+  - AliasName: Mjau
+    m_ESound: 9
+    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+      type: 3}
+    m_PrevTime: 0
+  - AliasName: 
+    m_ESound: 10
+    m_SoundSource: {fileID: 2392338459292948874, guid: 3664f5a88b29c214999529dc6e87572f,
       type: 3}
     m_PrevTime: 0

@@ -14,8 +14,9 @@ public class PlayerMove : MonoBehaviour
     [HideInInspector]
     public float m_RunAcceleration = 500.0f;
     public float m_DashAcceleration = 1500.0f;
+    [HideInInspector]
     public float m_DashActiveTime = 0.25f;
-    public float m_DashCooldown = 2.0f;
+    public float m_DashCooldown = 1.0f;
     #endregion
 
     private PlayerCtrl m_PlayerCtrlScr;
@@ -144,7 +145,9 @@ public class PlayerMove : MonoBehaviour
         {
             if (m_Rb.velocity.magnitude < m_MaxMoveSpeed)
             {
+                // unsure which is optimal in this instance
                 m_Rb.AddRelativeForce((m_ForwardForce + m_StrafeForce + m_RunForce + m_DashForce), ForceMode.Force);
+                //m_Rb.AddForce((m_ForwardForce + m_StrafeForce + m_RunForce + m_DashForce), ForceMode.Force);
             }
         }
     }
