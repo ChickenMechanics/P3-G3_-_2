@@ -17,6 +17,8 @@ public class SoundManager : MonoBehaviour
         CRAWLER_DEATH,
         MJAU,
         GUN_RELOAD_1,
+        ENEMY_ATTACK,
+        ENEMY_SPAWN,
         SIZE
     }
     #endregion
@@ -104,6 +106,8 @@ public class SoundManager : MonoBehaviour
         {
             case ESoundClip.CRAWLER_DEATH:      return TimeChecker(soundClipKey);
             case ESoundClip.CRAWLER_AR_DAMAGE:  return TimeChecker(soundClipKey);
+            case ESoundClip.ENEMY_ATTACK:       return TimeChecker(soundClipKey);
+            case ESoundClip.ENEMY_SPAWN:        return TimeChecker(soundClipKey);
             default:                            return true;
         }
     }

@@ -44,12 +44,6 @@ public class P_StateIdle : IState
 
     public void Update()
     {
-
-    }
-
-
-    public void LateUpdate()
-    {
         m_Owner.UpdateLookInput();
         m_Owner.UpdateMoveInput();
 
@@ -62,6 +56,12 @@ public class P_StateIdle : IState
         {
             m_Owner.GetFsm().ChangeState(PlayerCtrl.EPlayerState.WALK);
         }
+    }
+
+
+    public void LateUpdate()
+    {
+
     }
 
 
