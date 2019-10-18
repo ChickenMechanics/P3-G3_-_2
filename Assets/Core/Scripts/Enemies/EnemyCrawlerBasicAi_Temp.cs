@@ -66,8 +66,6 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
         if (dist > m_WalkTriggerMinDist)
         {
             m_Agent.destination = m_tFormPlayer.position;
-
-            return;
         }
         else
         {
@@ -86,8 +84,6 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
         {
             m_CurrentSate = ECrawlerState.WALK;
             m_AnimScr.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.WALK);
-            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ENEMY_ATTACK, transform.position);
-
 
             m_Agent.isStopped = false;
         }
@@ -108,7 +104,7 @@ public class EnemyCrawlerBasicAi_Temp : MonoBehaviour
 
         m_CurrentSate = ECrawlerState.WALK;
 
-        m_WalkTriggerMinDist = 2.5f;
+        m_WalkTriggerMinDist = 4.0f;
         m_StateDelayTimer = m_OnSpawnAiDelayTime;
 
         m_StateUpdateDelay = true;
