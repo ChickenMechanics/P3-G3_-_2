@@ -74,6 +74,6 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
         MoveTowardsPlayer(transform, m_Agent);
 
         if (distanceToPlayer < attackRange)
-            currentState = (int) State.ATTACK;
+            currentState = State.ATTACK;
     }
 }
