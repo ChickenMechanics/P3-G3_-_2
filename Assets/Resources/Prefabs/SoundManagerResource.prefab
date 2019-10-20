@@ -77,7 +77,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Combat Music
     m_ESound: 1
-    m_SoundSource: {fileID: 6529507564173357111, guid: efc507a5b9c3aee4c85e743ac09adfee,
+    m_SoundSource: {fileID: 5519732618417808378, guid: cbb8722f8b59f1843bfc41b4520cdf3e,
       type: 3}
     m_PrevTime: 0
   - AliasName: Main Menu Music 1
