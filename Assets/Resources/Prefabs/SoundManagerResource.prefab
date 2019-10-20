@@ -87,7 +87,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Reloading (overheating)
     m_ESound: 8
-    m_SoundSource: {fileID: 5514915353858606332, guid: 6878d40bc0c95844ca74fc38b7866e92,
+    m_SoundSource: {fileID: 7333227072132188128, guid: a82c364733e04634194641ea2bd2342c,
       type: 3}
     m_PrevTime: 0
   - AliasName: Mjau
