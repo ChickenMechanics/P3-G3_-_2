@@ -28,6 +28,8 @@ public class GunTemplate : MonoBehaviour
     private Transform m_BulletSpawnPoint;
     private Transform m_RayOriginPoint;
     private LayerMask m_AimRayLayerMask;
+    // animation
+    private Animator m_Anim;
     // ammunition things
     private GameObject m_BulletFolder;
     private RaycastHit m_RaycastHit;
@@ -79,6 +81,15 @@ public class GunTemplate : MonoBehaviour
         m_BulletSpawnPoint = transform.GetChild(0);
         m_RayOriginPoint = transform.GetChild(1);
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
+
+        m_Anim = GetComponent<Animator>();
+        if(m_Anim)
+        {
+            m_Anim.enabled = true;
+            m_Anim.SetBool("Reload", true);
+
+            bool hej = m_Anim.GetBool("Fire");
+        }
 
         GetCurrentReloadTime = m_ReloadTimeInSec;
         GetCurrentMagSize = m_MagSizeTotal;
