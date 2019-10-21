@@ -31,7 +31,9 @@ public class WaveSpawner : MonoBehaviour
         public float spawnStartDelay;
         public EnemyType[] enemyTypes;
 
-        public bool hasSpawned;
+        public bool GetHasSpawned() { return m_HasSpawned; }
+        public void SetHasSpawned(bool hasSpawned) { m_HasSpawned = hasSpawned; }
+        private bool m_HasSpawned;
     }
 
     [Serializable]
@@ -55,7 +57,6 @@ public class WaveSpawner : MonoBehaviour
     private int m_CurrentSubWaveIndex;
     private float m_CurrentWaveDuration;
 
-    private float m_TimeLeftToNextSubWave;
     //private bool m_HasSpawnedWave;
 
     private SpawnState m_SpawnState;
@@ -82,20 +83,17 @@ public class WaveSpawner : MonoBehaviour
         }
 
         m_CurrentWaveDuration += Time.deltaTime;
-
-        m_TimeLeftToNextSubWave =
-            waves[m_CurrentWaveIndex].subWaves[m_CurrentSubWaveIndex].spawnStartDelay - m_CurrentWaveDuration;
     }
 
     private IEnumerator Wait()
     {
         yield return new WaitForSeconds(SearchCountdown);
 
-        if (m_TimeLeftToNextSubWave < m_CurrentWaveDuration &&
-            m_CurrentSubWaveIndex <= waves[m_CurrentWaveIndex].subWaves.Length - 1)
-        {
+        var currentWave = waves[m_CurrentWaveIndex];
+        var currentSubWave = currentWave.subWaves[m_CurrentSubWaveIndex];
+
+        if (currentSubWave.spawnStartDelay <= m_CurrentWaveDuration && currentSubWave.GetHasSpawned() == false)
             m_SpawnState = SpawnState.SPAWN;
-        }
         else if (IsWaveCompleted(waves[m_CurrentWaveIndex]))
             WaveCompleted();
     }
@@ -107,17 +105,14 @@ public class WaveSpawner : MonoBehaviour
 
         StartCoroutine(SpawnSubWave(currentSubWave));
 
-        if (m_CurrentSubWaveIndex < currentWave.subWaves.Length /*- 2*/)
+        if (currentWave.subWaves.Length == 0)
         {
-            m_TimeLeftToNextSubWave = currentSubWave.spawnStartDelay - m_CurrentWaveDuration;
-            m_CurrentSubWaveIndex++;
-
-            if (m_CurrentSubWaveIndex == 2)
-            {
-                ;
-            }
-
+            Debug.Log("No subwaves to spawn");
+            return;
         }
+
+        if (m_CurrentSubWaveIndex < currentWave.subWaves.Length - 2)
+            m_CurrentSubWaveIndex++;
 
         m_SpawnState = SpawnState.WAIT;
     }
@@ -132,7 +127,7 @@ public class WaveSpawner : MonoBehaviour
 
     private static bool IsWaveCompleted(Wave wave)
     {
-        var allSubWavesSpawned = wave.subWaves.All(subWave => subWave.hasSpawned);
+        var allSubWavesSpawned = wave.subWaves.All(subWave => subWave.GetHasSpawned());
         var anyEnemiesAlive = GameObject.FindGameObjectWithTag("Enemy") != null;
 
         return anyEnemiesAlive == false && allSubWavesSpawned;
@@ -198,16 +193,13 @@ public class WaveSpawner : MonoBehaviour
                     yield break;
                 }
 
-                if (enemyType.enemy == null)
-                    Debug.Log("No enemies to spawn");
-
                 yield return new WaitForSeconds(spawnRate);
 
                 SpawnEnemy(enemyType.enemy);
             }
         }
 
-        subWave.hasSpawned = true;
+        subWave.SetHasSpawned(true);
     }
 
     private void SpawnEnemy(Transform enemy)
