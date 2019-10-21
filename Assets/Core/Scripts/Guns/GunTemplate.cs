@@ -26,6 +26,7 @@ public class GunTemplate : MonoBehaviour
 
     // gun things
     private Transform m_BulletSpawnPoint;
+    private Transform m_RayOriginPoint;
     private LayerMask m_AimRayLayerMask;
     // ammunition things
     private GameObject m_BulletFolder;
@@ -71,11 +72,12 @@ public class GunTemplate : MonoBehaviour
 
         m_SecretSpot = new Vector3(0.0f, -10.0f, 0.0f);
 
-        m_RayMaxDist = 1000.0f;
+        m_RayMaxDist = 10000.0f;
         m_Rpm = 60.0f / m_RoundsPerMinute;
         m_TimePastSinceLastFire = m_Rpm;
 
         m_BulletSpawnPoint = transform.GetChild(0);
+        m_RayOriginPoint = transform.GetChild(1);
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
 
         GetCurrentReloadTime = m_ReloadTimeInSec;
@@ -117,11 +119,14 @@ public class GunTemplate : MonoBehaviour
     {
         if (m_TimePastSinceLastFire >= m_Rpm)
         {
-            Ray ray = new Ray(m_CameraPoint.position, m_CameraPoint.forward);
-            Vector3 raycastedDir = m_CameraPoint.forward;
-            if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist, m_AimRayLayerMask))
+            //Ray ray = new Ray(m_CameraPoint.position, m_CameraPoint.forward);
+            //Vector3 raycastedDir = m_CameraPoint.forward;
+            Ray ray = new Ray(m_RayOriginPoint.position, m_RayOriginPoint.forward);
+            Vector3 raycastedDir = m_RayOriginPoint.forward;
+
+             if (Physics.Raycast(ray, out m_RaycastHit, m_RayMaxDist, m_AimRayLayerMask))
             {
-                if(m_RaycastHit.distance > 2.0f)    // some protection from keeping the bullet rotation to spawn at a super akward angles when bullet target point is very close to bullet spawn point
+                if(m_RaycastHit.distance > 2.0f)    // some protection from keeping the bullet model rotation to spawn at super akward angles when bullet target point is very close to bullet spawn point... eh
                 {
                     raycastedDir = (m_RaycastHit.point - m_BulletSpawnPoint.position).normalized;
                 }
@@ -300,6 +305,10 @@ public class GunTemplate : MonoBehaviour
 
     private void Update()
     {
+#if DEBUG
+        Debug.DrawLine(m_RayOriginPoint.position, m_RayOriginPoint.position + (m_RayOriginPoint.forward * 100.0f), Color.green);
+#endif
+
         GunStateUpdate();
         MagUpdate();
         AimPosUpdate();
