@@ -203,7 +203,7 @@ MonoBehaviour:
   m_StrafeAcceleration: 100
   m_RunAcceleration: 500
   m_DashAcceleration: 1500
-  m_DashActiveTime: 1
+  m_DashActiveTime: 0.25
   m_DashCooldown: 1
 --- !u!114 &2424704128811695116
 MonoBehaviour:
