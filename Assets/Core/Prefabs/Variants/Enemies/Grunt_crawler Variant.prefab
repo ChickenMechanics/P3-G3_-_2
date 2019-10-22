@@ -70,12 +70,17 @@ PrefabInstance:
     - target: {fileID: -2273220401559267678, guid: 9c7726cef7cf4b24abf754549d977520,
         type: 3}
       propertyPath: m_Speed
-      value: 6.5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2273220401559267678, guid: 9c7726cef7cf4b24abf754549d977520,
         type: 3}
       propertyPath: m_StoppingDistance
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2273220401559267678, guid: 9c7726cef7cf4b24abf754549d977520,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 2500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c7726cef7cf4b24abf754549d977520, type: 3}
