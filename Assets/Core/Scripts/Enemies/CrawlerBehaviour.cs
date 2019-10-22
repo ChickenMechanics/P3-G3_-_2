@@ -21,6 +21,8 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
         currentState = State.MOVE;
         m_Anims = gameObject.GetComponent<EnemyCrawlerAnimation>();
         hp = health;
+
+        SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ENEMY_SPAWN, transform.position);
     }
 
     // Update is called once per frame
