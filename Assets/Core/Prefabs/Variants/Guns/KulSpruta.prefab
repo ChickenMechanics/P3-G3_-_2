@@ -160,6 +160,8 @@ MonoBehaviour:
   m_ReloadTimeInSec: 1
   m_AdsSpread: 0.015
   m_HipSpread: 0.04
+  m_MuzzleFlashVfx: {fileID: 7994291806743962906, guid: bb131a6db22ffec48b5110dc923083a1,
+    type: 3}
   m_EFiringSound: 3
   m_BulletModelPrefab: {fileID: 3309858372098177357, guid: abe31888c629d564db95087fd7d8d388,
     type: 3}
@@ -176,11 +178,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlasmaRifle
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: f41ca5664408f6e4bb7003b1b789f0ed,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 70eaffd714e357d4a8cd57c73c815479, type: 2}
     - target: {fileID: -4216859302048453862, guid: f41ca5664408f6e4bb7003b1b789f0ed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -251,6 +248,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.8194703
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: f41ca5664408f6e4bb7003b1b789f0ed,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 70eaffd714e357d4a8cd57c73c815479, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f41ca5664408f6e4bb7003b1b789f0ed, type: 3}
 --- !u!4 &348705097401413598 stripped

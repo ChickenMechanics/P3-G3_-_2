@@ -17,6 +17,8 @@ public class GunTemplate : MonoBehaviour
     public float m_AdsSpread = 0.01f;
     [Range(0.0f, 0.5f)]
     public float m_HipSpread = 0.04f;
+    [Header("MuzzleFlash Vfx")]
+    public GameObject m_MuzzleFlashVfx;
     [Header("Sound")]
     public SoundManager.ESoundClip m_EFiringSound;
 
@@ -51,6 +53,8 @@ public class GunTemplate : MonoBehaviour
     private Transform m_CameraPoint;
     private Vector2 m_BulletSpreadDirs;
     private GameObject m_CrossHairObj;
+    private GameObject m_MuzzleFlash;
+    private Transform m_MuzzlePoint;
 
     private enum EGunState
     {
@@ -82,14 +86,19 @@ public class GunTemplate : MonoBehaviour
         m_RayOriginPoint = transform.GetChild(1);
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
 
-        m_Anim = GetComponent<Animator>();
-        if(m_Anim)
-        {
-            m_Anim.enabled = true;
-            m_Anim.SetBool("Reload", true);
+        //m_Anim = GetComponent<Animator>();
+        //if(m_Anim)
+        //{
+        //    m_Anim.enabled = true;
+        //    m_Anim.SetBool("Reload", true);
 
-            bool hej = m_Anim.GetBool("Fire");
-        }
+        //    bool hej = m_Anim.GetBool("Fire");
+        //}
+
+        m_MuzzlePoint = transform.GetChild(2);
+        m_MuzzleFlash = Instantiate(m_MuzzleFlashVfx, m_MuzzlePoint.position, Quaternion.identity, m_MuzzlePoint.transform);
+        m_MuzzleFlash.GetComponent<ParticleSystem>().Pause();
+        //m_MuzzleFlash.SetActive(false);
 
         GetCurrentReloadTime = m_ReloadTimeInSec;
         GetCurrentMagSize = m_MagSizeTotal;
