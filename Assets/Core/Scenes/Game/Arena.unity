@@ -1022,16 +1022,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -6358531030759852795, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 428219b32cf68a44a94137b739c1dc1f, type: 2}
-    - target: {fileID: -6353897308277370068, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 428219b32cf68a44a94137b739c1dc1f, type: 2}
     - target: {fileID: -4216859302048453862, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1097,6 +1087,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d6bff4d2679d41948ba1bf2d4200a67a, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
+        type: 3}
+      propertyPath: m_Materials.Array.data[8]
+      value: 
+      objectReference: {fileID: 2100000, guid: 154113a6ea0e3294a9e43b779899e451, type: 2}
     - target: {fileID: 4367125567037671620, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
         type: 3}
       propertyPath: m_RootOrder
@@ -1107,11 +1107,26 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7116925521482860182, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5805168104037342896, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
         type: 3}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -6353897308277370068, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 428219b32cf68a44a94137b739c1dc1f, type: 2}
+    - target: {fileID: -6358531030759852795, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 428219b32cf68a44a94137b739c1dc1f, type: 2}
     - target: {fileID: 6794024916575138014, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
         type: 3}
       propertyPath: m_Materials.Array.data[4]
@@ -1127,11 +1142,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ab530208757df764e9e5219fcbb0dcfd, type: 2}
-    - target: {fileID: 7116925521482860182, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 7513211140383336186, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
         type: 3}
       propertyPath: m_Materials.Array.data[5]
@@ -1172,16 +1182,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[6]
       value: 
       objectReference: {fileID: 2100000, guid: 5fd910c55b0c3524b903cf642933dc4a, type: 2}
-    - target: {fileID: -1504981713932161579, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d6bff4d2679d41948ba1bf2d4200a67a, type: 2}
-    - target: {fileID: -1504981713932161579, guid: 1007df7bc8fbadf4b81987ddcaf3d217,
-        type: 3}
-      propertyPath: m_Materials.Array.data[8]
-      value: 
-      objectReference: {fileID: 2100000, guid: 154113a6ea0e3294a9e43b779899e451, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1007df7bc8fbadf4b81987ddcaf3d217, type: 3}
 --- !u!4 &435718241 stripped
@@ -1657,8 +1657,8 @@ MonoBehaviour:
       colorBlindnessType: 0
       colorBlindnessStrength: 1
   m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
-  m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
+  m_ShowToolkit: 1
+  m_ShowCustomSorter: 1
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
@@ -1694,7 +1694,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.2
   far clip plane: 1000
   field of view: 60
   orthographic: 0
