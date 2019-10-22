@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Base
-    second: {fileID: 2100000, guid: c3265bce4df9ac140bcd13f7dd081696, type: 2}
+    second: {fileID: 2100000, guid: cd739d8049f38f84a9c77fc635328257, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -23,7 +23,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Emisssive
-    second: {fileID: 2100000, guid: 056b207d048d1ed4684d0750c068bb7c, type: 2}
+    second: {fileID: 2100000, guid: cd739d8049f38f84a9c77fc635328257, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -33,12 +33,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Pipes
-    second: {fileID: 2100000, guid: 0688f85d794f7154ebc523b9cc4aeb07, type: 2}
+    second: {fileID: 2100000, guid: cd739d8049f38f84a9c77fc635328257, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Ring
-    second: {fileID: 2100000, guid: 5cdee5c6594861e4eb0c8eb694eea013, type: 2}
+    second: {fileID: 2100000, guid: cd739d8049f38f84a9c77fc635328257, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -48,7 +48,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: floormat
-    second: {fileID: 2100000, guid: af9de4ad2d515f048befc166cbb39429, type: 2}
+    second: {fileID: 2100000, guid: cd739d8049f38f84a9c77fc635328257, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
