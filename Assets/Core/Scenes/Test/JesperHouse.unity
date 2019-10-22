@@ -1645,71 +1645,6 @@ Transform:
   m_Father: {fileID: 1677402969}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &958358053
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 958358055}
-  - component: {fileID: 958358054}
-  m_Layer: 0
-  m_Name: WavesForDays
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!114 &958358054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958358053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc33295bfd97e314d85df70f4243841f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Waves:
-  - m_Alias: Wave 1
-    m_SubWaves:
-    - m_Alias: Sub 1
-      m_NumSpawns: 1
-      m_SpawnFreqSec: 1
-      m_EnemyTypesPrefab: []
-      m_SpawnTimer: 0
-      m_NowSpawn: 0
-    - m_Alias: Sub 2
-      m_NumSpawns: 2
-      m_SpawnFreqSec: 1
-      m_EnemyTypesPrefab: []
-      m_SpawnTimer: 0
-      m_NowSpawn: 0
-    - m_Alias: Sub 3
-      m_NumSpawns: 3
-      m_SpawnFreqSec: 1
-      m_EnemyTypesPrefab: []
-      m_SpawnTimer: 0
-      m_NowSpawn: 0
-    m_NowSub: 0
---- !u!4 &958358055
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958358053}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1003054052 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2804519251609276502, guid: 3b98e4b62e8cad54081063906f213dfc,
@@ -2223,6 +2158,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1484707254933745408, guid: 440b1e54bf955ea4a8e72167e5036de0,
+        type: 3}
+      propertyPath: m_GunPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 5146065321511459240, guid: 2a61f14fde1507f43ad7413628f5db50,
+        type: 3}
+    - target: {fileID: 1484707254933745408, guid: 440b1e54bf955ea4a8e72167e5036de0,
+        type: 3}
+      propertyPath: m_DefaultGun
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 440b1e54bf955ea4a8e72167e5036de0, type: 3}

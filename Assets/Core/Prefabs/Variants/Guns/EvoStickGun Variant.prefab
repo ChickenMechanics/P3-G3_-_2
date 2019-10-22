@@ -12,6 +12,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: EvoStickGun Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2074506839339440396, guid: aa03059557fe99e47b69d6280483de51,
+        type: 3}
+      propertyPath: m_MuzzleFlashVfx
+      value: 
+      objectReference: {fileID: 7994291806743962906, guid: bb131a6db22ffec48b5110dc923083a1,
+        type: 3}
     - target: {fileID: 7184922104436984895, guid: aa03059557fe99e47b69d6280483de51,
         type: 3}
       propertyPath: m_LocalPosition.x
