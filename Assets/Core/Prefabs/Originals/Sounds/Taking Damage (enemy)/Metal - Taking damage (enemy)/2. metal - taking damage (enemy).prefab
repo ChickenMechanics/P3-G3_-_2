@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8407672108453145708
+--- !u!1 &5840257615554522949
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 334704617499291791}
-  - component: {fileID: 214284413289638646}
+  - component: {fileID: 2578132673445264276}
+  - component: {fileID: 4571435587448878110}
   m_Layer: 0
-  m_Name: Taking damage (enemy) 2
+  m_Name: 2. metal - taking damage (enemy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &334704617499291791
+--- !u!4 &2578132673445264276
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8407672108453145708}
+  m_GameObject: {fileID: 5840257615554522949}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,18 +31,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &214284413289638646
+--- !u!82 &4571435587448878110
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8407672108453145708}
+  m_GameObject: {fileID: 5840257615554522949}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 9033444153609497400, guid: f987f6c0995b1b44dac8b865ffdc03f2,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 5c060b491e92d6a4cb143b2c20cb21ab, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0fe03566f0760834a945e2f45ebc5505, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
