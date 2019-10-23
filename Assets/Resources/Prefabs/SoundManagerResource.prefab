@@ -95,7 +95,7 @@ MonoBehaviour:
     m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
       type: 3}
     m_PrevTime: 0
-  - AliasName: 
+  - AliasName: Spawning (enemy)
     m_ESound: 10
     m_SoundSource: {fileID: 2392338459292948874, guid: 3664f5a88b29c214999529dc6e87572f,
       type: 3}
