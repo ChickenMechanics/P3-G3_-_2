@@ -161,8 +161,7 @@ MonoBehaviour:
   m_ReloadTimeInSec: 1
   m_AdsSpread: 0.015
   m_HipSpread: 0.04
-  m_MuzzleFlashVfx: {fileID: 2685149862390026828, guid: 5e08d498338ff0b409e2ed1209e1b994,
-    type: 3}
+  m_MuzzleFlashVfx: {fileID: 0}
   m_EFiringSound: 3
   m_BulletModelPrefab: {fileID: 3309858372098177357, guid: abe31888c629d564db95087fd7d8d388,
     type: 3}
