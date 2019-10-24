@@ -48,7 +48,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: OuterFloor
-    second: {fileID: 2100000, guid: 64287725a3338254eb43a3a321f61155, type: 2}
+    second: {fileID: 2100000, guid: 4c8400d12256c034f95f1b273909da2f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
