@@ -95,10 +95,12 @@ public class GunTemplate : MonoBehaviour
         //    bool hej = m_Anim.GetBool("Fire");
         //}
 
-        m_MuzzlePoint = transform.GetChild(2);
-        m_MuzzleFlash = Instantiate(m_MuzzleFlashVfx, m_MuzzlePoint.position, Quaternion.identity, m_MuzzlePoint.transform);
-        m_MuzzleFlash.GetComponent<ParticleSystem>().Stop();
-        //m_MuzzleFlash.SetActive(false);
+        if(m_MuzzleFlashVfx != null)
+        {
+            m_MuzzlePoint = transform.GetChild(2);
+            m_MuzzleFlash = Instantiate(m_MuzzleFlashVfx, m_MuzzlePoint.position, Quaternion.identity, m_MuzzlePoint.transform);
+            m_MuzzleFlash.GetComponent<ParticleSystem>().Stop();
+        }
 
         GetCurrentReloadTime = m_ReloadTimeInSec;
         GetCurrentMagSize = m_MagSizeTotal;
@@ -175,8 +177,13 @@ public class GunTemplate : MonoBehaviour
             }
             
             bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
-            m_MuzzleFlash.GetComponent<ParticleSystem>().Play();
-            m_MuzzleFlash.GetComponent<ParticleSystem>().Clear();
+
+            if(m_MuzzleFlash != null)
+            {
+                m_MuzzleFlash.GetComponent<ParticleSystem>().Play();
+                m_MuzzleFlash.GetComponent<ParticleSystem>().Clear();
+            }
+
             m_CurrentGunState = EGunState.READY;
         }
     }
