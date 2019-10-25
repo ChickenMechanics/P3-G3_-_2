@@ -67,5 +67,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6547726749876835573, guid: 782e3cdb51e604b4a82b4718b75e6b42,
+        type: 3}
+      propertyPath: m_WallClashParticle
+      value: 
+      objectReference: {fileID: 5940595538905619775, guid: 63282be2d59a5c54697346e600f14aed,
+        type: 3}
+    - target: {fileID: 6547726749876835573, guid: 782e3cdb51e604b4a82b4718b75e6b42,
+        type: 3}
+      propertyPath: m_GlowParticle
+      value: 
+      objectReference: {fileID: 6062685211945517127, guid: 8713b441aeb3b57498659ad3c6e42961,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 782e3cdb51e604b4a82b4718b75e6b42, type: 3}
