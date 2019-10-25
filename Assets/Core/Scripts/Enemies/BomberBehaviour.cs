@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BoomerBehaviour : DefaultGroundEnemyBehaviour
+public class BomberBehaviour : DefaultGroundEnemyBehaviour
 {
     public float damageAmount;
     public float scoreAmount;
