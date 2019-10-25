@@ -240,7 +240,7 @@ public class GunTemplate : MonoBehaviour
             m_BulletSpreadDirs.y = Random.Range(-m_AdsSpread, m_AdsSpread);
 
             Vector3 forward = transform.parent.forward * 1.45f;
-            Vector3 down = transform.parent.up * -0.27f;
+            Vector3 down = transform.parent.up * -0.272f;
 
             transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
 
