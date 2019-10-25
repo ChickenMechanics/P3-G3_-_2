@@ -10,7 +10,7 @@ public class BomberBehaviour : DefaultGroundEnemyBehaviour
     public float attackRange;
     public float health;
 
-    private EnemyBomberAnimation m_Anims;
+    //private EnemyBomberAnimation m_Anims;
     private NavMeshAgent m_Agent;
 
     // Start is called before the first frame update
@@ -18,7 +18,7 @@ public class BomberBehaviour : DefaultGroundEnemyBehaviour
     {
         m_Agent = GetComponent<NavMeshAgent>();
         currentState = State.MOVE;
-        m_Anims = gameObject.GetComponent<EnemyBomberAnimation>();
+        //m_Anims = gameObject.GetComponent<EnemyBomberAnimation>();
         hp = health;
 
         //SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ENEMY_SPAWN, transform.position);
@@ -37,7 +37,7 @@ public class BomberBehaviour : DefaultGroundEnemyBehaviour
 
     private IEnumerator Attack()
     {
-        m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.EXPLODE);
+        //m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.EXPLODE);
 
         yield return new WaitForSeconds(attackDuration);
 
@@ -68,7 +68,7 @@ public class BomberBehaviour : DefaultGroundEnemyBehaviour
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_DEATH, transform.position);
         }
 
-        m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.EXPLODE);
+        //m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.EXPLODE);
 
         foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
@@ -81,7 +81,7 @@ public class BomberBehaviour : DefaultGroundEnemyBehaviour
 
     private void Move()
     {
-        m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.WALK);
+        //m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.WALK);
 
         MoveTowardsPlayer(transform, m_Agent);
 
