@@ -279,19 +279,20 @@ public class GunTemplate : MonoBehaviour
             m_CameraPoint = cameraPoint;
 
             // TODO: Fix this cheat for a recoil
-            Vector3 lastPos = GunManager.GetInstance.ActiveGun.transform.position;
+            // Update: Recoil is now animated
+            //Vector3 lastPos = GunManager.GetInstance.ActiveGun.transform.position;
 
             //Vector3 nextpos = new Vector3(
             //    Random.Range(lastPos.x - 0.002f, lastPos.x + 0.002f),
             //    Random.Range(lastPos.y - 0.002f, lastPos.y + 0.002f),
             //    Random.Range(lastPos.z - 0.02f, lastPos.z + 0.02f));
 
-            Vector3 nextpos = new Vector3(
-                Random.Range(lastPos.x - 0.0015f, lastPos.x + 0.0015f),
-                Random.Range(lastPos.y - 0.0015f,lastPos.y + 0.0015f),
-                Random.Range(lastPos.z - 0.015f, lastPos.z + 0.015f));  // ...
+            //Vector3 nextpos = new Vector3(
+            //    Random.Range(lastPos.x - 0.0015f, lastPos.x + 0.0015f),
+            //    Random.Range(lastPos.y - 0.0015f,lastPos.y + 0.0015f),
+            //    Random.Range(lastPos.z - 0.015f, lastPos.z + 0.015f));  // ...
 
-            GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(lastPos, nextpos, 0.25f);
+            //GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(lastPos, nextpos, 0.25f);
         }
     }
 
