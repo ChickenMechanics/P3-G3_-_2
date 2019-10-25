@@ -86,16 +86,15 @@ public class GunTemplate : MonoBehaviour
         m_RayOriginPoint = transform.GetChild(1);
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
 
-        //m_Anim = GetComponent<Animator>();
-        //if(m_Anim)
-        //{
-        //    m_Anim.enabled = true;
-        //    m_Anim.SetBool("Reload", true);
+        m_Anim = transform.GetChild(3).gameObject.GetComponent<Animator>();
+        if (m_Anim != null)
+        {
+            m_Anim.enabled = false;
+            //m_Anim.SetBool("Fire", false);
+            //bool hej = m_Anim.GetBool("Fire");
+        }
 
-        //    bool hej = m_Anim.GetBool("Fire");
-        //}
-
-        if(m_MuzzleFlashVfx != null)
+        if (m_MuzzleFlashVfx != null)
         {
             m_MuzzlePoint = transform.GetChild(2);
             m_MuzzleFlash = Instantiate(m_MuzzleFlashVfx, m_MuzzlePoint.position, Quaternion.identity, m_MuzzlePoint.transform);
@@ -132,6 +131,7 @@ public class GunTemplate : MonoBehaviour
         if (m_IsFiring == true)
         {
             m_CurrentGunState = EGunState.FIRING;
+            m_Anim.enabled = true;
             m_IsFiring = false;
         }
     }
@@ -178,11 +178,15 @@ public class GunTemplate : MonoBehaviour
             
             bulletScr.Fire(m_BulletSpawnPoint, raycastedDir);
 
-            if(m_MuzzleFlash != null)
+#if DEBUG
+            if (m_MuzzleFlash != null)
+#endif
             {
                 m_MuzzleFlash.GetComponent<ParticleSystem>().Play();
                 m_MuzzleFlash.GetComponent<ParticleSystem>().Clear();
             }
+
+            m_Anim.enabled = false;
 
             m_CurrentGunState = EGunState.READY;
         }
@@ -237,8 +241,8 @@ public class GunTemplate : MonoBehaviour
             m_BulletSpreadDirs.x = Random.Range(-m_AdsSpread, m_AdsSpread);
             m_BulletSpreadDirs.y = Random.Range(-m_AdsSpread, m_AdsSpread);
 
-            Vector3 forward = transform.parent.forward * 0.2f;
-            Vector3 down = transform.parent.up * -0.4f;
+            Vector3 forward = transform.parent.forward * 1.45f;
+            Vector3 down = transform.parent.up * -0.272f;
 
             transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
 
@@ -275,19 +279,20 @@ public class GunTemplate : MonoBehaviour
             m_CameraPoint = cameraPoint;
 
             // TODO: Fix this cheat for a recoil
-            Vector3 lastPos = GunManager.GetInstance.ActiveGun.transform.position;
+            // Update: Recoil is now animated
+            //Vector3 lastPos = GunManager.GetInstance.ActiveGun.transform.position;
 
             //Vector3 nextpos = new Vector3(
             //    Random.Range(lastPos.x - 0.002f, lastPos.x + 0.002f),
             //    Random.Range(lastPos.y - 0.002f, lastPos.y + 0.002f),
             //    Random.Range(lastPos.z - 0.02f, lastPos.z + 0.02f));
 
-            Vector3 nextpos = new Vector3(
-                Random.Range(lastPos.x - 0.0015f, lastPos.x + 0.0015f),
-                Random.Range(lastPos.y - 0.0015f,lastPos.y + 0.0015f),
-                Random.Range(lastPos.z - 0.015f, lastPos.z + 0.015f));  // ...
+            //Vector3 nextpos = new Vector3(
+            //    Random.Range(lastPos.x - 0.0015f, lastPos.x + 0.0015f),
+            //    Random.Range(lastPos.y - 0.0015f,lastPos.y + 0.0015f),
+            //    Random.Range(lastPos.z - 0.015f, lastPos.z + 0.015f));  // ...
 
-            GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(lastPos, nextpos, 0.25f);
+            //GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(lastPos, nextpos, 0.25f);
         }
     }
 
@@ -317,12 +322,6 @@ public class GunTemplate : MonoBehaviour
 
             transform.position = transform.parent.transform.position + offsetPos;
         }
-    }
-
-
-    private void MuzzleFlash()
-    {
-
     }
 
 
