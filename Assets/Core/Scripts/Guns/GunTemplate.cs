@@ -90,8 +90,7 @@ public class GunTemplate : MonoBehaviour
         if (m_Anim != null)
         {
             m_Anim.enabled = false;
-            //m_Anim.SetBool("Reload", true);
-
+            //m_Anim.SetBool("Fire", false);
             //bool hej = m_Anim.GetBool("Fire");
         }
 
@@ -132,6 +131,7 @@ public class GunTemplate : MonoBehaviour
         if (m_IsFiring == true)
         {
             m_CurrentGunState = EGunState.FIRING;
+            m_Anim.enabled = true;
             m_IsFiring = false;
         }
     }
@@ -185,6 +185,8 @@ public class GunTemplate : MonoBehaviour
                 m_MuzzleFlash.GetComponent<ParticleSystem>().Play();
                 m_MuzzleFlash.GetComponent<ParticleSystem>().Clear();
             }
+
+            m_Anim.enabled = false;
 
             m_CurrentGunState = EGunState.READY;
         }
@@ -243,7 +245,6 @@ public class GunTemplate : MonoBehaviour
             Vector3 down = transform.parent.up * -0.272f;
 
             transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
-
 
             m_CrossHairObj.SetActive(false);
         }
