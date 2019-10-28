@@ -52,6 +52,8 @@ public class P_StateWalk : IState
         GunManager.GetInstance.Reload();
         GunManager.GetInstance.ScrollWeapons();
 
+        SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_FOOTSTEPS, m_Owner.transform.position);
+
         PlayerCtrl.BasicInput currentInput = m_Owner.GetBasicInput;
         if (currentInput.MoveInput.x == 0.0f && currentInput.MoveInput.z == 0.0f)
         {
