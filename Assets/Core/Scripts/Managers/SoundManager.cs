@@ -194,14 +194,14 @@ public class SoundManager : MonoBehaviour
             }
         }
 
-#if DEBUG
+//#if DEBUG
         WhatsThis();
-#endif
+//#endif
     }
 
 
     #region the stash
-#if DEBUG
+//#if DEBUG
     private List<GameObject> m_SuperSecret;
     private AudioSource m_NowSource;
     private int nowIdx;
@@ -253,10 +253,12 @@ public class SoundManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.PageUp))
         {
             NxtTune(1);
+            DestroySoundClip("Combat Music");
         }
         if (Input.GetKeyDown(KeyCode.PageDown))
         {
             NxtTune(-1);
+            DestroySoundClip("Combat Music");
         }
         if (Input.GetKeyDown(KeyCode.End))
         {
@@ -278,6 +280,6 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
-#endif
+//#endif
     #endregion
 }
