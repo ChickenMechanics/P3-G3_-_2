@@ -135,7 +135,7 @@ public class BulletBehaviour : MonoBehaviour
                 part.transform.forward = Camera.main.transform.forward * -1.0f;
                 part.transform.position = transform.position;
                 part.transform.localScale = m_WallVfxScaleVec;
-                Destroy(part.gameObject, 0.5f);
+                Destroy(part.gameObject, 0.1f);
             }
         }
 
