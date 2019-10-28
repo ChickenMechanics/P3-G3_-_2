@@ -47,7 +47,8 @@ MonoBehaviour:
   m_SoundObjs:
   - AliasName: Gun AR Shot
     m_ESound: 3
-    m_SoundSource: []
+    m_SoundSource:
+    - {fileID: 8470185352058736508, guid: 92ec899cc1c0f8140be2b3fb6f83ec73, type: 3}
     m_PrevTime: 0
   - AliasName: Enemy Hurt
     m_ESound: 5
@@ -64,7 +65,8 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Gun Cannon Shot
     m_ESound: 4
-    m_SoundSource: []
+    m_SoundSource:
+    - {fileID: 6233613889116243176, guid: 5a85d23040be59740b79daf6681a9f73, type: 3}
     m_PrevTime: 0
   - AliasName: Gun Mjau Shot
     m_ESound: 7
@@ -76,15 +78,18 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Combat Music
     m_ESound: 1
-    m_SoundSource: []
+    m_SoundSource:
+    - {fileID: 5802984792471627637, guid: 5cbb75368ee789347907b2ac00c62b22, type: 3}
     m_PrevTime: 0
   - AliasName: Main Menu Music 1
     m_ESound: 0
-    m_SoundSource: []
+    m_SoundSource:
+    - {fileID: 6765932763123011442, guid: 83f6f5c64e027f1438af6ffb42d11420, type: 3}
     m_PrevTime: 0
   - AliasName: Reloading (overheating)
     m_ESound: 8
-    m_SoundSource: []
+    m_SoundSource:
+    - {fileID: 4959015179251351453, guid: a82c364733e04634194641ea2bd2342c, type: 3}
     m_PrevTime: 0
   - AliasName: Mjau
     m_ESound: 9
@@ -92,9 +97,11 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Spawning (enemy)
     m_ESound: 10
-    m_SoundSource: []
+    m_SoundSource:
+    - {fileID: 6799572498685188378, guid: eb3fbda66d539294e9022b3cefc258dc, type: 3}
     m_PrevTime: 0
   - AliasName: Player Footsteps
     m_ESound: 11
-    m_SoundSource: []
+    m_SoundSource:
+    - {fileID: 0}
     m_PrevTime: 0

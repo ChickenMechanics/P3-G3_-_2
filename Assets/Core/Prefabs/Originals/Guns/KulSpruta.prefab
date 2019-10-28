@@ -160,7 +160,7 @@ MonoBehaviour:
   m_MagSizeTotal: 40
   m_ReloadTimeInSec: 1
   m_AdsSpread: 0.01
-  m_HipSpread: 0.1
+  m_HipSpread: 0.04
   m_MuzzleFlashVfx: {fileID: 6982183101995926013, guid: bb131a6db22ffec48b5110dc923083a1,
     type: 3}
   m_EFiringSound: 3
