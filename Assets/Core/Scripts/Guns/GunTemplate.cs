@@ -87,12 +87,10 @@ public class GunTemplate : MonoBehaviour
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
 
         m_Anim = transform.GetChild(3).gameObject.GetComponent<Animator>();
-        if (m_Anim != null)
-        {
-            m_Anim.enabled = false;
-            //m_Anim.SetBool("Fire", false);
-            //bool hej = m_Anim.GetBool("Fire");
-        }
+        //if (m_Anim != null)
+        //{
+        //    m_Anim.enabled = false;
+        //}
 
         if (m_MuzzleFlashVfx != null)
         {
@@ -131,8 +129,10 @@ public class GunTemplate : MonoBehaviour
         if (m_IsFiring == true)
         {
             m_CurrentGunState = EGunState.FIRING;
-            m_Anim.enabled = true;
-            m_IsFiring = false;
+
+            m_Anim.SetBool("Fire", true);
+            //m_Anim.enabled = true;
+            //m_IsFiring = false;
         }
     }
 
@@ -186,7 +186,7 @@ public class GunTemplate : MonoBehaviour
                 m_MuzzleFlash.GetComponent<ParticleSystem>().Clear();
             }
 
-            m_Anim.enabled = false;
+            //m_Anim.enabled = false;
 
             m_CurrentGunState = EGunState.READY;
         }
