@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    #region design vars
     public enum ESoundClip
     {
         MUSIC_MAIN_MENU,
@@ -13,7 +12,7 @@ public class SoundManager : MonoBehaviour
         PLAYER_HURT,
         GUN_AR_SHOT,
         GUN_CANNON,
-        CRAWLER_AR_DAMAGE,
+        CRAWLER_HURT,
         CRAWLER_DEATH,
         MJAU,
         GUN_RELOAD_1,
@@ -25,11 +24,6 @@ public class SoundManager : MonoBehaviour
         ROCKET_IMPACT,
         SIZE
     }
-    #endregion
-
-
-    // ----------------------------------------------------------------------------------------------------
-
 
     public static SoundManager GetInstance { private set; get; }
 
@@ -43,7 +37,7 @@ public class SoundManager : MonoBehaviour
     {
         public string AliasName;
         public ESoundClip m_ESound;
-        public GameObject m_SoundSource;
+        public List<GameObject> m_SoundSource;
         [HideInInspector]
         public float m_PrevTime;
     }
@@ -62,14 +56,33 @@ public class SoundManager : MonoBehaviour
                 startDelay = 44100.0f * startDelay; // Hz to sec... or something like that
             }
 
-            if(m_SoundObjs[(int)soundClipKey].m_SoundSource != null)
+            int soundSourceIdx = 0;
+            int sourceCount = m_SoundObjs[(int)soundClipKey].m_SoundSource.Count;
+            for (int i = 0; i < sourceCount; ++i)
             {
-                GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource, position, Quaternion.identity, m_AudioFolder.transform);
-                obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
-                AudioSource source = obj.GetComponent<AudioSource>();
-                source.PlayDelayed((ulong)startDelay);
-                Destroy(obj, source.clip.length);
+                if (m_SoundObjs[(int)soundClipKey].m_SoundSource[i] != null)
+                {
+                    if(sourceCount > 0)
+                    {
+                        soundSourceIdx = Random.Range(0, sourceCount);
+                    }
+
+                    GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource[soundSourceIdx], position, Quaternion.identity, m_AudioFolder.transform);
+                    obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
+                    AudioSource source = obj.GetComponent<AudioSource>();
+                    source.PlayDelayed((ulong)startDelay);
+                    Destroy(obj, source.clip.length);
+                }
             }
+
+            //if(m_SoundObjs[(int)soundClipKey].m_SoundSource != null)
+            //{
+            //    GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource, position, Quaternion.identity, m_AudioFolder.transform);
+            //    obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
+            //    AudioSource source = obj.GetComponent<AudioSource>();
+            //    source.PlayDelayed((ulong)startDelay);
+            //    Destroy(obj, source.clip.length);
+            //}
         }
     }
 
@@ -109,10 +122,11 @@ public class SoundManager : MonoBehaviour
         switch (soundClipKey)
         {
             case ESoundClip.CRAWLER_DEATH:      return TimeChecker(soundClipKey);
-            case ESoundClip.CRAWLER_AR_DAMAGE:  return TimeChecker(soundClipKey);
+            case ESoundClip.CRAWLER_HURT:       return TimeChecker(soundClipKey);
             case ESoundClip.ENEMY_ATTACK:       return TimeChecker(soundClipKey);
             case ESoundClip.ENEMY_SPAWN:        return TimeChecker(soundClipKey);
             case ESoundClip.PLAYER_HURT:        return TimeChecker(soundClipKey);
+            case ESoundClip.PLAYER_FOOTSTEPS:   return TimeChecker(soundClipKey);
             default:                            return true;
         }
     }
