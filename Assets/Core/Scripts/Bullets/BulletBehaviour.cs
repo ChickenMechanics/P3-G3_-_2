@@ -17,9 +17,9 @@ public class BulletBehaviour : MonoBehaviour
     public float m_TrailScale = 1.0f;
     [Header("Properties")]
     public float m_DamageValue = 25.0f;
-    public float m_Speed = 50.0f;
-    public float m_DropOff = 0.0f;
+    public float m_Speed;
     public float m_MaxLifetimeInSec = 5.0f;
+    public bool m_IsPhysicsBased = false;
     #endregion
 
     #region vfx
@@ -51,13 +51,13 @@ public class BulletBehaviour : MonoBehaviour
         m_WallVfxScaleVec = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
 
         // Saved if we wan't physics based projectiles
-        //if (m_IsPhysicsBased == true)
-        //{
-        //    m_Rb.useGravity = true;
-        //    m_Rb.isKinematic = false;
-        //    m_Rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        //}
-        //else
+        if (m_IsPhysicsBased == true)
+        {
+            m_Rb.useGravity = true;
+            m_Rb.isKinematic = false;
+            m_Rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        }
+        else
         {
             m_Rb.isKinematic = true;
             m_Rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
@@ -96,7 +96,8 @@ public class BulletBehaviour : MonoBehaviour
         transform.position = bulletSpawnPoint.position;
 
         transform.forward = dir;
-        m_Force = dir * m_Speed + new Vector3(0.0f, m_DropOff, 0.0f);
+        //m_Force = dir * m_Speed + new Vector3(0.0f, m_DropOff, 0.0f); // Unused, saved in case
+        m_Force = dir * m_Speed;
 
         #region vfx
         if (m_Glow != null)
@@ -116,6 +117,23 @@ public class BulletBehaviour : MonoBehaviour
         #endregion
 
         gameObject.SetActive(true);
+    }
+
+
+    private void ParticleAndDestructionStuff()
+    {
+        if (m_WallClashParticle != null)
+        {
+            ParticleSystem part = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>());
+            if (part != null)
+            {
+                part.transform.forward = Camera.main.transform.forward * -1.0f;
+                part.transform.position = transform.position;
+                // comment/uncommnet for fireworks
+                part.transform.localScale = m_WallVfxScaleVec;
+                Destroy(part.gameObject, 0.5f);
+            }
+        }
     }
 
 
@@ -151,25 +169,13 @@ public class BulletBehaviour : MonoBehaviour
         m_CurrentLifeTime += Time.deltaTime;
 
         // Saved if we want physics based projectiles
-        //if (m_IsPhysicsBased == false)
+        if (m_IsPhysicsBased == false)
         {
             transform.position += m_Force * Time.deltaTime;
 
             if (m_CurrentLifeTime > m_MaxLifetimeInSec)
             {
-                if (m_WallClashParticle != null)
-                {
-                    ParticleSystem part = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>());
-                    if (part != null)
-                    {
-                        part.transform.forward = Camera.main.transform.forward * -1.0f;
-                        part.transform.position = transform.position;
-                        // comment/uncommnet for fireworks
-                        part.transform.localScale = m_WallVfxScaleVec;
-                        Destroy(part.gameObject, 0.5f);
-                    }
-                }
-
+                ParticleAndDestructionStuff();
                 Destroy(gameObject);
             }
         }
@@ -177,15 +183,16 @@ public class BulletBehaviour : MonoBehaviour
 
 
     // Saved if we wan't physics based projectiles
-    //private void FixedUpdate()
-    //{
-    //    if (m_IsPhysicsBased == true)
-    //    {
-    //        transform.position += m_Force * Time.fixedTime;
-    //        if (m_CurrentLifeTime > m_MaxLifetimeInSec)
-    //        {
-    //            Destroy(this);
-    //        }
-    //    }
-    //}
+    private void FixedUpdate()
+    {
+        if (m_IsPhysicsBased == true)
+        {
+            transform.position += m_Force * Time.fixedTime;
+            if (m_CurrentLifeTime > m_MaxLifetimeInSec)
+            {
+                //ParticleStuff();
+                Destroy(this);
+            }
+        }
+    }
 }
