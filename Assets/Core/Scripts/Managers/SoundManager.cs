@@ -19,6 +19,10 @@ public class SoundManager : MonoBehaviour
         GUN_RELOAD_1,
         ENEMY_ATTACK,
         ENEMY_SPAWN,
+        PLAYER_FOOTSTEPS,
+        ENEMY_FOOTSTEPS,
+        ROCKET_SHOT,
+        ROCKET_IMPACT,
         SIZE
     }
     #endregion
@@ -108,6 +112,7 @@ public class SoundManager : MonoBehaviour
             case ESoundClip.CRAWLER_AR_DAMAGE:  return TimeChecker(soundClipKey);
             case ESoundClip.ENEMY_ATTACK:       return TimeChecker(soundClipKey);
             case ESoundClip.ENEMY_SPAWN:        return TimeChecker(soundClipKey);
+            case ESoundClip.PLAYER_HURT:        return TimeChecker(soundClipKey);
             default:                            return true;
         }
     }
