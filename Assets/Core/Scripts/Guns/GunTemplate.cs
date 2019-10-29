@@ -52,7 +52,7 @@ public class GunTemplate : MonoBehaviour
     private GameObject m_MuzzleFlash;
     private Transform m_MuzzlePoint;
     private float m_ReloadAnimTime;
-    [HideInInspector] public bool m_Paused;
+    [HideInInspector] public bool m_IsPaused { set; get; }
 
     private enum EGunState
     {
@@ -106,7 +106,7 @@ public class GunTemplate : MonoBehaviour
         m_BulletSpreadDirs = Vector2.zero;
         m_CrossHairObj = transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject;
 
-        m_Paused = false;
+        m_IsPaused = false;
     }
 
 
@@ -343,7 +343,7 @@ public class GunTemplate : MonoBehaviour
         Debug.DrawLine(m_RayOriginPoint.position, m_RayOriginPoint.position + (m_RayOriginPoint.forward * 100.0f), Color.green);
 #endif
 
-        if(m_Paused == false)
+        if(m_IsPaused == false)
         {
             GunStateUpdate();
             MagUpdate();
