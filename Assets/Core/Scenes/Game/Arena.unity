@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0029260234, g: 0.00273507, b: 0.0031075638, a: 1}
+  m_IndirectSpecularColor: {r: 0.0029264928, g: 0.002735543, b: 0.0031081971, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1448,6 +1448,12 @@ PrefabInstance:
       propertyPath: waves.Array.data[2].subWaves.Array.data[3].enemyTypes.Array.data[0].rate
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3691301364954643396, guid: d03bc41eb27611c48a226960895a7d0a,
+        type: 3}
+      propertyPath: m_SpawnEffect
+      value: 
+      objectReference: {fileID: 7752833903104547814, guid: 38c81182a46ed3f4fb1715553f3bc21e,
+        type: 3}
     - target: {fileID: 24281327387835911, guid: d03bc41eb27611c48a226960895a7d0a,
         type: 3}
       propertyPath: m_IsActive
@@ -37004,12 +37010,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -492420421572216379, guid: b970372a2017b75409c25ea681f365ea,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -7462036371361415008, guid: b970372a2017b75409c25ea681f365ea,
+    - target: {fileID: 7469484624682501897, guid: b970372a2017b75409c25ea681f365ea,
         type: 3}
       propertyPath: m_Layer
       value: 0
@@ -37094,7 +37095,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7469484624682501897, guid: b970372a2017b75409c25ea681f365ea,
+    - target: {fileID: -492420421572216379, guid: b970372a2017b75409c25ea681f365ea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7462036371361415008, guid: b970372a2017b75409c25ea681f365ea,
         type: 3}
       propertyPath: m_Layer
       value: 0
