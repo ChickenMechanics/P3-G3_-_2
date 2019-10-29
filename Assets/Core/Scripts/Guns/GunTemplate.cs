@@ -91,15 +91,15 @@ public class GunTemplate : MonoBehaviour
         m_Anim = transform.GetChild(3).gameObject.GetComponent<Animator>();
         m_ReloadAnimTime = m_Anim.runtimeAnimatorController.animationClips[0].length;
 
+        GetCurrentReloadTime = m_ReloadAnimTime;
+        GetCurrentMagSize = m_MagSizeTotal;
+
         if (m_MuzzleFlashVfx != null)
         {
             m_MuzzlePoint = transform.GetChild(2);
             m_MuzzleFlash = Instantiate(m_MuzzleFlashVfx, m_MuzzlePoint.position, Quaternion.identity, m_MuzzlePoint.transform);
             m_MuzzleFlash.GetComponent<ParticleSystem>().Stop();
         }
-
-        GetCurrentReloadTime = m_ReloadAnimTime;
-        GetCurrentMagSize = m_MagSizeTotal;
 
         m_IsFiring = false;
         GetIsReloading = false;
@@ -205,7 +205,6 @@ public class GunTemplate : MonoBehaviour
             GetIsReloading = false;
             m_TimePastSinceLastFire = 0.0f;
             GetCurrentMagSize = m_MagSizeTotal;
-            //GetCurrentReloadTime = m_ReloadTimeInSec;
             GetCurrentReloadTime = m_ReloadAnimTime;
             m_CurrentGunState = EGunState.READY;
 
@@ -298,7 +297,6 @@ public class GunTemplate : MonoBehaviour
             if(GetCurrentMagSize < m_MagSizeTotal)
             {
                 GetIsReloading = true;
-                //GetCurrentReloadTime = m_ReloadTimeInSec;
                 GetCurrentReloadTime = m_ReloadAnimTime;
                 SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_RELOAD_1, transform.position);
                 m_CurrentGunState = EGunState.RELOADING;
