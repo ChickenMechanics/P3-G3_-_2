@@ -11,6 +11,7 @@ using Random = System.Random;
 public class WaveSpawner : MonoBehaviour
 {
     public GameObject m_SpawnEffect;
+    public float m_SpawnEffectActivetimeInSec;
 
     public enum SpawnState
     {
@@ -210,7 +211,7 @@ public class WaveSpawner : MonoBehaviour
             Debug.Log("Spawning Enemy: " + enemy.name);
 
             GameObject go = Instantiate(m_SpawnEffect, spawnPoint.position, Quaternion.identity);
-            Destroy(go, 0.5f);
+            Destroy(go, 0.75f);
 
             Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
             return;
