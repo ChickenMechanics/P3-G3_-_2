@@ -61,7 +61,8 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Enemy Death
     m_ESound: 6
-    m_SoundSource: []
+    m_SoundSource:
+    - {fileID: 8641429501918756741, guid: 0fbda2280ab496c42bd6eaf6769d257a, type: 3}
     m_PrevTime: 0
   - AliasName: Gun Cannon Shot
     m_ESound: 4
