@@ -39,15 +39,11 @@ public class GunTemplate : MonoBehaviour
     private float m_RayMaxDist;
     private float m_Rpm;
     private float m_TimePastSinceLastFire;
-    [HideInInspector]
-    public float GetCurrentReloadTime;
-    [HideInInspector]
-    public int GetCurrentMagSize { private set; get; }
+    [HideInInspector] public float GetCurrentReloadTime;
+    [HideInInspector] public int GetCurrentMagSize { private set; get; }
     private bool m_IsFiring;
-    [HideInInspector]
-    public bool GetIsReloading { private set; get; }
-    [HideInInspector]
-    public bool GetIsADS { private set; get; }
+    [HideInInspector] public bool GetIsReloading { private set; get; }
+    [HideInInspector] public bool GetIsADS { private set; get; }
 
     private EGunState m_CurrentGunState;
     private Transform m_CameraPoint;
@@ -55,8 +51,8 @@ public class GunTemplate : MonoBehaviour
     private GameObject m_CrossHairObj;
     private GameObject m_MuzzleFlash;
     private Transform m_MuzzlePoint;
-
     private float m_ReloadAnimTime;
+    [HideInInspector] public bool m_Paused;
 
     private enum EGunState
     {
@@ -109,6 +105,8 @@ public class GunTemplate : MonoBehaviour
         m_CameraPoint = null;
         m_BulletSpreadDirs = Vector2.zero;
         m_CrossHairObj = transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject;
+
+        m_Paused = false;
     }
 
 
@@ -239,7 +237,7 @@ public class GunTemplate : MonoBehaviour
 
     private void AimPosUpdate()
     {
-        // ads fire
+        // ads
         if (Input.GetMouseButton(1) == true &&
             GetIsReloading == false)
         {
@@ -256,9 +254,14 @@ public class GunTemplate : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
 
             m_CrossHairObj.SetActive(false);
+
+            //if(m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") == true)
+            //{
+            //    m_Anim.enabled = false;
+            //}
         }
 
-        // hip fire
+        // hip
         if (Input.GetMouseButton(1) == false ||
             GetIsReloading == true)
         {
@@ -340,8 +343,11 @@ public class GunTemplate : MonoBehaviour
         Debug.DrawLine(m_RayOriginPoint.position, m_RayOriginPoint.position + (m_RayOriginPoint.forward * 100.0f), Color.green);
 #endif
 
-        GunStateUpdate();
-        MagUpdate();
-        AimPosUpdate();
+        if(m_Paused == false)
+        {
+            GunStateUpdate();
+            MagUpdate();
+            AimPosUpdate();
+        }
     }
 }
