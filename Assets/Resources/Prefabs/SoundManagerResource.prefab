@@ -53,7 +53,11 @@ MonoBehaviour:
   - AliasName: Enemy Hurt
     m_ESound: 5
     m_SoundSource:
-    - {fileID: 5479667966578724668, guid: 09dc381765dd48d4f9d0c59c5eebfeac, type: 3}
+    - {fileID: 5969970719647753999, guid: 09dc381765dd48d4f9d0c59c5eebfeac, type: 3}
+    - {fileID: 7106299383315673941, guid: 87d91a3bd702b924fae4f1f23cb9d4d8, type: 3}
+    - {fileID: 7265678294716807036, guid: de6fbcf3a61f7ba4d87be76315068ec7, type: 3}
+    - {fileID: 662535637450134759, guid: 59dc9472d78e19f44907fc254d94b215, type: 3}
+    - {fileID: 7738926835370087735, guid: eb7ae714d8d74d64caefbc1dd4d46826, type: 3}
     m_PrevTime: 0
   - AliasName: Enemy Death
     m_ESound: 6
