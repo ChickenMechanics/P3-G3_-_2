@@ -78,5 +78,20 @@ PrefabInstance:
       propertyPath: m_MagSizeTotal
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
+        type: 3}
+      propertyPath: m_RoundsPerMinute
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
+        type: 3}
+      propertyPath: m_HipSpread
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
+        type: 3}
+      propertyPath: m_EFiringSound
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a61f14fde1507f43ad7413628f5db50, type: 3}

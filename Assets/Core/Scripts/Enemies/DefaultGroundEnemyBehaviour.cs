@@ -59,7 +59,7 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
             }
         }
     }
-    
+
     public void TakeDamage(float damageValue)
     {
         hp -= damageValue;
