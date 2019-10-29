@@ -87,12 +87,6 @@ public class GunTemplate : MonoBehaviour
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
 
         m_Anim = transform.GetChild(3).gameObject.GetComponent<Animator>();
-        if (m_Anim != null)
-        {
-            m_Anim.enabled = false;
-            //m_Anim.SetBool("Fire", false);
-            //bool hej = m_Anim.GetBool("Fire");
-        }
 
         if (m_MuzzleFlashVfx != null)
         {
@@ -128,11 +122,21 @@ public class GunTemplate : MonoBehaviour
 
     private void GunReadyState()
     {
+        if(m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Fire") ||
+            m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Overheat"))
+        {
+            m_Anim.SetBool("Fire", false);
+            m_Anim.SetBool("Overheat", false);
+            m_Anim.SetBool("Idle", true);
+        }
+
         if (m_IsFiring == true)
         {
             m_CurrentGunState = EGunState.FIRING;
-            m_Anim.enabled = true;
-            m_IsFiring = false;
+
+            m_Anim.SetBool("Idle", false);
+            m_Anim.SetBool("Overheat", false);
+            m_Anim.SetBool("Fire", true);
         }
     }
 
@@ -186,8 +190,6 @@ public class GunTemplate : MonoBehaviour
                 m_MuzzleFlash.GetComponent<ParticleSystem>().Clear();
             }
 
-            m_Anim.enabled = false;
-
             m_CurrentGunState = EGunState.READY;
         }
     }
@@ -202,6 +204,9 @@ public class GunTemplate : MonoBehaviour
             GetCurrentMagSize = m_MagSizeTotal;
             GetCurrentReloadTime = m_ReloadTimeInSec;
             m_CurrentGunState = EGunState.READY;
+
+            m_Anim.SetBool("Overheat", false);
+            m_Anim.SetBool("Idle", true);
         }
     }
 
@@ -277,22 +282,6 @@ public class GunTemplate : MonoBehaviour
         {
             m_IsFiring = true;
             m_CameraPoint = cameraPoint;
-
-            // TODO: Fix this cheat for a recoil
-            // Update: Recoil is now animated
-            //Vector3 lastPos = GunManager.GetInstance.ActiveGun.transform.position;
-
-            //Vector3 nextpos = new Vector3(
-            //    Random.Range(lastPos.x - 0.002f, lastPos.x + 0.002f),
-            //    Random.Range(lastPos.y - 0.002f, lastPos.y + 0.002f),
-            //    Random.Range(lastPos.z - 0.02f, lastPos.z + 0.02f));
-
-            //Vector3 nextpos = new Vector3(
-            //    Random.Range(lastPos.x - 0.0015f, lastPos.x + 0.0015f),
-            //    Random.Range(lastPos.y - 0.0015f,lastPos.y + 0.0015f),
-            //    Random.Range(lastPos.z - 0.015f, lastPos.z + 0.015f));  // ...
-
-            //GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(lastPos, nextpos, 0.25f);
         }
     }
 
@@ -307,6 +296,10 @@ public class GunTemplate : MonoBehaviour
                 GetCurrentReloadTime = m_ReloadTimeInSec;
                 SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_RELOAD_1, transform.position);
                 m_CurrentGunState = EGunState.RELOADING;
+
+                m_Anim.SetBool("Idle", false);
+                m_Anim.SetBool("Fire", false);
+                m_Anim.SetBool("Overheat", true);
             }
         }
     }

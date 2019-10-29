@@ -17,8 +17,6 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
 
     protected void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
     {
-        UpdatePlayerPos();
-        playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         position = agentTransform.position;
         var rotation = agentTransform.rotation;
 
@@ -42,10 +40,10 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
         UpdatePlayerPos();
 
         lookPosition = playerPos - position;
+        
+        distanceToPlayer = lookPosition.magnitude;
 
         lookPosition.y = 0;
-
-        distanceToPlayer = lookPosition.magnitude;
     }
 
     private void OnTriggerEnter(Component other)
@@ -57,7 +55,7 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
             if (SoundManager.GetInstance != null)
 #endif
             {
-                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_AR_DAMAGE, other.transform.position);
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_HURT, other.transform.position);
             }
         }
     }
