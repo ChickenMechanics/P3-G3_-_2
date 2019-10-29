@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3642190635007590323, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
       propertyPath: m_Name
-      value: Grunt_crawler_Strong Variant
+      value: Tank_crawler Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
@@ -35,7 +35,7 @@ PrefabInstance:
     - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
       propertyPath: health
-      value: 600
+      value: 2500
       objectReference: {fileID: 0}
     - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
