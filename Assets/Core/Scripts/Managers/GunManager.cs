@@ -63,7 +63,12 @@ public class GunManager : MonoBehaviour
             ActiveGun.SetActive(false);
             ActiveGun = m_GunPrefabClone[m_ActiveGunIdx];
             ActiveGun.SetActive(true);
+
+            m_ActiveGunScr.m_IsPaused = true;
+
             m_ActiveGunScr = ActiveGun.GetComponent<GunTemplate>();
+
+            m_ActiveGunScr.m_IsPaused = false;
         }
     }
 

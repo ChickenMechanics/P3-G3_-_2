@@ -70,7 +70,8 @@ public class SoundManager : MonoBehaviour
                     GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource[soundSourceIdx], position, Quaternion.identity, m_AudioFolder.transform);
                     obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
                     AudioSource source = obj.GetComponent<AudioSource>();
-                    source.PlayDelayed((ulong)startDelay);
+                    //source.PlayDelayed((ulong)startDelay);
+                    source.Play();
                     Destroy(obj, source.clip.length);
                 }
             }
@@ -127,6 +128,7 @@ public class SoundManager : MonoBehaviour
             case ESoundClip.ENEMY_SPAWN:        return TimeChecker(soundClipKey);
             case ESoundClip.PLAYER_HURT:        return TimeChecker(soundClipKey);
             case ESoundClip.PLAYER_FOOTSTEPS:   return TimeChecker(soundClipKey);
+            case ESoundClip.GUN_AR_SHOT:        return TimeChecker(soundClipKey);
             default:                            return true;
         }
     }

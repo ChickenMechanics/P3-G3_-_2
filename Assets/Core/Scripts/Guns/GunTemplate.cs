@@ -12,7 +12,6 @@ public class GunTemplate : MonoBehaviour
     [Header("Properties")]
     public int m_RoundsPerMinute = 500;
     public int m_MagSizeTotal = 30;
-    public float m_ReloadTimeInSec = 1.0f;
     [Range(0.0f, 0.5f)]
     public float m_AdsSpread = 0.01f;
     [Range(0.0f, 0.5f)]
@@ -39,15 +38,11 @@ public class GunTemplate : MonoBehaviour
     private float m_RayMaxDist;
     private float m_Rpm;
     private float m_TimePastSinceLastFire;
-    [HideInInspector]
-    public float GetCurrentReloadTime;
-    [HideInInspector]
-    public int GetCurrentMagSize { private set; get; }
+    [HideInInspector] public float GetCurrentReloadTime;
+    [HideInInspector] public int GetCurrentMagSize { private set; get; }
     private bool m_IsFiring;
-    [HideInInspector]
-    public bool GetIsReloading { private set; get; }
-    [HideInInspector]
-    public bool GetIsADS { private set; get; }
+    [HideInInspector] public bool GetIsReloading { private set; get; }
+    [HideInInspector] public bool GetIsADS { private set; get; }
 
     private EGunState m_CurrentGunState;
     private Transform m_CameraPoint;
@@ -55,6 +50,8 @@ public class GunTemplate : MonoBehaviour
     private GameObject m_CrossHairObj;
     private GameObject m_MuzzleFlash;
     private Transform m_MuzzlePoint;
+    private float m_ReloadAnimTime;
+    [HideInInspector] public bool m_IsPaused { set; get; }
 
     private enum EGunState
     {
@@ -87,10 +84,10 @@ public class GunTemplate : MonoBehaviour
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
 
         m_Anim = transform.GetChild(3).gameObject.GetComponent<Animator>();
-        //if (m_Anim != null)
-        //{
-        //    m_Anim.enabled = false;
-        //}
+        m_ReloadAnimTime = m_Anim.runtimeAnimatorController.animationClips[0].length;
+
+        GetCurrentReloadTime = m_ReloadAnimTime;
+        GetCurrentMagSize = m_MagSizeTotal;
 
         if (m_MuzzleFlashVfx != null)
         {
@@ -98,9 +95,6 @@ public class GunTemplate : MonoBehaviour
             m_MuzzleFlash = Instantiate(m_MuzzleFlashVfx, m_MuzzlePoint.position, Quaternion.identity, m_MuzzlePoint.transform);
             m_MuzzleFlash.GetComponent<ParticleSystem>().Stop();
         }
-
-        GetCurrentReloadTime = m_ReloadTimeInSec;
-        GetCurrentMagSize = m_MagSizeTotal;
 
         m_IsFiring = false;
         GetIsReloading = false;
@@ -110,6 +104,8 @@ public class GunTemplate : MonoBehaviour
         m_CameraPoint = null;
         m_BulletSpreadDirs = Vector2.zero;
         m_CrossHairObj = transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject;
+
+        m_IsPaused = false;
     }
 
 
@@ -126,13 +122,21 @@ public class GunTemplate : MonoBehaviour
 
     private void GunReadyState()
     {
+        if(m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Fire") ||
+            m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Overheat"))
+        {
+            m_Anim.SetBool("Fire", false);
+            m_Anim.SetBool("Overheat", false);
+            m_Anim.SetBool("Idle", true);
+        }
+
         if (m_IsFiring == true)
         {
             m_CurrentGunState = EGunState.FIRING;
 
+            m_Anim.SetBool("Idle", false);
+            m_Anim.SetBool("Overheat", false);
             m_Anim.SetBool("Fire", true);
-            //m_Anim.enabled = true;
-            //m_IsFiring = false;
         }
     }
 
@@ -186,8 +190,6 @@ public class GunTemplate : MonoBehaviour
                 m_MuzzleFlash.GetComponent<ParticleSystem>().Clear();
             }
 
-            //m_Anim.enabled = false;
-
             m_CurrentGunState = EGunState.READY;
         }
     }
@@ -200,8 +202,12 @@ public class GunTemplate : MonoBehaviour
             GetIsReloading = false;
             m_TimePastSinceLastFire = 0.0f;
             GetCurrentMagSize = m_MagSizeTotal;
-            GetCurrentReloadTime = m_ReloadTimeInSec;
+            GetCurrentReloadTime = m_ReloadAnimTime;
             m_CurrentGunState = EGunState.READY;
+
+            m_Anim.SetBool("Fire", false);
+            m_Anim.SetBool("Overheat", false);
+            m_Anim.SetBool("Idle", true);
         }
     }
 
@@ -230,7 +236,7 @@ public class GunTemplate : MonoBehaviour
 
     private void AimPosUpdate()
     {
-        // ads fire
+        // ads
         if (Input.GetMouseButton(1) == true &&
             GetIsReloading == false)
         {
@@ -249,7 +255,7 @@ public class GunTemplate : MonoBehaviour
             m_CrossHairObj.SetActive(false);
         }
 
-        // hip fire
+        // hip
         if (Input.GetMouseButton(1) == false ||
             GetIsReloading == true)
         {
@@ -277,22 +283,6 @@ public class GunTemplate : MonoBehaviour
         {
             m_IsFiring = true;
             m_CameraPoint = cameraPoint;
-
-            // TODO: Fix this cheat for a recoil
-            // Update: Recoil is now animated
-            //Vector3 lastPos = GunManager.GetInstance.ActiveGun.transform.position;
-
-            //Vector3 nextpos = new Vector3(
-            //    Random.Range(lastPos.x - 0.002f, lastPos.x + 0.002f),
-            //    Random.Range(lastPos.y - 0.002f, lastPos.y + 0.002f),
-            //    Random.Range(lastPos.z - 0.02f, lastPos.z + 0.02f));
-
-            //Vector3 nextpos = new Vector3(
-            //    Random.Range(lastPos.x - 0.0015f, lastPos.x + 0.0015f),
-            //    Random.Range(lastPos.y - 0.0015f,lastPos.y + 0.0015f),
-            //    Random.Range(lastPos.z - 0.015f, lastPos.z + 0.015f));  // ...
-
-            //GunManager.GetInstance.ActiveGun.transform.position = Vector3.Lerp(lastPos, nextpos, 0.25f);
         }
     }
 
@@ -304,9 +294,13 @@ public class GunTemplate : MonoBehaviour
             if(GetCurrentMagSize < m_MagSizeTotal)
             {
                 GetIsReloading = true;
-                GetCurrentReloadTime = m_ReloadTimeInSec;
+                GetCurrentReloadTime = m_ReloadAnimTime;
                 SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_RELOAD_1, transform.position);
                 m_CurrentGunState = EGunState.RELOADING;
+
+                m_Anim.SetBool("Idle", false);
+                m_Anim.SetBool("Fire", false);
+                m_Anim.SetBool("Overheat", true);
             }
         }
     }
@@ -343,8 +337,11 @@ public class GunTemplate : MonoBehaviour
         Debug.DrawLine(m_RayOriginPoint.position, m_RayOriginPoint.position + (m_RayOriginPoint.forward * 100.0f), Color.green);
 #endif
 
-        GunStateUpdate();
-        MagUpdate();
-        AimPosUpdate();
+        if(m_IsPaused == false)
+        {
+            GunStateUpdate();
+            MagUpdate();
+            AimPosUpdate();
+        }
     }
 }
