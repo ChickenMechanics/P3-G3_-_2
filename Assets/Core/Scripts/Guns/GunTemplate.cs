@@ -122,11 +122,20 @@ public class GunTemplate : MonoBehaviour
 
     private void GunReadyState()
     {
+        if(m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Fire") ||
+            m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Overheat"))
+        {
+            m_Anim.SetBool("Fire", false);
+            m_Anim.SetBool("Overheat", false);
+            m_Anim.SetBool("Idle", true);
+        }
+
         if (m_IsFiring == true)
         {
             m_CurrentGunState = EGunState.FIRING;
 
             m_Anim.SetBool("Idle", false);
+            m_Anim.SetBool("Overheat", false);
             m_Anim.SetBool("Fire", true);
         }
     }
@@ -182,9 +191,6 @@ public class GunTemplate : MonoBehaviour
             }
 
             m_CurrentGunState = EGunState.READY;
-
-            m_Anim.SetBool("Fire", false);
-            m_Anim.SetBool("Idle", true);
         }
     }
 
