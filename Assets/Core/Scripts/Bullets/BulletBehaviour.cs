@@ -96,7 +96,6 @@ public class BulletBehaviour : MonoBehaviour
         transform.position = bulletSpawnPoint.position;
 
         transform.forward = dir;
-        //m_Force = dir * m_Speed + new Vector3(0.0f, m_DropOff, 0.0f); // Unused, saved in case
         m_Force = dir * m_Speed;
 
         #region vfx
@@ -145,22 +144,43 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (m_WallClashParticle != null)
+        if (m_IsPhysicsBased == false)
         {
-            ParticleSystem part = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>());
-            if(part != null)
+            if (m_WallClashParticle != null)
             {
-                part.transform.forward = Camera.main.transform.forward * -1.0f;
-                part.transform.position = transform.position;
-                part.transform.localScale = m_WallVfxScaleVec;
-                Destroy(part.gameObject, 0.1f);
+                ParticleSystem part = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>());
+                if (part != null)
+                {
+                    part.transform.forward = Camera.main.transform.forward * -1.0f;
+                    part.transform.position = transform.position;
+                    part.transform.localScale = m_WallVfxScaleVec;
+                    Destroy(part.gameObject, 0.1f);
+                }
             }
+
+            Destroy(gameObject);
         }
+    }
 
-        //if (other.CompareTag("Enemy"))
-        //    other.GetComponent<DefaultGroundEnemyBehaviour>().TakeDamage(m_DamageValue, other.gameObject);
 
-        Destroy(gameObject);
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (m_IsPhysicsBased == true)
+        {
+            if (m_WallClashParticle != null)
+            {
+                ParticleSystem part = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>());
+                if (part != null)
+                {
+                    part.transform.forward = Camera.main.transform.forward * -1.0f;
+                    part.transform.position = transform.position;
+                    part.transform.localScale = m_WallVfxScaleVec;
+                    Destroy(part.gameObject, 0.1f);
+                }
+            }
+
+            Destroy(gameObject);
+        }
     }
 
 
@@ -187,10 +207,10 @@ public class BulletBehaviour : MonoBehaviour
     {
         if (m_IsPhysicsBased == true)
         {
-            transform.position += m_Force * Time.fixedTime;
+            transform.position += m_Force * Time.fixedDeltaTime;
             if (m_CurrentLifeTime > m_MaxLifetimeInSec)
             {
-                //ParticleStuff();
+                ParticleAndDestructionStuff();
                 Destroy(this);
             }
         }

@@ -12,7 +12,6 @@ public class GunTemplate : MonoBehaviour
     [Header("Properties")]
     public int m_RoundsPerMinute = 500;
     public int m_MagSizeTotal = 30;
-    public float m_ReloadTimeInSec = 1.0f;
     [Range(0.0f, 0.5f)]
     public float m_AdsSpread = 0.01f;
     [Range(0.0f, 0.5f)]
@@ -254,11 +253,6 @@ public class GunTemplate : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
 
             m_CrossHairObj.SetActive(false);
-
-            //if(m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") == true)
-            //{
-            //    m_Anim.enabled = false;
-            //}
         }
 
         // hip

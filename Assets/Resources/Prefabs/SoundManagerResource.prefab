@@ -48,16 +48,12 @@ MonoBehaviour:
   - AliasName: Gun AR Shot
     m_ESound: 3
     m_SoundSource:
-    - {fileID: 8470185352058736508, guid: 92ec899cc1c0f8140be2b3fb6f83ec73, type: 3}
+    - {fileID: 8731207991689328421, guid: 59e654e58a76f1d478a828044c7d4704, type: 3}
     m_PrevTime: 0
   - AliasName: Enemy Hurt
     m_ESound: 5
     m_SoundSource:
     - {fileID: 5479667966578724668, guid: 09dc381765dd48d4f9d0c59c5eebfeac, type: 3}
-    - {fileID: 5840257615554522949, guid: 87d91a3bd702b924fae4f1f23cb9d4d8, type: 3}
-    - {fileID: 3151456290320876834, guid: de6fbcf3a61f7ba4d87be76315068ec7, type: 3}
-    - {fileID: 1592317049116673190, guid: 59dc9472d78e19f44907fc254d94b215, type: 3}
-    - {fileID: 4898155978503478878, guid: eb7ae714d8d74d64caefbc1dd4d46826, type: 3}
     m_PrevTime: 0
   - AliasName: Enemy Death
     m_ESound: 6
@@ -104,4 +100,9 @@ MonoBehaviour:
     m_ESound: 11
     m_SoundSource:
     - {fileID: 0}
+    m_PrevTime: 0
+  - AliasName: Rocket Shot
+    m_ESound: 13
+    m_SoundSource:
+    - {fileID: 8547104688784681372, guid: 7427f462adb00b84fa16d59e94a13d01, type: 3}
     m_PrevTime: 0

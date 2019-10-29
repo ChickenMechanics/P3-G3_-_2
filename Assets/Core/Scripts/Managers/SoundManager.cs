@@ -70,7 +70,8 @@ public class SoundManager : MonoBehaviour
                     GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource[soundSourceIdx], position, Quaternion.identity, m_AudioFolder.transform);
                     obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
                     AudioSource source = obj.GetComponent<AudioSource>();
-                    source.PlayDelayed((ulong)startDelay);
+                    //source.PlayDelayed((ulong)startDelay);
+                    source.Play();
                     Destroy(obj, source.clip.length);
                 }
             }
