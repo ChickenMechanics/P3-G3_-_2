@@ -56,6 +56,8 @@ public class GunTemplate : MonoBehaviour
     private GameObject m_MuzzleFlash;
     private Transform m_MuzzlePoint;
 
+    private float m_ReloadAnimTime;
+
     private enum EGunState
     {
         READY = 0,
@@ -87,6 +89,10 @@ public class GunTemplate : MonoBehaviour
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
 
         m_Anim = transform.GetChild(3).gameObject.GetComponent<Animator>();
+        m_ReloadAnimTime = m_Anim.runtimeAnimatorController.animationClips[0].length;
+
+        GetCurrentReloadTime = m_ReloadAnimTime;
+        GetCurrentMagSize = m_MagSizeTotal;
 
         if (m_MuzzleFlashVfx != null)
         {
@@ -94,9 +100,6 @@ public class GunTemplate : MonoBehaviour
             m_MuzzleFlash = Instantiate(m_MuzzleFlashVfx, m_MuzzlePoint.position, Quaternion.identity, m_MuzzlePoint.transform);
             m_MuzzleFlash.GetComponent<ParticleSystem>().Stop();
         }
-
-        GetCurrentReloadTime = m_ReloadTimeInSec;
-        GetCurrentMagSize = m_MagSizeTotal;
 
         m_IsFiring = false;
         GetIsReloading = false;
@@ -202,9 +205,10 @@ public class GunTemplate : MonoBehaviour
             GetIsReloading = false;
             m_TimePastSinceLastFire = 0.0f;
             GetCurrentMagSize = m_MagSizeTotal;
-            GetCurrentReloadTime = m_ReloadTimeInSec;
+            GetCurrentReloadTime = m_ReloadAnimTime;
             m_CurrentGunState = EGunState.READY;
 
+            m_Anim.SetBool("Fire", false);
             m_Anim.SetBool("Overheat", false);
             m_Anim.SetBool("Idle", true);
         }
@@ -293,7 +297,7 @@ public class GunTemplate : MonoBehaviour
             if(GetCurrentMagSize < m_MagSizeTotal)
             {
                 GetIsReloading = true;
-                GetCurrentReloadTime = m_ReloadTimeInSec;
+                GetCurrentReloadTime = m_ReloadAnimTime;
                 SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_RELOAD_1, transform.position);
                 m_CurrentGunState = EGunState.RELOADING;
 
