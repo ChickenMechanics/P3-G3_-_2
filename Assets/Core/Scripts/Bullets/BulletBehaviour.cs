@@ -144,43 +144,19 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (m_IsPhysicsBased == false)
+        if (m_WallClashParticle != null)
         {
-            if (m_WallClashParticle != null)
+            ParticleSystem part = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>());
+            if (part != null)
             {
-                ParticleSystem part = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>());
-                if (part != null)
-                {
-                    part.transform.forward = Camera.main.transform.forward * -1.0f;
-                    part.transform.position = transform.position;
-                    part.transform.localScale = m_WallVfxScaleVec;
-                    Destroy(part.gameObject, 0.1f);
-                }
+                part.transform.forward = Camera.main.transform.forward * -1.0f;
+                part.transform.position = transform.position;
+                part.transform.localScale = m_WallVfxScaleVec;
+                Destroy(part.gameObject, 0.1f);
             }
-
-            Destroy(gameObject);
         }
-    }
 
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (m_IsPhysicsBased == true)
-        {
-            if (m_WallClashParticle != null)
-            {
-                ParticleSystem part = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>());
-                if (part != null)
-                {
-                    part.transform.forward = Camera.main.transform.forward * -1.0f;
-                    part.transform.position = transform.position;
-                    part.transform.localScale = m_WallVfxScaleVec;
-                    Destroy(part.gameObject, 0.1f);
-                }
-            }
-
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 
 

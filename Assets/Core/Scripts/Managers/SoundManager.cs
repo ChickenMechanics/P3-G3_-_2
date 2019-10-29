@@ -128,6 +128,7 @@ public class SoundManager : MonoBehaviour
             case ESoundClip.ENEMY_SPAWN:        return TimeChecker(soundClipKey);
             case ESoundClip.PLAYER_HURT:        return TimeChecker(soundClipKey);
             case ESoundClip.PLAYER_FOOTSTEPS:   return TimeChecker(soundClipKey);
+            case ESoundClip.GUN_AR_SHOT:        return TimeChecker(soundClipKey);
             default:                            return true;
         }
     }
