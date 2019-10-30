@@ -12,7 +12,7 @@ public class PlayerMove : MonoBehaviour
     public float m_MaxForwardSpeed;
     public float m_MaxBacwardSpeed;
     [HideInInspector]
-    public float m_StrafeAcceleration = 100.0f;
+    public float m_StrafeAcceleration;
     [HideInInspector]
     public float m_RunAcceleration = 500.0f;
     public float m_DashAcceleration;
@@ -135,7 +135,8 @@ public class PlayerMove : MonoBehaviour
         m_AccelScaler = 50.0f;
         m_ForwardAccel = m_ForwardAcceleration * m_AccelScaler;
         m_BackwardAccel = m_BackwardAcceleration * m_AccelScaler;
-        m_StrafeAccel = m_StrafeAcceleration * m_AccelScaler;
+        //m_StrafeAccel = m_StrafeAcceleration * m_AccelScaler;
+        m_StrafeAccel = m_ForwardAcceleration * m_AccelScaler;
         m_RunAccel = m_RunAcceleration * m_AccelScaler;
         m_DashAccel = m_DashAcceleration * m_AccelScaler;
 
@@ -163,6 +164,13 @@ public class PlayerMove : MonoBehaviour
                 if (m_Rb.velocity.magnitude < m_MaxBacwardSpeed)
                 {
                     m_Rb.AddRelativeForce((m_ForwardBackwardForce + m_StrafeForce + m_RunForce + m_DashForce), ForceMode.Force);
+                }
+            }
+            else
+            {
+                if (m_Rb.velocity.magnitude < m_MaxForwardSpeed)
+                {
+                    m_Rb.AddRelativeForce((m_StrafeForce + m_RunForce + m_DashForce), ForceMode.Force);
                 }
             }
         }
