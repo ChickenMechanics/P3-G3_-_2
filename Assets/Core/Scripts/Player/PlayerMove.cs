@@ -7,13 +7,15 @@ public class PlayerMove : MonoBehaviour
 {
     #region design vars
     [Header("Movement")]
-    public float m_MoveAcceleration = 100.0f;
-    public float m_MaxMoveSpeed = 10.0f;
+    public float m_ForwardAcceleration;
+    public float m_BackwardAcceleration;
+    public float m_MaxForwardSpeed;
+    public float m_MaxBacwardSpeed;
     [HideInInspector]
     public float m_StrafeAcceleration = 100.0f;
     [HideInInspector]
     public float m_RunAcceleration = 500.0f;
-    public float m_DashAcceleration = 1500.0f;
+    public float m_DashAcceleration;
     [HideInInspector]
     public float m_DashActiveTime = 0.25f;
     public float m_DashCooldown = 1.0f;
@@ -24,12 +26,13 @@ public class PlayerMove : MonoBehaviour
     private GameObject m_MoveObj;
     private Rigidbody m_Rb;
     private PlayerCtrl.BasicInput m_Input;
-    private Vector3 m_ForwardForce;
+    private Vector3 m_ForwardBackwardForce;
     private Vector3 m_StrafeForce;
     private Vector3 m_RunForce;
     private Vector3 m_DashForce;
     private Vector3 m_DashDir;
     private float m_ForwardAccel;
+    private float m_BackwardAccel;
     private float m_StrafeAccel;
     private float m_RunAccel;
     private float m_DashAccel;
@@ -52,7 +55,7 @@ public class PlayerMove : MonoBehaviour
             {
                 m_CurrentState = m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx;
 
-                m_ForwardForce = Vector3.zero;
+                m_ForwardBackwardForce = Vector3.zero;
                 m_StrafeForce = Vector3.zero;
                 m_RunForce = Vector3.zero;
                 m_DashForce = Vector3.zero;
@@ -84,8 +87,12 @@ public class PlayerMove : MonoBehaviour
 
     private void Walk()
     {
-        m_ForwardForce = transform.forward;
-        m_ForwardForce *= m_ForwardAccel * m_Input.MoveInput.z * Time.fixedDeltaTime;
+        m_ForwardBackwardForce = transform.forward;
+
+        //m_ForwardBackwardForce *= m_ForwardAccel * m_Input.MoveInput.z * Time.fixedDeltaTime;     // Old from when forward and bacwards speed was the same
+
+        m_ForwardBackwardForce *= (m_Input.MoveInput.z > 0.0f) ? m_ForwardAccel : (m_BackwardAccel * -1.0f);
+        m_ForwardBackwardForce *= Time.fixedDeltaTime;
 
         m_StrafeForce = transform.right;
         m_StrafeForce *= m_StrafeAccel * m_Input.MoveInput.x * Time.fixedDeltaTime;
@@ -121,12 +128,13 @@ public class PlayerMove : MonoBehaviour
 
         m_Input = m_PlayerCtrlScr.GetBasicInput;
 
-        m_ForwardForce = Vector3.zero;
+        m_ForwardBackwardForce = Vector3.zero;
         m_StrafeForce = Vector3.zero;
         m_DashForce = Vector3.zero;
 
         m_AccelScaler = 50.0f;
-        m_ForwardAccel = m_MoveAcceleration * m_AccelScaler;
+        m_ForwardAccel = m_ForwardAcceleration * m_AccelScaler;
+        m_BackwardAccel = m_BackwardAcceleration * m_AccelScaler;
         m_StrafeAccel = m_StrafeAcceleration * m_AccelScaler;
         m_RunAccel = m_RunAcceleration * m_AccelScaler;
         m_DashAccel = m_DashAcceleration * m_AccelScaler;
@@ -143,11 +151,19 @@ public class PlayerMove : MonoBehaviour
         // Position
         if (m_Input.MoveInput.x != 0.0f || m_Input.MoveInput.z != 0.0f)
         {
-            if (m_Rb.velocity.magnitude < m_MaxMoveSpeed)
+            if(m_Input.MoveInput.z > 0.0f)
             {
-                // unsure which is optimal in this instance
-                m_Rb.AddRelativeForce((m_ForwardForce + m_StrafeForce + m_RunForce + m_DashForce), ForceMode.Force);
-                //m_Rb.AddForce((m_ForwardForce + m_StrafeForce + m_RunForce + m_DashForce), ForceMode.Force);
+                if (m_Rb.velocity.magnitude < m_MaxForwardSpeed)
+                {
+                    m_Rb.AddRelativeForce((m_ForwardBackwardForce + m_StrafeForce + m_RunForce + m_DashForce), ForceMode.Force);
+                }
+            }
+            else if(m_Input.MoveInput.z < 0.0f)
+            {
+                if (m_Rb.velocity.magnitude < m_MaxBacwardSpeed)
+                {
+                    m_Rb.AddRelativeForce((m_ForwardBackwardForce + m_StrafeForce + m_RunForce + m_DashForce), ForceMode.Force);
+                }
             }
         }
     }
