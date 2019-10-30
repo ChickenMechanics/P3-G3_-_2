@@ -168,12 +168,13 @@ public class BulletBehaviour : MonoBehaviour
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ROCKET_IMPACT, transform.position);
 
             GameObject go = Instantiate(m_GrenadeImpactGO, transform.position, Quaternion.identity);
-#if !DEBUG
-            go.GetComponent<MeshRenderer>().enabled = false;
-#endif
-            go.GetComponent<BulletGrenadeAOE>().m_DamageValue = m_DamageValue;
+//#if !DEBUG
+//            go.GetComponent<MeshRenderer>().enabled = false;
+//#endif
+            BulletGrenadeAOE scr = go.GetComponent<BulletGrenadeAOE>();
+            scr.m_DamageValue = m_DamageValue;
+            scr.m_GrenadeImpactLifetime = m_GrenadeImpactLifetime;
 
-            Destroy(go, m_GrenadeImpactLifetime);
             Destroy(gameObject);
         }
 
