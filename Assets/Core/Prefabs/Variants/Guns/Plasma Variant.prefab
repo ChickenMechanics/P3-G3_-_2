@@ -70,7 +70,12 @@ PrefabInstance:
     - target: {fileID: -7145239428009654852, guid: 60b53556ab302e9448fe92f75b23d1d0,
         type: 3}
       propertyPath: m_RoundsPerMinute
-      value: 750
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: -7145239428009654852, guid: 60b53556ab302e9448fe92f75b23d1d0,
+        type: 3}
+      propertyPath: m_MagSizeTotal
+      value: 42
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60b53556ab302e9448fe92f75b23d1d0, type: 3}
