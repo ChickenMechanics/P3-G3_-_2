@@ -127,3 +127,9 @@ MonoBehaviour:
       type: 3}
     m_PitchRange: 1.17
     m_PrevTime: 0
+  - AliasName: Player Dash
+    m_ESound: 15
+    m_SoundSource: {fileID: 3537769969862850243, guid: 9608b1552c2f3ec4698e1e2686a92139,
+      type: 3}
+    m_PitchRange: 1.17
+    m_PrevTime: 0
