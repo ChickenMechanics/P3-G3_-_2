@@ -84,5 +84,15 @@ PrefabInstance:
       propertyPath: m_WallClashScale
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 6547726749876835573, guid: 782e3cdb51e604b4a82b4718b75e6b42,
+        type: 3}
+      propertyPath: m_Name
+      value: Grenade
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547726749876835573, guid: 782e3cdb51e604b4a82b4718b75e6b42,
+        type: 3}
+      propertyPath: m_ProjectileName
+      value: Sniper
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 782e3cdb51e604b4a82b4718b75e6b42, type: 3}

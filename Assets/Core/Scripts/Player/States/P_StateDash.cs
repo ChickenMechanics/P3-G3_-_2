@@ -38,6 +38,8 @@ public class P_StateDash : IState
         //Debug.Log("Dash");
         m_DashTimePassed = PlayerManager.GetInstance.GetPlayerMoveScr.m_DashActiveTime;
         m_DashCooldownTimePassed = PlayerManager.GetInstance.GetPlayerMoveScr.m_DashCooldown;
+
+        SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_DASH, m_Owner.transform.position);
     }
 
 

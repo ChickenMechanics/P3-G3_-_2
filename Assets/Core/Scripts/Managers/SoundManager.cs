@@ -22,6 +22,7 @@ public class SoundManager : MonoBehaviour
         ENEMY_FOOTSTEPS,
         ROCKET_SHOT,
         ROCKET_IMPACT,
+        PLAYER_DASH,
         SIZE
     }
 
@@ -37,7 +38,9 @@ public class SoundManager : MonoBehaviour
     {
         public string AliasName;
         public ESoundClip m_ESound;
-        public List<GameObject> m_SoundSource;
+        public GameObject m_SoundSource;
+        [Range(1.0f, 2.0f)]
+        public float m_PitchRange;
         [HideInInspector]
         public float m_PrevTime;
     }
@@ -56,29 +59,35 @@ public class SoundManager : MonoBehaviour
                 startDelay = 44100.0f * startDelay; // Hz to sec... or something like that
             }
 
-            int soundSourceIdx = 0;
-            int sourceCount = m_SoundObjs[(int)soundClipKey].m_SoundSource.Count;
-            for (int i = 0; i < sourceCount; ++i)
+            if (m_SoundObjs[(int)soundClipKey].m_SoundSource != null)
             {
-                if (m_SoundObjs[(int)soundClipKey].m_SoundSource[i] != null)
-                {
-                    if(sourceCount > 0)
-                    {
-                        soundSourceIdx = Random.Range(0, sourceCount);
-                    }
+                GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource, position, Quaternion.identity, m_AudioFolder.transform);
+                obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
+                AudioSource source = obj.GetComponent<AudioSource>();
 
-                    GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource[soundSourceIdx], position, Quaternion.identity, m_AudioFolder.transform);
-                    obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
-                    AudioSource source = obj.GetComponent<AudioSource>();
-                    //source.PlayDelayed((ulong)startDelay);
-                    source.Play();
-                    Destroy(obj, source.clip.length);
+                if (m_SoundObjs[(int)soundClipKey].m_PitchRange != 1.0f)
+                {
+                    float pitchValue = m_SoundObjs[(int)soundClipKey].m_PitchRange;
+                    float valueOne = 1.0f + (1.0f - pitchValue);
+                    float valueTwo = pitchValue;
+                    float randPitch = Random.Range(valueOne, valueTwo);
+                    source.pitch = randPitch;
                 }
+
+                source.PlayDelayed((ulong)startDelay);
+                Destroy(obj, source.clip.length);
             }
 
-            //if(m_SoundObjs[(int)soundClipKey].m_SoundSource != null)
+            //int soundSourceIdx = 0;
+            //int sourceCount = m_SoundObjs[(int)soundClipKey].m_SoundSource.Count;
+            //if (m_SoundObjs[(int)soundClipKey].m_SoundSource[i] != null)
             //{
-            //    GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource, position, Quaternion.identity, m_AudioFolder.transform);
+            //    if(sourceCount > 0)
+            //    {
+            //        soundSourceIdx = Random.Range(0, sourceCount);
+            //    }
+            //
+            //    GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource[soundSourceIdx], position, Quaternion.identity, m_AudioFolder.transform);
             //    obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
             //    AudioSource source = obj.GetComponent<AudioSource>();
             //    source.PlayDelayed((ulong)startDelay);
@@ -128,7 +137,7 @@ public class SoundManager : MonoBehaviour
             case ESoundClip.ENEMY_SPAWN:        return TimeChecker(soundClipKey);
             case ESoundClip.PLAYER_HURT:        return TimeChecker(soundClipKey);
             case ESoundClip.PLAYER_FOOTSTEPS:   return TimeChecker(soundClipKey);
-            case ESoundClip.GUN_AR_SHOT:        return TimeChecker(soundClipKey);
+            //case ESoundClip.GUN_AR_SHOT:        return TimeChecker(soundClipKey);
             default:                            return true;
         }
     }
