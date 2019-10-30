@@ -47,67 +47,78 @@ MonoBehaviour:
   m_SoundObjs:
   - AliasName: Gun AR Shot
     m_ESound: 3
-    m_SoundSource:
-    - {fileID: 8470185352058736508, guid: 92ec899cc1c0f8140be2b3fb6f83ec73, type: 3}
+    m_SoundSource: {fileID: 8731207991689328421, guid: 59e654e58a76f1d478a828044c7d4704,
+      type: 3}
+    m_PitchRange: 1.2
     m_PrevTime: 0
   - AliasName: Enemy Hurt
     m_ESound: 5
-    m_SoundSource:
-    - {fileID: 5969970719647753999, guid: 09dc381765dd48d4f9d0c59c5eebfeac, type: 3}
-    - {fileID: 7106299383315673941, guid: 87d91a3bd702b924fae4f1f23cb9d4d8, type: 3}
-    - {fileID: 7265678294716807036, guid: de6fbcf3a61f7ba4d87be76315068ec7, type: 3}
-    - {fileID: 662535637450134759, guid: 59dc9472d78e19f44907fc254d94b215, type: 3}
-    - {fileID: 7738926835370087735, guid: eb7ae714d8d74d64caefbc1dd4d46826, type: 3}
+    m_SoundSource: {fileID: 5969970719647753999, guid: 09dc381765dd48d4f9d0c59c5eebfeac,
+      type: 3}
+    m_PitchRange: 1.2
     m_PrevTime: 0
   - AliasName: Enemy Death
     m_ESound: 6
-    m_SoundSource:
-    - {fileID: 8641429501918756741, guid: 0fbda2280ab496c42bd6eaf6769d257a, type: 3}
+    m_SoundSource: {fileID: 4018149527825461788, guid: 337cf53a96b8f9942954a0e9900f6669,
+      type: 3}
+    m_PitchRange: 1.2
     m_PrevTime: 0
   - AliasName: Gun Cannon Shot
     m_ESound: 4
-    m_SoundSource:
-    - {fileID: 6233613889116243176, guid: 5a85d23040be59740b79daf6681a9f73, type: 3}
+    m_SoundSource: {fileID: 8547104688784681372, guid: 7427f462adb00b84fa16d59e94a13d01,
+      type: 3}
+    m_PitchRange: 0
     m_PrevTime: 0
   - AliasName: Gun Mjau Shot
     m_ESound: 7
-    m_SoundSource: []
+    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+      type: 3}
+    m_PitchRange: 0
     m_PrevTime: 0
   - AliasName: Player Hurt
     m_ESound: 2
-    m_SoundSource: []
+    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+      type: 3}
+    m_PitchRange: 1.2
     m_PrevTime: 0
   - AliasName: Combat Music
     m_ESound: 1
-    m_SoundSource:
-    - {fileID: 5802984792471627637, guid: 5cbb75368ee789347907b2ac00c62b22, type: 3}
+    m_SoundSource: {fileID: 5802984792471627637, guid: 5cbb75368ee789347907b2ac00c62b22,
+      type: 3}
+    m_PitchRange: 0
     m_PrevTime: 0
   - AliasName: Main Menu Music 1
     m_ESound: 0
-    m_SoundSource:
-    - {fileID: 6765932763123011442, guid: 83f6f5c64e027f1438af6ffb42d11420, type: 3}
+    m_SoundSource: {fileID: 6765932763123011442, guid: 83f6f5c64e027f1438af6ffb42d11420,
+      type: 3}
+    m_PitchRange: 0
     m_PrevTime: 0
   - AliasName: Reloading (overheating)
     m_ESound: 8
-    m_SoundSource:
-    - {fileID: 4959015179251351453, guid: a82c364733e04634194641ea2bd2342c, type: 3}
+    m_SoundSource: {fileID: 4959015179251351453, guid: a82c364733e04634194641ea2bd2342c,
+      type: 3}
+    m_PitchRange: 0
     m_PrevTime: 0
   - AliasName: Enemy Attack
     m_ESound: 9
-    m_SoundSource: []
+    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+      type: 3}
+    m_PitchRange: 1.2
     m_PrevTime: 0
   - AliasName: Spawning (enemy)
     m_ESound: 10
-    m_SoundSource:
-    - {fileID: 6799572498685188378, guid: eb3fbda66d539294e9022b3cefc258dc, type: 3}
+    m_SoundSource: {fileID: 2392338459292948874, guid: 3664f5a88b29c214999529dc6e87572f,
+      type: 3}
+    m_PitchRange: 1.2
     m_PrevTime: 0
   - AliasName: Player Footsteps
     m_ESound: 11
-    m_SoundSource:
-    - {fileID: 0}
+    m_SoundSource: {fileID: 0}
+    m_PitchRange: 1.2
     m_PrevTime: 0
   - AliasName: Rocket Shot
     m_ESound: 13
-    m_SoundSource:
-    - {fileID: 4340100605421729991, guid: 25f77c57d6a3c804d98dfbb5c573ae10, type: 3}
+    m_SoundSource: {fileID: 8547104688784681372, guid: 7427f462adb00b84fa16d59e94a13d01,
+      type: 3}
+    m_PitchRange: 1.2
     m_PrevTime: 0
