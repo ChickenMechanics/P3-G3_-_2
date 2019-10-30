@@ -18,18 +18,6 @@ MonoBehaviour:
   attackRange: 6
   health: 250
   attackAngle: 90
---- !u!114 &5098269927851449939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4870995517318680427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0977f0ae5dad2fa48ab7dd7872d54908, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8147831447595348184
 PrefabInstance:
   m_ObjectHideFlags: 0
