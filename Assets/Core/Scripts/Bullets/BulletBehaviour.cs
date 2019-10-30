@@ -21,6 +21,8 @@ public class BulletBehaviour : MonoBehaviour
     public float m_Speed;
     public float m_MaxLifetimeInSec = 5.0f;
     public bool m_IsPhysicsBased = false;
+    public GameObject m_GrenadeImpactGO;
+    public float m_GrenadeImpactLifetime;
     #endregion
 
     #region vfx
@@ -99,7 +101,7 @@ public class BulletBehaviour : MonoBehaviour
         transform.forward = dir;
         m_Force = dir * m_Speed;
 
-        #region vfx
+#region vfx
         if (m_Glow != null)
         {
             m_Glow.transform.position = transform.position;
@@ -114,13 +116,13 @@ public class BulletBehaviour : MonoBehaviour
         {
             m_Trail.transform.position = transform.position;
         }
-        #endregion
+#endregion
 
         gameObject.SetActive(true);
     }
 
 
-    private void ParticleAndDestructionStuff()
+    private void ParticleAndDestructionOutOfBounds()
     {
         if (m_WallClashParticle != null)
         {
@@ -157,12 +159,25 @@ public class BulletBehaviour : MonoBehaviour
             }
         }
 
-        if(m_ProjectileName == "Grenade")
+        if(m_ProjectileName == "Sniper")
+        {
+            Destroy(gameObject);
+        }
+        else if(m_ProjectileName == "Grenade")
         {
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ROCKET_IMPACT, transform.position);
+
+            GameObject go = Instantiate(m_GrenadeImpactGO, transform.position, Quaternion.identity);
+#if !DEBUG
+            go.GetComponent<MeshRenderer>().enabled = false;
+#endif
+            go.GetComponent<BulletGrenadeAOE>().m_DamageValue = m_DamageValue;
+
+            Destroy(go, m_GrenadeImpactLifetime);
+            Destroy(gameObject);
         }
 
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
 
@@ -177,7 +192,7 @@ public class BulletBehaviour : MonoBehaviour
 
             if (m_CurrentLifeTime > m_MaxLifetimeInSec)
             {
-                ParticleAndDestructionStuff();
+                ParticleAndDestructionOutOfBounds();
                 Destroy(gameObject);
             }
         }
@@ -192,7 +207,7 @@ public class BulletBehaviour : MonoBehaviour
             transform.position += m_Force * Time.fixedDeltaTime;
             if (m_CurrentLifeTime > m_MaxLifetimeInSec)
             {
-                ParticleAndDestructionStuff();
+                ParticleAndDestructionOutOfBounds();
                 Destroy(this);
             }
         }

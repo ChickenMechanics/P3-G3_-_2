@@ -43,7 +43,15 @@ public class ScoreEnemyBasic : MonoBehaviour
     {
         if (other.gameObject.layer == 13)   // == projectile
         {
-            DecreaseHealth(other.GetComponent<BulletBehaviour>().GetDmgValue());
+            if(other.gameObject.GetComponent<BulletBehaviour>() != null)
+            {
+                DecreaseHealth(other.GetComponent<BulletBehaviour>().GetDmgValue());
+            }
+            else
+            {
+                DecreaseHealth(other.GetComponent<BulletGrenadeAOE>().GetDmgValue());
+            }
+
 #if DEBUG
             if (SoundManager.GetInstance != null)
 #endif
