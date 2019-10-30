@@ -221,7 +221,24 @@ public class SoundManager : MonoBehaviour
     private void WhatsThis()
     {
         m_SuperSecret = new List<GameObject>();
-        List<string> tunes = new List<string> { "HempressSativa-RockItInaDance", "Protoje-Protection", "Protoje-WhoKnows", "SamoryI-RastaNuhGangsta" };
+        List<string> tunes = new List<string>
+        {
+            "HempressSativa-RockItInaDance",
+            "Protoje-Protection",
+            "Protoje-WhoKnows",
+            "SamoryI-RastaNuhGangsta",
+            "CollieBuddz-BlindToYou",
+            "EddieMurphy-OhJahJah",
+            "DamianMarley-SlaveMill",
+            "HempressSativa-OohLaLaLA",
+            "Alborosie-StillBlazing",
+            "AriseRoots-RootsmanTown",
+            "LutanFyah-Criminal",
+            "Capleton-HelpTheWeak",
+            "SkipMarley-That'sNotTrue",
+            "Capelton-ProphetRidesAgain"
+        };
+
         for (int i = 0; i < tunes.Count; ++i)
         {
             GameObject go = new GameObject("tunes");
