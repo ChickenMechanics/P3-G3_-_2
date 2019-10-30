@@ -122,3 +122,9 @@ MonoBehaviour:
       type: 3}
     m_PitchRange: 1.25
     m_PrevTime: 0
+  - AliasName: Rocket Impact
+    m_ESound: 14
+    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+      type: 3}
+    m_PitchRange: 1.25
+    m_PrevTime: 0
