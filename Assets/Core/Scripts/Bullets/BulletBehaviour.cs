@@ -16,6 +16,7 @@ public class BulletBehaviour : MonoBehaviour
     public GameObject m_TrailRender;
     public float m_TrailScale = 1.0f;
     [Header("Properties")]
+    public string m_ProjectileName;
     public float m_DamageValue = 25.0f;
     public float m_Speed;
     public float m_MaxLifetimeInSec = 5.0f;
@@ -154,6 +155,11 @@ public class BulletBehaviour : MonoBehaviour
                 part.transform.localScale = m_WallVfxScaleVec;
                 Destroy(part.gameObject, 0.1f);
             }
+        }
+
+        if(m_ProjectileName == "Grenade")
+        {
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ROCKET_IMPACT, transform.position);
         }
 
         Destroy(gameObject);
