@@ -22,6 +22,7 @@ public class SoundManager : MonoBehaviour
         ENEMY_FOOTSTEPS,
         ROCKET_SHOT,
         ROCKET_IMPACT,
+        PLAYER_DASH,
         SIZE
     }
 
