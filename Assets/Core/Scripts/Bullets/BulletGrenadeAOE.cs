@@ -48,7 +48,7 @@ public class BulletGrenadeAOE : MonoBehaviour
 
     private void NormalMode()
     {
-        int hej = 7;
+
     }
 
 
