@@ -67,8 +67,6 @@ public class BulletGrenadeAOE : MonoBehaviour
         Destroy(effect1, m_GrenadeImpactLifetime);
         Destroy(effect2, m_GrenadeImpactLifetime);
         Destroy(gameObject, m_GrenadeImpactLifetime);
-
-        //gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
 
