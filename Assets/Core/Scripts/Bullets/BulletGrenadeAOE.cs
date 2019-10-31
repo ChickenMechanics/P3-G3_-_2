@@ -65,6 +65,8 @@ public class BulletGrenadeAOE : MonoBehaviour
         GameObject go1 = Instantiate(m_Vfx1, transform.position, Quaternion.identity);
         Destroy(go1, m_GrenadeImpactLifetime);
         Destroy(gameObject, m_GrenadeImpactLifetime);
+
+        //gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
 
