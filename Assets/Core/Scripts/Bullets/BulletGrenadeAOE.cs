@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletGrenadeAOE : MonoBehaviour
 {
-    public float m_IncreaseValue;
+    public float m_CollisionScaleIncreaser;
     public GameObject m_Vfx1;
     public GameObject m_Vfx2;
     public GameObject m_Vfx3;
@@ -60,7 +60,7 @@ public class BulletGrenadeAOE : MonoBehaviour
 
     private void Start()
     {
-        m_ScaleIncreaser = new Vector3(m_IncreaseValue, m_IncreaseValue, m_IncreaseValue);
+        m_ScaleIncreaser = new Vector3(m_CollisionScaleIncreaser, m_CollisionScaleIncreaser, m_CollisionScaleIncreaser);
         gameObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
         GameObject effect1 = Instantiate(m_Vfx1, transform.position, Quaternion.identity);
         GameObject effect2 = Instantiate(m_Vfx2, transform.position, Quaternion.identity);
