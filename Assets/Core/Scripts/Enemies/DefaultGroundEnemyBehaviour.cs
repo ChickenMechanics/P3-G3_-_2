@@ -15,6 +15,15 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
     private Quaternion m_LookRotation;
     #endregion
 
+    private GameObject m_PupilGO;
+
+
+    private void Awake()
+    {
+        m_PupilGO = transform.GetChild(0).transform.GetChild(0).Find("Pupil").gameObject;
+    }
+
+
     protected void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
     {
         position = agentTransform.position;
@@ -60,6 +69,8 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
                     SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_HURT, other.transform.position);
                 }
             }
+
+            //m_PupilGO.SetActive(false);
 
             //TakeDamage(other.GetComponent<BulletBehaviour>().m_DamageValue);
         }
