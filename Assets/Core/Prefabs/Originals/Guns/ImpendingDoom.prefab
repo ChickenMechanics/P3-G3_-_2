@@ -1482,7 +1482,7 @@ SkinnedMeshRenderer:
   - {fileID: 2100000, guid: cbb43a7cf77a0754c944fded8623aa9c, type: 2}
   - {fileID: 2100000, guid: e2c5484b2826bec46bc90cb7e4bb9e25, type: 2}
   - {fileID: 2100000, guid: 658affe9688cd34499f9810bdac354ec, type: 2}
-  - {fileID: 2100000, guid: fb412b1eb683ad842b1c7f3efa6ef1cc, type: 2}
+  - {fileID: 2100000, guid: 5c0a348054a410346a39b69400397d64, type: 2}
   - {fileID: 2100000, guid: 341dd2a6d9af1e64fa2ddf244eaba423, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1892,7 +1892,6 @@ MonoBehaviour:
   m_PositionOffset: {x: 0.32, y: -0.45, z: 0.45}
   m_RoundsPerMinute: 750
   m_MagSizeTotal: 40
-  m_ReloadTimeInSec: 1
   m_AdsSpread: 0.015
   m_HipSpread: 0.04
   m_MuzzleFlashVfx: {fileID: 6982183101995926013, guid: bb131a6db22ffec48b5110dc923083a1,
