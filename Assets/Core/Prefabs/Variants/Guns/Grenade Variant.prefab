@@ -93,5 +93,10 @@ PrefabInstance:
       propertyPath: m_EFiringSound
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 2377154834163811043, guid: 2a61f14fde1507f43ad7413628f5db50,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5c0a348054a410346a39b69400397d64, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a61f14fde1507f43ad7413628f5db50, type: 3}
