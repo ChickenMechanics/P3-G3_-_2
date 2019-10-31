@@ -147,24 +147,19 @@ public class BulletBehaviour : MonoBehaviour
     {
         ParticlVfxDestructionAnStuff();
 
-        if (m_ProjectileName == "Sniper")
-        {
-            Destroy(gameObject);
-        }
-        else if(m_ProjectileName == "Grenade")
+        if(m_ProjectileName == "Grenade")
         {
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ROCKET_IMPACT, transform.position);
 
             GameObject go = Instantiate(m_GrenadeImpactGO, transform.position, Quaternion.identity);
-//#if !DEBUG
-//            go.GetComponent<MeshRenderer>().enabled = false;
-//#endif
             BulletGrenadeAOE scr = go.GetComponent<BulletGrenadeAOE>();
+            scr.m_TargetScale = go.transform.localScale;
             scr.m_DamageValue = m_DamageValue;
             scr.m_GrenadeImpactLifetime = m_GrenadeImpactLifetime;
 
-            Destroy(gameObject);
         }
+
+        Destroy(gameObject);
     }
 
 
@@ -194,7 +189,7 @@ public class BulletBehaviour : MonoBehaviour
             if (m_CurrentLifeTime > m_MaxLifetimeInSec)
             {
                 ParticlVfxDestructionAnStuff();
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
     }

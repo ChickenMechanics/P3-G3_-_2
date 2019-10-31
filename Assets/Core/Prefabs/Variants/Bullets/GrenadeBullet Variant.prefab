@@ -136,12 +136,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_GrenadeImpactGO
       value: 
-      objectReference: {fileID: 1332226456487048833, guid: 695e4bd8d7c71244e9b7bab12843daea,
+      objectReference: {fileID: 7966284531875243428, guid: c59ca5b2ff92f7d44bf0974793f3d422,
         type: 3}
     - target: {fileID: -6895311752275026024, guid: a7daf822f92486d46b25f65da1fa819a,
         type: 3}
       propertyPath: m_GrenadeImpactLifetime
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7daf822f92486d46b25f65da1fa819a, type: 3}
