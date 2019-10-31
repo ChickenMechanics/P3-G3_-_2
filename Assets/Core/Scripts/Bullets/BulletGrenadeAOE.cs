@@ -64,8 +64,8 @@ public class BulletGrenadeAOE : MonoBehaviour
         gameObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
         GameObject effect1 = Instantiate(m_Vfx1, transform.position, Quaternion.identity);
         GameObject effect2 = Instantiate(m_Vfx2, transform.position, Quaternion.identity);
-        Destroy(effect1, m_GrenadeImpactLifetime);
-        Destroy(effect2, m_GrenadeImpactLifetime);
+        Destroy(effect1, effect1.GetComponent<ParticleSystem>().main.duration);
+        Destroy(effect2, effect2.GetComponent<ParticleSystem>().main.duration);
         Destroy(gameObject, m_GrenadeImpactLifetime);
     }
 
