@@ -122,7 +122,7 @@ public class BulletBehaviour : MonoBehaviour
     }
 
 
-    private void ParticleAndDestructionOutOfBounds()
+    private void ParticlVfxDestructionAnStuff()
     {
         if (m_WallClashParticle != null)
         {
@@ -131,9 +131,8 @@ public class BulletBehaviour : MonoBehaviour
             {
                 part.transform.forward = Camera.main.transform.forward * -1.0f;
                 part.transform.position = transform.position;
-                // comment/uncommnet for fireworks
                 part.transform.localScale = m_WallVfxScaleVec;
-                Destroy(part.gameObject, 0.5f);
+                Destroy(part.gameObject, 1.5f);
             }
         }
     }
@@ -147,19 +146,9 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (m_WallClashParticle != null)
-        {
-            ParticleSystem part = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>());
-            if (part != null)
-            {
-                part.transform.forward = Camera.main.transform.forward * -1.0f;
-                part.transform.position = transform.position;
-                part.transform.localScale = m_WallVfxScaleVec;
-                Destroy(part.gameObject, 0.1f);
-            }
-        }
+        ParticlVfxDestructionAnStuff();
 
-        if(m_ProjectileName == "Sniper")
+        if (m_ProjectileName == "Sniper")
         {
             Destroy(gameObject);
         }
@@ -177,8 +166,6 @@ public class BulletBehaviour : MonoBehaviour
 
             Destroy(gameObject);
         }
-
-        //Destroy(gameObject);
     }
 
 
@@ -193,7 +180,7 @@ public class BulletBehaviour : MonoBehaviour
 
             if (m_CurrentLifeTime > m_MaxLifetimeInSec)
             {
-                ParticleAndDestructionOutOfBounds();
+                ParticlVfxDestructionAnStuff();
                 Destroy(gameObject);
             }
         }
@@ -208,7 +195,7 @@ public class BulletBehaviour : MonoBehaviour
             transform.position += m_Force * Time.fixedDeltaTime;
             if (m_CurrentLifeTime > m_MaxLifetimeInSec)
             {
-                ParticleAndDestructionOutOfBounds();
+                ParticlVfxDestructionAnStuff();
                 Destroy(this);
             }
         }

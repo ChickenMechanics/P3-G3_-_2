@@ -105,4 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4554d23a33f40d94c84550c8e1a96329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Vfx1: {fileID: 7436816287566045272, guid: 0252c3ee7a26ac045879fe69b132aa1a, type: 3}
+  m_Vfx2: {fileID: 0}
+  m_Vfx3: {fileID: 0}
   m_DamageValue: 0
+  m_GrenadeImpactLifetime: 0

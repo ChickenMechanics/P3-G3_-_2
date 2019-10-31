@@ -77,22 +77,6 @@ public class SoundManager : MonoBehaviour
                 source.PlayDelayed((ulong)startDelay);
                 Destroy(obj, source.clip.length);
             }
-
-            //int soundSourceIdx = 0;
-            //int sourceCount = m_SoundObjs[(int)soundClipKey].m_SoundSource.Count;
-            //if (m_SoundObjs[(int)soundClipKey].m_SoundSource[i] != null)
-            //{
-            //    if(sourceCount > 0)
-            //    {
-            //        soundSourceIdx = Random.Range(0, sourceCount);
-            //    }
-            //
-            //    GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource[soundSourceIdx], position, Quaternion.identity, m_AudioFolder.transform);
-            //    obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
-            //    AudioSource source = obj.GetComponent<AudioSource>();
-            //    source.PlayDelayed((ulong)startDelay);
-            //    Destroy(obj, source.clip.length);
-            //}
         }
     }
 
@@ -209,7 +193,6 @@ public class SoundManager : MonoBehaviour
         WhatsThis();
 //#endif
     }
-
 
     #region the stash
 //#if DEBUG
