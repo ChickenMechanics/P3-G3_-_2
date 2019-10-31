@@ -22,6 +22,7 @@ public class SoundManager : MonoBehaviour
         ENEMY_FOOTSTEPS,
         ROCKET_SHOT,
         ROCKET_IMPACT,
+        PLAYER_DASH,
         SIZE
     }
 
@@ -37,7 +38,9 @@ public class SoundManager : MonoBehaviour
     {
         public string AliasName;
         public ESoundClip m_ESound;
-        public List<GameObject> m_SoundSource;
+        public GameObject m_SoundSource;
+        [Range(1.0f, 2.0f)]
+        public float m_PitchRange;
         [HideInInspector]
         public float m_PrevTime;
     }
@@ -56,34 +59,24 @@ public class SoundManager : MonoBehaviour
                 startDelay = 44100.0f * startDelay; // Hz to sec... or something like that
             }
 
-            int soundSourceIdx = 0;
-            int sourceCount = m_SoundObjs[(int)soundClipKey].m_SoundSource.Count;
-            for (int i = 0; i < sourceCount; ++i)
+            if (m_SoundObjs[(int)soundClipKey].m_SoundSource != null)
             {
-                if (m_SoundObjs[(int)soundClipKey].m_SoundSource[i] != null)
+                GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource, position, Quaternion.identity, m_AudioFolder.transform);
+                obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
+                AudioSource source = obj.GetComponent<AudioSource>();
+
+                if (m_SoundObjs[(int)soundClipKey].m_PitchRange != 1.0f)
                 {
-                    if(sourceCount > 0)
-                    {
-                        soundSourceIdx = Random.Range(0, sourceCount);
-                    }
-
-                    GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource[soundSourceIdx], position, Quaternion.identity, m_AudioFolder.transform);
-                    obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
-                    AudioSource source = obj.GetComponent<AudioSource>();
-                    //source.PlayDelayed((ulong)startDelay);
-                    source.Play();
-                    Destroy(obj, source.clip.length);
+                    float pitchValue = m_SoundObjs[(int)soundClipKey].m_PitchRange;
+                    float valueOne = 1.0f + (1.0f - pitchValue);
+                    float valueTwo = pitchValue;
+                    float randPitch = Random.Range(valueOne, valueTwo);
+                    source.pitch = randPitch;
                 }
-            }
 
-            //if(m_SoundObjs[(int)soundClipKey].m_SoundSource != null)
-            //{
-            //    GameObject obj = Instantiate(m_SoundObjs[(int)soundClipKey].m_SoundSource, position, Quaternion.identity, m_AudioFolder.transform);
-            //    obj.name = m_SoundObjs[(int)soundClipKey].AliasName;
-            //    AudioSource source = obj.GetComponent<AudioSource>();
-            //    source.PlayDelayed((ulong)startDelay);
-            //    Destroy(obj, source.clip.length);
-            //}
+                source.PlayDelayed((ulong)startDelay);
+                Destroy(obj, source.clip.length);
+            }
         }
     }
 
@@ -128,7 +121,7 @@ public class SoundManager : MonoBehaviour
             case ESoundClip.ENEMY_SPAWN:        return TimeChecker(soundClipKey);
             case ESoundClip.PLAYER_HURT:        return TimeChecker(soundClipKey);
             case ESoundClip.PLAYER_FOOTSTEPS:   return TimeChecker(soundClipKey);
-            case ESoundClip.GUN_AR_SHOT:        return TimeChecker(soundClipKey);
+            //case ESoundClip.GUN_AR_SHOT:        return TimeChecker(soundClipKey);
             default:                            return true;
         }
     }
@@ -201,7 +194,6 @@ public class SoundManager : MonoBehaviour
 //#endif
     }
 
-
     #region the stash
 //#if DEBUG
     private List<GameObject> m_SuperSecret;
@@ -212,7 +204,24 @@ public class SoundManager : MonoBehaviour
     private void WhatsThis()
     {
         m_SuperSecret = new List<GameObject>();
-        List<string> tunes = new List<string> { "HempressSativa-RockItInaDance", "Protoje-Protection", "Protoje-WhoKnows", "SamoryI-RastaNuhGangsta" };
+        List<string> tunes = new List<string>
+        {
+            "HempressSativa-RockItInaDance",
+            "Protoje-Protection",
+            "Protoje-WhoKnows",
+            "SamoryI-RastaNuhGangsta",
+            "CollieBuddz-BlindToYou",
+            "EddieMurphy-OhJahJah",
+            "DamianMarley-SlaveMill",
+            "HempressSativa-OohLaLaLA",
+            "Alborosie-StillBlazing",
+            "AriseRoots-RootsmanTown",
+            "LutanFyah-Criminal",
+            "Capleton-HelpTheWeak",
+            "SkipMarley-That'sNotTrue",
+            "Capelton-ProphetRidesAgain"
+        };
+
         for (int i = 0; i < tunes.Count; ++i)
         {
             GameObject go = new GameObject("tunes");

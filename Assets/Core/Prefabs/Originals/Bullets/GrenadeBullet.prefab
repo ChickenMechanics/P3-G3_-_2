@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 125697971321732113}
   - component: {fileID: -3714977004230487700}
   - component: {fileID: -6895311752275026024}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GrenadeBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5494616646066866411}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.43042, y: 5.219824, z: -2.5042362}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -120,11 +120,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acd2199b7705fc1448f8fba9c3b74023, type: 3}
-  m_Name: 
+  m_Name: Grenade
   m_EditorClassIdentifier: 
   m_WallClashParticle: {fileID: 4786501476409834013, guid: fb76fe54ab20ef14bbbf6969d20b68a0,
     type: 3}
-  m_WallClashScale: 0.1
+  m_WallClashScale: 0.75
   m_GlowParticle: {fileID: 8851218480842971301, guid: c23ff6348bf4428489ce37dcb990ef04,
     type: 3}
   m_GlowScale: 0.1
@@ -134,7 +134,10 @@ MonoBehaviour:
   m_TrailRender: {fileID: 5295617487119369753, guid: 4643d40c538014c4e97f27f635d2889a,
     type: 3}
   m_TrailScale: 1
-  m_DamageValue: 50
-  m_Speed: 60
-  m_DropOff: 0
+  m_ProjectileName: Grenade
+  m_DamageValue: 500
+  m_Speed: 30
   m_MaxLifetimeInSec: 5
+  m_IsPhysicsBased: 1
+  m_GrenadeImpactGO: {fileID: 0}
+  m_GrenadeImpactLifetime: 1

@@ -380,7 +380,8 @@ public class HUDManager : MonoBehaviour
         }
 
         string scaleSymbol = "x ";
-        float multi = TruncateFloat(m_ScoreManScr.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);
+        //float multi = TruncateFloat(m_ScoreManScr.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);  // saved if artists change their mind about decimals
+        int multi = (int)TruncateFloat(m_ScoreManScr.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);
         m_Multiplier.text = string.Concat(scaleSymbol, multi.ToString());
 
         // things that probably goes to endscreen

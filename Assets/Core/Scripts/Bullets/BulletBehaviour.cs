@@ -16,10 +16,13 @@ public class BulletBehaviour : MonoBehaviour
     public GameObject m_TrailRender;
     public float m_TrailScale = 1.0f;
     [Header("Properties")]
+    public string m_ProjectileName;
     public float m_DamageValue = 25.0f;
     public float m_Speed;
     public float m_MaxLifetimeInSec = 5.0f;
     public bool m_IsPhysicsBased = false;
+    public GameObject m_GrenadeImpactGO;
+    public float m_GrenadeImpactLifetime;
     #endregion
 
     #region vfx
@@ -50,7 +53,6 @@ public class BulletBehaviour : MonoBehaviour
         m_Rb = GetComponent<Rigidbody>();
         m_WallVfxScaleVec = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
 
-        // Saved if we wan't physics based projectiles
         if (m_IsPhysicsBased == true)
         {
             m_Rb.useGravity = true;
@@ -98,7 +100,7 @@ public class BulletBehaviour : MonoBehaviour
         transform.forward = dir;
         m_Force = dir * m_Speed;
 
-        #region vfx
+#region vfx
         if (m_Glow != null)
         {
             m_Glow.transform.position = transform.position;
@@ -113,13 +115,13 @@ public class BulletBehaviour : MonoBehaviour
         {
             m_Trail.transform.position = transform.position;
         }
-        #endregion
+#endregion
 
         gameObject.SetActive(true);
     }
 
 
-    private void ParticleAndDestructionStuff()
+    private void ParticlVfxDestructionAnStuff()
     {
         if (m_WallClashParticle != null)
         {
@@ -128,9 +130,8 @@ public class BulletBehaviour : MonoBehaviour
             {
                 part.transform.forward = Camera.main.transform.forward * -1.0f;
                 part.transform.position = transform.position;
-                // comment/uncommnet for fireworks
                 part.transform.localScale = m_WallVfxScaleVec;
-                Destroy(part.gameObject, 0.5f);
+                Destroy(part.gameObject, 1.5f);
             }
         }
     }
@@ -144,16 +145,18 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (m_WallClashParticle != null)
+        ParticlVfxDestructionAnStuff();
+
+        if(m_ProjectileName == "Grenade")
         {
-            ParticleSystem part = Instantiate(m_WallClashParticle.GetComponent<ParticleSystem>());
-            if (part != null)
-            {
-                part.transform.forward = Camera.main.transform.forward * -1.0f;
-                part.transform.position = transform.position;
-                part.transform.localScale = m_WallVfxScaleVec;
-                Destroy(part.gameObject, 0.1f);
-            }
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ROCKET_IMPACT, transform.position);
+
+            GameObject go = Instantiate(m_GrenadeImpactGO, transform.position, Quaternion.identity);
+            BulletGrenadeAOE scr = go.GetComponent<BulletGrenadeAOE>();
+            scr.m_TargetScale = go.transform.localScale;
+            scr.m_DamageValue = m_DamageValue;
+            scr.m_GrenadeImpactLifetime = m_GrenadeImpactLifetime;
+
         }
 
         Destroy(gameObject);
@@ -164,14 +167,13 @@ public class BulletBehaviour : MonoBehaviour
     {
         m_CurrentLifeTime += Time.deltaTime;
 
-        // Saved if we want physics based projectiles
         if (m_IsPhysicsBased == false)
         {
             transform.position += m_Force * Time.deltaTime;
 
             if (m_CurrentLifeTime > m_MaxLifetimeInSec)
             {
-                ParticleAndDestructionStuff();
+                ParticlVfxDestructionAnStuff();
                 Destroy(gameObject);
             }
         }
@@ -186,8 +188,8 @@ public class BulletBehaviour : MonoBehaviour
             transform.position += m_Force * Time.fixedDeltaTime;
             if (m_CurrentLifeTime > m_MaxLifetimeInSec)
             {
-                ParticleAndDestructionStuff();
-                Destroy(this);
+                ParticlVfxDestructionAnStuff();
+                Destroy(gameObject);
             }
         }
     }

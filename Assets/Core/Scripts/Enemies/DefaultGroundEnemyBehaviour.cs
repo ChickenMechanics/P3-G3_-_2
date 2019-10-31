@@ -50,13 +50,37 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
     {
         if (other.gameObject.layer == 13)   // == projectile
         {
-            TakeDamage(other.GetComponent<BulletBehaviour>().m_DamageValue);
-#if DEBUG
-            if (SoundManager.GetInstance != null)
-#endif
+            if (other.gameObject.GetComponent<BulletBehaviour>() != null)
             {
-                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_HURT, other.transform.position);
+                TakeDamage(other.GetComponent<BulletBehaviour>().GetDmgValue());
+#if DEBUG
+                if (SoundManager.GetInstance != null)
+#endif
+                {
+                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_HURT, other.transform.position);
+                }
             }
+
+            //TakeDamage(other.GetComponent<BulletBehaviour>().m_DamageValue);
+        }
+    }
+
+    private void OnTriggerStay(Component other)
+    {
+        if (other.gameObject.layer == 13)   // == projectile
+        {
+            if (other.gameObject.GetComponent<BulletGrenadeAOE>() != null)
+            {
+                TakeDamage(other.GetComponent<BulletGrenadeAOE>().GetDmgValue());
+#if DEBUG
+                if (SoundManager.GetInstance != null)
+#endif
+                {
+                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_HURT, other.transform.position);
+                }
+            }
+
+            //TakeDamage(other.GetComponent<BulletBehaviour>().m_DamageValue);
         }
     }
 

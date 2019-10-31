@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 2598895618850702798, guid: ddb985d4d79d24e4787c3a436cc7b68e,
         type: 3}
       propertyPath: m_Name
-      value: UTouchURepoBanned_Spawner
+      value: UTouchUGetRepoBanned_Proxy
       objectReference: {fileID: 0}
     - target: {fileID: 6080358555210336442, guid: ddb985d4d79d24e4787c3a436cc7b68e,
         type: 3}
@@ -67,16 +67,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2586103860020660805, guid: ddb985d4d79d24e4787c3a436cc7b68e,
-        type: 3}
-      propertyPath: m_EnemyToSpawn
-      value: 
-      objectReference: {fileID: 8370674024879462000, guid: 22eb55cf1f357c844bf94c29315b20db,
-        type: 3}
     - target: {fileID: -233892430446698763, guid: ddb985d4d79d24e4787c3a436cc7b68e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9efd8b9e7db3e384595421ef023c8115, type: 2}
+    - target: {fileID: 2586103860020660805, guid: ddb985d4d79d24e4787c3a436cc7b68e,
+        type: 3}
+      propertyPath: m_EnemyToSpawn
+      value: 
+      objectReference: {fileID: 5004918131831818032, guid: 56eaefa5b9f997348be7ca082451ae49,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddb985d4d79d24e4787c3a436cc7b68e, type: 3}
