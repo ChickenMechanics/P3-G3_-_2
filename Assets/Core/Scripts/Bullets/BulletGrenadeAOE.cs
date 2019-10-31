@@ -62,8 +62,10 @@ public class BulletGrenadeAOE : MonoBehaviour
     {
         m_ScaleIncreaser = new Vector3(m_IncreaseValue, m_IncreaseValue, m_IncreaseValue);
         gameObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-        GameObject go1 = Instantiate(m_Vfx1, transform.position, Quaternion.identity);
-        Destroy(go1, m_GrenadeImpactLifetime);
+        GameObject effect1 = Instantiate(m_Vfx1, transform.position, Quaternion.identity);
+        GameObject effect2 = Instantiate(m_Vfx2, transform.position, Quaternion.identity);
+        Destroy(effect1, m_GrenadeImpactLifetime);
+        Destroy(effect2, m_GrenadeImpactLifetime);
         Destroy(gameObject, m_GrenadeImpactLifetime);
 
         //gameObject.GetComponent<MeshRenderer>().enabled = false;
