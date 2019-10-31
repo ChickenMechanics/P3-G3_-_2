@@ -53,7 +53,6 @@ public class BulletBehaviour : MonoBehaviour
         m_Rb = GetComponent<Rigidbody>();
         m_WallVfxScaleVec = new Vector3(m_WallClashScale, m_WallClashScale, m_WallClashScale);
 
-        // Saved if we wan't physics based projectiles
         if (m_IsPhysicsBased == true)
         {
             m_Rb.useGravity = true;
@@ -173,7 +172,6 @@ public class BulletBehaviour : MonoBehaviour
     {
         m_CurrentLifeTime += Time.deltaTime;
 
-        // Saved if we want physics based projectiles
         if (m_IsPhysicsBased == false)
         {
             transform.position += m_Force * Time.deltaTime;

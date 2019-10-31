@@ -20,7 +20,8 @@ public class BulletGrenadeAOE : MonoBehaviour
 
     private void Start()
     {
-        
+        GameObject go1 = Instantiate(m_Vfx1, transform.position, Quaternion.identity);
+        Destroy(go1, 2.0f);
     }
 
 
