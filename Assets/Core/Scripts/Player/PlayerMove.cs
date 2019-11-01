@@ -18,7 +18,8 @@ public class PlayerMove : MonoBehaviour
     public float m_DashAcceleration;
     [HideInInspector]
     public float m_DashActiveTime = 0.25f;
-    public float m_DashCooldown = 1.0f;
+    public float m_DashCooldown;
+    public float m_PlayerGravity;
     #endregion
 
     private PlayerCtrl m_PlayerCtrlScr;
@@ -185,7 +186,7 @@ public class PlayerMove : MonoBehaviour
         {
             if(hit.distance > 0.1f)
             {
-                m_Rb.AddRelativeForce(new Vector3(0.0f, -50.0f, 0.0f), ForceMode.Force);
+                m_Rb.AddRelativeForce(new Vector3(0.0f, m_PlayerGravity, 0.0f), ForceMode.Force);
             }
         }
 
