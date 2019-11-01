@@ -45,6 +45,8 @@ public class CrawlerBehaviour : EnemyBehaviour
     {
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.ATTACK);
 
+        m_Agent.isStopped = true;
+
         if (m_TimeToNextAttack <= 0)
         {
             UpdateDistanceToPlayer();
@@ -86,7 +88,10 @@ public class CrawlerBehaviour : EnemyBehaviour
         UpdateDistanceToPlayer();
 
         if (distanceToPlayer > attackRange)
+        {
+            m_Agent.isStopped = false;
             MoveTowardsPlayer(transform, m_Agent);
+        }
         else
             currentState = State.ATTACK;
     }
