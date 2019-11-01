@@ -12,13 +12,11 @@ public class CrawlerBehaviour : EnemyBehaviour
     public float attackAngle;
     
     private EnemyCrawlerAnimation m_Anims;
-    private NavMeshAgent m_Agent;
     private float m_TimeToNextAttack;
     
     // Start is called before the first frame update
     private void Start()
     {
-        m_Agent = GetComponent<NavMeshAgent>();
         currentState = State.MOVE;
         m_Anims = gameObject.GetComponent<EnemyCrawlerAnimation>();
         hp = health;
@@ -43,7 +41,7 @@ public class CrawlerBehaviour : EnemyBehaviour
     {
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.ATTACK);
 
-        m_Agent.isStopped = true;
+        agent.isStopped = true;
 
         if (m_TimeToNextAttack <= 0)
         {
@@ -88,7 +86,7 @@ public class CrawlerBehaviour : EnemyBehaviour
 
         if (distanceToPlayer > attackRange)
         {
-            m_Agent.isStopped = false;
+            agent.isStopped = false;
             MoveTowardsPlayer();
         }
         else

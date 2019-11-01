@@ -11,6 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
     protected float hp;
     protected Vector3 playerPos;
     protected Vector3 lookPosition;
+    protected NavMeshAgent agent;
 
     private Quaternion m_LookRotation;
     #endregion
@@ -26,6 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Awake()
     {
+        agent = GetComponent<NavMeshAgent>();
         m_PupilGO = transform.GetChild(0).transform.GetChild(0).Find("Pupil").gameObject;
         m_TargetEyeFlasherTime = 0.075f;
         m_NowEyeFlasherTime = 0.0f;
