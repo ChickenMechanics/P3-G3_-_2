@@ -26,30 +26,36 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Awake()
     {
-        m_PupilGO = transform.GetChild(0).transform.GetChild(0).Find("Pupil").gameObject;
-        m_TargetEyeFlasherTime = 0.075f;
-        m_NowEyeFlasherTime = 0.0f;
-        m_EyeFlasherFunctionOnOffTime = 1.0f;
-        m_EyeFlasherFunctionOnOff = 0.0f;
-        m_EyeOnOff = false;
-        m_IsEyeFlash = false;
+        if(transform.childCount > 1)    // special case for flying enemy as that object hierarchy is different then the rest
+        {
+            m_PupilGO = transform.GetChild(0).transform.GetChild(0).Find("Pupil").gameObject;
+            m_TargetEyeFlasherTime = 0.075f;
+            m_NowEyeFlasherTime = 0.0f;
+            m_EyeFlasherFunctionOnOffTime = 1.0f;
+            m_EyeFlasherFunctionOnOff = 0.0f;
+            m_EyeOnOff = false;
+            m_IsEyeFlash = false;
+        }
     }
 
 
     private void Update()
     {
-        if(m_IsEyeFlash == true)
+        if(m_PupilGO != null)
         {
-            m_EyeFlasherFunctionOnOff += Time.deltaTime;
-            if(m_EyeFlasherFunctionOnOff > m_EyeFlasherFunctionOnOffTime)
+            if (m_IsEyeFlash == true)
             {
-                m_EyeFlasherFunctionOnOff = 0.0f;
-                m_IsEyeFlash = false;
-                m_EyeOnOff = false;
-                m_PupilGO.SetActive(true);
-            }
+                m_EyeFlasherFunctionOnOff += Time.deltaTime;
+                if (m_EyeFlasherFunctionOnOff > m_EyeFlasherFunctionOnOffTime)
+                {
+                    m_EyeFlasherFunctionOnOff = 0.0f;
+                    m_IsEyeFlash = false;
+                    m_EyeOnOff = false;
+                    m_PupilGO.SetActive(true);
+                }
 
-            EyeFlasherLogic();
+                EyeFlasherLogic();
+            }
         }
     }
 
@@ -111,7 +117,10 @@ public class EnemyBehaviour : MonoBehaviour
                     SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_HURT, other.transform.position);
                 }
 
-                m_IsEyeFlash = true;
+                if(m_PupilGO != null)
+                {
+                    m_IsEyeFlash = true;
+                }
             }
 
             //TakeDamage(other.GetComponent<BulletBehaviour>().m_DamageValue);
