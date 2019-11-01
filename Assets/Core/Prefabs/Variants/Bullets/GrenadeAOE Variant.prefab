@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrenadeAOE Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7868346546924757674, guid: 6b143774ae969e948a9d970d39d21382,
+        type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 6610988022262864655, guid: 6b143774ae969e948a9d970d39d21382,
         type: 3}
       propertyPath: m_LocalPosition.x

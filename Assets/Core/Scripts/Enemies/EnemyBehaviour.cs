@@ -23,6 +23,10 @@ public class EnemyBehaviour : MonoBehaviour
     private bool m_EyeOnOff;
     private bool m_IsEyeFlash;
 
+    private float m_CanTakeGrenadeDmgTime;
+    private float m_CanTakeGrenadeDmgTimeNow;
+    private bool m_IsTakingGrenade;
+
 
     private void Awake()
     {
@@ -35,13 +39,22 @@ public class EnemyBehaviour : MonoBehaviour
             m_EyeFlasherFunctionOnOff = 0.0f;
             m_EyeOnOff = false;
             m_IsEyeFlash = false;
+
+            m_CanTakeGrenadeDmgTime = 0.75f;
+            m_CanTakeGrenadeDmgTimeNow = m_CanTakeGrenadeDmgTime;
+            m_IsTakingGrenade = false;
         }
     }
 
 
     private void Update()
     {
-        if(m_PupilGO != null)
+        if(m_IsTakingGrenade == true)
+        {
+            CanTakeGrenadeDmgCounter();
+        }
+
+        if (m_PupilGO != null)
         {
             if (m_IsEyeFlash == true)
             {
@@ -56,6 +69,17 @@ public class EnemyBehaviour : MonoBehaviour
 
                 EyeFlasherLogic();
             }
+        }
+    }
+
+
+    private void CanTakeGrenadeDmgCounter()
+    {
+        m_CanTakeGrenadeDmgTimeNow -= Time.deltaTime;
+        if(m_CanTakeGrenadeDmgTimeNow < 0.0f)
+        {
+            m_CanTakeGrenadeDmgTimeNow = m_CanTakeGrenadeDmgTime;
+            m_IsTakingGrenade = false;
         }
     }
 
@@ -87,10 +111,12 @@ public class EnemyBehaviour : MonoBehaviour
         agent.SetDestination(playerPos);
     }
 
+
     protected void UpdatePlayerPos()
     {
         playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
     }
+
 
     protected void UpdateDistanceToPlayer()
     {
@@ -102,6 +128,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         lookPosition.y = 0;
     }
+
 
     private void OnTriggerEnter(Component other)
     {
@@ -122,35 +149,43 @@ public class EnemyBehaviour : MonoBehaviour
                     m_IsEyeFlash = true;
                 }
             }
-
-            //TakeDamage(other.GetComponent<BulletBehaviour>().m_DamageValue);
         }
     }
+
 
     private void OnTriggerStay(Component other)
     {
-        if (other.gameObject.layer == 13)   // == projectile
+        if (m_IsTakingGrenade == false)
         {
-            if (other.gameObject.GetComponent<BulletGrenadeAOE>() != null)
+            if (other.gameObject.layer == 17)   // == grenade
             {
-                TakeDamage(other.GetComponent<BulletGrenadeAOE>().GetDmgValue());
-#if DEBUG
-                if (SoundManager.GetInstance != null)
-#endif
+                if (other.gameObject.GetComponent<BulletGrenadeAOE>() != null)
                 {
-                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_HURT, other.transform.position);
+                    TakeDamage(other.GetComponent<BulletGrenadeAOE>().GetDmgValue());
+                    m_IsTakingGrenade = true;
+#if DEBUG
+                    if (SoundManager.GetInstance != null)
+#endif
+                    {
+                        SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_HURT, other.transform.position);
+                    }
+
+                    if (m_PupilGO != null)
+                    {
+                        m_IsEyeFlash = true;
+                    }
                 }
             }
-
-            //TakeDamage(other.GetComponent<BulletBehaviour>().m_DamageValue);
         }
     }
+
 
     public void TakeDamage(float damageValue)
     {
         hp -= damageValue;
-
         if (hp <= 0)
+        {
             currentState = State.DEATH;
+        }
     }
 }
