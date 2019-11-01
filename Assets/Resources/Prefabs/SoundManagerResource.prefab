@@ -94,7 +94,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Reloading (overheating)
     m_ESound: 8
-    m_SoundSource: {fileID: 4959015179251351453, guid: a82c364733e04634194641ea2bd2342c,
+    m_SoundSource: {fileID: 4527327238043068471, guid: f8693842a451ac04989ee6efdb6249e4,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
