@@ -83,7 +83,7 @@ public class BomberBehaviour : EnemyBehaviour
     {
         //m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.WALK);
 
-        MoveTowardsPlayer(transform, m_Agent);
+        MoveTowardsPlayer();
 
         if (distanceToPlayer < attackRange)
             currentState = State.ATTACK;

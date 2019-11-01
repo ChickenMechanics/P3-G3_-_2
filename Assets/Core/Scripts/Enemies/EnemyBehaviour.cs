@@ -66,17 +66,16 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
 
-    protected void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
+    protected void MoveTowardsPlayer()
     {
-        transform.position = agentTransform.position;
-        var rotation = agentTransform.rotation;
+        var rotation = transform.rotation;
 
         UpdateDistanceToPlayer();
 
         if (lookPosition != Vector3.zero)
             m_LookRotation = Quaternion.LookRotation(lookPosition);
 
-        agentTransform.rotation = Quaternion.Slerp(rotation, m_LookRotation, 0.1f);
+        transform.rotation = Quaternion.Slerp(rotation, m_LookRotation, 0.1f);
 
         agent.SetDestination(playerPos);
     }

@@ -90,7 +90,7 @@ public class CrawlerBehaviour : EnemyBehaviour
         if (distanceToPlayer > attackRange)
         {
             m_Agent.isStopped = false;
-            MoveTowardsPlayer(transform, m_Agent);
+            MoveTowardsPlayer();
         }
         else
             currentState = State.ATTACK;
