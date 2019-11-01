@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
+public class CrawlerBehaviour : EnemyBehaviour
 {
     public float damageAmount;
     public float scoreAmount;
@@ -13,6 +13,8 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
     
     private EnemyCrawlerAnimation m_Anims;
     private NavMeshAgent m_Agent;
+    private float timeToNextAttack;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -30,29 +32,36 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
     {
         switch (currentState)
         {
-            case  State.ATTACK: StartCoroutine(Attack()); break;
+            case  State.ATTACK: Attack(); break;
             case  State.DEATH:                 Death();   break;
             case  State.MOVE:                  Move();    break;
         }
+
+        timeToNextAttack -= Time.deltaTime;
     }
     
-    private IEnumerator Attack()
+    private void Attack()
     {
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.ATTACK);
 
-        yield return new WaitForSeconds(attackDuration);
-
-        UpdatePlayerPos();
-
-        UpdateDistanceToPlayer();
-
-        if (Mathf.Abs(Vector3.Angle(position, playerPos) - 90f) < attackAngle &&
-            distanceToPlayer <= attackRange)
+        if (timeToNextAttack <= 0)
         {
-            PlayerManager.GetInstance.DecreaseHealth(damageAmount);
-        }
+            UpdateDistanceToPlayer();
 
-        currentState = State.MOVE;
+            if (Mathf.Abs(Vector3.Angle(transform.position, playerPos) - 90f) < attackAngle &&
+                distanceToPlayer <= attackRange)
+            {
+                PlayerManager.GetInstance.DecreaseHealth(damageAmount);
+            }
+
+            timeToNextAttack = attackDuration;
+            currentState = State.MOVE;
+        }
+        else
+        {
+            timeToNextAttack -= Time.deltaTime;
+            currentState = State.MOVE;
+        }
     }
 
     private void Death()
@@ -73,9 +82,11 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
     {
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.WALK);
 
-        MoveTowardsPlayer(transform, m_Agent);
+        UpdateDistanceToPlayer();
 
-        if (distanceToPlayer < attackRange)
+        if (distanceToPlayer > attackRange)
+            MoveTowardsPlayer(transform, m_Agent);
+        else
             currentState = State.ATTACK;
     }
 }
