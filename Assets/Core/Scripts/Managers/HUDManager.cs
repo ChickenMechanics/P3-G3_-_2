@@ -57,6 +57,7 @@ public class HUDManager : MonoBehaviour
     private Image m_HealthRightImg;
     private Image m_ComboMeterImg;
     private Image m_WaveMeterImg;
+    private Image[] m_PlayerCracks;
     private Text m_ScoreTxt;
     private Text m_ChainTxt;
     private Text m_Multiplier;
@@ -114,6 +115,9 @@ public class HUDManager : MonoBehaviour
     private GradientColorKey[] m_ColorKey;
     private GradientAlphaKey[] m_AlphaKey;
     private Gradient m_RingGradient;
+
+    // cracks
+    private bool[] m_IsCrack;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -236,6 +240,19 @@ public class HUDManager : MonoBehaviour
         m_AlphaKey[1].time = 0.5f;
         m_AlphaKey[2].alpha = 1.0f;
         m_AlphaKey[2].time = 0.0f;
+
+        // cracks
+        m_PlayerCracks = new Image[4];
+        m_PlayerCracks[0] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_1").GetComponent<Image>();
+        m_PlayerCracks[1] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_2").GetComponent<Image>();
+        m_PlayerCracks[2] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_3").GetComponent<Image>();
+        m_PlayerCracks[3] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_4").GetComponent<Image>();
+
+        m_IsCrack = new bool[4];
+        for(int i = 0; i < 4; ++i)
+        {
+            m_IsCrack[i] = false;
+        }
     }
 
 
@@ -327,6 +344,45 @@ public class HUDManager : MonoBehaviour
         m_PrevHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerManScr.GetCurrentHealth, m_PlayerManScr.GetBaseHealth), 0.2f);
         m_HealthLeftImg.fillAmount = m_PrevHealth;
         m_HealthRightImg.fillAmount = m_PrevHealth;
+
+        CrackUpdate();
+    }
+
+
+    private void CrackUpdate()
+    {
+        if(m_IsCrack[0] == false)
+        {
+            if (PlayerManager.GetInstance.GetCurrentHealth < 80.1f)
+            {
+                m_IsCrack[0] = true;
+                m_PlayerCracks[0].gameObject.SetActive(true);
+            }
+        }
+        else if (m_IsCrack[1] == false)
+        {
+            if (PlayerManager.GetInstance.GetCurrentHealth < 60.1f)
+            {
+                m_IsCrack[1] = true;
+                m_PlayerCracks[1].gameObject.SetActive(true);
+            }
+        }
+        else if (m_IsCrack[2] == false)
+        {
+            if (PlayerManager.GetInstance.GetCurrentHealth < 40.1f)
+            {
+                m_IsCrack[2] = true;
+                m_PlayerCracks[2].gameObject.SetActive(true);
+            }
+        }
+        else if (m_IsCrack[3] == false)
+        {
+            if (PlayerManager.GetInstance.GetCurrentHealth < 20.1f)
+            {
+                m_IsCrack[3] = true;
+                m_PlayerCracks[3].gameObject.SetActive(true);
+            }
+        }
     }
 
 
