@@ -2,12 +2,11 @@
 using UnityEngine.AI;
 using System.Collections;
 
-public class DefaultGroundEnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour
 {
     #region Header
     protected enum State { ATTACK, DEATH, MOVE }
     protected State currentState;
-    protected Vector3 position;
     protected float distanceToPlayer;
     protected float hp;
     protected Vector3 playerPos;
@@ -69,7 +68,7 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
 
     protected void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
     {
-        position = agentTransform.position;
+        transform.position = agentTransform.position;
         var rotation = agentTransform.rotation;
 
         UpdateDistanceToPlayer();
@@ -91,7 +90,7 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
     {
         UpdatePlayerPos();
 
-        lookPosition = playerPos - position;
+        lookPosition = playerPos - transform.position;
         
         distanceToPlayer = lookPosition.magnitude;
 
