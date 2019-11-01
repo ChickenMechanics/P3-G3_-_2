@@ -13,7 +13,7 @@ public class CrawlerBehaviour : EnemyBehaviour
     
     private EnemyCrawlerAnimation m_Anims;
     private NavMeshAgent m_Agent;
-    private float timeToNextAttack;
+    private float m_TimeToNextAttack;
 
 
     // Start is called before the first frame update
@@ -23,6 +23,7 @@ public class CrawlerBehaviour : EnemyBehaviour
         currentState = State.MOVE;
         m_Anims = gameObject.GetComponent<EnemyCrawlerAnimation>();
         hp = health;
+        m_TimeToNextAttack = attackDuration;
 
         SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ENEMY_SPAWN, transform.position);
     }
@@ -37,14 +38,14 @@ public class CrawlerBehaviour : EnemyBehaviour
             case  State.MOVE:                  Move();    break;
         }
 
-        timeToNextAttack -= Time.deltaTime;
+        m_TimeToNextAttack -= Time.deltaTime;
     }
     
     private void Attack()
     {
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.ATTACK);
 
-        if (timeToNextAttack <= 0)
+        if (m_TimeToNextAttack <= 0)
         {
             UpdateDistanceToPlayer();
 
@@ -54,12 +55,12 @@ public class CrawlerBehaviour : EnemyBehaviour
                 PlayerManager.GetInstance.DecreaseHealth(damageAmount);
             }
 
-            timeToNextAttack = attackDuration;
+            m_TimeToNextAttack = attackDuration;
             currentState = State.MOVE;
         }
         else
         {
-            timeToNextAttack -= Time.deltaTime;
+            m_TimeToNextAttack -= Time.deltaTime;
             currentState = State.MOVE;
         }
     }
