@@ -77,7 +77,8 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Hurt
     m_ESound: 2
-    m_SoundSource: {fileID: 0}
+    m_SoundSource: {fileID: 8795468680770503695, guid: 2cf6776585899a042a9281f1a6b8b073,
+      type: 3}
     m_PitchRange: 1.25
     m_PrevTime: 0
   - AliasName: Combat Music
@@ -112,24 +113,25 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Footsteps
     m_ESound: 11
-    m_SoundSource: {fileID: 0}
+    m_SoundSource: {fileID: 3853858170312646152, guid: 0b57d3c7c3febfc46a4fde3f81c072cf,
+      type: 3}
     m_PitchRange: 1.25
     m_PrevTime: 0
   - AliasName: Rocket Shot
     m_ESound: 13
-    m_SoundSource: {fileID: 5557713218744007603, guid: 091213138c86e0e489a8acb04da253ae,
+    m_SoundSource: {fileID: 8547104688784681372, guid: 7427f462adb00b84fa16d59e94a13d01,
       type: 3}
     m_PitchRange: 1.06
     m_PrevTime: 0
   - AliasName: Rocket Impact
     m_ESound: 14
-    m_SoundSource: {fileID: 3537769969862850243, guid: 9608b1552c2f3ec4698e1e2686a92139,
+    m_SoundSource: {fileID: 7906836068178854871, guid: a31339942103c264e84d30cf221b445a,
       type: 3}
     m_PitchRange: 1.17
     m_PrevTime: 0
   - AliasName: Player Dash
     m_ESound: 15
-    m_SoundSource: {fileID: 6923362568319295104, guid: d28957104c2be894997fef0d9d81e51f,
+    m_SoundSource: {fileID: 2029132503486159849, guid: 7abbc1ff44b975b48bf6941a82f1bb9d,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
