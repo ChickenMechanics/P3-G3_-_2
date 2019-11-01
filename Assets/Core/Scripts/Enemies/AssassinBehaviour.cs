@@ -1,4 +1,4 @@
-﻿public class AssassinBehaviour : DefaultGroundEnemyBehaviour
+﻿public class AssassinBehaviour : EnemyBehaviour
 {
 
 }
