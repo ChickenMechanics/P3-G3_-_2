@@ -18,7 +18,8 @@ public class PlayerMove : MonoBehaviour
     public float m_DashAcceleration;
     [HideInInspector]
     public float m_DashActiveTime = 0.25f;
-    public float m_DashCooldown = 1.0f;
+    public float m_DashCooldown;
+    public float m_PlayerGravity;
     #endregion
 
     private PlayerCtrl m_PlayerCtrlScr;
@@ -31,6 +32,8 @@ public class PlayerMove : MonoBehaviour
     private Vector3 m_RunForce;
     private Vector3 m_DashForce;
     private Vector3 m_DashDir;
+    private LayerMask m_GroundRayLayerMask;
+    private Transform m_GroundRayTFormPoint;
     private float m_ForwardAccel;
     private float m_BackwardAccel;
     private float m_StrafeAccel;
@@ -89,8 +92,6 @@ public class PlayerMove : MonoBehaviour
     {
         m_ForwardBackwardForce = transform.forward;
 
-        //m_ForwardBackwardForce *= m_ForwardAccel * m_Input.MoveInput.z * Time.fixedDeltaTime;     // Old from when forward and bacwards speed was the same
-
         m_ForwardBackwardForce *= (m_Input.MoveInput.z > 0.0f) ? m_ForwardAccel : (m_BackwardAccel * -1.0f);
         m_ForwardBackwardForce *= Time.fixedDeltaTime;
 
@@ -140,6 +141,9 @@ public class PlayerMove : MonoBehaviour
         m_RunAccel = m_RunAcceleration * m_AccelScaler;
         m_DashAccel = m_DashAcceleration * m_AccelScaler;
 
+        m_GroundRayLayerMask = LayerMask.GetMask("Level_Ground");
+        m_GroundRayTFormPoint = transform.GetChild(1);
+
         StateUpdate();
     }
 
@@ -174,6 +178,22 @@ public class PlayerMove : MonoBehaviour
                 }
             }
         }
+
+        // bs gravity, seems to work but eh...
+        if(m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx != (int)PlayerCtrl.EPlayerState.DASH)
+        {
+            Ray ray = new Ray(m_GroundRayTFormPoint.position + new Vector3(0.0f, -1.0f, 0.0f), -m_GroundRayTFormPoint.up);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 1000.0f, m_GroundRayLayerMask))
+            {
+                if (hit.distance > 0.1f)
+                {
+                    m_Rb.AddRelativeForce(new Vector3(0.0f, m_PlayerGravity, 0.0f), ForceMode.Force);
+                }
+            }
+        }
+
+        //Debug.DrawLine(ray.origin, ray.origin + (ray.direction * 1000.0f), Color.green);
     }
 
 

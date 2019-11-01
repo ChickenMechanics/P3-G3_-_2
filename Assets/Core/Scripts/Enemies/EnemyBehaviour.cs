@@ -2,12 +2,11 @@
 using UnityEngine.AI;
 using System.Collections;
 
-public class DefaultGroundEnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour
 {
     #region Header
     protected enum State { ATTACK, DEATH, MOVE }
     protected State currentState;
-    protected Vector3 position;
     protected float distanceToPlayer;
     protected float hp;
     protected Vector3 playerPos;
@@ -28,7 +27,7 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
     private void Awake()
     {
         m_PupilGO = transform.GetChild(0).transform.GetChild(0).Find("Pupil").gameObject;
-        m_TargetEyeFlasherTime = 0.1f;
+        m_TargetEyeFlasherTime = 0.075f;
         m_NowEyeFlasherTime = 0.0f;
         m_EyeFlasherFunctionOnOffTime = 1.0f;
         m_EyeFlasherFunctionOnOff = 0.0f;
@@ -69,7 +68,7 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
 
     protected void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
     {
-        position = agentTransform.position;
+        transform.position = agentTransform.position;
         var rotation = agentTransform.rotation;
 
         UpdateDistanceToPlayer();
@@ -91,7 +90,7 @@ public class DefaultGroundEnemyBehaviour : MonoBehaviour
     {
         UpdatePlayerPos();
 
-        lookPosition = playerPos - position;
+        lookPosition = playerPos - transform.position;
         
         distanceToPlayer = lookPosition.magnitude;
 

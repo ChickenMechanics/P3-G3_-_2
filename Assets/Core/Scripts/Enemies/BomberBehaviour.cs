@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BomberBehaviour : DefaultGroundEnemyBehaviour
+public class BomberBehaviour : EnemyBehaviour
 {
     public float damageAmount;
     public float scoreAmount;
@@ -51,7 +51,7 @@ public class BomberBehaviour : DefaultGroundEnemyBehaviour
         foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             if (Mathf.Abs(enemy.transform.position.magnitude - transform.position.magnitude) < attackRange)
-                enemy.GetComponent<DefaultGroundEnemyBehaviour>().TakeDamage(damageAmount);
+                enemy.GetComponent<EnemyBehaviour>().TakeDamage(damageAmount);
         }
 
         Destroy(transform.gameObject);
@@ -73,7 +73,7 @@ public class BomberBehaviour : DefaultGroundEnemyBehaviour
         foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             if (Mathf.Abs(enemy.transform.position.magnitude - transform.position.magnitude) < attackRange)
-                enemy.GetComponent<DefaultGroundEnemyBehaviour>().TakeDamage(damageAmount);
+                enemy.GetComponent<EnemyBehaviour>().TakeDamage(damageAmount);
         }
 
         Destroy(transform.gameObject);

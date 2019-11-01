@@ -11,7 +11,6 @@ using Random = System.Random;
 public class WaveSpawner : MonoBehaviour
 {
     public GameObject m_SpawnEffect;
-    public float m_SpawnEffectActivetimeInSec;
 
     public enum SpawnState
     {
@@ -70,12 +69,8 @@ public class WaveSpawner : MonoBehaviour
     {
         switch (m_SpawnState)
         {
-            case SpawnState.SPAWN:
-                Spawn();
-                break;
-            case SpawnState.WAIT:
-                StartCoroutine(Wait());
-                break;
+            case SpawnState.SPAWN: Spawn(); break;
+            case SpawnState.WAIT: StartCoroutine(Wait()); break;
             case SpawnState.BETWEENWAVES:
                 StartCoroutine(WaitForNextWave());
                 break;
@@ -133,22 +128,22 @@ public class WaveSpawner : MonoBehaviour
     private static bool IsWaveCompleted(Wave wave)
     {
         var allSubWavesSpawned = wave.subWaves.All(subWave => subWave.GetHasSpawned());
-        var anyEnemiesAlive = GameObject.FindGameObjectWithTag("Enemy") != null;
+        var allEnemiesDead = GameObject.FindGameObjectWithTag("Enemy") == null;
 
-        return anyEnemiesAlive == false && allSubWavesSpawned;
+        return allEnemiesDead && allSubWavesSpawned;
     }
 
     private void WaveCompleted()
     {
         Debug.Log("Wave Completed");
 
-        if (m_CurrentWaveIndex == waves.Length - 1)
-            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
-        else
+        if (m_CurrentWaveIndex < waves.Length - 1)
         {
             m_CurrentWaveIndex++;
             m_SpawnState = SpawnState.BETWEENWAVES;
         }
+        else
+            LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
     }
     
     private IEnumerator SpawnSubWave(SubWave subWave)
@@ -186,8 +181,6 @@ public class WaveSpawner : MonoBehaviour
                 SpawnEnemy(enemyType.enemy);
             }
         }
-
-
     }
 
     private void SpawnEnemy(Transform enemy)
@@ -195,16 +188,16 @@ public class WaveSpawner : MonoBehaviour
         if (spawnPoints.Length == 0)
             Debug.LogError("No spawn points referenced");
 
-        Vector3 playerPos = m_Player.position;
+        var playerPos = m_Player.position;
 
-        Random rnd = new System.Random(System.DateTime.Now.Millisecond);
+        var rnd = new Random(DateTime.Now.Millisecond);
 
         const int numberOfTries = 100;
 
-        for (int i = 0; i < numberOfTries; i++)
+        for (var i = 0; i < numberOfTries; i++)
         {
-            Transform spawnPoint = spawnPoints[rnd.Next(0, spawnPoints.Length)];
-            Vector3 distanceToPlayer = playerPos - spawnPoint.position;
+            var spawnPoint = spawnPoints[rnd.Next(0, spawnPoints.Length)];
+            var distanceToPlayer = playerPos - spawnPoint.position;
 
             if (distanceToPlayer.magnitude < safeSpawnDistance) continue;
 

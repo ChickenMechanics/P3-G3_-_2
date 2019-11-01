@@ -9,13 +9,32 @@ public class P_StateWalk : IState
     {
         m_Owner = (PlayerCtrl)controller;
         m_IsAvailable = true;
+
+        m_FootSoundFreq = 0.35f;
+        m_NowFootSoundTime = m_FootSoundFreq;
+        m_TriggerFootSound = true;
     }
 
     private PlayerCtrl m_Owner;
     private bool m_IsAvailable;
 
+    private float m_FootSoundFreq;
+    private float m_NowFootSoundTime;
+    private bool m_TriggerFootSound;
+
 
     //----------------------------------------------------------------------------------------------------
+
+        
+    private void FootStepSoundTimer()
+    {
+        m_NowFootSoundTime -= Time.deltaTime;
+        if(m_NowFootSoundTime < 0.0f)
+        {
+            m_NowFootSoundTime = m_FootSoundFreq;
+            m_TriggerFootSound = true;
+        }
+    }
 
 
     public bool GetIsAvailable()
@@ -52,7 +71,15 @@ public class P_StateWalk : IState
         GunManager.GetInstance.Reload();
         GunManager.GetInstance.ScrollWeapons();
 
-        SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_FOOTSTEPS, m_Owner.transform.position);
+        if (m_TriggerFootSound == false)
+        {
+            FootStepSoundTimer();
+        }
+        else if (m_TriggerFootSound == true)
+        {
+            m_TriggerFootSound = false;
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_FOOTSTEPS, m_Owner.transform.position);
+        }
 
         PlayerCtrl.BasicInput currentInput = m_Owner.GetBasicInput;
         if (currentInput.MoveInput.x == 0.0f && currentInput.MoveInput.z == 0.0f)

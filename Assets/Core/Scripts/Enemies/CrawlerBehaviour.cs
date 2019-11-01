@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
+public class CrawlerBehaviour : EnemyBehaviour
 {
     public float damageAmount;
     public float scoreAmount;
@@ -13,6 +13,8 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
     
     private EnemyCrawlerAnimation m_Anims;
     private NavMeshAgent m_Agent;
+    private float m_TimeToNextAttack;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -21,6 +23,7 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
         currentState = State.MOVE;
         m_Anims = gameObject.GetComponent<EnemyCrawlerAnimation>();
         hp = health;
+        m_TimeToNextAttack = attackDuration;
 
         SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ENEMY_SPAWN, transform.position);
     }
@@ -30,29 +33,38 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
     {
         switch (currentState)
         {
-            case  State.ATTACK: StartCoroutine(Attack()); break;
+            case  State.ATTACK: Attack(); break;
             case  State.DEATH:                 Death();   break;
             case  State.MOVE:                  Move();    break;
         }
+
+        m_TimeToNextAttack -= Time.deltaTime;
     }
     
-    private IEnumerator Attack()
+    private void Attack()
     {
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.ATTACK);
 
-        yield return new WaitForSeconds(attackDuration);
+        m_Agent.isStopped = true;
 
-        UpdatePlayerPos();
-
-        UpdateDistanceToPlayer();
-
-        if (Mathf.Abs(Vector3.Angle(position, playerPos) - 90f) < attackAngle &&
-            distanceToPlayer <= attackRange)
+        if (m_TimeToNextAttack <= 0)
         {
-            PlayerManager.GetInstance.DecreaseHealth(damageAmount);
-        }
+            UpdateDistanceToPlayer();
 
-        currentState = State.MOVE;
+            if (Mathf.Abs(Vector3.Angle(transform.position, playerPos) - 90f) < attackAngle &&
+                distanceToPlayer <= attackRange)
+            {
+                PlayerManager.GetInstance.DecreaseHealth(damageAmount);
+            }
+
+            m_TimeToNextAttack = attackDuration;
+            currentState = State.MOVE;
+        }
+        else
+        {
+            m_TimeToNextAttack -= Time.deltaTime;
+            currentState = State.MOVE;
+        }
     }
 
     private void Death()
@@ -73,9 +85,14 @@ public class CrawlerBehaviour : DefaultGroundEnemyBehaviour
     {
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.WALK);
 
-        MoveTowardsPlayer(transform, m_Agent);
+        UpdateDistanceToPlayer();
 
-        if (distanceToPlayer < attackRange)
+        if (distanceToPlayer > attackRange)
+        {
+            m_Agent.isStopped = false;
+            MoveTowardsPlayer(transform, m_Agent);
+        }
+        else
             currentState = State.ATTACK;
     }
 }
