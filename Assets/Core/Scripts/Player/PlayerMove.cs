@@ -180,17 +180,20 @@ public class PlayerMove : MonoBehaviour
         }
 
         // bs gravity, seems to work but eh...
-        Ray ray = new Ray(m_GroundRayTFormPoint.position + new Vector3(0.0f, -1.0f, 0.0f), -m_GroundRayTFormPoint.up);
-        RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 1000.0f, m_GroundRayLayerMask))
+        if(m_PlayerCtrlScr.GetFSM.GetCurrentStateIdx != (int)PlayerCtrl.EPlayerState.DASH)
         {
-            if(hit.distance > 0.1f)
+            Ray ray = new Ray(m_GroundRayTFormPoint.position + new Vector3(0.0f, -1.0f, 0.0f), -m_GroundRayTFormPoint.up);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 1000.0f, m_GroundRayLayerMask))
             {
-                m_Rb.AddRelativeForce(new Vector3(0.0f, m_PlayerGravity, 0.0f), ForceMode.Force);
+                if (hit.distance > 0.1f)
+                {
+                    m_Rb.AddRelativeForce(new Vector3(0.0f, m_PlayerGravity, 0.0f), ForceMode.Force);
+                }
             }
         }
 
-        Debug.DrawLine(ray.origin, ray.origin + (ray.direction * 1000.0f), Color.green);
+        //Debug.DrawLine(ray.origin, ray.origin + (ray.direction * 1000.0f), Color.green);
     }
 
 
