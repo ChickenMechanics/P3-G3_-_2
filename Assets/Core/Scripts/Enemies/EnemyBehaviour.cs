@@ -27,7 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void Awake()
     {
         m_PupilGO = transform.GetChild(0).transform.GetChild(0).Find("Pupil").gameObject;
-        m_TargetEyeFlasherTime = 0.1f;
+        m_TargetEyeFlasherTime = 0.075f;
         m_NowEyeFlasherTime = 0.0f;
         m_EyeFlasherFunctionOnOffTime = 1.0f;
         m_EyeFlasherFunctionOnOff = 0.0f;
