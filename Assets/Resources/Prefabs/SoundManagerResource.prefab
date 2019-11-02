@@ -65,9 +65,9 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Gun Cannon Shot
     m_ESound: 4
-    m_SoundSource: {fileID: 8547104688784681372, guid: 7427f462adb00b84fa16d59e94a13d01,
+    m_SoundSource: {fileID: 3671984236061292402, guid: c5207268cc188314fa0150830f1be85c,
       type: 3}
-    m_PitchRange: 1.25
+    m_PitchRange: 1.08
     m_PrevTime: 0
   - AliasName: Gun Mjau Shot
     m_ESound: 7
@@ -77,7 +77,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Hurt
     m_ESound: 2
-    m_SoundSource: {fileID: 8795468680770503695, guid: 2cf6776585899a042a9281f1a6b8b073,
+    m_SoundSource: {fileID: 3671984236061292402, guid: c5207268cc188314fa0150830f1be85c,
       type: 3}
     m_PitchRange: 1.25
     m_PrevTime: 0
@@ -113,9 +113,9 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Footsteps
     m_ESound: 11
-    m_SoundSource: {fileID: 3853858170312646152, guid: 0b57d3c7c3febfc46a4fde3f81c072cf,
+    m_SoundSource: {fileID: 2766298943798874220, guid: e79a2c7261c431d47801dd09b9036423,
       type: 3}
-    m_PitchRange: 1.25
+    m_PitchRange: 1.11
     m_PrevTime: 0
   - AliasName: Rocket Shot
     m_ESound: 13
