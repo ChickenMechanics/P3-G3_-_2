@@ -12,36 +12,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scout_crawler Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 1818312064273742732, guid: c81e3e980cff26843bdfe68bf54a4c15,
-        type: 3}
-      propertyPath: health
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1036183693525815611, guid: c81e3e980cff26843bdfe68bf54a4c15,
-        type: 3}
-      propertyPath: m_ExplosionFireScale
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 1036183693525815611, guid: c81e3e980cff26843bdfe68bf54a4c15,
-        type: 3}
-      propertyPath: m_ExplosionSmokeScale
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8203334093176847015, guid: c81e3e980cff26843bdfe68bf54a4c15,
-        type: 3}
-      propertyPath: m_Speed
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 8203334093176847015, guid: c81e3e980cff26843bdfe68bf54a4c15,
-        type: 3}
-      propertyPath: m_AngularSpeed
-      value: 2500
-      objectReference: {fileID: 0}
-    - target: {fileID: 8203334093176847015, guid: c81e3e980cff26843bdfe68bf54a4c15,
-        type: 3}
-      propertyPath: m_StoppingDistance
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 8485372433805229432, guid: c81e3e980cff26843bdfe68bf54a4c15,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -111,6 +81,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818312064273742732, guid: c81e3e980cff26843bdfe68bf54a4c15,
+        type: 3}
+      propertyPath: health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818312064273742732, guid: c81e3e980cff26843bdfe68bf54a4c15,
+        type: 3}
+      propertyPath: damageAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036183693525815611, guid: c81e3e980cff26843bdfe68bf54a4c15,
+        type: 3}
+      propertyPath: m_ExplosionFireScale
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036183693525815611, guid: c81e3e980cff26843bdfe68bf54a4c15,
+        type: 3}
+      propertyPath: m_ExplosionSmokeScale
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203334093176847015, guid: c81e3e980cff26843bdfe68bf54a4c15,
+        type: 3}
+      propertyPath: m_Speed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203334093176847015, guid: c81e3e980cff26843bdfe68bf54a4c15,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203334093176847015, guid: c81e3e980cff26843bdfe68bf54a4c15,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c81e3e980cff26843bdfe68bf54a4c15, type: 3}

@@ -38915,6 +38915,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2804519251609276497, guid: 3b98e4b62e8cad54081063906f213dfc,
+        type: 3}
+      propertyPath: m_TakeDmgShakeIntensity
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b98e4b62e8cad54081063906f213dfc, type: 3}
 --- !u!1 &1224930362 stripped
@@ -39607,6 +39612,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Lightmapping
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994390458381201588, guid: 0a3d6f5d95c7fa04eb86c23ede2dab00,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 1.0744861e-38
       objectReference: {fileID: 0}
     - target: {fileID: 1994390458596749786, guid: 0a3d6f5d95c7fa04eb86c23ede2dab00,
         type: 3}
