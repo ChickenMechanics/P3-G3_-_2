@@ -47,4 +47,4 @@ MonoBehaviour:
   m_ComboScaler: 1.5
   m_BulletTimeActiveTime: 0.4
   m_BulletTimeScale: 0.3
-  m_BulletTimeFov: 50
+  m_BulletTimeFov: 45

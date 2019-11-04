@@ -146,8 +146,6 @@ public class GunTemplate : MonoBehaviour
     {
         if (m_TimePastSinceLastFire >= m_Rpm)
         {
-            //Ray ray = new Ray(m_CameraPoint.position, m_CameraPoint.forward);
-            //Vector3 raycastedDir = m_CameraPoint.forward;
             Ray ray = new Ray(m_RayOriginPoint.position, m_RayOriginPoint.forward);
             Vector3 raycastedDir = m_RayOriginPoint.forward;
 

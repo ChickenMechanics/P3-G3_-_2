@@ -47,10 +47,6 @@ public class GunManager : MonoBehaviour
         ActiveGun = m_GunPrefabClone[m_ActiveGunIdx];
         ActiveGun.SetActive(true);
         m_ActiveGunScr = ActiveGun.GetComponent<GunTemplate>();
-
-        //m_RumbleObj = Instantiate((GameObject)Resources.Load("Prefabs/FXRumbleTransform"), new Vector3(0.0f, -5.0f, 0.0f), Quaternion.identity);
-        //m_RumbleScr = m_RumbleObj.GetComponent<FxRumbleTransform>();
-        //m_RumbleScr.Init(ActiveGun.transform, 1.0f, 0.25f, 3.0f, 3.0f);
     }
 
 
@@ -77,8 +73,6 @@ public class GunManager : MonoBehaviour
         if(Input.GetMouseButton(0))
         {
             m_ActiveGunScr.Fire(m_tParent);
-
-            //m_RumbleScr.Rumble();
         }
     }
 
