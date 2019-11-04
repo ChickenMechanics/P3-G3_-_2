@@ -47,9 +47,9 @@ MonoBehaviour:
   m_SoundObjs:
   - AliasName: Gun AR Shot
     m_ESound: 3
-    m_SoundSource: {fileID: 8470185352058736508, guid: 92ec899cc1c0f8140be2b3fb6f83ec73,
+    m_SoundSource: {fileID: 4667898177743610374, guid: a941d03993d183b46a1a01156a8c128a,
       type: 3}
-    m_PitchRange: 1.1
+    m_PitchRange: 1.07
     m_PrevTime: 0
   - AliasName: Enemy Hurt
     m_ESound: 5
@@ -77,7 +77,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Hurt
     m_ESound: 2
-    m_SoundSource: {fileID: 5380010804456729694, guid: f76cc7baaf714f74f8155a55954ad086,
+    m_SoundSource: {fileID: 2398898331657868324, guid: 7e1a333793df77442926800494ef588f,
       type: 3}
     m_PitchRange: 1.17
     m_PrevTime: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Rocket Impact
     m_ESound: 14
-    m_SoundSource: {fileID: 2469351336371922715, guid: 1f1ef97a6806e054ebaa911a56ff53ee,
+    m_SoundSource: {fileID: 947252963210007613, guid: 4ca0d906d0633064ea0b5e1b71cbf4c5,
       type: 3}
     m_PitchRange: 1.17
     m_PrevTime: 0
@@ -137,6 +137,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Enemy footsteps
     m_ESound: 12
-    m_SoundSource: {fileID: 0}
+    m_SoundSource: {fileID: 3573046253566306769, guid: b0294943626f2b847bb04d246f84df98,
+      type: 3}
     m_PitchRange: 1.07
     m_PrevTime: 0
