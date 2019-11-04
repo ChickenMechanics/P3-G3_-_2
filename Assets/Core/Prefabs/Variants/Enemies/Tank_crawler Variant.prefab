@@ -82,6 +82,31 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 9183871102861304291, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: m_ExplosionFireScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183871102861304291, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: m_ExplosionSmokeScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 57123397192469119, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: m_Speed
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 57123397192469119, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 57123397192469119, guid: e45a82755a8a69b40940a97ad802ef12,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
       propertyPath: damageAmount
@@ -112,30 +137,10 @@ PrefabInstance:
       propertyPath: attackAngle
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 9183871102861304291, guid: e45a82755a8a69b40940a97ad802ef12,
+    - target: {fileID: 8364900665805827400, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
-      propertyPath: m_ExplosionFireScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9183871102861304291, guid: e45a82755a8a69b40940a97ad802ef12,
-        type: 3}
-      propertyPath: m_ExplosionSmokeScale
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 57123397192469119, guid: e45a82755a8a69b40940a97ad802ef12,
-        type: 3}
-      propertyPath: m_Speed
-      value: 6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 57123397192469119, guid: e45a82755a8a69b40940a97ad802ef12,
-        type: 3}
-      propertyPath: m_AngularSpeed
-      value: 2500
-      objectReference: {fileID: 0}
-    - target: {fileID: 57123397192469119, guid: e45a82755a8a69b40940a97ad802ef12,
-        type: 3}
-      propertyPath: m_StoppingDistance
-      value: 6
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e45a82755a8a69b40940a97ad802ef12, type: 3}
