@@ -169,7 +169,6 @@ public class HUDManager : MonoBehaviour
             m_LongestChain.text = " ";
         }
 
-
         // waves
         m_WaveMeterImg = canvas.transform.Find("Waves").transform.Find("WaveSliderImage").GetComponent<Image>();
         m_WaveMeterImg.fillAmount = 1.0f;

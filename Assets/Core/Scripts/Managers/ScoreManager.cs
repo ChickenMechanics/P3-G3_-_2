@@ -9,7 +9,10 @@ public class ScoreManager : MonoBehaviour
 
     #region design vars
     public float m_ComboTimeInSecMax = 1.0f;
-    public float m_ComboScaler = 1.5f;
+    public float m_ComboScaler;
+    public float m_BulletTimeActiveTime;
+    public float m_BulletTimeScale;
+    public float m_BulletTimeFov;
     #endregion
 
     #region get / set
@@ -32,6 +35,12 @@ public class ScoreManager : MonoBehaviour
     #endregion
 
     private bool m_ComboAlive;
+
+    // fuckery
+    //private float m_BulletTimeFreq;
+    private float m_NowBulletTime;
+    private bool m_TriggerBulletTime;
+    private int m_PreviousComboMulti;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -145,6 +154,12 @@ public class ScoreManager : MonoBehaviour
             m_ComboScaler = 0.0f;
         }
 
+        // fuckery
+        m_BulletTimeActiveTime = 0.25f;
+        m_NowBulletTime = m_BulletTimeActiveTime;
+        m_TriggerBulletTime = false;
+        m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
+
         ResetPlayerStats();
     }
 
@@ -158,5 +173,54 @@ public class ScoreManager : MonoBehaviour
     private void Update()
     {
         UpdatePoints();
+
+        // fuckery
+        BulletTime();
+    }
+
+
+    // fuckery
+    private void BulletTime()
+    {
+        if (m_TriggerBulletTime == true)
+        {
+            BulletTimeOutTimer();
+        }
+        else if (m_PreviousComboMulti < (int)GetCurrentComboMultiplier &&
+            m_TriggerBulletTime == false)
+        {
+            m_TriggerBulletTime = true;
+        }
+
+        if (m_TriggerBulletTime == true &&
+            Camera.main.fieldOfView > m_BulletTimeFov)
+        {
+            Time.timeScale = Mathf.Lerp(Time.timeScale, m_BulletTimeScale, 0.5f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, m_BulletTimeFov, 0.05f);
+        }
+        else if (m_TriggerBulletTime == false &&
+            Camera.main.fieldOfView != 60.0f)
+        {
+            Time.timeScale = Mathf.Lerp(Time.timeScale, 1.0f, 0.5f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.1f);
+            if(Camera.main.fieldOfView > 60.0f)
+            {
+                Camera.main.fieldOfView = 60.0f;
+            }
+        }
+
+        m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
+    }
+
+
+    // fuckery
+    private void BulletTimeOutTimer()
+    {
+        m_NowBulletTime -= Time.deltaTime;
+        if (m_NowBulletTime < 0.0f)
+        {
+            m_NowBulletTime = m_BulletTimeActiveTime;
+            m_TriggerBulletTime = false;
+        }
     }
 }
