@@ -180,7 +180,6 @@ public class BulletBehaviour : MonoBehaviour
     }
 
 
-    // Saved if we wan't physics based projectiles
     private void FixedUpdate()
     {
         if (m_IsPhysicsBased == true)

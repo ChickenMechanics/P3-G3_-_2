@@ -11,7 +11,6 @@ public class EnemyBehaviour : MonoBehaviour
     protected float hp;
     protected Vector3 playerPos;
     protected Vector3 lookPosition;
-    protected NavMeshAgent agent;
 
     private Quaternion m_LookRotation;
     #endregion
@@ -24,34 +23,63 @@ public class EnemyBehaviour : MonoBehaviour
     private bool m_EyeOnOff;
     private bool m_IsEyeFlash;
 
+    private float m_CanTakeGrenadeDmgTime;
+    private float m_CanTakeGrenadeDmgTimeNow;
+    private bool m_IsTakingGrenade;
+
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        m_PupilGO = transform.GetChild(0).transform.GetChild(0).Find("Pupil").gameObject;
-        m_TargetEyeFlasherTime = 0.075f;
-        m_NowEyeFlasherTime = 0.0f;
-        m_EyeFlasherFunctionOnOffTime = 1.0f;
-        m_EyeFlasherFunctionOnOff = 0.0f;
-        m_EyeOnOff = false;
-        m_IsEyeFlash = false;
+        if(transform.childCount > 1)    // special case for flying enemy as that object hierarchy is different then the rest
+        {
+            m_PupilGO = transform.GetChild(0).transform.GetChild(0).Find("Pupil").gameObject;
+            m_TargetEyeFlasherTime = 0.075f;
+            m_NowEyeFlasherTime = 0.0f;
+            m_EyeFlasherFunctionOnOffTime = 1.0f;
+            m_EyeFlasherFunctionOnOff = 0.0f;
+            m_EyeOnOff = false;
+            m_IsEyeFlash = false;
+
+            m_CanTakeGrenadeDmgTime = 0.75f;
+            m_CanTakeGrenadeDmgTimeNow = m_CanTakeGrenadeDmgTime;
+            m_IsTakingGrenade = false;
+        }
     }
 
 
     private void Update()
     {
-        if(m_IsEyeFlash == true)
+        if(m_IsTakingGrenade == true)
         {
-            m_EyeFlasherFunctionOnOff += Time.deltaTime;
-            if(m_EyeFlasherFunctionOnOff > m_EyeFlasherFunctionOnOffTime)
-            {
-                m_EyeFlasherFunctionOnOff = 0.0f;
-                m_IsEyeFlash = false;
-                m_EyeOnOff = false;
-                m_PupilGO.SetActive(true);
-            }
+            CanTakeGrenadeDmgCounter();
+        }
 
-            EyeFlasherLogic();
+        if (m_PupilGO != null)
+        {
+            if (m_IsEyeFlash == true)
+            {
+                m_EyeFlasherFunctionOnOff += Time.deltaTime;
+                if (m_EyeFlasherFunctionOnOff > m_EyeFlasherFunctionOnOffTime)
+                {
+                    m_EyeFlasherFunctionOnOff = 0.0f;
+                    m_IsEyeFlash = false;
+                    m_EyeOnOff = false;
+                    m_PupilGO.SetActive(true);
+                }
+
+                EyeFlasherLogic();
+            }
+        }
+    }
+
+
+    private void CanTakeGrenadeDmgCounter()
+    {
+        m_CanTakeGrenadeDmgTimeNow -= Time.deltaTime;
+        if(m_CanTakeGrenadeDmgTimeNow < 0.0f)
+        {
+            m_CanTakeGrenadeDmgTimeNow = m_CanTakeGrenadeDmgTime;
+            m_IsTakingGrenade = false;
         }
     }
 
@@ -68,24 +96,27 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
 
-    protected void MoveTowardsPlayer()
+    protected void MoveTowardsPlayer(Transform agentTransform, NavMeshAgent agent)
     {
-        var rotation = transform.rotation;
+        transform.position = agentTransform.position;
+        var rotation = agentTransform.rotation;
 
         UpdateDistanceToPlayer();
 
         if (lookPosition != Vector3.zero)
             m_LookRotation = Quaternion.LookRotation(lookPosition);
 
-        transform.rotation = Quaternion.Slerp(rotation, m_LookRotation, 0.1f);
+        agentTransform.rotation = Quaternion.Slerp(rotation, m_LookRotation, 0.1f);
 
         agent.SetDestination(playerPos);
     }
+
 
     protected void UpdatePlayerPos()
     {
         playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
     }
+
 
     protected void UpdateDistanceToPlayer()
     {
@@ -97,6 +128,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         lookPosition.y = 0;
     }
+
 
     private void OnTriggerEnter(Component other)
     {
@@ -112,37 +144,48 @@ public class EnemyBehaviour : MonoBehaviour
                     SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_HURT, other.transform.position);
                 }
 
-                m_IsEyeFlash = true;
+                if(m_PupilGO != null)
+                {
+                    m_IsEyeFlash = true;
+                }
             }
-
-            //TakeDamage(other.GetComponent<BulletBehaviour>().m_DamageValue);
         }
     }
+
 
     private void OnTriggerStay(Component other)
     {
-        if (other.gameObject.layer == 13)   // == projectile
+        if (m_IsTakingGrenade == false)
         {
-            if (other.gameObject.GetComponent<BulletGrenadeAOE>() != null)
+            if (other.gameObject.layer == 17)   // == grenade
             {
-                TakeDamage(other.GetComponent<BulletGrenadeAOE>().GetDmgValue());
-#if DEBUG
-                if (SoundManager.GetInstance != null)
-#endif
+                if (other.gameObject.GetComponent<BulletGrenadeAOE>() != null)
                 {
-                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_HURT, other.transform.position);
+                    TakeDamage(other.GetComponent<BulletGrenadeAOE>().GetDmgValue());
+                    m_IsTakingGrenade = true;
+#if DEBUG
+                    if (SoundManager.GetInstance != null)
+#endif
+                    {
+                        SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_HURT, other.transform.position);
+                    }
+
+                    if (m_PupilGO != null)
+                    {
+                        m_IsEyeFlash = true;
+                    }
                 }
             }
-
-            //TakeDamage(other.GetComponent<BulletBehaviour>().m_DamageValue);
         }
     }
+
 
     public void TakeDamage(float damageValue)
     {
         hp -= damageValue;
-
         if (hp <= 0)
+        {
             currentState = State.DEATH;
+        }
     }
 }
