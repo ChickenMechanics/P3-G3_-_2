@@ -95,7 +95,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Reloading (overheating)
     m_ESound: 8
-    m_SoundSource: {fileID: 2518131025903640596, guid: a13e671cbab96e64ba82be18c572078e,
+    m_SoundSource: {fileID: 8011490098110765958, guid: 21d833768b4145f4bb14cc77496cb2db,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
@@ -107,19 +107,19 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Spawning (enemy)
     m_ESound: 10
-    m_SoundSource: {fileID: 8826352771505320014, guid: b99afb0ce1bca444b908c33456e6cd70,
+    m_SoundSource: {fileID: 6979198578631676002, guid: fe4a917f405ea9846acc4094bf32eacb,
       type: 3}
     m_PitchRange: 1.16
     m_PrevTime: 0
   - AliasName: Player Footsteps
     m_ESound: 11
-    m_SoundSource: {fileID: 3515075065139793247, guid: 500e298f69f21f1458b590fe7fcbb856,
+    m_SoundSource: {fileID: 3573046253566306769, guid: b0294943626f2b847bb04d246f84df98,
       type: 3}
     m_PitchRange: 1.08
     m_PrevTime: 0
   - AliasName: Rocket Shot
     m_ESound: 13
-    m_SoundSource: {fileID: 1533425230961267180, guid: a72e7e486eccb25458048127b44cb854,
+    m_SoundSource: {fileID: 5471020261888572857, guid: 4cb81b3dbccff334a8521fb5e9fec48b,
       type: 3}
     m_PitchRange: 1.06
     m_PrevTime: 0
@@ -131,13 +131,12 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Dash
     m_ESound: 15
-    m_SoundSource: {fileID: 6386670672566276923, guid: fb76f1827ddc84745a49494e8ad2f2ac,
+    m_SoundSource: {fileID: 6279702767732405026, guid: 99c7bd37e39efae4ab6cc24acdef0fdc,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
   - AliasName: Enemy footsteps
     m_ESound: 12
-    m_SoundSource: {fileID: 3493840265249070609, guid: 3166a98ad2f8a69468ff761c3b55c2ae,
-      type: 3}
+    m_SoundSource: {fileID: 0}
     m_PitchRange: 1.07
     m_PrevTime: 0
