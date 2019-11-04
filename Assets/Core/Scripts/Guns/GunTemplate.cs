@@ -284,6 +284,8 @@ public class GunTemplate : MonoBehaviour
         {
             m_IsFiring = true;
             m_CameraPoint = cameraPoint;
+
+            //Time.timeScale = 0.5f;
         }
     }
 
