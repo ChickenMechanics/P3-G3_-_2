@@ -77,9 +77,9 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Hurt
     m_ESound: 2
-    m_SoundSource: {fileID: 3671984236061292402, guid: c5207268cc188314fa0150830f1be85c,
+    m_SoundSource: {fileID: 373344110923581604, guid: 7a64651f615e42845a807aa7563be8e0,
       type: 3}
-    m_PitchRange: 1.25
+    m_PitchRange: 1.17
     m_PrevTime: 0
   - AliasName: Combat Music
     m_ESound: 1
@@ -107,13 +107,13 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Spawning (enemy)
     m_ESound: 10
-    m_SoundSource: {fileID: 2392338459292948874, guid: 3664f5a88b29c214999529dc6e87572f,
+    m_SoundSource: {fileID: 3252338361524189476, guid: ebb7e27b59ddd12449cd751ddfbea02f,
       type: 3}
     m_PitchRange: 1.16
     m_PrevTime: 0
   - AliasName: Player Footsteps
     m_ESound: 11
-    m_SoundSource: {fileID: 8012402681486524694, guid: bad2e21aef8f0464d8ae90d65f676e8d,
+    m_SoundSource: {fileID: 3612882895369201430, guid: 7e2b962392bf08946b6c0033c73612b0,
       type: 3}
     m_PitchRange: 1.08
     m_PrevTime: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Dash
     m_ESound: 15
-    m_SoundSource: {fileID: 2029132503486159849, guid: 7abbc1ff44b975b48bf6941a82f1bb9d,
+    m_SoundSource: {fileID: 5028070515467817355, guid: d28957104c2be894997fef0d9d81e51f,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
