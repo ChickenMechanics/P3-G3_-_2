@@ -23,6 +23,7 @@ public class SoundManager : MonoBehaviour
         ROCKET_SHOT,
         ROCKET_IMPACT,
         PLAYER_DASH,
+        ROCKET_RELOAD,
         SIZE
     }
 
