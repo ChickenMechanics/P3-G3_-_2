@@ -7,6 +7,7 @@ public class GunTemplate : MonoBehaviour
 {
     #region design vars
     [Header("Model")]
+    public string m_GunName;
     public Vector3 m_PositionOffset;
 
     [Header("Properties")]

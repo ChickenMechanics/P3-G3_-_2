@@ -33,6 +33,10 @@ public class P_StateIdle : IState
     public void Enter()
     {
         //Debug.Log("Idle");
+        PlayerCtrl.BasicInput currentInput = m_Owner.GetBasicInput;
+        currentInput.MoveInput.x = 0.0f;
+        currentInput.MoveInput.z = 0.0f;
+        currentInput.DashInput = 0.0f;
     }
 
 
