@@ -7,6 +7,7 @@ public class GunTemplate : MonoBehaviour
 {
     #region design vars
     [Header("Model")]
+    public string m_GunName;
     public Vector3 m_PositionOffset;
 
     [Header("Properties")]
@@ -283,6 +284,8 @@ public class GunTemplate : MonoBehaviour
         {
             m_IsFiring = true;
             m_CameraPoint = cameraPoint;
+
+            //Time.timeScale = 0.5f;
         }
     }
 

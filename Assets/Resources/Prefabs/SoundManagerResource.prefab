@@ -95,7 +95,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Reloading (overheating)
     m_ESound: 8
-    m_SoundSource: {fileID: 4959015179251351453, guid: a82c364733e04634194641ea2bd2342c,
+    m_SoundSource: {fileID: 4527327238043068471, guid: f8693842a451ac04989ee6efdb6249e4,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
@@ -113,9 +113,9 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Footsteps
     m_ESound: 11
-    m_SoundSource: {fileID: 2766298943798874220, guid: e79a2c7261c431d47801dd09b9036423,
+    m_SoundSource: {fileID: 8012402681486524694, guid: bad2e21aef8f0464d8ae90d65f676e8d,
       type: 3}
-    m_PitchRange: 1.11
+    m_PitchRange: 1.08
     m_PrevTime: 0
   - AliasName: Rocket Shot
     m_ESound: 13
@@ -134,4 +134,10 @@ MonoBehaviour:
     m_SoundSource: {fileID: 2029132503486159849, guid: 7abbc1ff44b975b48bf6941a82f1bb9d,
       type: 3}
     m_PitchRange: 1
+    m_PrevTime: 0
+  - AliasName: Enemy footsteps
+    m_ESound: 12
+    m_SoundSource: {fileID: 5606092502928053950, guid: e3b3709d762d7154ea40929239eeba18,
+      type: 3}
+    m_PitchRange: 1.07
     m_PrevTime: 0
