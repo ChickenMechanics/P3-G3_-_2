@@ -1128,7 +1128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.6862745}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1712,7 +1712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.6862745}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1821,7 +1821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2011480886916834080
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2121,7 +2121,7 @@ RectTransform:
   m_GameObject: {fileID: 5898493653693324045}
   m_LocalRotation: {x: -0, y: -0.012700599, z: -0, w: 0.9999194}
   m_LocalPosition: {x: 0, y: 0, z: 0.7}
-  m_LocalScale: {x: 4.2420816, y: 4.2420816, z: 4.2420816}
+  m_LocalScale: {x: 3.9275737, y: 3.9275737, z: 3.9275737}
   m_Children: []
   m_Father: {fileID: 3813740315864252963}
   m_RootOrder: 0
@@ -2956,14 +2956,14 @@ RectTransform:
   m_GameObject: {fileID: 9153348631923764445}
   m_LocalRotation: {x: -0.036967684, y: -0, z: -0, w: 0.9993165}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.49422938, y: 0.49422938, z: 0.49422938}
+  m_LocalScale: {x: 0.41152796, y: 0.41152796, z: 0.41152796}
   m_Children: []
   m_Father: {fileID: 7226136158816503213}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -4.237, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 533}
+  m_AnchoredPosition: {x: -805, y: -283}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5767947872142162335
@@ -3019,7 +3019,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 21xx-04-03   T20:45:27Z AXON HELMET 2 x8:11071
+  m_Text: '21xx-04-03   T20:45:27Z
+
+    AXON HELMET
+
+    2 x8:11071'
 --- !u!33 &529621538816599727
 MeshFilter:
   m_ObjectHideFlags: 0
