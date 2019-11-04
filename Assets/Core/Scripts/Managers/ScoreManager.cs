@@ -36,7 +36,6 @@ public class ScoreManager : MonoBehaviour
 
     private bool m_ComboAlive;
 
-    // fuckery
     //private float m_BulletTimeFreq;
     private float m_NowBulletTime;
     private bool m_TriggerBulletTime;
@@ -173,13 +172,10 @@ public class ScoreManager : MonoBehaviour
     private void Update()
     {
         UpdatePoints();
-
-        // fuckery
         BulletTime();
     }
 
 
-    // fuckery
     private void BulletTime()
     {
         if (m_TriggerBulletTime == true)
@@ -192,6 +188,7 @@ public class ScoreManager : MonoBehaviour
             m_TriggerBulletTime = true;
         }
 
+        // timescale & fov hacks
         if (m_TriggerBulletTime == true &&
             Camera.main.fieldOfView > m_BulletTimeFov)
         {
@@ -202,7 +199,7 @@ public class ScoreManager : MonoBehaviour
             Camera.main.fieldOfView != 60.0f)
         {
             Time.timeScale = Mathf.Lerp(Time.timeScale, 1.0f, 0.5f);
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.1f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.2f);
             if(Camera.main.fieldOfView > 60.0f)
             {
                 Camera.main.fieldOfView = 60.0f;
@@ -213,7 +210,6 @@ public class ScoreManager : MonoBehaviour
     }
 
 
-    // fuckery
     private void BulletTimeOutTimer()
     {
         m_NowBulletTime -= Time.deltaTime;
