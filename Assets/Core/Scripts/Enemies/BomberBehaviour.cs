@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class BomberBehaviour : EnemyBehaviour
 {
@@ -11,12 +10,10 @@ public class BomberBehaviour : EnemyBehaviour
     public float health;
 
     //private EnemyBomberAnimation m_Anims;
-    private NavMeshAgent m_Agent;
 
     // Start is called before the first frame update
     private void Start()
     {
-        m_Agent = GetComponent<NavMeshAgent>();
         currentState = State.MOVE;
         //m_Anims = gameObject.GetComponent<EnemyBomberAnimation>();
         hp = health;
@@ -40,8 +37,6 @@ public class BomberBehaviour : EnemyBehaviour
         //m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.EXPLODE);
 
         yield return new WaitForSeconds(attackDuration);
-
-        UpdatePlayerPos();
 
         UpdateDistanceToPlayer();
         
@@ -83,7 +78,7 @@ public class BomberBehaviour : EnemyBehaviour
     {
         //m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.WALK);
 
-        MoveTowardsPlayer(transform, m_Agent);
+        MoveTowardsPlayer();
 
         if (distanceToPlayer < attackRange)
             currentState = State.ATTACK;

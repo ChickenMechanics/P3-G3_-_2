@@ -43,6 +43,12 @@ public class HUDManager : MonoBehaviour
     public Color m_Full;
     public Color m_Semi;
     public Color m_Empty;
+
+    [Header("Crack economy")]
+    public float m_Crack_1;
+    public float m_Crack_2;
+    public float m_Crack_3;
+    public float m_Crack_4;
     #endregion
 
     public static HUDManager GetInstance { get; private set; }
@@ -162,7 +168,6 @@ public class HUDManager : MonoBehaviour
             m_LongestChain = canvas.transform.Find("ScoreCombo").transform.Find("EndScreen").transform.Find("LongestChainNum").GetComponent<Text>();
             m_LongestChain.text = " ";
         }
-
 
         // waves
         m_WaveMeterImg = canvas.transform.Find("Waves").transform.Find("WaveSliderImage").GetComponent<Image>();
@@ -353,7 +358,7 @@ public class HUDManager : MonoBehaviour
     {
         if(m_IsCrack[0] == false)
         {
-            if (PlayerManager.GetInstance.GetCurrentHealth < 80.1f)
+            if (PlayerManager.GetInstance.GetCurrentHealth <= m_Crack_1)
             {
                 m_IsCrack[0] = true;
                 m_PlayerCracks[0].gameObject.SetActive(true);
@@ -361,7 +366,7 @@ public class HUDManager : MonoBehaviour
         }
         else if (m_IsCrack[1] == false)
         {
-            if (PlayerManager.GetInstance.GetCurrentHealth < 60.1f)
+            if (PlayerManager.GetInstance.GetCurrentHealth <= m_Crack_2)
             {
                 m_IsCrack[1] = true;
                 m_PlayerCracks[1].gameObject.SetActive(true);
@@ -369,7 +374,7 @@ public class HUDManager : MonoBehaviour
         }
         else if (m_IsCrack[2] == false)
         {
-            if (PlayerManager.GetInstance.GetCurrentHealth < 40.1f)
+            if (PlayerManager.GetInstance.GetCurrentHealth <= m_Crack_3)
             {
                 m_IsCrack[2] = true;
                 m_PlayerCracks[2].gameObject.SetActive(true);
@@ -377,7 +382,7 @@ public class HUDManager : MonoBehaviour
         }
         else if (m_IsCrack[3] == false)
         {
-            if (PlayerManager.GetInstance.GetCurrentHealth < 20.1f)
+            if (PlayerManager.GetInstance.GetCurrentHealth <= m_Crack_4)
             {
                 m_IsCrack[3] = true;
                 m_PlayerCracks[3].gameObject.SetActive(true);
@@ -420,14 +425,16 @@ public class HUDManager : MonoBehaviour
 
         // combo meter
         float translatedToRange = GetZeroToOneRange(m_ScoreManScr.GetChainTimeLeft, m_ScoreManScr.GetBaseChainTime);
-        if (translatedToRange < 0.98f && translatedToRange > 0.97f)
+        if (translatedToRange < 0.98f &&
+            translatedToRange > 0.97f)
         {
             m_ComboMeterImg.enabled = false;
             m_ComboMeterImg.fillAmount = 1.0f;
             m_ComboMeterImg.enabled = true;
         }
 
-        if (translatedToRange < 1.0f && translatedToRange >= 0.0f)
+        if (translatedToRange < 1.0f &&
+            translatedToRange >= 0.0f)
         {
             m_RingGradient.SetKeys(m_ColorKey, m_AlphaKey);
             m_ComboMeterImg.color = m_RingGradient.Evaluate(translatedToRange);
