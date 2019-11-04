@@ -20,6 +20,7 @@ public class PlayerMove : MonoBehaviour
     public float m_DashActiveTime = 0.25f;
     public float m_DashCooldown;
     public float m_PlayerGravity;
+    public bool m_GetIsGrounded;
     #endregion
 
     private PlayerCtrl m_PlayerCtrlScr;
@@ -144,6 +145,8 @@ public class PlayerMove : MonoBehaviour
         m_GroundRayLayerMask = LayerMask.GetMask("Level_Ground");
         m_GroundRayTFormPoint = transform.GetChild(1);
 
+        m_GetIsGrounded = true;
+
         StateUpdate();
     }
 
@@ -188,7 +191,12 @@ public class PlayerMove : MonoBehaviour
             {
                 if (hit.distance > 0.1f)
                 {
+                    m_GetIsGrounded = false;
                     m_Rb.AddRelativeForce(new Vector3(0.0f, m_PlayerGravity, 0.0f), ForceMode.Force);
+                }
+                else
+                {
+                    m_GetIsGrounded = true;
                 }
             }
         }

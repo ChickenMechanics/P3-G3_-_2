@@ -78,7 +78,10 @@ public class P_StateWalk : IState
         else if (m_TriggerFootSound == true)
         {
             m_TriggerFootSound = false;
-            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_FOOTSTEPS, m_Owner.transform.position);
+            if(PlayerManager.GetInstance.GetPlayerMoveScr.m_GetIsGrounded)
+            {
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_FOOTSTEPS, m_Owner.transform.position);
+            }
         }
 
         PlayerCtrl.BasicInput currentInput = m_Owner.GetBasicInput;
