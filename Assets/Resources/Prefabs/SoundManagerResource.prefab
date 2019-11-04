@@ -113,8 +113,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Footsteps
     m_ESound: 11
-    m_SoundSource: {fileID: 2766298943798874220, guid: e79a2c7261c431d47801dd09b9036423,
-      type: 3}
+    m_SoundSource: {fileID: 0}
     m_PitchRange: 1.11
     m_PrevTime: 0
   - AliasName: Rocket Shot
@@ -132,6 +131,12 @@ MonoBehaviour:
   - AliasName: Player Dash
     m_ESound: 15
     m_SoundSource: {fileID: 2029132503486159849, guid: 7abbc1ff44b975b48bf6941a82f1bb9d,
+      type: 3}
+    m_PitchRange: 1
+    m_PrevTime: 0
+  - AliasName: Enemy footsteps
+    m_ESound: 12
+    m_SoundSource: {fileID: 3853858170312646152, guid: 0b57d3c7c3febfc46a4fde3f81c072cf,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0

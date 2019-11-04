@@ -27,6 +27,10 @@ public class EnemyBehaviour : MonoBehaviour
     private float m_CanTakeGrenadeDmgTimeNow;
     private bool m_IsTakingGrenade;
 
+    private float m_FootSoundFreq;
+    private float m_NowFootSoundTime;
+    private bool m_TriggerFootSound;
+
 
     private void Awake()
     {
@@ -43,6 +47,10 @@ public class EnemyBehaviour : MonoBehaviour
             m_CanTakeGrenadeDmgTime = 0.75f;
             m_CanTakeGrenadeDmgTimeNow = m_CanTakeGrenadeDmgTime;
             m_IsTakingGrenade = false;
+
+            m_FootSoundFreq = 0.35f;
+            m_NowFootSoundTime = m_FootSoundFreq;
+            m_TriggerFootSound = true;
         }
     }
 
@@ -69,6 +77,27 @@ public class EnemyBehaviour : MonoBehaviour
 
                 EyeFlasherLogic();
             }
+        }
+
+        if (m_TriggerFootSound == false)
+        {
+            FootStepSoundTimer();
+        }
+        else if (m_TriggerFootSound == true)
+        {
+            m_TriggerFootSound = false;
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ENEMY_FOOTSTEPS, transform.position);
+        }
+    }
+
+
+    private void FootStepSoundTimer()
+    {
+        m_NowFootSoundTime -= Time.deltaTime;
+        if (m_NowFootSoundTime < 0.0f)
+        {
+            m_NowFootSoundTime = m_FootSoundFreq;
+            m_TriggerFootSound = true;
         }
     }
 
