@@ -113,7 +113,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Footsteps
     m_ESound: 11
-    m_SoundSource: {fileID: 3515075065139793247, guid: 500e298f69f21f1458b590fe7fcbb856,
+    m_SoundSource: {fileID: 3573046253566306769, guid: b0294943626f2b847bb04d246f84df98,
       type: 3}
     m_PitchRange: 1.08
     m_PrevTime: 0
@@ -137,7 +137,6 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Enemy footsteps
     m_ESound: 12
-    m_SoundSource: {fileID: 3493840265249070609, guid: 3166a98ad2f8a69468ff761c3b55c2ae,
-      type: 3}
+    m_SoundSource: {fileID: 0}
     m_PitchRange: 1.07
     m_PrevTime: 0
