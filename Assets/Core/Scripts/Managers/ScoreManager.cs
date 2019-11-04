@@ -192,21 +192,24 @@ public class ScoreManager : MonoBehaviour
             m_TriggerBulletTime = true;
         }
 
-        if (m_TriggerBulletTime == true)
+        if (m_TriggerBulletTime == true &&
+            Camera.main.fieldOfView > m_BulletTimeFov)
         {
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, m_BulletTimeFov, 0.05f);
             Time.timeScale = Mathf.Lerp(Time.timeScale, m_BulletTimeScale, 0.5f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, m_BulletTimeFov, 0.05f);
         }
-        else if (m_TriggerBulletTime == false)
+        else if (m_TriggerBulletTime == false &&
+            Camera.main.fieldOfView != 60.0f)
         {
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.1f);
             Time.timeScale = Mathf.Lerp(Time.timeScale, 1.0f, 0.5f);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.1f);
+            if(Camera.main.fieldOfView > 60.0f)
+            {
+                Camera.main.fieldOfView = 60.0f;
+            }
         }
 
-
-
-
-            m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
+        m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
     }
 
 
