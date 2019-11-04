@@ -69,15 +69,15 @@ public class GameManager : MonoBehaviour, IController
                 }
             }
 
-#if DEBUG
+//#if DEBUG
             if (Input.GetKeyDown(KeyCode.G))
             {
                 PlayerManager.GetInstance.GetIsGod = !PlayerManager.GetInstance.GetIsGod;
 
                 string msg = PlayerManager.GetInstance.GetIsGod ? "Godmode On" : "Godmode Off";
-                Debug.LogError(msg);
+                Debug.LogWarning(msg);
             }
-#endif
+//#endif
         }
     }
 }

@@ -10,8 +10,9 @@ public class ScoreManager : MonoBehaviour
     #region design vars
     public float m_ComboTimeInSecMax = 1.0f;
     public float m_ComboScaler;
-    public float m_BulletTimeFreq;
+    public float m_BulletTimeActiveTime;
     public float m_BulletTimeScale;
+    public float m_BulletTimeFov;
     #endregion
 
     #region get / set
@@ -154,8 +155,8 @@ public class ScoreManager : MonoBehaviour
         }
 
         // fuckery
-        m_BulletTimeFreq = 0.25f;
-        m_NowBulletTime = m_BulletTimeFreq;
+        m_BulletTimeActiveTime = 0.25f;
+        m_NowBulletTime = m_BulletTimeActiveTime;
         m_TriggerBulletTime = false;
         m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
 
@@ -183,7 +184,6 @@ public class ScoreManager : MonoBehaviour
     {
         if (m_TriggerBulletTime == true)
         {
-            Time.timeScale = m_BulletTimeScale;
             BulletTimeOutTimer();
         }
         else if (m_PreviousComboMulti < (int)GetCurrentComboMultiplier &&
@@ -192,7 +192,21 @@ public class ScoreManager : MonoBehaviour
             m_TriggerBulletTime = true;
         }
 
-        m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
+        if (m_TriggerBulletTime == true)
+        {
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, m_BulletTimeFov, 0.05f);
+            Time.timeScale = Mathf.Lerp(Time.timeScale, m_BulletTimeScale, 0.5f);
+        }
+        else if (m_TriggerBulletTime == false)
+        {
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.1f);
+            Time.timeScale = Mathf.Lerp(Time.timeScale, 1.0f, 0.5f);
+        }
+
+
+
+
+            m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
     }
 
 
@@ -202,8 +216,7 @@ public class ScoreManager : MonoBehaviour
         m_NowBulletTime -= Time.deltaTime;
         if (m_NowBulletTime < 0.0f)
         {
-            Time.timeScale = 1.0f;
-            m_NowBulletTime = m_BulletTimeFreq;
+            m_NowBulletTime = m_BulletTimeActiveTime;
             m_TriggerBulletTime = false;
         }
     }
