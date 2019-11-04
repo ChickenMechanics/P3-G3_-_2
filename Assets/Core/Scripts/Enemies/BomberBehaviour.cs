@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class BomberBehaviour : EnemyBehaviour
 {
@@ -38,8 +37,6 @@ public class BomberBehaviour : EnemyBehaviour
         //m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.EXPLODE);
 
         yield return new WaitForSeconds(attackDuration);
-
-        UpdatePlayerPos();
 
         UpdateDistanceToPlayer();
         
