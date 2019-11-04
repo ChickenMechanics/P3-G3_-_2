@@ -12,20 +12,18 @@ public class CrawlerBehaviour : EnemyBehaviour
     public float attackAngle;
     
     private EnemyCrawlerAnimation m_Anims;
-    private NavMeshAgent m_Agent;
     private float m_TimeToNextAttack;
-
-
+    
     // Start is called before the first frame update
     private void Start()
     {
-        m_Agent = GetComponent<NavMeshAgent>();
         currentState = State.MOVE;
         m_Anims = gameObject.GetComponent<EnemyCrawlerAnimation>();
         hp = health;
         m_TimeToNextAttack = attackDuration;
 
-        SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ENEMY_SPAWN, transform.position);
+        SoundManager.GetInstance.PlaySoundClip(
+            SoundManager.ESoundClip.ENEMY_SPAWN, transform.position);
     }
 
     // Update is called once per frame
@@ -34,18 +32,16 @@ public class CrawlerBehaviour : EnemyBehaviour
         switch (currentState)
         {
             case  State.ATTACK: Attack(); break;
-            case  State.DEATH:                 Death();   break;
-            case  State.MOVE:                  Move();    break;
+            case  State.DEATH:  Death();  break;
+            case  State.MOVE:   Move();   break;
         }
-
-        m_TimeToNextAttack -= Time.deltaTime;
     }
     
     private void Attack()
     {
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.ATTACK);
 
-        m_Agent.isStopped = true;
+        agent.isStopped = true;
 
         if (m_TimeToNextAttack <= 0)
         {
@@ -75,7 +71,8 @@ public class CrawlerBehaviour : EnemyBehaviour
         if (SoundManager.GetInstance != null)
 #endif
         {
-            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_DEATH, transform.position);
+            SoundManager.GetInstance.PlaySoundClip(
+                SoundManager.ESoundClip.CRAWLER_DEATH, transform.position);
         }
 
         Destroy(transform.gameObject);
@@ -89,8 +86,8 @@ public class CrawlerBehaviour : EnemyBehaviour
 
         if (distanceToPlayer > attackRange)
         {
-            m_Agent.isStopped = false;
-            MoveTowardsPlayer(transform, m_Agent);
+            agent.isStopped = false;
+            MoveTowardsPlayer();
         }
         else
             currentState = State.ATTACK;
