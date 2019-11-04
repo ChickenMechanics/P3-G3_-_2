@@ -426,14 +426,16 @@ public class HUDManager : MonoBehaviour
 
         // combo meter
         float translatedToRange = GetZeroToOneRange(m_ScoreManScr.GetChainTimeLeft, m_ScoreManScr.GetBaseChainTime);
-        if (translatedToRange < 0.98f && translatedToRange > 0.97f)
+        if (translatedToRange < 0.98f &&
+            translatedToRange > 0.97f)
         {
             m_ComboMeterImg.enabled = false;
             m_ComboMeterImg.fillAmount = 1.0f;
             m_ComboMeterImg.enabled = true;
         }
 
-        if (translatedToRange < 1.0f && translatedToRange >= 0.0f)
+        if (translatedToRange < 1.0f &&
+            translatedToRange >= 0.0f)
         {
             m_RingGradient.SetKeys(m_ColorKey, m_AlphaKey);
             m_ComboMeterImg.color = m_RingGradient.Evaluate(translatedToRange);
