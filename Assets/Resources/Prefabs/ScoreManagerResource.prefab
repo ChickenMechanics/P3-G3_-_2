@@ -45,3 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ComboTimeInSecMax: 1.5
   m_ComboScaler: 1.5
+  m_BulletTimeFreq: 0.3
+  m_BulletTimeScale: 0.3

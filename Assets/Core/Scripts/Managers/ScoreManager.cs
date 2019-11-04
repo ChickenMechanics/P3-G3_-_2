@@ -10,6 +10,8 @@ public class ScoreManager : MonoBehaviour
     #region design vars
     public float m_ComboTimeInSecMax = 1.0f;
     public float m_ComboScaler;
+    public float m_BulletTimeFreq;
+    public float m_BulletTimeScale;
     #endregion
 
     #region get / set
@@ -34,9 +36,10 @@ public class ScoreManager : MonoBehaviour
     private bool m_ComboAlive;
 
     // fuckery
-    private float m_BulletTimeFreq;
+    //private float m_BulletTimeFreq;
     private float m_NowBulletTime;
     private bool m_TriggerBulletTime;
+    private int m_PreviousComboMulti;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -151,9 +154,10 @@ public class ScoreManager : MonoBehaviour
         }
 
         // fuckery
-        m_BulletTimeFreq = 0.5f;
+        m_BulletTimeFreq = 0.25f;
         m_NowBulletTime = m_BulletTimeFreq;
         m_TriggerBulletTime = false;
+        m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
 
         ResetPlayerStats();
     }
@@ -170,21 +174,30 @@ public class ScoreManager : MonoBehaviour
         UpdatePoints();
 
         // fuckery
-        //if (m_TriggerBulletTime == true)
-        //{
-        //    Time.timeScale = 0.5f;
-        //    BulletTimeoundTimer();
-        //}
-        //else if (GetCurrentComboMultiplier > 1.0f &&
-        //    m_TriggerBulletTime == false)
-        //{
-        //    m_TriggerBulletTime = true;
-        //}
+        BulletTime();
     }
 
 
     // fuckery
-    private void BulletTimeoundTimer()
+    private void BulletTime()
+    {
+        if (m_TriggerBulletTime == true)
+        {
+            Time.timeScale = m_BulletTimeScale;
+            BulletTimeOutTimer();
+        }
+        else if (m_PreviousComboMulti < (int)GetCurrentComboMultiplier &&
+            m_TriggerBulletTime == false)
+        {
+            m_TriggerBulletTime = true;
+        }
+
+        m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
+    }
+
+
+    // fuckery
+    private void BulletTimeOutTimer()
     {
         m_NowBulletTime -= Time.deltaTime;
         if (m_NowBulletTime < 0.0f)
