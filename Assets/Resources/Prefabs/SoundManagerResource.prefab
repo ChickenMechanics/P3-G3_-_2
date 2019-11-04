@@ -77,7 +77,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Hurt
     m_ESound: 2
-    m_SoundSource: {fileID: 373344110923581604, guid: 7a64651f615e42845a807aa7563be8e0,
+    m_SoundSource: {fileID: 5380010804456729694, guid: f76cc7baaf714f74f8155a55954ad086,
       type: 3}
     m_PitchRange: 1.17
     m_PrevTime: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Reloading (overheating)
     m_ESound: 8
-    m_SoundSource: {fileID: 4527327238043068471, guid: f8693842a451ac04989ee6efdb6249e4,
+    m_SoundSource: {fileID: 2518131025903640596, guid: a13e671cbab96e64ba82be18c572078e,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
@@ -107,37 +107,37 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Spawning (enemy)
     m_ESound: 10
-    m_SoundSource: {fileID: 3252338361524189476, guid: ebb7e27b59ddd12449cd751ddfbea02f,
+    m_SoundSource: {fileID: 8826352771505320014, guid: b99afb0ce1bca444b908c33456e6cd70,
       type: 3}
     m_PitchRange: 1.16
     m_PrevTime: 0
   - AliasName: Player Footsteps
     m_ESound: 11
-    m_SoundSource: {fileID: 3612882895369201430, guid: 7e2b962392bf08946b6c0033c73612b0,
+    m_SoundSource: {fileID: 3515075065139793247, guid: 500e298f69f21f1458b590fe7fcbb856,
       type: 3}
     m_PitchRange: 1.08
     m_PrevTime: 0
   - AliasName: Rocket Shot
     m_ESound: 13
-    m_SoundSource: {fileID: 8547104688784681372, guid: 7427f462adb00b84fa16d59e94a13d01,
+    m_SoundSource: {fileID: 1533425230961267180, guid: a72e7e486eccb25458048127b44cb854,
       type: 3}
     m_PitchRange: 1.06
     m_PrevTime: 0
   - AliasName: Rocket Impact
     m_ESound: 14
-    m_SoundSource: {fileID: 7906836068178854871, guid: a31339942103c264e84d30cf221b445a,
+    m_SoundSource: {fileID: 2469351336371922715, guid: 1f1ef97a6806e054ebaa911a56ff53ee,
       type: 3}
     m_PitchRange: 1.17
     m_PrevTime: 0
   - AliasName: Player Dash
     m_ESound: 15
-    m_SoundSource: {fileID: 5028070515467817355, guid: d28957104c2be894997fef0d9d81e51f,
+    m_SoundSource: {fileID: 6386670672566276923, guid: fb76f1827ddc84745a49494e8ad2f2ac,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
   - AliasName: Enemy footsteps
     m_ESound: 12
-    m_SoundSource: {fileID: 5606092502928053950, guid: e3b3709d762d7154ea40929239eeba18,
+    m_SoundSource: {fileID: 3493840265249070609, guid: 3166a98ad2f8a69468ff761c3b55c2ae,
       type: 3}
     m_PitchRange: 1.07
     m_PrevTime: 0
