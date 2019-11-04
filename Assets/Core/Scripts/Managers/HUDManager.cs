@@ -125,11 +125,6 @@ public class HUDManager : MonoBehaviour
     // cracks
     private bool[] m_IsCrack;
 
-    // fuckery
-    private float m_BulletTimeFreq;
-    private float m_NowBulletTime;
-    private bool m_TriggerBulletTime;
-
 
     //----------------------------------------------------------------------------------------------------
 
@@ -262,22 +257,6 @@ public class HUDManager : MonoBehaviour
         for(int i = 0; i < 4; ++i)
         {
             m_IsCrack[i] = false;
-        }
-
-        m_BulletTimeFreq = 1.0f;
-        m_NowBulletTime = m_BulletTimeFreq;
-        m_TriggerBulletTime = true;
-    }
-
-
-    private void BulletTimeoundTimer()
-    {
-        m_NowBulletTime -= Time.deltaTime;
-        if (m_NowBulletTime < 0.0f)
-        {
-            Time.timeScale = 1.0f;
-            m_NowBulletTime = m_BulletTimeFreq;
-            m_TriggerBulletTime = true;
         }
     }
 
@@ -507,17 +486,5 @@ public class HUDManager : MonoBehaviour
         GunBulletUpdate();
         ScoreUpdate();
         WavesUpdate();
-
-
-        //if (m_TriggerBulletTime == false)
-        //{
-        //    Time.timeScale = 0.5f;
-        //    BulletTimeoundTimer();
-        //}
-        //else if (m_TriggerBulletTime == true)
-        //{
-        //    m_TriggerBulletTime = false;
-            
-        //}
     }
 }

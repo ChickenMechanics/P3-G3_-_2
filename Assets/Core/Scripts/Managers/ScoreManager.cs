@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
 
     #region design vars
     public float m_ComboTimeInSecMax = 1.0f;
-    public float m_ComboScaler = 1.5f;
+    public float m_ComboScaler;
     #endregion
 
     #region get / set
@@ -32,6 +32,11 @@ public class ScoreManager : MonoBehaviour
     #endregion
 
     private bool m_ComboAlive;
+
+    // fuckery
+    private float m_BulletTimeFreq;
+    private float m_NowBulletTime;
+    private bool m_TriggerBulletTime;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -145,6 +150,11 @@ public class ScoreManager : MonoBehaviour
             m_ComboScaler = 0.0f;
         }
 
+        // fuckery
+        m_BulletTimeFreq = 0.5f;
+        m_NowBulletTime = m_BulletTimeFreq;
+        m_TriggerBulletTime = false;
+
         ResetPlayerStats();
     }
 
@@ -158,5 +168,30 @@ public class ScoreManager : MonoBehaviour
     private void Update()
     {
         UpdatePoints();
+
+        // fuckery
+        //if (m_TriggerBulletTime == true)
+        //{
+        //    Time.timeScale = 0.5f;
+        //    BulletTimeoundTimer();
+        //}
+        //else if (GetCurrentComboMultiplier > 1.0f &&
+        //    m_TriggerBulletTime == false)
+        //{
+        //    m_TriggerBulletTime = true;
+        //}
+    }
+
+
+    // fuckery
+    private void BulletTimeoundTimer()
+    {
+        m_NowBulletTime -= Time.deltaTime;
+        if (m_NowBulletTime < 0.0f)
+        {
+            Time.timeScale = 1.0f;
+            m_NowBulletTime = m_BulletTimeFreq;
+            m_TriggerBulletTime = false;
+        }
     }
 }

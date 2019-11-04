@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7180602139815057152}
   - component: {fileID: 2179966601459750748}
   m_Layer: 0
-  m_Name: ScoreManager
+  m_Name: ScoreManagerResource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ComboTimeInSecMax: 1.5
-  m_ComboScaler: 1.15
+  m_ComboScaler: 1.5
