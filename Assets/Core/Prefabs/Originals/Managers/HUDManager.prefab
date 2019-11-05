@@ -2050,7 +2050,7 @@ GameObject:
   - component: {fileID: 2827522825572749872}
   - component: {fileID: 1551459379735197569}
   m_Layer: 5
-  m_Name: WaveSliderImage
+  m_Name: WaveSliderImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
