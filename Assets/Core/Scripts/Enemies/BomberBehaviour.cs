@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class BomberBehaviour : EnemyBehaviour
 {
-    public float damageAmount;
+    public float playerDamage;
+    public float enemyDamage;
     public float scoreAmount;
     public float attackDuration;
     public float attackRange;
@@ -41,12 +42,12 @@ public class BomberBehaviour : EnemyBehaviour
         UpdateDistanceToPlayer();
         
         if (distanceToPlayer <= attackRange)
-            PlayerManager.GetInstance.DecreaseHealth(damageAmount);
+            PlayerManager.GetInstance.DecreaseHealth(playerDamage);
 
         foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             if (Mathf.Abs(enemy.transform.position.magnitude - transform.position.magnitude) < attackRange)
-                enemy.GetComponent<EnemyBehaviour>().TakeDamage(damageAmount);
+                enemy.GetComponent<EnemyBehaviour>().TakeDamage(playerDamage);
         }
 
         Destroy(transform.gameObject);
@@ -68,7 +69,7 @@ public class BomberBehaviour : EnemyBehaviour
         foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             if (Mathf.Abs(enemy.transform.position.magnitude - transform.position.magnitude) < attackRange)
-                enemy.GetComponent<EnemyBehaviour>().TakeDamage(damageAmount);
+                enemy.GetComponent<EnemyBehaviour>().TakeDamage(enemyDamage);
         }
 
         Destroy(transform.gameObject);
