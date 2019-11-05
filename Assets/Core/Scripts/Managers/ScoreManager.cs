@@ -186,6 +186,7 @@ public class ScoreManager : MonoBehaviour
             m_TriggerBulletTime == false)
         {
             m_TriggerBulletTime = true;
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.COMBO_INCREASE, PlayerManager.GetInstance.GetPlayer.transform.position);
         }
 
         // timescale & fov hacks
