@@ -43360,7 +43360,7 @@ GameObject:
   - component: {fileID: 1944397653}
   - component: {fileID: 1944397655}
   - component: {fileID: 1944397654}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube.010 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44050,7 +44050,7 @@ GameObject:
   - component: {fileID: 5301297640192055357}
   - component: {fileID: 5087756389522627907}
   - component: {fileID: 5236413265962532007}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
