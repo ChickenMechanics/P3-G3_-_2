@@ -57,6 +57,7 @@ public class GunManager : MonoBehaviour
             m_ActiveGunIdx = idx;
 
             ActiveGun.SetActive(false);
+
             ActiveGun = m_GunPrefabClone[m_ActiveGunIdx];
             ActiveGun.SetActive(true);
 

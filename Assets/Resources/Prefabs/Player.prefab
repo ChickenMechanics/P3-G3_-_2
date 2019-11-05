@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da4840cb75df304684a3b4146b3a9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EyeHeight: 1
+  m_EyeHeight: 1.1
   m_LookSensitivity: 4
   m_LookSmooth: 0.6
   m_LookPitchMin: 98

@@ -31,7 +31,7 @@ public class GunTemplate : MonoBehaviour
     private Transform m_RayOriginPoint;
     private LayerMask m_AimRayLayerMask;
     // animation
-    private Animator m_Anim;
+    [HideInInspector] public Animator m_GetAnimator { private set; get; }
     // ammunition things
     private GameObject m_BulletFolder;
     private RaycastHit m_RaycastHit;
@@ -84,8 +84,8 @@ public class GunTemplate : MonoBehaviour
         m_RayOriginPoint = transform.GetChild(1);
         m_AimRayLayerMask = LayerMask.GetMask("Level_Ground", "Level_Wall", "Enemy");
 
-        m_Anim = transform.GetChild(3).gameObject.GetComponent<Animator>();
-        m_ReloadAnimTime = m_Anim.runtimeAnimatorController.animationClips[0].length;
+        m_GetAnimator = transform.GetChild(3).gameObject.GetComponent<Animator>();
+        m_ReloadAnimTime = m_GetAnimator.runtimeAnimatorController.animationClips[0].length;
 
         GetCurrentReloadTime = m_ReloadAnimTime;
         GetCurrentMagSize = m_MagSizeTotal;
@@ -123,21 +123,21 @@ public class GunTemplate : MonoBehaviour
 
     private void GunReadyState()
     {
-        if(m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Fire") ||
-            m_Anim.GetCurrentAnimatorStateInfo(0).IsName("Overheat"))
+        if(m_GetAnimator.GetCurrentAnimatorStateInfo(0).IsName("Fire") ||
+            m_GetAnimator.GetCurrentAnimatorStateInfo(0).IsName("Overheat"))
         {
-            m_Anim.SetBool("Fire", false);
-            m_Anim.SetBool("Overheat", false);
-            m_Anim.SetBool("Idle", true);
+            m_GetAnimator.SetBool("Fire", false);
+            m_GetAnimator.SetBool("Overheat", false);
+            m_GetAnimator.SetBool("Idle", true);
         }
 
         if (m_IsFiring == true)
         {
             m_CurrentGunState = EGunState.FIRING;
 
-            m_Anim.SetBool("Idle", false);
-            m_Anim.SetBool("Overheat", false);
-            m_Anim.SetBool("Fire", true);
+            m_GetAnimator.SetBool("Idle", false);
+            m_GetAnimator.SetBool("Overheat", false);
+            m_GetAnimator.SetBool("Fire", true);
         }
     }
 
@@ -204,9 +204,9 @@ public class GunTemplate : MonoBehaviour
             GetCurrentReloadTime = m_ReloadAnimTime;
             m_CurrentGunState = EGunState.READY;
 
-            m_Anim.SetBool("Fire", false);
-            m_Anim.SetBool("Overheat", false);
-            m_Anim.SetBool("Idle", true);
+            m_GetAnimator.SetBool("Fire", false);
+            m_GetAnimator.SetBool("Overheat", false);
+            m_GetAnimator.SetBool("Idle", true);
         }
     }
 
@@ -294,14 +294,22 @@ public class GunTemplate : MonoBehaviour
         {
             if(GetCurrentMagSize < m_MagSizeTotal)
             {
+                if(m_GunName == "Plasma")
+                {
+                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_RELOAD_1, transform.position);
+                }
+                else if (m_GunName == "Grenade")
+                {
+                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_RELOAD_2, transform.position);
+                }
+
                 GetIsReloading = true;
                 GetCurrentReloadTime = m_ReloadAnimTime;
-                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_RELOAD_1, transform.position);
                 m_CurrentGunState = EGunState.RELOADING;
 
-                m_Anim.SetBool("Idle", false);
-                m_Anim.SetBool("Fire", false);
-                m_Anim.SetBool("Overheat", true);
+                m_GetAnimator.SetBool("Idle", false);
+                m_GetAnimator.SetBool("Fire", false);
+                m_GetAnimator.SetBool("Overheat", true);
             }
         }
     }

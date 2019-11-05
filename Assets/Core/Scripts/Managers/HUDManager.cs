@@ -12,8 +12,6 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
-    //public Color m_MultiColor;
-
     #region design vars
     [Header("Score FX")]
     [Range(0.0f, 10.0f)]
@@ -26,6 +24,7 @@ public class HUDManager : MonoBehaviour
     public float m_ScoreBounceScaleMultiUp;
     [Range(0.0f, 10.0f)]
     public float m_ScoreBounceScaleMultiDown;
+    public Color m_ScoreColorChange;
 
     [Header("Score Chain FX")]
     [Range(0.0f, 10.0f)]
@@ -61,6 +60,7 @@ public class HUDManager : MonoBehaviour
 
     private Image m_HealthLeftImg;
     private Image m_HealthRightImg;
+    private Image m_DashSliderImg;
     private Image m_ComboMeterImg;
     private Image m_WaveMeterImg;
     private Image[] m_PlayerCracks;
@@ -125,6 +125,11 @@ public class HUDManager : MonoBehaviour
     // cracks
     private bool[] m_IsCrack;
 
+    private float m_DashCoolDownTimeTarget;
+    private float m_NowDashCoolDownTime;
+
+    private Color m_ScoreColorBase;
+
 
     //----------------------------------------------------------------------------------------------------
 
@@ -137,6 +142,7 @@ public class HUDManager : MonoBehaviour
         m_PlayerManScr = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         m_HealthLeftImg = canvas.transform.Find("PlayerStatus").transform.Find("HealthLeftImg").GetComponent<Image>();
         m_HealthRightImg = canvas.transform.Find("PlayerStatus").transform.Find("HealthRightImg").GetComponent<Image>();
+        m_DashSliderImg = canvas.transform.Find("PlayerStatus").transform.Find("WaveSliderImg").GetComponent<Image>();
 
         m_PrevHealth = m_PlayerManScr.GetCurrentHealth;
 
@@ -149,6 +155,7 @@ public class HUDManager : MonoBehaviour
 
         m_ScoreTxt = canvas.transform.Find("ScoreCombo").transform.Find("ScoreTxt").GetComponent<Text>();
         m_ScoreTxt.text = " ";
+        m_ScoreColorBase = m_ScoreTxt.color;
 
         m_ComboMeterImg = canvas.transform.Find("ScoreCombo").transform.Find("ComboMeterImg").GetComponent<Image>();
         m_ComboMeterImg.fillAmount = m_ScoreManScr.GetChainTimeLeft;
@@ -170,8 +177,8 @@ public class HUDManager : MonoBehaviour
         }
 
         // waves
-        m_WaveMeterImg = canvas.transform.Find("Waves").transform.Find("WaveSliderImage").GetComponent<Image>();
-        m_WaveMeterImg.fillAmount = 1.0f;
+        //m_WaveMeterImg = canvas.transform.Find("Waves").transform.Find("WaveSliderImage").GetComponent<Image>();
+        //m_WaveMeterImg.fillAmount = 1.0f;
 
         // randoms
         m_ScoreComboDecimalPoints = 2;
@@ -253,6 +260,9 @@ public class HUDManager : MonoBehaviour
         m_PlayerCracks[2] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_3").GetComponent<Image>();
         m_PlayerCracks[3] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_4").GetComponent<Image>();
 
+        m_DashCoolDownTimeTarget = PlayerManager.GetInstance.GetPlayerMoveScr.m_DashCooldown;
+        m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
+
         m_IsCrack = new bool[4];
         for(int i = 0; i < 4; ++i)
         {
@@ -319,7 +329,9 @@ public class HUDManager : MonoBehaviour
 
     private IEnumerator TxtBouncerFX(TxtBounceFX bounceFxObj)
     {
-        while(bounceFxObj.TxtRef.transform.localScale.x >= bounceFxObj.BounceInitScale.x)
+        m_ScoreTxt.color = m_ScoreColorChange;
+
+        while (bounceFxObj.TxtRef.transform.localScale.x >= bounceFxObj.BounceInitScale.x)
         {
             if (bounceFxObj.BounceDirFlipper == false)
             {
@@ -338,6 +350,7 @@ public class HUDManager : MonoBehaviour
             yield return null;
         }
 
+        m_ScoreTxt.color = m_ScoreColorBase;
         bounceFxObj.TxtRef.transform.localScale = bounceFxObj.BounceInitScale;
         bounceFxObj.BounceDirFlipper = false;
         StopCoroutine("TxtBouncerFX");
@@ -349,6 +362,29 @@ public class HUDManager : MonoBehaviour
         m_PrevHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerManScr.GetCurrentHealth, m_PlayerManScr.GetBaseHealth), 0.2f);
         m_HealthLeftImg.fillAmount = m_PrevHealth;
         m_HealthRightImg.fillAmount = m_PrevHealth;
+
+        float dashInput = PlayerManager.GetInstance.GetPlayerCtrlScr.GetBasicInput.DashInput;
+        int playerStateIdx = PlayerManager.GetInstance.GetPlayerCtrlScr.GetFSM.GetCurrentStateIdx;
+
+        if (dashInput != 0 &&
+            playerStateIdx == 3)    // 3 equals dash // couldn't find enum so fuck it
+        {
+            m_DashSliderImg.fillAmount = Mathf.Lerp(m_DashSliderImg.fillAmount, 0.0f, 0.25f);
+            m_NowDashCoolDownTime = 0.0f;
+        }
+        else
+        {
+            if(m_NowDashCoolDownTime < m_DashCoolDownTimeTarget)
+            {
+                m_NowDashCoolDownTime += Time.deltaTime;
+                if(m_NowDashCoolDownTime > m_DashCoolDownTimeTarget)
+                {
+                    m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
+                }
+                float convertedT = GetZeroToOneRange(m_NowDashCoolDownTime, m_DashCoolDownTimeTarget);
+                m_DashSliderImg.fillAmount = Mathf.Lerp(m_DashSliderImg.fillAmount, convertedT, 0.1f);
+            }
+        }
 
         CrackUpdate();
     }
@@ -449,6 +485,10 @@ public class HUDManager : MonoBehaviour
         string scaleSymbol = "x ";
         //float multi = TruncateFloat(m_ScoreManScr.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);  // saved if artists change their mind about decimals
         int multi = (int)TruncateFloat(m_ScoreManScr.GetCurrentComboMultiplier, m_ScoreComboDecimalPoints);
+        if(multi > 9)
+        {
+            multi = 9;
+        }
         m_Multiplier.text = string.Concat(scaleSymbol, multi.ToString());
 
         // things that probably goes to endscreen
