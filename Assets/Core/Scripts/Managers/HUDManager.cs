@@ -125,8 +125,8 @@ public class HUDManager : MonoBehaviour
     // cracks
     private bool[] m_IsCrack;
 
-    private float m_NowDashCoolDownTime;
     private float m_DashCoolDownTimeTarget;
+    private float m_NowDashCoolDownTime;
 
     private Color m_ScoreColorBase;
 
@@ -260,8 +260,8 @@ public class HUDManager : MonoBehaviour
         m_PlayerCracks[2] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_3").GetComponent<Image>();
         m_PlayerCracks[3] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_4").GetComponent<Image>();
 
-        m_NowDashCoolDownTime = 0.0f;
         m_DashCoolDownTimeTarget = PlayerManager.GetInstance.GetPlayerMoveScr.m_DashCooldown;
+        m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
 
         m_IsCrack = new bool[4];
         for(int i = 0; i < 4; ++i)
@@ -367,7 +367,7 @@ public class HUDManager : MonoBehaviour
         int playerStateIdx = PlayerManager.GetInstance.GetPlayerCtrlScr.GetFSM.GetCurrentStateIdx;
 
         if (dashInput != 0 &&
-            playerStateIdx == 3)
+            playerStateIdx == 3)    // 3 equals dash // couldn't find enum so fuck it
         {
             m_DashSliderImg.fillAmount = Mathf.Lerp(m_DashSliderImg.fillAmount, 0.0f, 0.25f);
             m_NowDashCoolDownTime = 0.0f;
