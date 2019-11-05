@@ -12,6 +12,10 @@ public class EnemyBehaviour : MonoBehaviour
     protected Vector3 lookPosition;
     protected NavMeshAgent agent;
 
+    protected bool GetHasAttacked() { return m_HasAttacked; }
+    protected void SetHasAttacked(bool hasAttacked) { m_HasAttacked = hasAttacked; }
+
+    private bool m_HasAttacked;
     private Quaternion m_LookRotation;
     private GameObject m_PupilGO;
     private float m_TargetEyeFlasherTime;
