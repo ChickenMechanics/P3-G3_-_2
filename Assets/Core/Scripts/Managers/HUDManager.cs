@@ -12,8 +12,6 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
-    //public Color m_MultiColor;
-
     #region design vars
     [Header("Score FX")]
     [Range(0.0f, 10.0f)]
@@ -26,6 +24,7 @@ public class HUDManager : MonoBehaviour
     public float m_ScoreBounceScaleMultiUp;
     [Range(0.0f, 10.0f)]
     public float m_ScoreBounceScaleMultiDown;
+    public Color m_ScoreColorChange;
 
     [Header("Score Chain FX")]
     [Range(0.0f, 10.0f)]
@@ -125,6 +124,8 @@ public class HUDManager : MonoBehaviour
     // cracks
     private bool[] m_IsCrack;
 
+    private Color m_ScoreColorBase;
+
 
     //----------------------------------------------------------------------------------------------------
 
@@ -149,6 +150,7 @@ public class HUDManager : MonoBehaviour
 
         m_ScoreTxt = canvas.transform.Find("ScoreCombo").transform.Find("ScoreTxt").GetComponent<Text>();
         m_ScoreTxt.text = " ";
+        m_ScoreColorBase = m_ScoreTxt.color;
 
         m_ComboMeterImg = canvas.transform.Find("ScoreCombo").transform.Find("ComboMeterImg").GetComponent<Image>();
         m_ComboMeterImg.fillAmount = m_ScoreManScr.GetChainTimeLeft;
@@ -319,7 +321,9 @@ public class HUDManager : MonoBehaviour
 
     private IEnumerator TxtBouncerFX(TxtBounceFX bounceFxObj)
     {
-        while(bounceFxObj.TxtRef.transform.localScale.x >= bounceFxObj.BounceInitScale.x)
+        m_ScoreTxt.color = m_ScoreColorChange;
+
+        while (bounceFxObj.TxtRef.transform.localScale.x >= bounceFxObj.BounceInitScale.x)
         {
             if (bounceFxObj.BounceDirFlipper == false)
             {
@@ -338,6 +342,7 @@ public class HUDManager : MonoBehaviour
             yield return null;
         }
 
+        m_ScoreTxt.color = m_ScoreColorBase;
         bounceFxObj.TxtRef.transform.localScale = bounceFxObj.BounceInitScale;
         bounceFxObj.BounceDirFlipper = false;
         StopCoroutine("TxtBouncerFX");
