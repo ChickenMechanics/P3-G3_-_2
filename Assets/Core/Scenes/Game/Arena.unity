@@ -39122,6 +39122,16 @@ PrefabInstance:
       propertyPath: m_ScoreColorChange.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
+        type: 3}
+      propertyPath: m_HelmetLightOnTime
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
+        type: 3}
+      propertyPath: m_HelmetLightOffTime
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 1551459379735197569, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
         type: 3}
       propertyPath: m_FillAmount

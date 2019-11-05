@@ -48,6 +48,10 @@ public class HUDManager : MonoBehaviour
     public float m_Crack_2;
     public float m_Crack_3;
     public float m_Crack_4;
+
+    [Header("Helmet Lights")]
+    public float m_HelmetLightOnTime;
+    public float m_HelmetLightOffTime;
     #endregion
 
     public static HUDManager GetInstance { get; private set; }
@@ -77,8 +81,6 @@ public class HUDManager : MonoBehaviour
     private float m_FlasherThingTimer;
     private bool m_bFlasherThing;
 
-    private float m_HelmetFlashLightTargetOn;
-    private float m_HelmetFlashLightTargetOff;
     private float m_NowHelmetFlashLightTime;
     private bool m_bHelmetFlashOnOff;
 
@@ -275,9 +277,7 @@ public class HUDManager : MonoBehaviour
         m_RightLightImg = canvas.transform.Find("Statics").transform.Find("RightLightImg").GetComponent<Image>();
         m_LeftRightHelmetLightBaseColor = m_RightLightImg.color;
 
-        m_HelmetFlashLightTargetOn = 1.5f;
-        m_HelmetFlashLightTargetOff = 0.25f;
-        m_NowHelmetFlashLightTime = m_HelmetFlashLightTargetOn;
+        m_NowHelmetFlashLightTime = m_HelmetLightOnTime;
         m_bHelmetFlashOnOff = true;
 
         m_IsCrack = new bool[4];
@@ -381,7 +381,7 @@ public class HUDManager : MonoBehaviour
             m_NowHelmetFlashLightTime < 0.0f)
         {
             m_bHelmetFlashOnOff = false;
-            m_NowHelmetFlashLightTime = m_HelmetFlashLightTargetOff;
+            m_NowHelmetFlashLightTime = m_HelmetLightOffTime;
             m_LeftLightImg.color = Color.black;
             m_RightLightImg.color = Color.black;
         }
@@ -389,7 +389,7 @@ public class HUDManager : MonoBehaviour
             m_NowHelmetFlashLightTime < 0.0f)
         {
             m_bHelmetFlashOnOff = true;
-            m_NowHelmetFlashLightTime = m_HelmetFlashLightTargetOn;
+            m_NowHelmetFlashLightTime = m_HelmetLightOnTime;
             m_LeftLightImg.color = m_LeftRightHelmetLightBaseColor;
             m_RightLightImg.color = m_LeftRightHelmetLightBaseColor;
         }
