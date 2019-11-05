@@ -63,6 +63,8 @@ public class HUDManager : MonoBehaviour
     private Image m_DashSliderImg;
     private Image m_ComboMeterImg;
     private Image m_WaveMeterImg;
+    private Image m_LeftLightImg;
+    private Image m_RightLightImg;
     private Image[] m_PlayerCracks;
     private Text m_ScoreTxt;
     private Text m_ChainTxt;
@@ -74,6 +76,11 @@ public class HUDManager : MonoBehaviour
     private float m_MagEmptyBlinkTime;
     private float m_FlasherThingTimer;
     private bool m_bFlasherThing;
+
+    private float m_HelmetFlashLightTargetOn;
+    private float m_HelmetFlashLightTargetOff;
+    private float m_NowHelmetFlashLightTime;
+    private bool m_bHelmetFlashOnOff;
 
     private int m_PrevFrameScore;
 
@@ -129,6 +136,7 @@ public class HUDManager : MonoBehaviour
     private float m_NowDashCoolDownTime;
 
     private Color m_ScoreColorBase;
+    private Color m_LeftRightHelmetLightBaseColor;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -263,6 +271,15 @@ public class HUDManager : MonoBehaviour
         m_DashCoolDownTimeTarget = PlayerManager.GetInstance.GetPlayerMoveScr.m_DashCooldown;
         m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
 
+        m_LeftLightImg = canvas.transform.Find("Statics").transform.Find("LeftLightImg").GetComponent<Image>();
+        m_RightLightImg = canvas.transform.Find("Statics").transform.Find("RightLightImg").GetComponent<Image>();
+        m_LeftRightHelmetLightBaseColor = m_RightLightImg.color;
+
+        m_HelmetFlashLightTargetOn = 1.5f;
+        m_HelmetFlashLightTargetOff = 0.25f;
+        m_NowHelmetFlashLightTime = m_HelmetFlashLightTargetOn;
+        m_bHelmetFlashOnOff = true;
+
         m_IsCrack = new bool[4];
         for(int i = 0; i < 4; ++i)
         {
@@ -297,7 +314,7 @@ public class HUDManager : MonoBehaviour
 
         return m_bFlasherThing;
     }
-    
+
 
     private IEnumerator TxtRumblerFX(TxtRumbleFX rumbleFxObj)
     {
@@ -354,6 +371,28 @@ public class HUDManager : MonoBehaviour
         bounceFxObj.TxtRef.transform.localScale = bounceFxObj.BounceInitScale;
         bounceFxObj.BounceDirFlipper = false;
         StopCoroutine("TxtBouncerFX");
+    }
+
+
+    private void LeftRightLightBlink()
+    {
+        m_NowHelmetFlashLightTime -= Time.deltaTime;
+        if(m_bHelmetFlashOnOff == true &&
+            m_NowHelmetFlashLightTime < 0.0f)
+        {
+            m_bHelmetFlashOnOff = false;
+            m_NowHelmetFlashLightTime = m_HelmetFlashLightTargetOff;
+            m_LeftLightImg.color = Color.black;
+            m_RightLightImg.color = Color.black;
+        }
+        else if (m_bHelmetFlashOnOff == false &&
+            m_NowHelmetFlashLightTime < 0.0f)
+        {
+            m_bHelmetFlashOnOff = true;
+            m_NowHelmetFlashLightTime = m_HelmetFlashLightTargetOn;
+            m_LeftLightImg.color = m_LeftRightHelmetLightBaseColor;
+            m_RightLightImg.color = m_LeftRightHelmetLightBaseColor;
+        }
     }
 
 
@@ -530,5 +569,6 @@ public class HUDManager : MonoBehaviour
         GunBulletUpdate();
         ScoreUpdate();
         WavesUpdate();
+        LeftRightLightBlink();
     }
 }
