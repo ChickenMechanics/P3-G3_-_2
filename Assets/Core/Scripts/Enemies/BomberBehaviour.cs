@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BomberBehaviour : EnemyBehaviour
 {
@@ -10,12 +9,15 @@ public class BomberBehaviour : EnemyBehaviour
     public float attackRange;
     public float health;
 
+    private float m_TimeToNextAttack;
+
     //private EnemyBomberAnimation m_Anims;
 
     // Start is called before the first frame update
     private void Start()
     {
         currentState = State.MOVE;
+        m_TimeToNextAttack = attackDuration;
         //m_Anims = gameObject.GetComponent<EnemyBomberAnimation>();
         hp = health;
 
@@ -27,30 +29,38 @@ public class BomberBehaviour : EnemyBehaviour
     {
         switch (currentState)
         {
-            case State.ATTACK: StartCoroutine(Attack()); break;
-            case State.DEATH: Death(); break;
-            case State.MOVE: Move(); break;
+            case State.ATTACK: Attack(); break;
+            case State.DEATH:  Death();  break;
+            case State.MOVE:   Move();   break;
         }
     }
 
-    private IEnumerator Attack()
+    private void Attack()
     {
         //m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.EXPLODE);
 
-        yield return new WaitForSeconds(attackDuration);
+        agent.isStopped = true;
 
-        UpdateDistanceToPlayer();
-        
-        if (distanceToPlayer <= attackRange)
-            PlayerManager.GetInstance.DecreaseHealth(playerDamage);
-
-        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        if (m_TimeToNextAttack <= 0)
         {
-            if (Mathf.Abs(enemy.transform.position.magnitude - transform.position.magnitude) < attackRange)
-                enemy.GetComponent<EnemyBehaviour>().TakeDamage(playerDamage);
-        }
+            UpdateDistanceToPlayer();
 
-        Destroy(transform.gameObject);
+            if (distanceToPlayer <= attackRange)
+                PlayerManager.GetInstance.DecreaseHealth(playerDamage);
+
+            foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                if (Mathf.Abs(enemy.transform.position.magnitude - transform.position.magnitude) < attackRange)
+                    enemy.GetComponent<EnemyBehaviour>().TakeDamage(playerDamage);
+            }
+
+            Destroy(transform.gameObject);
+        }
+        else
+        {
+            m_TimeToNextAttack -= Time.deltaTime;
+            currentState = State.MOVE;
+        }
     }
 
     private void Death()
@@ -77,11 +87,14 @@ public class BomberBehaviour : EnemyBehaviour
 
     private void Move()
     {
-        //m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.WALK);
+        UpdateDistanceToPlayer();
 
-        MoveTowardsPlayer();
-
-        if (distanceToPlayer < attackRange)
+        if (distanceToPlayer > attackRange)
+        {
+            agent.isStopped = false;
+            MoveTowardsPlayer();
+        }
+        else
             currentState = State.ATTACK;
     }
 }
