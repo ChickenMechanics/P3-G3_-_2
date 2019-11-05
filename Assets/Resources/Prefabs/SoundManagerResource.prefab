@@ -47,7 +47,7 @@ MonoBehaviour:
   m_SoundObjs:
   - AliasName: Gun AR Shot
     m_ESound: 3
-    m_SoundSource: {fileID: 4667898177743610374, guid: a941d03993d183b46a1a01156a8c128a,
+    m_SoundSource: {fileID: 8731207991689328421, guid: 59e654e58a76f1d478a828044c7d4704,
       type: 3}
     m_PitchRange: 1.07
     m_PrevTime: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
-  - AliasName: Reloading (overheating)
+  - AliasName: Reloading 1 (overheating)
     m_ESound: 8
     m_SoundSource: {fileID: 8011490098110765958, guid: 21d833768b4145f4bb14cc77496cb2db,
       type: 3}
@@ -140,4 +140,22 @@ MonoBehaviour:
     m_SoundSource: {fileID: 3573046253566306769, guid: b0294943626f2b847bb04d246f84df98,
       type: 3}
     m_PitchRange: 1.07
+    m_PrevTime: 0
+  - AliasName: Helmet crack
+    m_ESound: 17
+    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+      type: 3}
+    m_PitchRange: 1.07
+    m_PrevTime: 0
+  - AliasName: Combo increase
+    m_ESound: 18
+    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+      type: 3}
+    m_PitchRange: 1.07
+    m_PrevTime: 0
+  - AliasName: Reloading 1 (overheating)
+    m_ESound: 20
+    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+      type: 3}
+    m_PitchRange: 1
     m_PrevTime: 0

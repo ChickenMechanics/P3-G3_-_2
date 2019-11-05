@@ -39137,23 +39137,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
         type: 3}
-      propertyPath: m_Crack_1
-      value: 80
+      propertyPath: m_ScoreColorChange.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
         type: 3}
-      propertyPath: m_Crack_2
-      value: 60
+      propertyPath: m_ScoreColorChange.g
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
         type: 3}
-      propertyPath: m_Crack_3
-      value: 40
+      propertyPath: m_ScoreColorChange.b
+      value: 0.733706
       objectReference: {fileID: 0}
     - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
         type: 3}
-      propertyPath: m_Crack_4
-      value: 20
+      propertyPath: m_ScoreColorChange.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9981ed4f40be37e41b8ebe8c7327b3d0, type: 3}

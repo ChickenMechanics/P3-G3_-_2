@@ -2304,6 +2304,7 @@ MonoBehaviour:
   m_ScoreBounceTargetScale: 2.5
   m_ScoreBounceScaleMultiUp: 8.9
   m_ScoreBounceScaleMultiDown: 6.31
+  m_ScoreColor: {r: 0, g: 1, b: 0.0153307915, a: 0}
   m_ChainRumbleValue: 7.65
   m_ChainRumbleTime: 0.31
   m_ChainBounceTargetScale: 2.37
@@ -2312,10 +2313,10 @@ MonoBehaviour:
   m_Full: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
   m_Semi: {r: 0.9433962, g: 0.7384768, b: 0.4494482, a: 1}
   m_Empty: {r: 1, g: 0.09760042, b: 0, a: 1}
-  m_Crack_1: 0
-  m_Crack_2: 0
-  m_Crack_3: 0
-  m_Crack_4: 0
+  m_Crack_1: 80
+  m_Crack_2: 60
+  m_Crack_3: 40
+  m_Crack_4: 20
 --- !u!1 &5829277867375306004
 GameObject:
   m_ObjectHideFlags: 0

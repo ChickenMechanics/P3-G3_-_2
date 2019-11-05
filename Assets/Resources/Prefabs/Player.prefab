@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da4840cb75df304684a3b4146b3a9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EyeHeight: 1
+  m_EyeHeight: 1.1
   m_LookSensitivity: 4
   m_LookSmooth: 0.6
   m_LookPitchMin: 98
@@ -204,10 +204,11 @@ MonoBehaviour:
   m_MaxBacwardSpeed: 6
   m_StrafeAcceleration: 100
   m_RunAcceleration: 500
-  m_DashAcceleration: 1500
+  m_DashAcceleration: 3000
   m_DashActiveTime: 0.25
-  m_DashCooldown: 1
+  m_DashCooldown: 5
   m_PlayerGravity: -50
+  m_GetIsGrounded: 0
 --- !u!114 &2424704128811695116
 MonoBehaviour:
   m_ObjectHideFlags: 0

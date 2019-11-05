@@ -90,7 +90,12 @@ PrefabInstance:
     - target: {fileID: 332921080250156802, guid: 9c7726cef7cf4b24abf754549d977520,
         type: 3}
       propertyPath: damageAmount
-      value: 10
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 332921080250156802, guid: 9c7726cef7cf4b24abf754549d977520,
+        type: 3}
+      propertyPath: attackDuration
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: -2273220401559267678, guid: 9c7726cef7cf4b24abf754549d977520,
         type: 3}
@@ -100,7 +105,7 @@ PrefabInstance:
     - target: {fileID: -2273220401559267678, guid: 9c7726cef7cf4b24abf754549d977520,
         type: 3}
       propertyPath: m_AngularSpeed
-      value: 2500
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -2273220401559267678, guid: 9c7726cef7cf4b24abf754549d977520,
         type: 3}
