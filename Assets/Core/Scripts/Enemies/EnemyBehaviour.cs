@@ -31,9 +31,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Awake()
     {
+        agent = GetComponent<NavMeshAgent>();
+
         if (transform.childCount > 1)    // special case for flying enemy as that object hierarchy is different then the rest
         {
-            agent = GetComponent<NavMeshAgent>();
             m_PupilGO = transform.GetChild(0).transform.GetChild(0).Find("Pupil").gameObject;
             m_TargetEyeFlasherTime = 0.075f;
             m_NowEyeFlasherTime = 0.0f;
