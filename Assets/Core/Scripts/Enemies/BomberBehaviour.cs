@@ -57,10 +57,7 @@ public class BomberBehaviour : EnemyBehaviour
             Destroy(transform.gameObject);
         }
         else
-        {
             m_TimeToNextAttack -= Time.deltaTime;
-            currentState = State.MOVE;
-        }
     }
 
     private void Death()
