@@ -47,7 +47,7 @@ MonoBehaviour:
   m_SoundObjs:
   - AliasName: Gun AR Shot
     m_ESound: 3
-    m_SoundSource: {fileID: 875851348781775752, guid: e4ad9ed50e02d9b4b99aabaacbcad8a9,
+    m_SoundSource: {fileID: 8470185352058736508, guid: 92ec899cc1c0f8140be2b3fb6f83ec73,
       type: 3}
     m_PitchRange: 1.07
     m_PrevTime: 0
@@ -137,13 +137,13 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Enemy footsteps
     m_ESound: 12
-    m_SoundSource: {fileID: 3573046253566306769, guid: b0294943626f2b847bb04d246f84df98,
+    m_SoundSource: {fileID: 8052701946456612475, guid: ee3f7f70f0920b7408bdc51fcb5dffaf,
       type: 3}
     m_PitchRange: 1.07
     m_PrevTime: 0
   - AliasName: Helmet crack
     m_ESound: 17
-    m_SoundSource: {fileID: 8596499031741341263, guid: 722d27b216663f8499fd0afa10f12cae,
+    m_SoundSource: {fileID: 1517241833610620686, guid: 876f9b3c12136ae4ea51f0b87d10c70d,
       type: 3}
     m_PitchRange: 1.04
     m_PrevTime: 0
