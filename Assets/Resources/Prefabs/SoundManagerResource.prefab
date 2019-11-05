@@ -47,7 +47,7 @@ MonoBehaviour:
   m_SoundObjs:
   - AliasName: Gun AR Shot
     m_ESound: 3
-    m_SoundSource: {fileID: 4667898177743610374, guid: a941d03993d183b46a1a01156a8c128a,
+    m_SoundSource: {fileID: 8731207991689328421, guid: 59e654e58a76f1d478a828044c7d4704,
       type: 3}
     m_PitchRange: 1.07
     m_PrevTime: 0

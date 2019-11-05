@@ -27,6 +27,7 @@ public class SoundManager : MonoBehaviour
         HELMET_CRACK,
         COMBO_INCREASE,
         WAVE_COMPLETE,
+        GUN_RELOAD_2,
         SIZE
     }
 

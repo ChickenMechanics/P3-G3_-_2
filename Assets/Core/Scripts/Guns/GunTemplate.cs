@@ -294,9 +294,17 @@ public class GunTemplate : MonoBehaviour
         {
             if(GetCurrentMagSize < m_MagSizeTotal)
             {
+                if(m_GunName == "Plasma")
+                {
+                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_RELOAD_1, transform.position);
+                }
+                else if (m_GunName == "Grenade")
+                {
+                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_RELOAD_2, transform.position);
+                }
+
                 GetIsReloading = true;
                 GetCurrentReloadTime = m_ReloadAnimTime;
-                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_RELOAD_1, transform.position);
                 m_CurrentGunState = EGunState.RELOADING;
 
                 m_Anim.SetBool("Idle", false);

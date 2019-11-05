@@ -8,7 +8,8 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager GetInstance { get; private set; }
 
     #region design vars
-    public float m_ComboTimeInSecMax = 1.0f;
+    public float m_ComboTimeInSecMax;
+    public float m_ComboTimeDecreaseInSec;
     public float m_ComboScaler;
     public float m_BulletTimeActiveTime;
     public float m_BulletTimeScale;
@@ -34,7 +35,11 @@ public class ScoreManager : MonoBehaviour
     public int GetLongestChain { get; private set; }
     #endregion
 
+    private float m_LocalComboTimeInSecMax;
     private bool m_ComboAlive;
+
+    // combo int test
+    private int m_NowComboMultiInt;
 
     //private float m_BulletTimeFreq;
     private float m_NowBulletTime;
@@ -43,12 +48,6 @@ public class ScoreManager : MonoBehaviour
 
 
     //----------------------------------------------------------------------------------------------------
-
-
-    public float GetComboTimeMax()
-    {
-        return m_ComboTimeInSecMax;
-    }
 
 
     public void AddComboPoints(float value)    //  Call this for everything included in the combo points system
@@ -60,6 +59,19 @@ public class ScoreManager : MonoBehaviour
         }
 
         ComboEvaluator(value);
+
+        //m_NowComboMultiInt = (int)GetCurrentComboMultiplier;
+        //if ((int)GetCurrentComboMultiplier != m_NowComboMultiInt)
+        //{
+        //    if((int)GetCurrentComboMultiplier > m_NowComboMultiInt)
+        //    {
+
+        //    }
+        //    else if ((int)GetCurrentComboMultiplier < m_NowComboMultiInt)
+        //    {
+
+        //    }
+        //}
     }
 
 
@@ -96,7 +108,7 @@ public class ScoreManager : MonoBehaviour
         GetPlayerScore += value * GetCurrentComboMultiplier;  // TODO: If time bonus or whatever exists, implement here
 
         // Combo alive
-        GetChainTimeLeft = m_ComboTimeInSecMax;
+        GetChainTimeLeft = m_LocalComboTimeInSecMax;
     }
 
 
@@ -153,13 +165,17 @@ public class ScoreManager : MonoBehaviour
             m_ComboScaler = 0.0f;
         }
 
-        // fuckery
+        m_LocalComboTimeInSecMax = m_ComboTimeInSecMax;
+
+        // bullettime
         m_BulletTimeActiveTime = 0.25f;
         m_NowBulletTime = m_BulletTimeActiveTime;
         m_TriggerBulletTime = false;
         m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
 
         ResetPlayerStats();
+
+        m_NowComboMultiInt = (int)GetCurrentComboMultiplier;
     }
 
 
@@ -186,10 +202,20 @@ public class ScoreManager : MonoBehaviour
             m_TriggerBulletTime == false)
         {
             m_TriggerBulletTime = true;
-            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.COMBO_INCREASE, PlayerManager.GetInstance.GetPlayer.transform.position);
+            //SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.COMBO_INCREASE, PlayerManager.GetInstance.GetPlayer.transform.position);
         }
 
-        // timescale & fov hacks
+        //if (m_PreviousComboMulti > (int)GetCurrentComboMultiplier &&
+        //    m_TriggerBulletTime == false)
+        //{
+        //    m_LocalComboTimeInSecMax += m_ComboTimeDecreaseInSec;
+        //    if(m_LocalComboTimeInSecMax <= 0.0f)
+        //    {
+        //        m_LocalComboTimeInSecMax = m_ComboTimeInSecMax;
+        //    }
+        //}
+
+        // bullettime
         if (m_TriggerBulletTime == true &&
             Camera.main.fieldOfView > m_BulletTimeFov)
         {
@@ -207,6 +233,7 @@ public class ScoreManager : MonoBehaviour
             }
         }
 
+        // this is here
         m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
     }
 
