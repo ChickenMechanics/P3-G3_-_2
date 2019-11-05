@@ -100,7 +100,7 @@ PrefabInstance:
     - target: {fileID: 57123397192469119, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
       propertyPath: m_AngularSpeed
-      value: 2500
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 57123397192469119, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
@@ -110,7 +110,7 @@ PrefabInstance:
     - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
       propertyPath: damageAmount
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
@@ -130,7 +130,7 @@ PrefabInstance:
     - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
       propertyPath: health
-      value: 2500
+      value: 1750
       objectReference: {fileID: 0}
     - target: {fileID: 8019714435313989823, guid: e45a82755a8a69b40940a97ad802ef12,
         type: 3}
