@@ -93,7 +93,7 @@ MonoBehaviour:
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
-  - AliasName: Reloading (overheating)
+  - AliasName: Reloading 1 (overheating)
     m_ESound: 8
     m_SoundSource: {fileID: 8011490098110765958, guid: 21d833768b4145f4bb14cc77496cb2db,
       type: 3}
@@ -152,4 +152,10 @@ MonoBehaviour:
     m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
       type: 3}
     m_PitchRange: 1.07
+    m_PrevTime: 0
+  - AliasName: Reloading 1 (overheating)
+    m_ESound: 20
+    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+      type: 3}
+    m_PitchRange: 1
     m_PrevTime: 0
