@@ -143,13 +143,13 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Helmet crack
     m_ESound: 17
-    m_SoundSource: {fileID: 1517241833610620686, guid: 876f9b3c12136ae4ea51f0b87d10c70d,
+    m_SoundSource: {fileID: 3685711357726032792, guid: f79aa308d3e1a9d4ba506b863a573af4,
       type: 3}
-    m_PitchRange: 1.04
+    m_PitchRange: 1.1
     m_PrevTime: 0
   - AliasName: Combo increase
     m_ESound: 18
-    m_SoundSource: {fileID: 2830475256637328758, guid: c1826219b5e56544ea1f691e2b305c83,
+    m_SoundSource: {fileID: 347804818271125443, guid: 14920cb5c1ce5a048bece008b5d580d3,
       type: 3}
     m_PitchRange: 1.07
     m_PrevTime: 0
