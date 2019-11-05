@@ -73,12 +73,6 @@ public class BomberBehaviour : EnemyBehaviour
 
         //m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.EXPLODE);
 
-        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-        {
-            if (Mathf.Abs(enemy.transform.position.magnitude - transform.position.magnitude) < attackRange)
-                enemy.GetComponent<EnemyBehaviour>().TakeDamage(enemyDamage);
-        }
-
         Destroy(transform.gameObject);
     }
 
