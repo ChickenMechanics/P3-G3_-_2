@@ -1102,7 +1102,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1249335054831681213}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1486,7 +1486,7 @@ RectTransform:
   m_LocalScale: {x: 3.7283971, y: 3.7283971, z: 3.7283971}
   m_Children: []
   m_Father: {fileID: 1249335054831681213}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1802,6 +1802,7 @@ RectTransform:
   m_Children:
   - {fileID: 3083195060089437388}
   - {fileID: 5480021778886147939}
+  - {fileID: 8201362375740503883}
   m_Father: {fileID: 5902967}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2064,14 +2065,14 @@ RectTransform:
   m_GameObject: {fileID: 4474943732738296771}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.074569, y: 3.3422472, z: 4.766382}
+  m_LocalScale: {x: 7.074569, y: 3.3422475, z: 4.766382}
   m_Children: []
-  m_Father: {fileID: 1249335054831681213}
-  m_RootOrder: 1
+  m_Father: {fileID: 4516904907737044412}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.7, y: 489}
+  m_AnchoredPosition: {x: 3.7, y: 875}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2827522825572749872
@@ -2304,7 +2305,7 @@ MonoBehaviour:
   m_ScoreBounceTargetScale: 2.5
   m_ScoreBounceScaleMultiUp: 8.9
   m_ScoreBounceScaleMultiDown: 6.31
-  m_ScoreColor: {r: 0, g: 1, b: 0.0153307915, a: 0}
+  m_ScoreColorChange: {r: 0, g: 0, b: 0, a: 0}
   m_ChainRumbleValue: 7.65
   m_ChainRumbleTime: 0.31
   m_ChainBounceTargetScale: 2.37
@@ -2570,7 +2571,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6233513143959214335}
-  - {fileID: 8201362375740503883}
   - {fileID: 990648815776695196}
   - {fileID: 883188587796125311}
   m_Father: {fileID: 5902967}
