@@ -97,6 +97,11 @@ PrefabInstance:
       propertyPath: attackRange
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5373869187925748724, guid: 665a4933ae1c41a4cb4772723118a0c0,
+        type: 3}
+      propertyPath: attackDuration
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7087073337273835716, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
       propertyPath: m_IsTrigger
