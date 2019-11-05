@@ -24,6 +24,9 @@ public class SoundManager : MonoBehaviour
         ROCKET_IMPACT,
         PLAYER_DASH,
         ROCKET_RELOAD,
+        HELMET_CRACK,
+        COMBO_INCREASE,
+        WAVE_COMPLETE,
         SIZE
     }
 

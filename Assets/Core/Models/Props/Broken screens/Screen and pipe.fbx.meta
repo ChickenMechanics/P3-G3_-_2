@@ -3,7 +3,22 @@ guid: cc5d0a157a8d8614e90d4b9b4ede579f
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screen
+    second: {fileID: 2100000, guid: 6104d3b2aa1be3c499d0ad84298a12a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: corners
+    second: {fileID: 2100000, guid: b7fd3437301f94747bbba370d3d2fafa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pipe
+    second: {fileID: 2100000, guid: b694974132bcced41888280eda0af350, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

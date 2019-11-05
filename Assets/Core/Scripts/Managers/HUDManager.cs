@@ -362,6 +362,7 @@ public class HUDManager : MonoBehaviour
             {
                 m_IsCrack[0] = true;
                 m_PlayerCracks[0].gameObject.SetActive(true);
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.HELMET_CRACK, PlayerManager.GetInstance.GetPlayer.transform.position);
             }
         }
         else if (m_IsCrack[1] == false)
@@ -370,6 +371,7 @@ public class HUDManager : MonoBehaviour
             {
                 m_IsCrack[1] = true;
                 m_PlayerCracks[1].gameObject.SetActive(true);
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.HELMET_CRACK, PlayerManager.GetInstance.GetPlayer.transform.position);
             }
         }
         else if (m_IsCrack[2] == false)
@@ -378,6 +380,7 @@ public class HUDManager : MonoBehaviour
             {
                 m_IsCrack[2] = true;
                 m_PlayerCracks[2].gameObject.SetActive(true);
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.HELMET_CRACK, PlayerManager.GetInstance.GetPlayer.transform.position);
             }
         }
         else if (m_IsCrack[3] == false)
@@ -386,6 +389,7 @@ public class HUDManager : MonoBehaviour
             {
                 m_IsCrack[3] = true;
                 m_PlayerCracks[3].gameObject.SetActive(true);
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.HELMET_CRACK, PlayerManager.GetInstance.GetPlayer.transform.position);
             }
         }
     }
