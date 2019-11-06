@@ -47,7 +47,7 @@ MonoBehaviour:
   m_SoundObjs:
   - AliasName: Gun AR Shot
     m_ESound: 3
-    m_SoundSource: {fileID: 8284544356641176668, guid: a4a82d61cc1222f4ab067e24c3d892b7,
+    m_SoundSource: {fileID: 8470185352058736508, guid: 92ec899cc1c0f8140be2b3fb6f83ec73,
       type: 3}
     m_PitchRange: 1.07
     m_PrevTime: 0
@@ -101,9 +101,9 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Enemy Attack
     m_ESound: 9
-    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+    m_SoundSource: {fileID: 5417906347832513080, guid: 9d030c8ada2ddb8469ad50ae9fd33f63,
       type: 3}
-    m_PitchRange: 1.25
+    m_PitchRange: 1.06
     m_PrevTime: 0
   - AliasName: Spawning (enemy)
     m_ESound: 10
@@ -137,25 +137,25 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Enemy footsteps
     m_ESound: 12
-    m_SoundSource: {fileID: 3573046253566306769, guid: b0294943626f2b847bb04d246f84df98,
+    m_SoundSource: {fileID: 8052701946456612475, guid: ee3f7f70f0920b7408bdc51fcb5dffaf,
       type: 3}
     m_PitchRange: 1.07
     m_PrevTime: 0
   - AliasName: Helmet crack
     m_ESound: 17
-    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+    m_SoundSource: {fileID: 3685711357726032792, guid: f79aa308d3e1a9d4ba506b863a573af4,
       type: 3}
-    m_PitchRange: 1.07
+    m_PitchRange: 1.1
     m_PrevTime: 0
   - AliasName: Combo increase
     m_ESound: 18
-    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+    m_SoundSource: {fileID: 347804818271125443, guid: 14920cb5c1ce5a048bece008b5d580d3,
       type: 3}
     m_PitchRange: 1.07
     m_PrevTime: 0
   - AliasName: Reloading 1 (overheating)
     m_ESound: 20
-    m_SoundSource: {fileID: 2029132503486159849, guid: c0560d0f74d4cc742ac79fcb28b499bd,
+    m_SoundSource: {fileID: 3271860856140273089, guid: 7d4096c6409939b4baac31d35870e5b1,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0

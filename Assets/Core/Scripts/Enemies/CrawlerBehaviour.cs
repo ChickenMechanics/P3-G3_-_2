@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class CrawlerBehaviour : EnemyBehaviour
 {
@@ -10,7 +11,6 @@ public class CrawlerBehaviour : EnemyBehaviour
     public float attackAngle;
     
     private EnemyCrawlerAnimation m_Anims;
-    private float m_TimeToNextAttack;
     
     // Start is called before the first frame update
     private void Start()
@@ -18,7 +18,6 @@ public class CrawlerBehaviour : EnemyBehaviour
         currentState = State.MOVE;
         m_Anims = gameObject.GetComponent<EnemyCrawlerAnimation>();
         hp = health;
-        m_TimeToNextAttack = attackDuration;
 
         SoundManager.GetInstance.PlaySoundClip(
             SoundManager.ESoundClip.ENEMY_SPAWN, transform.position);
@@ -29,36 +28,36 @@ public class CrawlerBehaviour : EnemyBehaviour
     {
         switch (currentState)
         {
-            case  State.ATTACK: Attack(); break;
-            case  State.DEATH:  Death();  break;
-            case  State.MOVE:   Move();   break;
+            case State.ATTACK:
+                if (GetHasAttacked() == false)
+                    StartCoroutine(Attack());
+                break;
+            case  State.DEATH: Death(); break;
+            case  State.MOVE:  Move();  break;
         }
     }
     
-    private void Attack()
+    private IEnumerator Attack()
     {
         m_Anims.SetAnim(EnemyCrawlerAnimation.EAnimCrawler.ATTACK);
 
+        SetHasAttacked(true);
+
         agent.isStopped = true;
 
-        if (m_TimeToNextAttack <= 0)
-        {
-            UpdateDistanceToPlayer();
+        yield return new WaitForSeconds(attackDuration);
 
-            if (Mathf.Abs(Vector3.Angle(transform.position, playerPos) - 90f) < attackAngle &&
-                distanceToPlayer <= attackRange)
-            {
-                PlayerManager.GetInstance.DecreaseHealth(damageAmount);
-            }
+        UpdateDistanceToPlayer();
 
-            m_TimeToNextAttack = attackDuration;
-            currentState = State.MOVE;
-        }
-        else
+        if (Mathf.Abs(Vector3.Angle(transform.position, playerPos) - 90f) < attackAngle &&
+            distanceToPlayer <= attackRange)
         {
-            m_TimeToNextAttack -= Time.deltaTime;
-            currentState = State.MOVE;
+            PlayerManager.GetInstance.DecreaseHealth(damageAmount);
         }
+
+        SetHasAttacked(false);
+
+        currentState = State.MOVE;
     }
 
     private void Death()

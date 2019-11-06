@@ -48,6 +48,11 @@ public class HUDManager : MonoBehaviour
     public float m_Crack_2;
     public float m_Crack_3;
     public float m_Crack_4;
+
+    [Header("Helmet Lights")]
+    public float m_HelmetLightOnTime;
+    public float m_HelmetLightOffTime;
+    public float m_HelmetLightLerpTime;
     #endregion
 
     public static HUDManager GetInstance { get; private set; }
@@ -63,6 +68,8 @@ public class HUDManager : MonoBehaviour
     private Image m_DashSliderImg;
     private Image m_ComboMeterImg;
     private Image m_WaveMeterImg;
+    private Image m_LeftLightImg;
+    private Image m_RightLightImg;
     private Image[] m_PlayerCracks;
     private Text m_ScoreTxt;
     private Text m_ChainTxt;
@@ -74,6 +81,9 @@ public class HUDManager : MonoBehaviour
     private float m_MagEmptyBlinkTime;
     private float m_FlasherThingTimer;
     private bool m_bFlasherThing;
+
+    private float m_NowHelmetFlashLightTime;
+    private bool m_bHelmetFlashOnOff;
 
     private int m_PrevFrameScore;
 
@@ -125,10 +135,24 @@ public class HUDManager : MonoBehaviour
     // cracks
     private bool[] m_IsCrack;
 
+    // dash
     private float m_DashCoolDownTimeTarget;
     private float m_NowDashCoolDownTime;
 
+    // helmet lights
     private Color m_ScoreColorBase;
+    private Color m_LeftRightHelmetLightBaseColor;
+
+    // highscore
+    private struct HighScore
+    {
+        public string Name;
+        public int Score;
+    }
+    private List<HighScore> m_HighScoreList;
+    private List<Transform> m_HighScoreTransformList;
+    private Transform m_HighScoreTable;
+    private Transform m_HighScoreEntry;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -260,14 +284,130 @@ public class HUDManager : MonoBehaviour
         m_PlayerCracks[2] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_3").GetComponent<Image>();
         m_PlayerCracks[3] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_4").GetComponent<Image>();
 
+        // dash
         m_DashCoolDownTimeTarget = PlayerManager.GetInstance.GetPlayerMoveScr.m_DashCooldown;
         m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
 
+        // helmet lights
+        m_LeftLightImg = canvas.transform.Find("Statics").transform.Find("LeftLightImg").GetComponent<Image>();
+        m_RightLightImg = canvas.transform.Find("Statics").transform.Find("RightLightImg").GetComponent<Image>();
+        m_LeftRightHelmetLightBaseColor = m_RightLightImg.color;
+
+        m_NowHelmetFlashLightTime = m_HelmetLightOnTime;
+        m_bHelmetFlashOnOff = true;
+
+        // helmet cracks
         m_IsCrack = new bool[4];
         for(int i = 0; i < 4; ++i)
         {
             m_IsCrack[i] = false;
         }
+
+        // highscore
+        m_HighScoreTable = canvas.transform.Find("HighScoreTable").transform;
+        m_HighScoreEntry = canvas.transform.Find("HighScoreTable").transform.Find("NameEntryTemplate").transform;
+
+        m_HighScoreTable.gameObject.SetActive(false);
+        m_HighScoreEntry.gameObject.SetActive(false);
+
+        m_HighScoreTransformList = new List<Transform>();
+
+        m_HighScoreList = new List<HighScore>()
+        {
+            new HighScore{ Name = "AAA", Score = 5},
+            new HighScore{ Name = "BBB", Score = 4},
+            new HighScore{ Name = "CCC", Score = 3},
+            new HighScore{ Name = "DDD", Score = 2},
+            new HighScore{ Name = "EEE", Score = 1}
+        };
+
+        for (int i = 0; i < m_HighScoreList.Count; ++i)
+        {
+            CreateHighScoreEntry(m_HighScoreList[i], m_HighScoreTransformList);
+        }
+
+        //float entryOffset = 60.0f;
+        //for(int i = 0; i < 5; ++i)
+        //{
+        //    Transform entry = Instantiate(m_HighScoreEntry, m_HighScoreTable);
+        //    RectTransform entryRect = entry.GetComponent<RectTransform>();
+        //    entryRect.anchoredPosition = new Vector2(0.0f, -entryOffset * i);
+
+        //    int place = i + 1;
+        //    string rankNum = place.ToString();
+        //    rankNum += ".";
+        //    Transform rank = entry.Find("RankPos").transform;
+        //    Text rankTxt = rank.GetComponent<Text>();
+        //    rankTxt.text = rankNum;
+
+        //    // if we wan't st, nd, rd, th
+        //    //int place = i;
+        //    //++place;
+        //    //string rankNum = place.ToString();
+        //    //string rankNumSuffix = "";
+        //    //switch (i)
+        //    //{
+        //    //    case 0:     rankNumSuffix = "st";  break;
+        //    //    case 1:     rankNumSuffix = "nd";  break;
+        //    //    case 2:     rankNumSuffix = "rd";  break;
+        //    //    default:    rankNumSuffix = "th";  break;
+        //    //}
+        //    //rankNum += rankNumSuffix;
+        //    //Transform rank = entry.Find("RankPos").transform;
+        //    //Text rankTxt = rank.GetComponent<Text>();
+        //    //rankTxt.text = rankNum;
+
+        //    entryRect.gameObject.SetActive(true);
+
+        //    Text nameTxt = entry.transform.Find("NamePos").transform.GetComponent<Text>();
+        //    nameTxt.text = " ";
+
+        //    Text scoreTxt = entry.transform.Find("ScorePos").transform.GetComponent<Text>();
+        //    scoreTxt.text = i.ToString();
+        //}
+    }
+
+
+    private void CreateHighScoreEntry(HighScore highScore, List<Transform> entryTransformList)
+    {
+        float entryOffset = 60.0f;
+        Transform entry = Instantiate(m_HighScoreEntry, m_HighScoreTable);
+        RectTransform entryRect = entry.GetComponent<RectTransform>();
+        entryRect.anchoredPosition = new Vector2(0.0f, -entryOffset * entryTransformList.Count);
+
+        int place = entryTransformList.Count + 1;
+        string rankNum = place.ToString();
+        rankNum += ".";
+        Transform rank = entry.Find("RankPos").transform;
+        Text rankTxt = rank.GetComponent<Text>();
+        rankTxt.text = rankNum;
+
+        // if we wan't st, nd, rd, th
+        //int place = i;
+        //++place;
+        //string rankNum = place.ToString();
+        //string rankNumSuffix = "";
+        //switch (i)
+        //{
+        //    case 0:     rankNumSuffix = "st";  break;
+        //    case 1:     rankNumSuffix = "nd";  break;
+        //    case 2:     rankNumSuffix = "rd";  break;
+        //    default:    rankNumSuffix = "th";  break;
+        //}
+        //rankNum += rankNumSuffix;
+        //Transform rank = entry.Find("RankPos").transform;
+        //Text rankTxt = rank.GetComponent<Text>();
+        //rankTxt.text = rankNum;
+
+        entryRect.gameObject.SetActive(true);
+
+        Text nameTxt = entry.transform.Find("NamePos").transform.GetComponent<Text>();
+        nameTxt.text = highScore.Name;
+
+        Text scoreTxt = entry.transform.Find("ScorePos").transform.GetComponent<Text>();
+        scoreTxt.text = highScore.Score.ToString();
+
+        entryTransformList.Add(entry);
     }
 
 
@@ -297,7 +437,7 @@ public class HUDManager : MonoBehaviour
 
         return m_bFlasherThing;
     }
-    
+
 
     private IEnumerator TxtRumblerFX(TxtRumbleFX rumbleFxObj)
     {
@@ -354,6 +494,36 @@ public class HUDManager : MonoBehaviour
         bounceFxObj.TxtRef.transform.localScale = bounceFxObj.BounceInitScale;
         bounceFxObj.BounceDirFlipper = false;
         StopCoroutine("TxtBouncerFX");
+    }
+
+
+    private void LeftRightLightBlink()
+    {
+        m_NowHelmetFlashLightTime -= Time.deltaTime;
+        if(m_bHelmetFlashOnOff == true &&
+            m_NowHelmetFlashLightTime < 0.0f)
+        {
+            m_bHelmetFlashOnOff = false;
+            m_NowHelmetFlashLightTime = m_HelmetLightOffTime;
+        }
+        else if (m_bHelmetFlashOnOff == false &&
+            m_NowHelmetFlashLightTime < 0.0f)
+        {
+            m_bHelmetFlashOnOff = true;
+            m_NowHelmetFlashLightTime = m_HelmetLightOnTime;
+        }
+
+
+        if (m_bHelmetFlashOnOff == true)
+        {
+            m_LeftLightImg.color = m_LeftRightHelmetLightBaseColor;
+            m_RightLightImg.color = m_LeftRightHelmetLightBaseColor;
+        }
+        else if (m_bHelmetFlashOnOff == false)
+        {
+            m_LeftLightImg.color = Color.Lerp(m_LeftLightImg.color, Color.black, m_HelmetLightLerpTime);
+            m_RightLightImg.color = Color.Lerp(m_RightLightImg.color, Color.black, m_HelmetLightLerpTime);
+        }
     }
 
 
@@ -530,5 +700,6 @@ public class HUDManager : MonoBehaviour
         GunBulletUpdate();
         ScoreUpdate();
         WavesUpdate();
+        LeftRightLightBlink();
     }
 }
