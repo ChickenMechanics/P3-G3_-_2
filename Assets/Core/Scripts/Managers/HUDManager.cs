@@ -144,6 +144,13 @@ public class HUDManager : MonoBehaviour
     private Color m_LeftRightHelmetLightBaseColor;
 
     // highscore
+    private struct HighScore
+    {
+        public string Name;
+        public int Score;
+    }
+    private List<HighScore> m_HighScoreList;
+    private List<Transform> m_HighScoreTransformList;
     private Transform m_HighScoreTable;
     private Transform m_HighScoreEntry;
 
@@ -300,48 +307,107 @@ public class HUDManager : MonoBehaviour
         m_HighScoreTable = canvas.transform.Find("HighScoreTable").transform;
         m_HighScoreEntry = canvas.transform.Find("HighScoreTable").transform.Find("NameEntryTemplate").transform;
 
-        m_HighScoreTable.gameObject.SetActive(false);
+        //m_HighScoreTable.gameObject.SetActive(false);
         m_HighScoreEntry.gameObject.SetActive(false);
 
-        float entryOffset = 60.0f;
-        for(int i = 0; i < 5; ++i)
+        m_HighScoreTransformList = new List<Transform>();
+
+        m_HighScoreList = new List<HighScore>()
         {
-            Transform entry = Instantiate(m_HighScoreEntry, m_HighScoreTable);
-            RectTransform entryRect = entry.GetComponent<RectTransform>();
-            entryRect.anchoredPosition = new Vector2(0.0f, -entryOffset * i);
+            new HighScore{ Name = "AAA", Score = 5},
+            new HighScore{ Name = "BBB", Score = 4},
+            new HighScore{ Name = "CCC", Score = 3},
+            new HighScore{ Name = "DDD", Score = 2},
+            new HighScore{ Name = "EEE", Score = 1}
+        };
 
-            // if we wan't st, nd, rd, th
-            //int place = i;
-            //++place;
-            //string rankNum = place.ToString();
-            //string rankNumSuffix = "";
-            //switch (i)
-            //{
-            //    case 0:     rankNumSuffix = "st";  break;
-            //    case 1:     rankNumSuffix = "nd";  break;
-            //    case 2:     rankNumSuffix = "rd";  break;
-            //    default:    rankNumSuffix = "th";  break;
-            //}
-            //rankNum += rankNumSuffix;
-            //Transform rank = entry.Find("RankPos").transform;
-            //Text rankTxt = rank.GetComponent<Text>();
-            //rankTxt.text = rankNum;
-
-            int place = i + 1;
-            string rankNum = place.ToString();
-            rankNum += ".";
-            Transform rank = entry.Find("RankPos").transform;
-            Text rankTxt = rank.GetComponent<Text>();
-            rankTxt.text = rankNum;
-
-            entryRect.gameObject.SetActive(true);
-
-            Text nameTxt = entry.transform.Find("NamePos").transform.GetComponent<Text>();
-            nameTxt.text = " ";
-
-            Text scoreTxt = entry.transform.Find("ScorePos").transform.GetComponent<Text>();
-            scoreTxt.text = i.ToString();
+        for (int i = 0; i < m_HighScoreList.Count; ++i)
+        {
+            CreateHighScoreEntry(m_HighScoreList[i], m_HighScoreTransformList);
         }
+
+        //float entryOffset = 60.0f;
+        //for(int i = 0; i < 5; ++i)
+        //{
+        //    Transform entry = Instantiate(m_HighScoreEntry, m_HighScoreTable);
+        //    RectTransform entryRect = entry.GetComponent<RectTransform>();
+        //    entryRect.anchoredPosition = new Vector2(0.0f, -entryOffset * i);
+
+        //    int place = i + 1;
+        //    string rankNum = place.ToString();
+        //    rankNum += ".";
+        //    Transform rank = entry.Find("RankPos").transform;
+        //    Text rankTxt = rank.GetComponent<Text>();
+        //    rankTxt.text = rankNum;
+
+        //    // if we wan't st, nd, rd, th
+        //    //int place = i;
+        //    //++place;
+        //    //string rankNum = place.ToString();
+        //    //string rankNumSuffix = "";
+        //    //switch (i)
+        //    //{
+        //    //    case 0:     rankNumSuffix = "st";  break;
+        //    //    case 1:     rankNumSuffix = "nd";  break;
+        //    //    case 2:     rankNumSuffix = "rd";  break;
+        //    //    default:    rankNumSuffix = "th";  break;
+        //    //}
+        //    //rankNum += rankNumSuffix;
+        //    //Transform rank = entry.Find("RankPos").transform;
+        //    //Text rankTxt = rank.GetComponent<Text>();
+        //    //rankTxt.text = rankNum;
+
+        //    entryRect.gameObject.SetActive(true);
+
+        //    Text nameTxt = entry.transform.Find("NamePos").transform.GetComponent<Text>();
+        //    nameTxt.text = " ";
+
+        //    Text scoreTxt = entry.transform.Find("ScorePos").transform.GetComponent<Text>();
+        //    scoreTxt.text = i.ToString();
+        //}
+    }
+
+
+    private void CreateHighScoreEntry(HighScore highScore, List<Transform> entryTransformList)
+    {
+        float entryOffset = 60.0f;
+        Transform entry = Instantiate(m_HighScoreEntry, m_HighScoreTable);
+        RectTransform entryRect = entry.GetComponent<RectTransform>();
+        entryRect.anchoredPosition = new Vector2(0.0f, -entryOffset * entryTransformList.Count);
+
+        int place = entryTransformList.Count + 1;
+        string rankNum = place.ToString();
+        rankNum += ".";
+        Transform rank = entry.Find("RankPos").transform;
+        Text rankTxt = rank.GetComponent<Text>();
+        rankTxt.text = rankNum;
+
+        // if we wan't st, nd, rd, th
+        //int place = i;
+        //++place;
+        //string rankNum = place.ToString();
+        //string rankNumSuffix = "";
+        //switch (i)
+        //{
+        //    case 0:     rankNumSuffix = "st";  break;
+        //    case 1:     rankNumSuffix = "nd";  break;
+        //    case 2:     rankNumSuffix = "rd";  break;
+        //    default:    rankNumSuffix = "th";  break;
+        //}
+        //rankNum += rankNumSuffix;
+        //Transform rank = entry.Find("RankPos").transform;
+        //Text rankTxt = rank.GetComponent<Text>();
+        //rankTxt.text = rankNum;
+
+        entryRect.gameObject.SetActive(true);
+
+        Text nameTxt = entry.transform.Find("NamePos").transform.GetComponent<Text>();
+        nameTxt.text = highScore.Name;
+
+        Text scoreTxt = entry.transform.Find("ScorePos").transform.GetComponent<Text>();
+        scoreTxt.text = highScore.Score.ToString();
+
+        entryTransformList.Add(entry);
     }
 
 
