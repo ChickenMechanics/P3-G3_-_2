@@ -382,7 +382,7 @@ public class HUDManager : MonoBehaviour
         {
             m_bHelmetFlashOnOff = false;
             m_NowHelmetFlashLightTime = m_HelmetLightOffTime;
-            Mathf.Lerp();
+            //Mathf.Lerp();
             m_LeftLightImg.color = Color.black;
             m_RightLightImg.color = Color.black;
         }

@@ -74,13 +74,15 @@ public class EnemyBehaviour : MonoBehaviour
             EyeFlasherLogic();
         }
 
-        if (m_TriggerFootSound)
+        if (m_TriggerFootSound == true)
         {
             m_TriggerFootSound = false;
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ENEMY_FOOTSTEPS, transform.position);
         }
         else
+        {
             FootStepSoundTimer();
+        }
     }
 
     private void FootStepSoundTimer()
