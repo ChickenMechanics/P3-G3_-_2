@@ -135,11 +135,17 @@ public class HUDManager : MonoBehaviour
     // cracks
     private bool[] m_IsCrack;
 
+    // dash
     private float m_DashCoolDownTimeTarget;
     private float m_NowDashCoolDownTime;
 
+    // helmet lights
     private Color m_ScoreColorBase;
     private Color m_LeftRightHelmetLightBaseColor;
+
+    // highscore
+    private Transform m_HighScoreTable;
+    private Transform m_HighScoreEntry;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -271,9 +277,11 @@ public class HUDManager : MonoBehaviour
         m_PlayerCracks[2] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_3").GetComponent<Image>();
         m_PlayerCracks[3] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_4").GetComponent<Image>();
 
+        // dash
         m_DashCoolDownTimeTarget = PlayerManager.GetInstance.GetPlayerMoveScr.m_DashCooldown;
         m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
 
+        // helmet lights
         m_LeftLightImg = canvas.transform.Find("Statics").transform.Find("LeftLightImg").GetComponent<Image>();
         m_RightLightImg = canvas.transform.Find("Statics").transform.Find("RightLightImg").GetComponent<Image>();
         m_LeftRightHelmetLightBaseColor = m_RightLightImg.color;
@@ -281,10 +289,58 @@ public class HUDManager : MonoBehaviour
         m_NowHelmetFlashLightTime = m_HelmetLightOnTime;
         m_bHelmetFlashOnOff = true;
 
+        // helmet cracks
         m_IsCrack = new bool[4];
         for(int i = 0; i < 4; ++i)
         {
             m_IsCrack[i] = false;
+        }
+
+        // highscore
+        m_HighScoreTable = canvas.transform.Find("HighScoreTable").transform;
+        m_HighScoreEntry = canvas.transform.Find("HighScoreTable").transform.Find("NameEntryTemplate").transform;
+
+        m_HighScoreTable.gameObject.SetActive(false);
+        m_HighScoreEntry.gameObject.SetActive(false);
+
+        float entryOffset = 60.0f;
+        for(int i = 0; i < 5; ++i)
+        {
+            Transform entry = Instantiate(m_HighScoreEntry, m_HighScoreTable);
+            RectTransform entryRect = entry.GetComponent<RectTransform>();
+            entryRect.anchoredPosition = new Vector2(0.0f, -entryOffset * i);
+
+            // if we wan't st, nd, rd, th
+            //int place = i;
+            //++place;
+            //string rankNum = place.ToString();
+            //string rankNumSuffix = "";
+            //switch (i)
+            //{
+            //    case 0:     rankNumSuffix = "st";  break;
+            //    case 1:     rankNumSuffix = "nd";  break;
+            //    case 2:     rankNumSuffix = "rd";  break;
+            //    default:    rankNumSuffix = "th";  break;
+            //}
+            //rankNum += rankNumSuffix;
+            //Transform rank = entry.Find("RankPos").transform;
+            //Text rankTxt = rank.GetComponent<Text>();
+            //rankTxt.text = rankNum;
+
+            int place = i + 1;
+            string rankNum = place.ToString();
+            rankNum += ".";
+            Transform rank = entry.Find("RankPos").transform;
+            Text rankTxt = rank.GetComponent<Text>();
+            rankTxt.text = rankNum;
+
+            entryRect.gameObject.SetActive(true);
+
+            Text nameTxt = entry.transform.Find("NamePos").transform.GetComponent<Text>();
+            nameTxt.text = " ";
+
+            Text scoreTxt = entry.transform.Find("ScorePos").transform.GetComponent<Text>();
+            scoreTxt.text = i.ToString();
         }
     }
 
