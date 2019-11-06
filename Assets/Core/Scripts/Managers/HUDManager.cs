@@ -307,7 +307,7 @@ public class HUDManager : MonoBehaviour
         m_HighScoreTable = canvas.transform.Find("HighScoreTable").transform;
         m_HighScoreEntry = canvas.transform.Find("HighScoreTable").transform.Find("NameEntryTemplate").transform;
 
-        //m_HighScoreTable.gameObject.SetActive(false);
+        m_HighScoreTable.gameObject.SetActive(false);
         m_HighScoreEntry.gameObject.SetActive(false);
 
         m_HighScoreTransformList = new List<Transform>();
