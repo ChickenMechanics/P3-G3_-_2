@@ -11,7 +11,6 @@ public class EnemyBehaviour : MonoBehaviour
     protected Vector3 playerPos;
     protected Vector3 lookPosition;
     protected NavMeshAgent agent;
-
     protected bool GetHasAttacked() { return m_HasAttacked; }
     protected void SetHasAttacked(bool hasAttacked) { m_HasAttacked = hasAttacked; }
 
@@ -30,7 +29,6 @@ public class EnemyBehaviour : MonoBehaviour
     private float m_FootSoundFreq;
     private float m_NowFootSoundTime;
     private bool m_TriggerFootSound;
-    private enum Layer { PROJECTILE=13, GRENADE=17 }
     #endregion
 
     private void Awake()
@@ -50,6 +48,7 @@ public class EnemyBehaviour : MonoBehaviour
             m_CanTakeGrenadeDmgTime = 0.75f;
             m_CanTakeGrenadeDmgTimeNow = m_CanTakeGrenadeDmgTime;
             m_IsTakingGrenade = false;
+
             m_FootSoundFreq = 0.35f;
             m_NowFootSoundTime = m_FootSoundFreq;
             m_TriggerFootSound = true;
@@ -72,15 +71,16 @@ public class EnemyBehaviour : MonoBehaviour
                 m_PupilGO.SetActive(true);
             }
 
-            if (m_TriggerFootSound)
-            {
-                m_TriggerFootSound = false;
-                SoundManager.GetInstance.PlaySoundClip(
-                    SoundManager.ESoundClip.ENEMY_FOOTSTEPS, transform.position);
-            }
-            else
-                FootStepSoundTimer();
+            EyeFlasherLogic();
         }
+
+        if (m_TriggerFootSound)
+        {
+            m_TriggerFootSound = false;
+            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ENEMY_FOOTSTEPS, transform.position);
+        }
+        else
+            FootStepSoundTimer();
     }
 
     private void FootStepSoundTimer()
@@ -100,8 +100,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             m_CanTakeGrenadeDmgTimeNow = m_CanTakeGrenadeDmgTime;
             m_IsTakingGrenade = false;
-
-            EyeFlasherLogic();
         }
     }
 
@@ -142,30 +140,28 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Component other)
     {
-        if (other.gameObject.layer == (int)Layer.PROJECTILE)
+        if (other.gameObject.layer == 13 /*projectile*/ &&
+            other.gameObject.GetComponent<BulletBehaviour>() != null)
         {
-            if (other.gameObject.GetComponent<BulletBehaviour>() != null)
-            {
-                TakeDamage(other.GetComponent<BulletBehaviour>().GetDmgValue());
+            TakeDamage(other.GetComponent<BulletBehaviour>().GetDmgValue());
 #if DEBUG
-                if (SoundManager.GetInstance != null)
+            if (SoundManager.GetInstance != null)
 #endif
-                {
-                    SoundManager.GetInstance.PlaySoundClip(
-                        SoundManager.ESoundClip.CRAWLER_HURT,
-                        other.transform.position);
-                }
-
-                if (m_PupilGO != null)
-                    m_IsEyeFlash = true;
+            {
+                SoundManager.GetInstance.PlaySoundClip(
+                    SoundManager.ESoundClip.CRAWLER_HURT,
+                    other.transform.position);
             }
+
+            if (m_PupilGO != null)
+                m_IsEyeFlash = true;
         }
     }
 
     private void OnTriggerStay(Component other)
     {
         if (m_IsTakingGrenade == false &&
-            other.gameObject.layer == (int)Layer.GRENADE &&
+            other.gameObject.layer == 17 /*grenade*/ &&
             other.gameObject.GetComponent<BulletGrenadeAOE>() != null)
         {
             TakeDamage(other.GetComponent<BulletGrenadeAOE>().GetDmgValue());
