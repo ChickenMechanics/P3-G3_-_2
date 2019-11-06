@@ -52,6 +52,7 @@ public class HUDManager : MonoBehaviour
     [Header("Helmet Lights")]
     public float m_HelmetLightOnTime;
     public float m_HelmetLightOffTime;
+    public float m_HelmetLightLerpTime;
     #endregion
 
     public static HUDManager GetInstance { get; private set; }
@@ -382,17 +383,24 @@ public class HUDManager : MonoBehaviour
         {
             m_bHelmetFlashOnOff = false;
             m_NowHelmetFlashLightTime = m_HelmetLightOffTime;
-            //Mathf.Lerp();
-            m_LeftLightImg.color = Color.black;
-            m_RightLightImg.color = Color.black;
         }
         else if (m_bHelmetFlashOnOff == false &&
             m_NowHelmetFlashLightTime < 0.0f)
         {
             m_bHelmetFlashOnOff = true;
             m_NowHelmetFlashLightTime = m_HelmetLightOnTime;
+        }
+
+
+        if (m_bHelmetFlashOnOff == true)
+        {
             m_LeftLightImg.color = m_LeftRightHelmetLightBaseColor;
             m_RightLightImg.color = m_LeftRightHelmetLightBaseColor;
+        }
+        else if (m_bHelmetFlashOnOff == false)
+        {
+            m_LeftLightImg.color = Color.Lerp(m_LeftLightImg.color, Color.black, m_HelmetLightLerpTime);
+            m_RightLightImg.color = Color.Lerp(m_RightLightImg.color, Color.black, m_HelmetLightLerpTime);
         }
     }
 

@@ -39125,12 +39125,17 @@ PrefabInstance:
     - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
         type: 3}
       propertyPath: m_HelmetLightOnTime
-      value: 1.75
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
         type: 3}
       propertyPath: m_HelmetLightOffTime
-      value: 0.25
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9129279722159356860, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
+        type: 3}
+      propertyPath: m_HelmetLightLerpTime
+      value: 0.015
       objectReference: {fileID: 0}
     - target: {fileID: 1551459379735197569, guid: 9981ed4f40be37e41b8ebe8c7327b3d0,
         type: 3}
@@ -40249,21 +40254,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 4224801822505238522, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 9213534209490497708, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: -8684251187902555887, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 72067a84bc3a57841a69f9b28bd03dd7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -40319,6 +40309,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8684251187902555887, guid: 72067a84bc3a57841a69f9b28bd03dd7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: -7808381318373605236, guid: 72067a84bc3a57841a69f9b28bd03dd7,
         type: 3}
       propertyPath: m_Enabled
@@ -40329,10 +40324,20 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4224801822505238522, guid: 72067a84bc3a57841a69f9b28bd03dd7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 7751636609773414102, guid: 72067a84bc3a57841a69f9b28bd03dd7,
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213534209490497708, guid: 72067a84bc3a57841a69f9b28bd03dd7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72067a84bc3a57841a69f9b28bd03dd7, type: 3}
