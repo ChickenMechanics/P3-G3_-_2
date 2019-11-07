@@ -43,7 +43,7 @@ public class PlayerManager : MonoBehaviour
     public void DecreaseHealth(float value)
     {
 //#if DEBUG
-        if(GetIsGod == true)
+        if (GetIsGod == true)
         {
             return;
         }

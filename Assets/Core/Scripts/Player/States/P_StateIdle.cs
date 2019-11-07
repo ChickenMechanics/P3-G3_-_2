@@ -51,6 +51,7 @@ public class P_StateIdle : IState
         m_Owner.UpdateLookInput();
         m_Owner.UpdateMoveInput();
 
+        GunManager.GetInstance.AdsHip();
         GunManager.GetInstance.Fire();
         GunManager.GetInstance.Reload();
         GunManager.GetInstance.ScrollWeapons();

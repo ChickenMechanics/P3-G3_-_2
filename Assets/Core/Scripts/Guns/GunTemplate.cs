@@ -256,7 +256,7 @@ public class GunTemplate : MonoBehaviour
     }
 
 
-    private void AimPosUpdate()
+    public void AimPosUpdate()
     {
         // ads
         if (Input.GetMouseButton(1) == true &&
@@ -305,8 +305,6 @@ public class GunTemplate : MonoBehaviour
         {
             m_IsFiring = true;
             m_CameraPoint = cameraPoint;
-
-            //Time.timeScale = 0.5f;
         }
     }
 
@@ -373,7 +371,6 @@ public class GunTemplate : MonoBehaviour
         {
             GunStateUpdate();
             MagUpdate();
-            AimPosUpdate();
         }
     }
 }

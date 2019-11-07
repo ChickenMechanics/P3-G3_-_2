@@ -78,7 +78,7 @@ public class PlayerCtrl : MonoBehaviour, IController
 
     private IEnumerator DashCooldown(float cooldownTimer)
     {
-        while(cooldownTimer > 0.0f)
+        while (cooldownTimer > 0.0f)
         {
             cooldownTimer -= Time.deltaTime;
             yield return null;
@@ -86,6 +86,25 @@ public class PlayerCtrl : MonoBehaviour, IController
 
         GetFSM.GetState(EPlayerState.DASH).SetIsAvailable(true);
         StopCoroutine("DashCooldown");
+    }
+
+
+    public void TriggerDashFovDecrease(float fovTarget, float dashIncreaseLerp)
+    {
+        StartCoroutine(DashFovDecrease(fovTarget, dashIncreaseLerp));
+    }
+
+
+    private IEnumerator DashFovDecrease(float fovTarget, float dashIncreaseLerp)
+    {
+        while (Camera.main.fieldOfView < fovTarget - 0.01f)
+        {
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, fovTarget, dashIncreaseLerp);
+            yield return null;
+        }
+
+        Camera.main.fieldOfView = fovTarget;
+        StopCoroutine("DashFovCooldown");
     }
 
 

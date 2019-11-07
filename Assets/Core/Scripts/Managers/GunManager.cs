@@ -87,6 +87,12 @@ public class GunManager : MonoBehaviour
     }
 
 
+    public void AdsHip()
+    {
+        m_ActiveGunScr.AimPosUpdate();
+    }
+
+
     public void ScrollWeapons()
     {
         float wheelDir = Input.GetAxisRaw("Mouse ScrollWheel");

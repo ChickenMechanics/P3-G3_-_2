@@ -319,54 +319,62 @@ public class HUDManager : MonoBehaviour
 
         //m_HighScoreTransformList = new List<Transform>();
 
-        //m_HighScoreEntryList = new List<HighScoreData>()
+        //if (PlayerPrefs.HasKey("HighScore") != true)
         //{
-        //    new HighScoreData{ m_Name = "CCC", m_Score = 3000},
-        //    new HighScoreData{ m_Name = "EEE", m_Score = 1000},
-        //    new HighScoreData{ m_Name = "AAA", m_Score = 5000},
-        //    new HighScoreData{ m_Name = "BBB", m_Score = 4000},
-        //    new HighScoreData{ m_Name = "DDD", m_Score = 2000}
-        //};
+        //    m_HighScoreEntryList = new List<HighScoreData>()
+        //    {
+        //        new HighScoreData{ m_Name = "CCC", m_Score = 3000},
+        //        new HighScoreData{ m_Name = "EEE", m_Score = 1000},
+        //        new HighScoreData{ m_Name = "AAA", m_Score = 5000},
+        //        new HighScoreData{ m_Name = "BBB", m_Score = 4000},
+        //        new HighScoreData{ m_Name = "DDD", m_Score = 2000}
+        //    };
+        //}
 
         //AddNewHighScoreEntry("ABC", 6666666);
 
-        //string jsonHighScoreData = PlayerPrefs.GetString("highscoreTable");
-        //HighScoreJsonData highScoreJsonData = JsonUtility.FromJson<HighScoreJsonData>(jsonHighScoreData);
-
-        //for (int i = 0; i < highScoreJsonData.m_HighScoreEntryData.Count; ++i)
-        //{
-        //    for (int j = (i + 1); j < highScoreJsonData.m_HighScoreEntryData.Count; ++j)
-        //    {
-        //        if (highScoreJsonData.m_HighScoreEntryData[j].m_Score > highScoreJsonData.m_HighScoreEntryData[i].m_Score)
-        //        {
-        //            HighScoreData tmp = highScoreJsonData.m_HighScoreEntryData[i];
-        //            highScoreJsonData.m_HighScoreEntryData[i] = highScoreJsonData.m_HighScoreEntryData[j];
-        //            highScoreJsonData.m_HighScoreEntryData[j] = tmp;
-        //        }
-        //    }
-        //}
-
-        //m_HighScoreEntryList = highScoreJsonData.m_HighScoreEntryData;
-        //for (int i = 0; i < m_HighScoreEntryList.Count; ++i)
-        //{
-        //    CreateHighScoreEntryTable(m_HighScoreEntryList[i], m_HighScoreTransformList);
-        //}
+        //SortHighScore();
 
 
-
-        // old things
+        //// old things
         //HighScoreJsonData highScoreJsonData = new HighScoreJsonData { m_HighScoreEntryData = m_HighScoreEntryList };
         //string highScoreJson = JsonUtility.ToJson(highScoreJsonData);
-        //PlayerPrefs.SetString("highscoreTable", highScoreJson);
+        //PlayerPrefs.SetString("HighScore", highScoreJson);
         //PlayerPrefs.Save();
-        //Debug.Log(PlayerPrefs.GetString("highscoreTable"));
+        //Debug.Log(PlayerPrefs.GetString("HighScore"));
+    }
+
+
+    private void SortHighScore()
+    {
+        string jsonHighScoreData = PlayerPrefs.GetString("HighScore");
+        HighScoreJsonData highScoreJsonData = JsonUtility.FromJson<HighScoreJsonData>(jsonHighScoreData);
+
+        for (int i = 0; i < highScoreJsonData.m_HighScoreEntryData.Count; ++i)
+        {
+            for (int j = (i + 1); j < highScoreJsonData.m_HighScoreEntryData.Count; ++j)
+            {
+                if (highScoreJsonData.m_HighScoreEntryData[j].m_Score > highScoreJsonData.m_HighScoreEntryData[i].m_Score)
+                {
+                    HighScoreData tmp = highScoreJsonData.m_HighScoreEntryData[i];
+                    highScoreJsonData.m_HighScoreEntryData[i] = highScoreJsonData.m_HighScoreEntryData[j];
+                    highScoreJsonData.m_HighScoreEntryData[j] = tmp;
+                }
+            }
+        }
+
+        m_HighScoreEntryList = highScoreJsonData.m_HighScoreEntryData;
+        for (int i = 0; i < m_HighScoreEntryList.Count; ++i)
+        {
+            CreateHighScoreEntryTable(m_HighScoreEntryList[i], m_HighScoreTransformList);
+        }
     }
 
 
     private void AddNewHighScoreEntry(string name, int score)
     {
         HighScoreData highScoreData = new HighScoreData { m_Name = name, m_Score = score };
-        string jsonHighScoreData = PlayerPrefs.GetString("highscoreTable");
+        string jsonHighScoreData = PlayerPrefs.GetString("HighScore");
         HighScoreJsonData highScoreJsonData = JsonUtility.FromJson<HighScoreJsonData>(jsonHighScoreData);
         highScoreJsonData.m_HighScoreEntryData.Add(highScoreData);
 
@@ -376,7 +384,7 @@ public class HUDManager : MonoBehaviour
         //}
 
         string highScoreJson = JsonUtility.ToJson(highScoreJsonData);
-        PlayerPrefs.SetString("highscoreTable", highScoreJson);
+        PlayerPrefs.SetString("HighScore", highScoreJson);
         PlayerPrefs.Save();
     }
 
@@ -561,7 +569,7 @@ public class HUDManager : MonoBehaviour
         float dashInput = PlayerManager.GetInstance.GetPlayerCtrlScr.GetBasicInput.DashInput;
         int playerStateIdx = PlayerManager.GetInstance.GetPlayerCtrlScr.GetFSM.GetCurrentStateIdx;
         if (dashInput != 0 &&
-            playerStateIdx == 3)    // 3 equals dash // couldn't find enum so fuck it
+            playerStateIdx == (int)PlayerCtrl.EPlayerState.DASH)
         {
             m_DashSliderImg.fillAmount = Mathf.Lerp(m_DashSliderImg.fillAmount, 0.0f, 0.25f);
             m_NowDashCoolDownTime = 0.0f;

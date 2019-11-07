@@ -188,7 +188,10 @@ public class ScoreManager : MonoBehaviour
     private void Update()
     {
         UpdatePoints();
-        BulletTime();
+        if(PlayerManager.GetInstance.GetPlayer != null)
+        {
+            BulletTime();
+        }
     }
 
 
@@ -202,20 +205,9 @@ public class ScoreManager : MonoBehaviour
             m_TriggerBulletTime == false)
         {
             m_TriggerBulletTime = true;
-            //SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.COMBO_INCREASE, PlayerManager.GetInstance.GetPlayer.transform.position);
         }
 
-        //if (m_PreviousComboMulti > (int)GetCurrentComboMultiplier &&
-        //    m_TriggerBulletTime == false)
-        //{
-        //    m_LocalComboTimeInSecMax += m_ComboTimeDecreaseInSec;
-        //    if(m_LocalComboTimeInSecMax <= 0.0f)
-        //    {
-        //        m_LocalComboTimeInSecMax = m_ComboTimeInSecMax;
-        //    }
-        //}
 
-        // bullettime
         if (m_TriggerBulletTime == true &&
             Camera.main.fieldOfView > m_BulletTimeFov)
         {
@@ -227,13 +219,13 @@ public class ScoreManager : MonoBehaviour
         {
             Time.timeScale = Mathf.Lerp(Time.timeScale, 1.0f, 0.5f);
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.2f);
-            if(Camera.main.fieldOfView > 60.0f)
+            if (Camera.main.fieldOfView > 60.0f)
             {
                 Camera.main.fieldOfView = 60.0f;
             }
         }
 
-        // this is here
+        // this is here for some reason
         m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
     }
 

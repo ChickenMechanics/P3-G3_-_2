@@ -67,6 +67,7 @@ public class P_StateWalk : IState
         m_Owner.UpdateMoveInput();
         m_Owner.UpdateDashInput();
 
+        GunManager.GetInstance.AdsHip();
         GunManager.GetInstance.Fire();
         GunManager.GetInstance.Reload();
         GunManager.GetInstance.ScrollWeapons();
