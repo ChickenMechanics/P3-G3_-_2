@@ -575,9 +575,10 @@ public class HUDManager : MonoBehaviour
                 {
                     m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
                 }
-                float convertedT = GetZeroToOneRange(m_NowDashCoolDownTime, m_DashCoolDownTimeTarget);
-                m_DashSliderImg.fillAmount = Mathf.Lerp(m_DashSliderImg.fillAmount, convertedT, 0.1f);
             }
+
+            float convertedT = GetZeroToOneRange(m_NowDashCoolDownTime, m_DashCoolDownTimeTarget);
+            m_DashSliderImg.fillAmount = Mathf.Lerp(m_DashSliderImg.fillAmount, convertedT, 0.1f);
         }
     }
 
