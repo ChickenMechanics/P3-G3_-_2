@@ -12,6 +12,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grenade Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
+        type: 3}
+      propertyPath: m_BulletModelPrefab
+      value: 
+      objectReference: {fileID: 2060700874107555717, guid: 2b13b9c84adfaef478bc6da70effdf4e,
+        type: 3}
+    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
+        type: 3}
+      propertyPath: m_MagSizeTotal
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
+        type: 3}
+      propertyPath: m_RoundsPerMinute
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
+        type: 3}
+      propertyPath: m_HipSpread
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
+        type: 3}
+      propertyPath: m_EFiringSound
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
+        type: 3}
+      propertyPath: m_GunName
+      value: Grenade
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
+        type: 3}
+      propertyPath: m_AdsSpread
+      value: 0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 8156343272377379771, guid: 2a61f14fde1507f43ad7413628f5db50,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -67,37 +103,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
+    - target: {fileID: 5479195971833588225, guid: 2a61f14fde1507f43ad7413628f5db50,
         type: 3}
-      propertyPath: m_BulletModelPrefab
+      propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 2060700874107555717, guid: 2b13b9c84adfaef478bc6da70effdf4e,
-        type: 3}
-    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
-        type: 3}
-      propertyPath: m_MagSizeTotal
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
-        type: 3}
-      propertyPath: m_RoundsPerMinute
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
-        type: 3}
-      propertyPath: m_HipSpread
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
-        type: 3}
-      propertyPath: m_EFiringSound
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 9097662257162642858, guid: 2a61f14fde1507f43ad7413628f5db50,
-        type: 3}
-      propertyPath: m_GunName
-      value: Grenade
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9100000, guid: 20570f1ac032446408aa8f598dd099f4, type: 2}
     - target: {fileID: 2377154834163811043, guid: 2a61f14fde1507f43ad7413628f5db50,
         type: 3}
       propertyPath: m_Materials.Array.data[3]
