@@ -144,12 +144,19 @@ public class HUDManager : MonoBehaviour
     private Color m_LeftRightHelmetLightBaseColor;
 
     // highscore
-    private struct HighScore
+    [System.Serializable]
+    private struct HighScoreData
     {
-        public string Name;
-        public int Score;
+        public string m_Name;
+        public int m_Score;
     }
-    private List<HighScore> m_HighScoreList;
+
+    private struct HighScoreJsonData
+    {
+        public List<HighScoreData> m_HighScoreEntryData;
+    }
+
+    private List<HighScoreData> m_HighScoreEntryList;
     private List<Transform> m_HighScoreTransformList;
     private Transform m_HighScoreTable;
     private Transform m_HighScoreEntry;
@@ -307,68 +314,71 @@ public class HUDManager : MonoBehaviour
         m_HighScoreTable = canvas.transform.Find("HighScoreTable").transform;
         m_HighScoreEntry = canvas.transform.Find("HighScoreTable").transform.Find("NameEntryTemplate").transform;
 
-        m_HighScoreTable.gameObject.SetActive(false);
+        m_HighScoreTable.gameObject.SetActive(false);   // comment / uncomment this to enable disable higscore display
         m_HighScoreEntry.gameObject.SetActive(false);
 
         m_HighScoreTransformList = new List<Transform>();
 
-        m_HighScoreList = new List<HighScore>()
+        m_HighScoreEntryList = new List<HighScoreData>()
         {
-            new HighScore{ Name = "AAA", Score = 5},
-            new HighScore{ Name = "BBB", Score = 4},
-            new HighScore{ Name = "CCC", Score = 3},
-            new HighScore{ Name = "DDD", Score = 2},
-            new HighScore{ Name = "EEE", Score = 1}
+            new HighScoreData{ m_Name = "CCC", m_Score = 3000},
+            new HighScoreData{ m_Name = "EEE", m_Score = 1000},
+            new HighScoreData{ m_Name = "AAA", m_Score = 5000},
+            new HighScoreData{ m_Name = "BBB", m_Score = 4000},
+            new HighScoreData{ m_Name = "DDD", m_Score = 2000}
         };
 
-        for (int i = 0; i < m_HighScoreList.Count; ++i)
+        AddNewHighScoreEntry("ABC", 6666666);
+
+        string jsonHighScoreData = PlayerPrefs.GetString("highscoreTable");
+        HighScoreJsonData highScoreJsonData = JsonUtility.FromJson<HighScoreJsonData>(jsonHighScoreData);
+
+        for (int i = 0; i < highScoreJsonData.m_HighScoreEntryData.Count; ++i)
         {
-            CreateHighScoreEntry(m_HighScoreList[i], m_HighScoreTransformList);
+            for (int j = (i + 1); j < highScoreJsonData.m_HighScoreEntryData.Count; ++j)
+            {
+                if (highScoreJsonData.m_HighScoreEntryData[j].m_Score > highScoreJsonData.m_HighScoreEntryData[i].m_Score)
+                {
+                    HighScoreData tmp = highScoreJsonData.m_HighScoreEntryData[i];
+                    highScoreJsonData.m_HighScoreEntryData[i] = highScoreJsonData.m_HighScoreEntryData[j];
+                    highScoreJsonData.m_HighScoreEntryData[j] = tmp;
+                }
+            }
         }
 
-        //float entryOffset = 60.0f;
-        //for(int i = 0; i < 5; ++i)
-        //{
-        //    Transform entry = Instantiate(m_HighScoreEntry, m_HighScoreTable);
-        //    RectTransform entryRect = entry.GetComponent<RectTransform>();
-        //    entryRect.anchoredPosition = new Vector2(0.0f, -entryOffset * i);
+        m_HighScoreEntryList = highScoreJsonData.m_HighScoreEntryData;
+        for (int i = 0; i < m_HighScoreEntryList.Count; ++i)
+        {
+            CreateHighScoreEntryTable(m_HighScoreEntryList[i], m_HighScoreTransformList);
+        }
 
-        //    int place = i + 1;
-        //    string rankNum = place.ToString();
-        //    rankNum += ".";
-        //    Transform rank = entry.Find("RankPos").transform;
-        //    Text rankTxt = rank.GetComponent<Text>();
-        //    rankTxt.text = rankNum;
-
-        //    // if we wan't st, nd, rd, th
-        //    //int place = i;
-        //    //++place;
-        //    //string rankNum = place.ToString();
-        //    //string rankNumSuffix = "";
-        //    //switch (i)
-        //    //{
-        //    //    case 0:     rankNumSuffix = "st";  break;
-        //    //    case 1:     rankNumSuffix = "nd";  break;
-        //    //    case 2:     rankNumSuffix = "rd";  break;
-        //    //    default:    rankNumSuffix = "th";  break;
-        //    //}
-        //    //rankNum += rankNumSuffix;
-        //    //Transform rank = entry.Find("RankPos").transform;
-        //    //Text rankTxt = rank.GetComponent<Text>();
-        //    //rankTxt.text = rankNum;
-
-        //    entryRect.gameObject.SetActive(true);
-
-        //    Text nameTxt = entry.transform.Find("NamePos").transform.GetComponent<Text>();
-        //    nameTxt.text = " ";
-
-        //    Text scoreTxt = entry.transform.Find("ScorePos").transform.GetComponent<Text>();
-        //    scoreTxt.text = i.ToString();
-        //}
+        //HighScoreJsonData highScoreJsonData = new HighScoreJsonData { m_HighScoreEntryData = m_HighScoreEntryList };
+        //string highScoreJson = JsonUtility.ToJson(highScoreJsonData);
+        //PlayerPrefs.SetString("highscoreTable", highScoreJson);
+        //PlayerPrefs.Save();
+        //Debug.Log(PlayerPrefs.GetString("highscoreTable"));
     }
 
 
-    private void CreateHighScoreEntry(HighScore highScore, List<Transform> entryTransformList)
+    private void AddNewHighScoreEntry(string name, int score)
+    {
+        HighScoreData highScoreData = new HighScoreData { m_Name = name, m_Score = score };
+        string jsonHighScoreData = PlayerPrefs.GetString("highscoreTable");
+        HighScoreJsonData highScoreJsonData = JsonUtility.FromJson<HighScoreJsonData>(jsonHighScoreData);
+        highScoreJsonData.m_HighScoreEntryData.Add(highScoreData);
+
+        //if(highScoreJsonData.m_HighScoreEntryData.Count > 5)
+        //{
+        //    highScoreJsonData.m_HighScoreEntryData.RemoveRange(5, highScoreJsonData.m_HighScoreEntryData.Count - 5);
+        //}
+
+        string highScoreJson = JsonUtility.ToJson(highScoreJsonData);
+        PlayerPrefs.SetString("highscoreTable", highScoreJson);
+        PlayerPrefs.Save();
+    }
+
+
+    private void CreateHighScoreEntryTable(HighScoreData highScore, List<Transform> entryTransformList)
     {
         float entryOffset = 60.0f;
         Transform entry = Instantiate(m_HighScoreEntry, m_HighScoreTable);
@@ -402,10 +412,10 @@ public class HUDManager : MonoBehaviour
         entryRect.gameObject.SetActive(true);
 
         Text nameTxt = entry.transform.Find("NamePos").transform.GetComponent<Text>();
-        nameTxt.text = highScore.Name;
+        nameTxt.text = highScore.m_Name;
 
         Text scoreTxt = entry.transform.Find("ScorePos").transform.GetComponent<Text>();
-        scoreTxt.text = highScore.Score.ToString();
+        scoreTxt.text = highScore.m_Score.ToString();
 
         entryTransformList.Add(entry);
     }
