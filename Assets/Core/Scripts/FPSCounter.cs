@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if DEBUG
+using UnityEngine;
 
 public class FPSCounter : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class FPSCounter : MonoBehaviour
 
     void OnGUI()
     {
-        int width = Screen.width, height = Screen.height;
-        var rect = new Rect(0, 0, width, height * 2 / 100);
+        var textSize = Screen.height * 2 / 50;
+        var rect = new Rect(0, 0, Screen.width, textSize);
 
         var fps = 1.0f / m_DeltaTime;
         var text = $"{fps:0.} fps";
@@ -20,13 +21,11 @@ public class FPSCounter : MonoBehaviour
         var style = new GUIStyle
         {
             alignment = TextAnchor.UpperLeft,
-            fontSize = height * 2 / 50,
+            fontSize = textSize,
             normal = {textColor = new Color(1.0f, 1.0f, 1.0f, 1.0f)}
         };
-
-
-
 
         GUI.Label(rect, text, style);
     }
 }
+#endif
