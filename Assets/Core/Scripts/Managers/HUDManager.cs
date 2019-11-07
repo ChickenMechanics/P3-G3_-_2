@@ -542,13 +542,24 @@ public class HUDManager : MonoBehaviour
 
     private void PlayerUpdate()
     {
+        HealthUpdate();
+        DashUpdate();
+        CrackUpdate();
+    }
+
+
+    private void HealthUpdate()
+    {
         m_PrevHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerManScr.GetCurrentHealth, m_PlayerManScr.GetBaseHealth), 0.2f);
         m_HealthLeftImg.fillAmount = m_PrevHealth;
         m_HealthRightImg.fillAmount = m_PrevHealth;
+    }
 
+
+    private void DashUpdate()
+    {
         float dashInput = PlayerManager.GetInstance.GetPlayerCtrlScr.GetBasicInput.DashInput;
         int playerStateIdx = PlayerManager.GetInstance.GetPlayerCtrlScr.GetFSM.GetCurrentStateIdx;
-
         if (dashInput != 0 &&
             playerStateIdx == 3)    // 3 equals dash // couldn't find enum so fuck it
         {
@@ -557,10 +568,10 @@ public class HUDManager : MonoBehaviour
         }
         else
         {
-            if(m_NowDashCoolDownTime < m_DashCoolDownTimeTarget)
+            if (m_NowDashCoolDownTime < m_DashCoolDownTimeTarget)
             {
                 m_NowDashCoolDownTime += Time.deltaTime;
-                if(m_NowDashCoolDownTime > m_DashCoolDownTimeTarget)
+                if (m_NowDashCoolDownTime > m_DashCoolDownTimeTarget)
                 {
                     m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
                 }
@@ -568,8 +579,6 @@ public class HUDManager : MonoBehaviour
                 m_DashSliderImg.fillAmount = Mathf.Lerp(m_DashSliderImg.fillAmount, convertedT, 0.1f);
             }
         }
-
-        CrackUpdate();
     }
 
 
