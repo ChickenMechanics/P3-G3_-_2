@@ -114,7 +114,7 @@ public class GunTemplate : MonoBehaviour
 
         if(m_GunName == "Grenade")
         {
-            m_GrenadeDelayTargetT = 0.35f;
+            m_GrenadeDelayTargetT = 0.3f;
             m_NowGrenadeDelayT = m_GrenadeDelayTargetT;
         }
     }
