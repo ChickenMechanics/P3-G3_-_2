@@ -1,28 +1,32 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class FPSCounter : MonoBehaviour
 {
-    float deltaTime = 0.0f;
+    private float m_DeltaTime;
 
-    void Update()
+    private void Update()
     {
-        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+        m_DeltaTime += (Time.unscaledDeltaTime - m_DeltaTime) * 0.1f;
     }
 
     void OnGUI()
     {
-        int w = Screen.width, h = Screen.height;
+        int width = Screen.width, height = Screen.height;
+        var rect = new Rect(0, 0, width, height * 2 / 100);
 
-        GUIStyle style = new GUIStyle();
+        var fps = 1.0f / m_DeltaTime;
+        var text = $"{fps:0.} fps";
 
-        Rect rect = new Rect(0, 0, w, h * 2 / 100);
-        style.alignment = TextAnchor.UpperLeft;
-        style.fontSize = h * 2 / 50;
-        style.normal.textColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        float msec = deltaTime * 1000.0f;
-        float fps = 1.0f / deltaTime;
-        string text = string.Format("{1:0.} fps", msec, fps);
+        var style = new GUIStyle
+        {
+            alignment = TextAnchor.UpperLeft,
+            fontSize = height * 2 / 50,
+            normal = {textColor = new Color(1.0f, 1.0f, 1.0f, 1.0f)}
+        };
+
+
+
+
         GUI.Label(rect, text, style);
     }
 }
