@@ -96,6 +96,9 @@ public class PlayerLook : MonoBehaviour
         m_NextLookRotation = Vector2.zero;
         m_CurrentLookRotation = Vector2.zero;
 
+        // set start roatation by playermanager roatation
+        m_CurrentLookRotation.x = PlayerManager.GetInstance.transform.rotation.eulerAngles.y;
+
         m_PrevPos = m_tPlayerMove.transform.position;
     }
 
