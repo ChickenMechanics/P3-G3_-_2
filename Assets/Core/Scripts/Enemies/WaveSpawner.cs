@@ -58,11 +58,13 @@ public class WaveSpawner : MonoBehaviour
     private int m_CurrentSubWaveIndex;
     private float m_CurrentWaveDuration;
     private SpawnState m_SpawnState;
+    private float m_TimeToNextWave;
 
     private void Start()
     {
         m_Player = GameObject.FindGameObjectWithTag("Player").transform;
         m_SpawnState = SpawnState.SPAWN;
+        m_TimeToNextWave = timeBetweenWaves;
     }
 
     private void Update()
@@ -70,19 +72,15 @@ public class WaveSpawner : MonoBehaviour
         switch (m_SpawnState)
         {
             case SpawnState.SPAWN: Spawn(); break;
-            case SpawnState.WAIT: StartCoroutine(Wait()); break;
-            case SpawnState.BETWEENWAVES:
-                StartCoroutine(WaitForNextWave());
-                break;
+            case SpawnState.WAIT: Wait(); break;
+            case SpawnState.BETWEENWAVES: WaitForNextWave(); break;
         }
 
         m_CurrentWaveDuration += Time.deltaTime;
     }
 
-    private IEnumerator Wait()
+    private void Wait()
     {
-        yield return new WaitForSeconds(SearchCountdown);
-
         var currentWave = waves[m_CurrentWaveIndex];
         var currentSubWave = currentWave.subWaves[m_CurrentSubWaveIndex];
 
@@ -107,22 +105,28 @@ public class WaveSpawner : MonoBehaviour
             return;
         }
 
-        if (currentSubWave.GetHasSpawned() == false)
+        if (currentSubWave.GetHasSpawned() == false && m_CurrentWaveDuration >= currentSubWave.spawnStartDelay)
+        {
             StartCoroutine(SpawnSubWave(currentSubWave));
-        
-        if (m_CurrentSubWaveIndex < currentWave.subWaves.Length - 1)
-            m_CurrentSubWaveIndex++;
+
+            if (m_CurrentSubWaveIndex < currentWave.subWaves.Length - 1)
+                m_CurrentSubWaveIndex++;
+        }
 
         m_SpawnState = SpawnState.WAIT;
     }
 
-    private IEnumerator WaitForNextWave()
+    private void WaitForNextWave()
     {
-        yield return new WaitForSeconds(timeBetweenWaves);
-        
-        m_CurrentWaveDuration = 0;
-        m_CurrentSubWaveIndex = 0;
-        m_SpawnState = SpawnState.SPAWN;
+        if (m_TimeToNextWave - Time.deltaTime <= 0)
+        {
+            m_TimeToNextWave = timeBetweenWaves;
+            m_CurrentWaveDuration = 0;
+            m_CurrentSubWaveIndex = 0;
+            m_SpawnState = SpawnState.SPAWN;
+        }
+
+        m_TimeToNextWave -= Time.deltaTime;
     }
 
     private static bool IsWaveCompleted(Wave wave)
