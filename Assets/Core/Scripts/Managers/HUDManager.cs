@@ -311,47 +311,50 @@ public class HUDManager : MonoBehaviour
         }
 
         // highscore
-        m_HighScoreTable = canvas.transform.Find("HighScoreTable").transform;
-        m_HighScoreEntry = canvas.transform.Find("HighScoreTable").transform.Find("NameEntryTemplate").transform;
+        //m_HighScoreTable = canvas.transform.Find("HighScoreTable").transform;
+        //m_HighScoreEntry = canvas.transform.Find("HighScoreTable").transform.Find("NameEntryTemplate").transform;
 
-        m_HighScoreTable.gameObject.SetActive(false);   // comment / uncomment this to enable disable higscore display
-        m_HighScoreEntry.gameObject.SetActive(false);
+        //m_HighScoreTable.gameObject.SetActive(false);   // comment / uncomment this to enable disable higscore display
+        //m_HighScoreEntry.gameObject.SetActive(false);
 
-        m_HighScoreTransformList = new List<Transform>();
+        //m_HighScoreTransformList = new List<Transform>();
 
-        m_HighScoreEntryList = new List<HighScoreData>()
-        {
-            new HighScoreData{ m_Name = "CCC", m_Score = 3000},
-            new HighScoreData{ m_Name = "EEE", m_Score = 1000},
-            new HighScoreData{ m_Name = "AAA", m_Score = 5000},
-            new HighScoreData{ m_Name = "BBB", m_Score = 4000},
-            new HighScoreData{ m_Name = "DDD", m_Score = 2000}
-        };
+        //m_HighScoreEntryList = new List<HighScoreData>()
+        //{
+        //    new HighScoreData{ m_Name = "CCC", m_Score = 3000},
+        //    new HighScoreData{ m_Name = "EEE", m_Score = 1000},
+        //    new HighScoreData{ m_Name = "AAA", m_Score = 5000},
+        //    new HighScoreData{ m_Name = "BBB", m_Score = 4000},
+        //    new HighScoreData{ m_Name = "DDD", m_Score = 2000}
+        //};
 
-        AddNewHighScoreEntry("ABC", 6666666);
+        //AddNewHighScoreEntry("ABC", 6666666);
 
-        string jsonHighScoreData = PlayerPrefs.GetString("highscoreTable");
-        HighScoreJsonData highScoreJsonData = JsonUtility.FromJson<HighScoreJsonData>(jsonHighScoreData);
+        //string jsonHighScoreData = PlayerPrefs.GetString("highscoreTable");
+        //HighScoreJsonData highScoreJsonData = JsonUtility.FromJson<HighScoreJsonData>(jsonHighScoreData);
 
-        for (int i = 0; i < highScoreJsonData.m_HighScoreEntryData.Count; ++i)
-        {
-            for (int j = (i + 1); j < highScoreJsonData.m_HighScoreEntryData.Count; ++j)
-            {
-                if (highScoreJsonData.m_HighScoreEntryData[j].m_Score > highScoreJsonData.m_HighScoreEntryData[i].m_Score)
-                {
-                    HighScoreData tmp = highScoreJsonData.m_HighScoreEntryData[i];
-                    highScoreJsonData.m_HighScoreEntryData[i] = highScoreJsonData.m_HighScoreEntryData[j];
-                    highScoreJsonData.m_HighScoreEntryData[j] = tmp;
-                }
-            }
-        }
+        //for (int i = 0; i < highScoreJsonData.m_HighScoreEntryData.Count; ++i)
+        //{
+        //    for (int j = (i + 1); j < highScoreJsonData.m_HighScoreEntryData.Count; ++j)
+        //    {
+        //        if (highScoreJsonData.m_HighScoreEntryData[j].m_Score > highScoreJsonData.m_HighScoreEntryData[i].m_Score)
+        //        {
+        //            HighScoreData tmp = highScoreJsonData.m_HighScoreEntryData[i];
+        //            highScoreJsonData.m_HighScoreEntryData[i] = highScoreJsonData.m_HighScoreEntryData[j];
+        //            highScoreJsonData.m_HighScoreEntryData[j] = tmp;
+        //        }
+        //    }
+        //}
 
-        m_HighScoreEntryList = highScoreJsonData.m_HighScoreEntryData;
-        for (int i = 0; i < m_HighScoreEntryList.Count; ++i)
-        {
-            CreateHighScoreEntryTable(m_HighScoreEntryList[i], m_HighScoreTransformList);
-        }
+        //m_HighScoreEntryList = highScoreJsonData.m_HighScoreEntryData;
+        //for (int i = 0; i < m_HighScoreEntryList.Count; ++i)
+        //{
+        //    CreateHighScoreEntryTable(m_HighScoreEntryList[i], m_HighScoreTransformList);
+        //}
 
+
+
+        // old things
         //HighScoreJsonData highScoreJsonData = new HighScoreJsonData { m_HighScoreEntryData = m_HighScoreEntryList };
         //string highScoreJson = JsonUtility.ToJson(highScoreJsonData);
         //PlayerPrefs.SetString("highscoreTable", highScoreJson);
@@ -539,13 +542,24 @@ public class HUDManager : MonoBehaviour
 
     private void PlayerUpdate()
     {
+        HealthUpdate();
+        DashUpdate();
+        CrackUpdate();
+    }
+
+
+    private void HealthUpdate()
+    {
         m_PrevHealth = Mathf.Lerp(m_PrevHealth, GetZeroToOneRange(m_PlayerManScr.GetCurrentHealth, m_PlayerManScr.GetBaseHealth), 0.2f);
         m_HealthLeftImg.fillAmount = m_PrevHealth;
         m_HealthRightImg.fillAmount = m_PrevHealth;
+    }
 
+
+    private void DashUpdate()
+    {
         float dashInput = PlayerManager.GetInstance.GetPlayerCtrlScr.GetBasicInput.DashInput;
         int playerStateIdx = PlayerManager.GetInstance.GetPlayerCtrlScr.GetFSM.GetCurrentStateIdx;
-
         if (dashInput != 0 &&
             playerStateIdx == 3)    // 3 equals dash // couldn't find enum so fuck it
         {
@@ -554,19 +568,18 @@ public class HUDManager : MonoBehaviour
         }
         else
         {
-            if(m_NowDashCoolDownTime < m_DashCoolDownTimeTarget)
+            if (m_NowDashCoolDownTime < m_DashCoolDownTimeTarget)
             {
                 m_NowDashCoolDownTime += Time.deltaTime;
-                if(m_NowDashCoolDownTime > m_DashCoolDownTimeTarget)
+                if (m_NowDashCoolDownTime > m_DashCoolDownTimeTarget)
                 {
                     m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
                 }
-                float convertedT = GetZeroToOneRange(m_NowDashCoolDownTime, m_DashCoolDownTimeTarget);
-                m_DashSliderImg.fillAmount = Mathf.Lerp(m_DashSliderImg.fillAmount, convertedT, 0.1f);
             }
-        }
 
-        CrackUpdate();
+            float convertedT = GetZeroToOneRange(m_NowDashCoolDownTime, m_DashCoolDownTimeTarget);
+            m_DashSliderImg.fillAmount = Mathf.Lerp(m_DashSliderImg.fillAmount, convertedT, 0.1f);
+        }
     }
 
 

@@ -94,15 +94,19 @@ public class GunManager : MonoBehaviour
         {
             if (wheelDir == 0.1f)
             {
-                ++m_CurrentGunIdx;
-                if (m_CurrentGunIdx > m_NumOfGuns)
-                    m_CurrentGunIdx = 0;
+                //++m_CurrentGunIdx;
+                //if (m_CurrentGunIdx > m_NumOfGuns)
+                //    m_CurrentGunIdx = 0;
+
+                m_CurrentGunIdx = 0;
             }
             else
             {
-                --m_CurrentGunIdx;
-                if (m_CurrentGunIdx < 0)
-                    m_CurrentGunIdx = m_NumOfGuns;
+                //--m_CurrentGunIdx;
+                //if (m_CurrentGunIdx < 0)
+                //    m_CurrentGunIdx = m_NumOfGuns;
+
+                m_CurrentGunIdx = 1;
             }
 
             SetActiveGun(m_CurrentGunIdx);

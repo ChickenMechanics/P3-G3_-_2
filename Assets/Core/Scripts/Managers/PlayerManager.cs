@@ -69,6 +69,8 @@ public class PlayerManager : MonoBehaviour
         GetPlayerLookScr = GetPlayer.GetComponent<PlayerLook>();
         GetPlayerMoveScr = GetPlayer.GetComponent<PlayerMove>();
 
+        //GetPlayerLookScr.transform.rotation.
+
         GetBaseHealth = m_BaseHealth;
         GetCurrentHealth = GetBaseHealth;
 

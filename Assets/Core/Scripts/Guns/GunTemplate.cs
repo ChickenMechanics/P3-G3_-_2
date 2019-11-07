@@ -54,6 +54,10 @@ public class GunTemplate : MonoBehaviour
     private float m_ReloadAnimTime;
     [HideInInspector] public bool m_IsPaused { set; get; }
 
+    // greande delay to sync with animation
+    private float m_GrenadeDelayTargetT;
+    private float m_NowGrenadeDelayT;
+
     private enum EGunState
     {
         READY = 0,
@@ -107,6 +111,12 @@ public class GunTemplate : MonoBehaviour
         m_CrossHairObj = transform.parent.transform.Find("Canvas").transform.Find("CrosshairImage").gameObject;
 
         m_IsPaused = false;
+
+        if(m_GunName == "Grenade")
+        {
+            m_GrenadeDelayTargetT = 0.3f;
+            m_NowGrenadeDelayT = m_GrenadeDelayTargetT;
+        }
     }
 
 
@@ -133,11 +143,24 @@ public class GunTemplate : MonoBehaviour
 
         if (m_IsFiring == true)
         {
-            m_CurrentGunState = EGunState.FIRING;
-
             m_GetAnimator.SetBool("Idle", false);
             m_GetAnimator.SetBool("Overheat", false);
             m_GetAnimator.SetBool("Fire", true);
+
+            // delay for grenade shot so it syncs with animation
+            if (m_GunName == "Grenade")
+            {
+                m_NowGrenadeDelayT -= Time.deltaTime;
+                if (m_NowGrenadeDelayT < 0.0f)
+                {
+                    m_NowGrenadeDelayT = m_GrenadeDelayTargetT;
+                    m_CurrentGunState = EGunState.FIRING;
+                }
+            }
+            else
+            {
+                m_CurrentGunState = EGunState.FIRING;
+            }
         }
     }
 
