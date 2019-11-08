@@ -39,11 +39,11 @@ public class GameManager : MonoBehaviour, IController
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        // highscore
+        if (Input.GetKeyDown(KeyCode.H))    // change this to trigger on player health when highscore is done
         {
-            Time.timeScale = (Time.timeScale == 0.0f) ? 1.0f : 0.0f;
-            ScoreManager.GetInstance.m_GetBulletTimeEnabled = !ScoreManager.GetInstance.m_GetBulletTimeEnabled;
-
+            //Time.timeScale = (Time.timeScale == 0.0f) ? 1.0f : 0.0f;
+            //ScoreManager.GetInstance.m_GetBulletTimeEnabled = !ScoreManager.GetInstance.m_GetBulletTimeEnabled;
             HUDManager.GetInstance.HighScoreEnable();
         }
 

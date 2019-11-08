@@ -163,6 +163,13 @@ public class HUDManager : MonoBehaviour
     // end old
 
 
+    // highscore
+    private enum EHighScoreState
+    {
+        ENTRY,
+        TABLE
+    }
+    private EHighScoreState m_HighScoreState;
 
     [System.Serializable, HideInInspector]
     public class HighScoreData
@@ -174,13 +181,15 @@ public class HUDManager : MonoBehaviour
     private List<Transform> m_HighScoreTransformList;
     private List<HighScoreData> m_HighScoreDataList;
     private Transform m_HighScoreTableRoot;
-    private Transform m_highScoreBG;
+    private Transform m_HighScoreBG;
     private Transform m_HighScoreHeaderHeader;
     private Transform m_HighScoreHeaderName;
     private Transform m_HighScoreHeaderScore;
+    private Transform m_HighScoreNewPlayerEntry;
     private Transform m_HighScoreEntryTemplate;
+    private string m_UserInputName;
     private int m_HighScoreMaxEntries;
-    private Image m_HighScoreBG;
+    private bool m_bDisplayHighScore;
 
 
     //----------------------------------------------------------------------------------------------------
@@ -332,19 +341,21 @@ public class HUDManager : MonoBehaviour
         }
 
         // highscore
-        m_HighScoreTableRoot = canvas.transform.Find("HighScoreTable").transform;
+        m_HighScoreState = EHighScoreState.ENTRY;
+        m_bDisplayHighScore = false;
+        m_UserInputName = "";
 
-        m_highScoreBG = m_HighScoreTableRoot.Find("BG").transform;
+        m_HighScoreTableRoot = canvas.transform.Find("HighScoreTable").transform;
+        m_HighScoreBG = m_HighScoreTableRoot.Find("BG").transform;
         m_HighScoreHeaderHeader = m_HighScoreTableRoot.Find("Header").transform;
         m_HighScoreHeaderName = m_HighScoreTableRoot.Find("Name").transform;
         m_HighScoreHeaderScore = m_HighScoreTableRoot.Find("Score").transform;
-
-
-        m_HighScoreEntryTemplate = canvas.transform.Find("HighScoreTable").transform.Find("NameEntryTemplate").transform;
-        m_HighScoreBG = m_HighScoreTableRoot.Find("BG").GetComponent<Image>();
+        m_HighScoreNewPlayerEntry = m_HighScoreTableRoot.Find("NewPlayerEntry").transform;
+        m_HighScoreEntryTemplate = m_HighScoreTableRoot.Find("NameEntryTemplate").transform;
 
         m_HighScoreBG.gameObject.SetActive(false);
         m_HighScoreTableRoot.gameObject.SetActive(false);
+        m_HighScoreNewPlayerEntry.gameObject.SetActive(false);
         m_HighScoreEntryTemplate.gameObject.SetActive(false);
 
         m_HighScoreDataList = new List<HighScoreData>();
@@ -405,12 +416,41 @@ public class HUDManager : MonoBehaviour
 
     public void HighScoreEnable()
     {
+        Time.timeScale = (Time.timeScale == 0.0f) ? 1.0f : 0.0f;
+        ScoreManager.GetInstance.m_GetBulletTimeEnabled = false;
+        m_bDisplayHighScore = true;
+
         m_HighScoreBG.gameObject.SetActive(true);
-        m_highScoreBG.gameObject.SetActive(true);
-        m_HighScoreHeaderHeader.gameObject.SetActive(true);
-        m_HighScoreHeaderName.gameObject.SetActive(true);
-        m_HighScoreHeaderScore.gameObject.SetActive(true);
         m_HighScoreTableRoot.gameObject.SetActive(true);
+    }
+
+
+    private void DisplayHighscore()
+    {
+        if(m_bDisplayHighScore == true)
+        {
+            switch (m_HighScoreState)
+            {
+                case EHighScoreState.ENTRY:
+
+                    m_HighScoreNewPlayerEntry.gameObject.SetActive(true);
+                    //GUI.TextField();
+
+                    break;
+                case EHighScoreState.TABLE:
+
+                    m_HighScoreHeaderHeader.gameObject.SetActive(true);
+                    m_HighScoreHeaderName.gameObject.SetActive(true);
+                    m_HighScoreHeaderScore.gameObject.SetActive(true);
+
+                    for (int i = 0; i < m_HighScoreTransformList.Count; ++i)
+                    {
+                        m_HighScoreTransformList[i].gameObject.SetActive(true);
+                    }
+
+                    break;
+            }
+        }
     }
 
 
@@ -438,9 +478,7 @@ public class HUDManager : MonoBehaviour
         {
             Transform entry = Instantiate(m_HighScoreEntryTemplate, m_HighScoreTableRoot);
             RectTransform entryRect = entry.GetComponent<RectTransform>();
-            //entryRect.anchoredPosition = new Vector2(0.0f, -entryOffset * m_HighScoreTransformList.Count);
             entryRect.anchoredPosition = new Vector2(0.0f, -entryOffset * i);
-            //int place = m_HighScoreTransformList.Count + 1;
             int place = i + 1;
             string rankNum = place.ToString();
             rankNum += ".";
@@ -474,28 +512,9 @@ public class HUDManager : MonoBehaviour
             scoreTxt.text = m_HighScoreDataList[i].m_Score.ToString();
 
             m_HighScoreTransformList.Add(entry);
+            m_HighScoreTransformList[m_HighScoreTransformList.Count - 1].gameObject.SetActive(false);
         }
     }
-
-
-    //// old / kill when new is in
-    //private void AddNewHighScoreEntry(string name, int score)
-    //{
-    //    HighScoreData highScoreData = new HighScoreData { m_Name = name, m_Score = score };
-    //    string jsonHighScoreData = PlayerPrefs.GetString("HighScore");
-    //    HighScoreJsonData highScoreJsonData = JsonUtility.FromJson<HighScoreJsonData>(jsonHighScoreData);
-    //    highScoreJsonData.m_HighScoreEntryData.Add(highScoreData);
-
-    //    //if(highScoreJsonData.m_HighScoreEntryData.Count > 5)
-    //    //{
-    //    //    highScoreJsonData.m_HighScoreEntryData.RemoveRange(5, highScoreJsonData.m_HighScoreEntryData.Count - 5);
-    //    //}
-
-    //    string highScoreJson = JsonUtility.ToJson(highScoreJsonData);
-    //    PlayerPrefs.SetString("HighScore", highScoreJson);
-    //    PlayerPrefs.Save();
-    //}
-    //// end old
 
 
     private float TruncateFloat(float value, int nDecimalPoints)
@@ -798,5 +817,6 @@ public class HUDManager : MonoBehaviour
         ScoreUpdate();
         WavesUpdate();
         LeftRightLightBlink();
+        DisplayHighscore();
     }
 }
