@@ -46,8 +46,14 @@ public class GameManager : MonoBehaviour, IController
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            ScoreManager.GetInstance.m_GetBulletTimeEnabled = !ScoreManager.GetInstance.m_GetBulletTimeEnabled;
+            Time.timeScale = (Time.timeScale == 0.0f) ? 1.0f : 0.0f;
+        }
+
         // TODO. Move and clean this to game manager when/if that is up
-        if(PlayerManager.GetInstance != null)
+        if (PlayerManager.GetInstance != null)
         {
             if (PlayerManager.GetInstance.GetIsAlive == false &&
                 PlayerManager.GetInstance.GetIsGod == false)
