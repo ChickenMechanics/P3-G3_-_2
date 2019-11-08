@@ -186,8 +186,12 @@ public class HUDManager : MonoBehaviour
     private Transform m_HighScoreHeaderName;
     private Transform m_HighScoreHeaderScore;
     private Transform m_HighScoreNewPlayerEntry;
+    private Transform m_HighScoreNewPlayerEntryName;
     private Transform m_HighScoreEntryTemplate;
+
+    private InputField m_InputField;
     private string m_UserInputName;
+
     private int m_HighScoreMaxEntries;
     private bool m_bDisplayHighScore;
 
@@ -351,7 +355,12 @@ public class HUDManager : MonoBehaviour
         m_HighScoreHeaderName = m_HighScoreTableRoot.Find("Name").transform;
         m_HighScoreHeaderScore = m_HighScoreTableRoot.Find("Score").transform;
         m_HighScoreNewPlayerEntry = m_HighScoreTableRoot.Find("NewPlayerEntry").transform;
+
+        m_HighScoreNewPlayerEntryName = m_HighScoreNewPlayerEntry.Find("NameEntryPos").transform;
+        m_InputField = m_HighScoreNewPlayerEntry.Find("InputField").gameObject.GetComponent<InputField>();
+
         m_HighScoreEntryTemplate = m_HighScoreTableRoot.Find("NameEntryTemplate").transform;
+
 
         m_HighScoreBG.gameObject.SetActive(false);
         m_HighScoreTableRoot.gameObject.SetActive(false);
@@ -378,12 +387,12 @@ public class HUDManager : MonoBehaviour
             SortHighScoreList();
         }
 
-#if DEBUG
-        for (int i = 0; i < m_HighScoreDataList.Count; ++i)
-        {
-            Debug.Log(m_HighScoreDataList[i].m_Name + " " + m_HighScoreDataList[i].m_Score);
-        }
-#endif
+//#if DEBUG
+//        for (int i = 0; i < m_HighScoreDataList.Count; ++i)
+//        {
+//            Debug.Log(m_HighScoreDataList[i].m_Name + " " + m_HighScoreDataList[i].m_Score);
+//        }
+//#endif
 
         m_HighScoreTransformList = new List<Transform>();
         InitHighScoreEntryTable();
@@ -433,11 +442,23 @@ public class HUDManager : MonoBehaviour
             {
                 case EHighScoreState.ENTRY:
 
-                    m_HighScoreNewPlayerEntry.gameObject.SetActive(true);
-                    //GUI.TextField();
+                    if(m_HighScoreNewPlayerEntryName.gameObject.activeInHierarchy == false)
+                    {
+                        m_HighScoreNewPlayerEntry.gameObject.SetActive(true);
+                    }
+
+                    if(m_HighScoreNewPlayerEntryName.gameObject.activeInHierarchy == false)
+                    {
+                        m_HighScoreNewPlayerEntryName.gameObject.SetActive(true);
+                    }
+
+                    //m_UserInputName = m_InputField.text;
+                    //m_HighScoreNewPlayerEntryName.gameObject.GetComponent<Text>().text = m_UserInputName;
 
                     break;
                 case EHighScoreState.TABLE:
+
+                    m_HighScoreNewPlayerEntry.gameObject.SetActive(false);
 
                     m_HighScoreHeaderHeader.gameObject.SetActive(true);
                     m_HighScoreHeaderName.gameObject.SetActive(true);
