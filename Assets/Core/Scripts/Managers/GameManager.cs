@@ -24,13 +24,6 @@ public class GameManager : MonoBehaviour, IController
     //----------------------------------------------------------------------------------------------------
 
 
-    //private void Init()
-    //{
-    //    GetFsm = new FSM(this);
-    //    GetFsm.
-    //}
-
-
     private void Awake()
     {
         if (GetInstance != null && GetInstance != this)
@@ -65,6 +58,7 @@ public class GameManager : MonoBehaviour, IController
                     ScoreManager.GetInstance.ResetPlayerStats();
                 }
             }
+
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
