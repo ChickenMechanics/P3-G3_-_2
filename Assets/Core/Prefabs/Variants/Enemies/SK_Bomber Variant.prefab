@@ -102,20 +102,20 @@ PrefabInstance:
       propertyPath: attackDuration
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 7087073337273835716, guid: 665a4933ae1c41a4cb4772723118a0c0,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7705170622504827340, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
       propertyPath: m_Speed
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7705170622504827340, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
       propertyPath: m_Radius
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7087073337273835716, guid: 665a4933ae1c41a4cb4772723118a0c0,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7356455952087367814, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
