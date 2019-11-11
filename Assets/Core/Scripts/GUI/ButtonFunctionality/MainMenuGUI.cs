@@ -7,6 +7,9 @@ public class MainMenuGUI : MonoBehaviour
 {
     public void NewGame()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         LevelManager.GetInstance.ChangeScene(LevelManager.EScene.ARENA);
     }
 

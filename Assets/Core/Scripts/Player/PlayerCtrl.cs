@@ -110,8 +110,8 @@ public class PlayerCtrl : MonoBehaviour, IController
 
     private void Awake()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         Destroy(GetComponent<MeshRenderer>());
         Destroy(GetComponent<MeshFilter>());

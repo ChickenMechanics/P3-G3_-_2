@@ -114,13 +114,21 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if(GetCurrentHealth != m_ShakePrevHealth)
+        if(GetCurrentHealth > 0.0f)
         {
-            SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_HURT, transform.position);
+            if (GetCurrentHealth != m_ShakePrevHealth)
+            {
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_HURT, transform.position);
 
-            m_ShakePrevHealth = GetCurrentHealth;
-            m_ShakeStartTime = Time.time;
-            StartCoroutine(PlayerScreenShake());
+                m_ShakePrevHealth = GetCurrentHealth;
+                m_ShakeStartTime = Time.time;
+                StartCoroutine(PlayerScreenShake());
+            }
+        }
+
+        if (GetCurrentHealth <= 0.0f)
+        {
+            StopCoroutine(PlayerScreenShake());
         }
     }
 }
