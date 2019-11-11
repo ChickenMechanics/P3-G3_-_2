@@ -193,7 +193,7 @@ public class ScoreManager : MonoBehaviour
 
         if(m_GetBulletTimeEnabled == true)
         {
-            if (PlayerManager.GetInstance.GetPlayer != null)
+            if (PlayerManager.GetInstance != null)
             {
                 BulletTime();
             }
