@@ -134,6 +134,9 @@ public class WaveSpawner : MonoBehaviour
 
     private void Spawn()
     {
+        SoundManager.GetInstance.PlaySoundClip(
+            SoundManager.ESoundClip.WAVE_BEGIN, Camera.main.transform.position);
+
         var currentWave = waves[m_CurrentWaveIndex];
         var currentSubWave = currentWave.subWaves[m_CurrentSubWaveIndex];
 
