@@ -55,6 +55,7 @@ public class WaveSpawner : MonoBehaviour
     public float waveTextX;
     public float waveTextY;
     public float showWaveNumberTime;
+    public int TextWidth;
 
     private Transform m_Player;
     private int m_CurrentWaveIndex;
@@ -94,15 +95,14 @@ public class WaveSpawner : MonoBehaviour
 
         if (m_TempShowWaveNumberTime > 0)
         {
-            var textSize = Screen.height * 2 / 50;
-            var rect = new Rect(waveTextX, waveTextY, Screen.width, textSize);
+            var rect = new Rect(waveTextX, waveTextY, Screen.width, TextWidth);
 
             var text = $"Wave: {m_CurrentWaveIndex + 1:0.}";
 
             var style = new GUIStyle
             {
                 alignment = TextAnchor.UpperLeft,
-                fontSize = textSize,
+                fontSize = TextWidth,
                 normal = { textColor = new Color(1.0f, 1.0f, 1.0f, 1.0f) }
             };
 
