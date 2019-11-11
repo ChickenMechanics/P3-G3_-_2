@@ -50,25 +50,9 @@ public class GameManager : MonoBehaviour, IController
         // TODO. Move and clean this to game manager when/if that is up
         if (PlayerManager.GetInstance != null)
         {
-            if (PlayerManager.GetInstance.GetIsAlive == false &&
-                PlayerManager.GetInstance.GetIsGod == false)
+            if (PlayerManager.GetInstance.GetIsAlive == false)
             {
-                LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
-
-                if (ScoreManager.GetInstance != null)
-                {
-                    ScoreManager.GetInstance.ResetPlayerStats();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
-
-                if (ScoreManager.GetInstance != null)
-                {
-                    ScoreManager.GetInstance.ResetPlayerStats();
-                }
+                HUDManager.GetInstance.HighScoreEnable();
             }
 
             if (Input.GetKeyDown(KeyCode.G))
@@ -78,6 +62,27 @@ public class GameManager : MonoBehaviour, IController
                 string msg = PlayerManager.GetInstance.GetIsGod ? "Godmode On" : "Godmode Off";
                 Debug.LogWarning(msg);
             }
+
+            //if (PlayerManager.GetInstance.GetIsAlive == false &&
+            //    PlayerManager.GetInstance.GetIsGod == false)
+            //{
+            //    LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+
+            //    if (ScoreManager.GetInstance != null)
+            //    {
+            //        ScoreManager.GetInstance.ResetPlayerStats();
+            //    }
+            //}
+
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
+            //    LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+
+            //    if (ScoreManager.GetInstance != null)
+            //    {
+            //        ScoreManager.GetInstance.ResetPlayerStats();
+            //    }
+            //}
         }
     }
 }

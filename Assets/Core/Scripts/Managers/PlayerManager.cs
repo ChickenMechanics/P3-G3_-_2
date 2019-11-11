@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector]
     public bool GetIsGod { set; get; }
     [HideInInspector]
-    public bool GetIsAlive { private set; get; }
+    public bool GetIsAlive { set; get; }
     [HideInInspector]
 
     // screen shakes

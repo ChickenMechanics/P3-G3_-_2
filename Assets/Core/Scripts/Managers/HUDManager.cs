@@ -405,6 +405,8 @@ public class HUDManager : MonoBehaviour
         ScoreManager.GetInstance.m_GetBulletTimeEnabled = false;
         m_bDisplayHighScore = true;
 
+        PlayerManager.GetInstance.GetIsAlive = true;
+
         m_HighScoreBG.gameObject.SetActive(true);
         m_HighScoreTableRoot.gameObject.SetActive(true);
     }
@@ -484,9 +486,11 @@ public class HUDManager : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.Return))
                     {
                         Time.timeScale = 1.0f;
-
+                        
                         Cursor.lockState = CursorLockMode.None;
                         Cursor.visible = true;
+
+                        
 
                         LevelManager.GetInstance.ChangeScene(LevelManager.EScene.MAIN);
                     }

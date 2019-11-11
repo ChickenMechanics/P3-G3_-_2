@@ -7,6 +7,8 @@ public class MainMenuGUI : MonoBehaviour
 {
     public void NewGame()
     {
+        ScoreManager.GetInstance.ResetPlayerStats();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
