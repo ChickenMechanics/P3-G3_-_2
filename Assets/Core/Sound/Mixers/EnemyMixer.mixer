@@ -67,6 +67,53 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-4930267258371773528
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 4fe55d3f82893ce43912aacd3ab3ed28
+  m_EffectName: Attenuation
+  m_MixLevel: f8708d67e4f5db74ea27fb7e38bcc79d
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &-4622098185289312842
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Bomber hover
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 96d503eb125fb5d4195d812404ab2619
+  m_Children: []
+  m_Volume: 9fe36ee4f3612dd4f8bff16805fe093c
+  m_Pitch: 27b8e90436195984abb6adcd05c6c90f
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -3839154978490559856}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &-3839154978490559856
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 2f41d746837bbfb4398d0e095c84be4d
+  m_EffectName: Attenuation
+  m_MixLevel: f735ee8feb210ee44a5e17ed5cb6bb5b
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &-2846328292903079813
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -106,6 +153,8 @@ AudioMixerController:
     - c7cb8de9d8f89da4da426cecc82a7853
     - 015fa36b80048c84dbee287459e0c92f
     - 4bc583050c8d5ae4ba76aec9b646d441
+    - d6d42122d1747c44f947ba1e67af1f31
+    - 96d503eb125fb5d4195d812404ab2619
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -124,6 +173,8 @@ AudioMixerGroupController:
   - {fileID: -7991570403468319818}
   - {fileID: -6845989334614236195}
   - {fileID: 3599631384179118100}
+  - {fileID: 6839973879756517690}
+  - {fileID: -4622098185289312842}
   m_Volume: 9bccb68a88f2ecb43bb40db2ca649358
   m_Pitch: 5c5ac3319dcc989438dd5d10ebf48b09
   m_Send: 00000000000000000000000000000000
@@ -232,6 +283,25 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!243 &6839973879756517690
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Bomber detonation
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: d6d42122d1747c44f947ba1e67af1f31
+  m_Children: []
+  m_Volume: 8c88116dbcad85341a41990121d44be9
+  m_Pitch: df2301f41e621ac40b91faab32e0eb33
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -4930267258371773528}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &7207995581525033149
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
