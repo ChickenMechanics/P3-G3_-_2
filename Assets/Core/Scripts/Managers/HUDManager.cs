@@ -408,6 +408,11 @@ public class HUDManager : MonoBehaviour
 
         m_HighScoreBG.gameObject.SetActive(true);
         m_HighScoreTableRoot.gameObject.SetActive(true);
+
+        if((int)m_ScoreManScr.GetPlayerScore < m_HighScoreDataList[m_HighScoreDataList.Count - 1].m_Score)
+        {
+            m_HighScoreState = EHighScoreState.TABLE;
+        }
     }
 
 
