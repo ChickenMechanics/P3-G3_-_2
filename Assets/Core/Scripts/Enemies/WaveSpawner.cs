@@ -88,7 +88,7 @@ public class WaveSpawner : MonoBehaviour
 
     void OnGUI()
     {
-        if (m_SpawnState == SpawnState.SPAWN)
+        if (m_SpawnState == SpawnState.SPAWN && m_CurrentSubWaveIndex == 0)
             m_BeginShowingWaveNumber = true;
 
         if (!m_BeginShowingWaveNumber) return;
@@ -134,8 +134,12 @@ public class WaveSpawner : MonoBehaviour
 
     private void Spawn()
     {
-        SoundManager.GetInstance.PlaySoundClip(
-            SoundManager.ESoundClip.WAVE_BEGIN, Camera.main.transform.position);
+        if (m_CurrentSubWaveIndex == 0)
+        {
+            SoundManager.GetInstance.PlaySoundClip(
+                SoundManager.ESoundClip.WAVE_BEGIN,
+                Camera.main.transform.position);
+        }
 
         var currentWave = waves[m_CurrentWaveIndex];
         var currentSubWave = currentWave.subWaves[m_CurrentSubWaveIndex];
