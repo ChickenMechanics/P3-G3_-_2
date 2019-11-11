@@ -20,6 +20,7 @@ public class PlayerMove : MonoBehaviour
     public float m_DashActiveTime = 0.25f;
     public float m_DashCooldown;
     public float m_PlayerGravity;
+    [HideInInspector]
     public bool m_GetIsGrounded;
     #endregion
 

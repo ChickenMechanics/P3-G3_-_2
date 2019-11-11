@@ -7,6 +7,9 @@ public class EndMenuGUI : MonoBehaviour
 {
     public void MainMenu()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         LevelManager.GetInstance.ChangeScene(LevelManager.EScene.MAIN);
     }
 

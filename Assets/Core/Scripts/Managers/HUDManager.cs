@@ -400,9 +400,11 @@ public class HUDManager : MonoBehaviour
 
     public void HighScoreEnable()
     {
-        Time.timeScale = (Time.timeScale == 0.0f) ? 1.0f : 0.0f;
+        Time.timeScale = 0.0f;
         ScoreManager.GetInstance.m_GetBulletTimeEnabled = false;
         m_bDisplayHighScore = true;
+
+        PlayerManager.GetInstance.GetIsAlive = true;
 
         m_HighScoreBG.gameObject.SetActive(true);
         m_HighScoreTableRoot.gameObject.SetActive(true);
@@ -428,7 +430,11 @@ public class HUDManager : MonoBehaviour
 
                     // fuck c# and unity for making me do this to get a player highscore tag. nothing will be forgotten
                     string krummelur = (string)Input.inputString;
-                    char tmpKrummelur = (char)krummelur[0];
+                    char tmpKrummelur = ' ';
+                    if(krummelur.Length > 0)
+                    {
+                        tmpKrummelur = (char)krummelur[0];
+                    }
 
                     if (m_UserInputName.Length < 4)
                     {
@@ -474,6 +480,14 @@ public class HUDManager : MonoBehaviour
                     for (int i = 0; i < m_HighScoreTransformList.Count; ++i)
                     {
                         m_HighScoreTransformList[i].gameObject.SetActive(true);
+                    }
+
+                    if(Input.GetKeyDown(KeyCode.Return))
+                    {
+                        Time.timeScale = 1.0f;
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                        LevelManager.GetInstance.ChangeScene(LevelManager.EScene.MAIN);
                     }
 
                     break;
