@@ -368,7 +368,7 @@ public class HUDManager : MonoBehaviour
 //#endif
 
         m_HighScoreTransformList = new List<Transform>();
-        InitHighScoreEntryTable();
+        CreateHighScoreEntryTable();
     }
 
 
@@ -391,6 +391,7 @@ public class HUDManager : MonoBehaviour
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/SavedHighScores.grr", FileMode.Open);
+            m_HighScoreDataList.Clear();
             m_HighScoreDataList = (List<HighScoreData>)bf.Deserialize(file);
             file.Close();
         }
@@ -513,7 +514,7 @@ public class HUDManager : MonoBehaviour
     }
 
 
-    private void InitHighScoreEntryTable()
+    private void CreateHighScoreEntryTable()
     {
         float entryOffset = 60.0f;
         for (int i = 0; i < m_HighScoreDataList.Count; ++i)
