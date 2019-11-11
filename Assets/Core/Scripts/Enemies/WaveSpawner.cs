@@ -55,6 +55,7 @@ public class WaveSpawner : MonoBehaviour
     public float waveTextX;
     public float waveTextY;
     public float showWaveNumberTime;
+    public int TextWidth;
 
     private Transform m_Player;
     private int m_CurrentWaveIndex;
@@ -87,22 +88,21 @@ public class WaveSpawner : MonoBehaviour
 
     void OnGUI()
     {
-        if (m_SpawnState == SpawnState.SPAWN)
+        if (m_SpawnState == SpawnState.SPAWN && m_CurrentSubWaveIndex == 0)
             m_BeginShowingWaveNumber = true;
 
         if (!m_BeginShowingWaveNumber) return;
 
         if (m_TempShowWaveNumberTime > 0)
         {
-            var textSize = Screen.height * 2 / 50;
-            var rect = new Rect(waveTextX, waveTextY, Screen.width, textSize);
+            var rect = new Rect(waveTextX, waveTextY, Screen.width, TextWidth);
 
             var text = $"Wave: {m_CurrentWaveIndex + 1:0.}";
 
             var style = new GUIStyle
             {
                 alignment = TextAnchor.UpperLeft,
-                fontSize = textSize,
+                fontSize = TextWidth,
                 normal = { textColor = new Color(1.0f, 1.0f, 1.0f, 1.0f) }
             };
 
@@ -134,8 +134,12 @@ public class WaveSpawner : MonoBehaviour
 
     private void Spawn()
     {
-        SoundManager.GetInstance.PlaySoundClip(
-            SoundManager.ESoundClip.WAVE_BEGIN, Camera.main.transform.position);
+        if (m_CurrentSubWaveIndex == 0)
+        {
+            SoundManager.GetInstance.PlaySoundClip(
+                SoundManager.ESoundClip.WAVE_BEGIN,
+                Camera.main.transform.position);
+        }
 
         var currentWave = waves[m_CurrentWaveIndex];
         var currentSubWave = currentWave.subWaves[m_CurrentSubWaveIndex];
