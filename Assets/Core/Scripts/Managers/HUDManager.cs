@@ -452,6 +452,13 @@ public class HUDManager : MonoBehaviour
                         m_HighScoreNewPlayerEntryName.gameObject.SetActive(true);
                     }
 
+                    string hej = (string)Input.inputString;
+                    if (hej[0] >= 'a' &&
+                        hej[0] <= 'z')
+                    {
+                        //Debug.Log(hej);
+                    }
+
                     //m_UserInputName = m_InputField.text;
                     //m_HighScoreNewPlayerEntryName.gameObject.GetComponent<Text>().text = m_UserInputName;
 
