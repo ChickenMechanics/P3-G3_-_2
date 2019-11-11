@@ -428,7 +428,11 @@ public class HUDManager : MonoBehaviour
 
                     // fuck c# and unity for making me do this to get a player highscore tag. nothing will be forgotten
                     string krummelur = (string)Input.inputString;
-                    char tmpKrummelur = (char)krummelur[0];
+                    char tmpKrummelur = ' ';
+                    if(krummelur.Length > 0)
+                    {
+                        tmpKrummelur = (char)krummelur[0];
+                    }
 
                     if (m_UserInputName.Length < 4)
                     {
