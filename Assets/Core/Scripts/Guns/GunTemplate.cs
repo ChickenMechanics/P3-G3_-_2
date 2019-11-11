@@ -262,6 +262,15 @@ public class GunTemplate : MonoBehaviour
         if (Input.GetMouseButton(1) == true &&
             GetIsReloading == false)
         {
+            if((int)m_CurrentGunState != (int)EGunState.FIRING)
+            {
+                m_GetAnimator.SetBool("Stop", true);
+            }
+            else
+            {
+                m_GetAnimator.SetBool("Stop", false);
+            }
+
             GetIsADS = true;
 
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 52.0f, 0.4f);
@@ -281,6 +290,12 @@ public class GunTemplate : MonoBehaviour
         if (Input.GetMouseButton(1) == false ||
             GetIsReloading == true)
         {
+            m_GetAnimator.SetBool("Stop", false);
+            if ((int)m_CurrentGunState != (int)EGunState.RELOADING)
+            {
+                m_GetAnimator.SetBool("Idle", true);
+            }
+
             GetIsADS = false;
 
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.075f);
