@@ -400,7 +400,8 @@ public class HUDManager : MonoBehaviour
 
     public void HighScoreEnable()
     {
-        Time.timeScale = (Time.timeScale == 0.0f) ? 1.0f : 0.0f;
+        //Time.timeScale = (Time.timeScale == 0.0f) ? 1.0f : 0.0f;
+        Time.timeScale = 0.0f;
         ScoreManager.GetInstance.m_GetBulletTimeEnabled = false;
         m_bDisplayHighScore = true;
 
@@ -478,6 +479,16 @@ public class HUDManager : MonoBehaviour
                     for (int i = 0; i < m_HighScoreTransformList.Count; ++i)
                     {
                         m_HighScoreTransformList[i].gameObject.SetActive(true);
+                    }
+
+                    if(Input.GetKeyDown(KeyCode.Return))
+                    {
+                        Time.timeScale = 1.0f;
+
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+
+                        LevelManager.GetInstance.ChangeScene(LevelManager.EScene.MAIN);
                     }
 
                     break;
