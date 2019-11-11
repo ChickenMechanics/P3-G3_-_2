@@ -39,17 +39,13 @@ public class GameManager : MonoBehaviour, IController
 
     private void Update()
     {
-        // highscore
-        if (Input.GetKeyDown(KeyCode.Delete))    // change this to trigger on player health when highscore is done
-        {
-            //Time.timeScale = (Time.timeScale == 0.0f) ? 1.0f : 0.0f;
-            //ScoreManager.GetInstance.m_GetBulletTimeEnabled = !ScoreManager.GetInstance.m_GetBulletTimeEnabled;
-            HUDManager.GetInstance.HighScoreEnable();
-        }
-
-        // TODO. Move and clean this to game manager when/if that is up
         if (PlayerManager.GetInstance != null)
         {
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                HUDManager.GetInstance.HighScoreEnable();
+            }
+
             if (PlayerManager.GetInstance.GetIsAlive == false)
             {
                 HUDManager.GetInstance.HighScoreEnable();
@@ -62,27 +58,6 @@ public class GameManager : MonoBehaviour, IController
                 string msg = PlayerManager.GetInstance.GetIsGod ? "Godmode On" : "Godmode Off";
                 Debug.LogWarning(msg);
             }
-
-            //if (PlayerManager.GetInstance.GetIsAlive == false &&
-            //    PlayerManager.GetInstance.GetIsGod == false)
-            //{
-            //    LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
-
-            //    if (ScoreManager.GetInstance != null)
-            //    {
-            //        ScoreManager.GetInstance.ResetPlayerStats();
-            //    }
-            //}
-
-            //if (Input.GetKeyDown(KeyCode.Escape))
-            //{
-            //    LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
-
-            //    if (ScoreManager.GetInstance != null)
-            //    {
-            //        ScoreManager.GetInstance.ResetPlayerStats();
-            //    }
-            //}
         }
     }
 }

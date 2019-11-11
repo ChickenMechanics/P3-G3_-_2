@@ -245,7 +245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2665062926862622468
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1396,7 +1396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1088080816572649156
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2316,7 +2316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4834227854492386370
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2797,7 +2797,7 @@ MonoBehaviour:
   m_ScoreBounceTargetScale: 2.5
   m_ScoreBounceScaleMultiUp: 8.9
   m_ScoreBounceScaleMultiDown: 6.31
-  m_ScoreColorChange: {r: 0, g: 0, b: 0, a: 0}
+  m_ScoreColorChange: {r: 1, g: 0, b: 0.733706, a: 1}
   m_ChainRumbleValue: 7.65
   m_ChainRumbleTime: 0.31
   m_ChainBounceTargetScale: 2.37
@@ -2806,13 +2806,13 @@ MonoBehaviour:
   m_Full: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
   m_Semi: {r: 0.9433962, g: 0.7384768, b: 0.4494482, a: 1}
   m_Empty: {r: 1, g: 0.09760042, b: 0, a: 1}
-  m_Crack_1: 80
-  m_Crack_2: 60
-  m_Crack_3: 40
-  m_Crack_4: 20
-  m_HelmetLightOnTime: 0
-  m_HelmetLightOffTime: 0
-  m_HelmetLightLerpTime: 0
+  m_Crack_1: 75
+  m_Crack_2: 50
+  m_Crack_3: 25
+  m_Crack_4: 0
+  m_HelmetLightOnTime: 0.25
+  m_HelmetLightOffTime: 2.5
+  m_HelmetLightLerpTime: 0.015
 --- !u!1 &5632145753048617766
 GameObject:
   m_ObjectHideFlags: 0
@@ -3168,7 +3168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2533839699733330116
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4052,7 +4052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6270118025550375275
 RectTransform:
   m_ObjectHideFlags: 0

@@ -114,7 +114,12 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if(GetCurrentHealth > 0.0f)
+        if(GetIsAlive == false)
+        {
+            StopCoroutine(PlayerScreenShake());
+        }
+
+        if (GetCurrentHealth > 0.0f)
         {
             if (GetCurrentHealth != m_ShakePrevHealth)
             {
@@ -124,11 +129,6 @@ public class PlayerManager : MonoBehaviour
                 m_ShakeStartTime = Time.time;
                 StartCoroutine(PlayerScreenShake());
             }
-        }
-
-        if (GetCurrentHealth <= 0.0f)
-        {
-            StopCoroutine(PlayerScreenShake());
         }
     }
 }
