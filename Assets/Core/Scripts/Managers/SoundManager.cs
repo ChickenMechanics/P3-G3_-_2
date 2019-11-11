@@ -28,6 +28,7 @@ public class SoundManager : MonoBehaviour
         COMBO_INCREASE,
         WAVE_COMPLETE,
         GUN_RELOAD_2,
+        WAVE_BEGIN,
         SIZE
     }
 

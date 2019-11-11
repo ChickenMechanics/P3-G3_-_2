@@ -52,16 +52,22 @@ public class WaveSpawner : MonoBehaviour
     public float safeSpawnDistance;
     public float timeBetweenWaves;
 
+    public float waveTextX;
+    public float waveTextY;
+    public float showWaveNumberTime;
+
     private Transform m_Player;
-    private const float SearchCountdown = 1f;
     private int m_CurrentWaveIndex;
     private int m_CurrentSubWaveIndex;
     private float m_CurrentWaveDuration;
     private SpawnState m_SpawnState;
     private float m_TimeToNextWave;
+    private bool m_BeginShowingWaveNumber;
+    private float m_TempShowWaveNumberTime;
 
     private void Start()
     {
+        m_TempShowWaveNumberTime = showWaveNumberTime;
         m_Player = GameObject.FindGameObjectWithTag("Player").transform;
         m_SpawnState = SpawnState.SPAWN;
         m_TimeToNextWave = timeBetweenWaves;
@@ -79,6 +85,38 @@ public class WaveSpawner : MonoBehaviour
         m_CurrentWaveDuration += Time.deltaTime;
     }
 
+    void OnGUI()
+    {
+        if (m_SpawnState == SpawnState.SPAWN)
+            m_BeginShowingWaveNumber = true;
+
+        if (!m_BeginShowingWaveNumber) return;
+
+        if (m_TempShowWaveNumberTime > 0)
+        {
+            var textSize = Screen.height * 2 / 50;
+            var rect = new Rect(waveTextX, waveTextY, Screen.width, textSize);
+
+            var text = $"Wave: {m_CurrentWaveIndex + 1:0.}";
+
+            var style = new GUIStyle
+            {
+                alignment = TextAnchor.UpperLeft,
+                fontSize = textSize,
+                normal = { textColor = new Color(1.0f, 1.0f, 1.0f, 1.0f) }
+            };
+
+            GUI.Label(rect, text, style);
+
+            m_TempShowWaveNumberTime -= Time.deltaTime;
+        }
+        else
+        {
+            m_BeginShowingWaveNumber = false;
+            m_TempShowWaveNumberTime = showWaveNumberTime;
+        }
+    }
+    
     private void Wait()
     {
         var currentWave = waves[m_CurrentWaveIndex];
@@ -96,16 +134,20 @@ public class WaveSpawner : MonoBehaviour
 
     private void Spawn()
     {
+        SoundManager.GetInstance.PlaySoundClip(
+            SoundManager.ESoundClip.WAVE_BEGIN, Camera.main.transform.position);
+
         var currentWave = waves[m_CurrentWaveIndex];
         var currentSubWave = currentWave.subWaves[m_CurrentSubWaveIndex];
-        
+
         if (currentWave.subWaves.Length == 0)
         {
             Debug.Log("No subwaves to spawn");
             return;
         }
 
-        if (currentSubWave.GetHasSpawned() == false && m_CurrentWaveDuration >= currentSubWave.spawnStartDelay)
+        if (currentSubWave.GetHasSpawned() == false &&
+            m_CurrentWaveDuration >= currentSubWave.spawnStartDelay)
         {
             StartCoroutine(SpawnSubWave(currentSubWave));
 
