@@ -105,23 +105,16 @@ public class PlayerLook : MonoBehaviour
 
     private void Update()
     {
-        Vector3 posOffset = m_tPlayerLook.up * m_EyeHeight + m_tPlayerLook.forward * m_EyePointOffsetZ;
-        Vector3 nxtPos = m_tPlayerMove.position + posOffset;
+        if (PlayerManager.GetInstance.GetIsAlive == true)
+        {
+            Vector3 posOffset = m_tPlayerLook.up * m_EyeHeight + m_tPlayerLook.forward * m_EyePointOffsetZ;
+            Vector3 nxtPos = m_tPlayerMove.position + posOffset;
 
-        m_tPlayerLook.position = Vector3.Lerp(m_PrevPos, nxtPos, Time.deltaTime);
+            m_tPlayerLook.position = Vector3.Lerp(m_PrevPos, nxtPos, Time.deltaTime);
 
-        m_PrevPos = nxtPos;
+            m_PrevPos = nxtPos;
 
-        Look();
-
-
-        //Vector3 posOffset = m_tPlayerLook.up * m_EyeHeight + m_tPlayerLook.forward * m_EyePointOffsetZ;
-
-        //m_tPlayerLook.transform.position =
-        //    Vector3.Lerp(m_tPlayerLook.transform.position,
-        //    m_tPlayerMove.position + posOffset,
-        //    0.9f);
-
-        //Look();
+            Look();
+        }
     }
 }

@@ -404,10 +404,15 @@ public class HUDManager : MonoBehaviour
         ScoreManager.GetInstance.m_GetBulletTimeEnabled = false;
         m_bDisplayHighScore = true;
 
-        PlayerManager.GetInstance.GetIsAlive = true;
+        //PlayerManager.GetInstance.GetIsAlive = true;
 
         m_HighScoreBG.gameObject.SetActive(true);
         m_HighScoreTableRoot.gameObject.SetActive(true);
+
+        if((int)m_ScoreManScr.GetPlayerScore < m_HighScoreDataList[m_HighScoreDataList.Count - 1].m_Score)
+        {
+            m_HighScoreState = EHighScoreState.TABLE;
+        }
     }
 
 
@@ -487,6 +492,7 @@ public class HUDManager : MonoBehaviour
                         Time.timeScale = 1.0f;
                         Cursor.lockState = CursorLockMode.None;
                         Cursor.visible = true;
+                        PlayerManager.GetInstance.GetIsAlive = true;
                         LevelManager.GetInstance.ChangeScene(LevelManager.EScene.MAIN);
                     }
 
