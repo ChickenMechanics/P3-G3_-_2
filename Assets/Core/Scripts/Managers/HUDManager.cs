@@ -141,28 +141,6 @@ public class HUDManager : MonoBehaviour
     private Color m_ScoreColorBase;
     private Color m_LeftRightHelmetLightBaseColor;
 
-
-
-
-    // highscore
-    // old / kill when new is in
-    //[System.Serializable]
-    //private struct HighScoreData
-    //{
-    //    public string m_Name;
-    //    public int m_Score;
-    //}
-
-    //private struct HighScoreJsonData
-    //{
-    //    public List<HighScoreData> m_HighScoreEntryData;
-    //}
-
-    //private List<HighScoreData> m_HighScoreEntryList;
-    //private List<Transform> m_HighScoreTransformList;
-    // end old
-
-
     // highscore
     private enum EHighScoreState
     {
@@ -188,10 +166,7 @@ public class HUDManager : MonoBehaviour
     private Transform m_HighScoreNewPlayerEntry;
     private Transform m_HighScoreNewPlayerEntryName;
     private Transform m_HighScoreEntryTemplate;
-
-    private InputField m_InputField;
     private string m_UserInputName;
-
     private int m_HighScoreMaxEntries;
     private bool m_bDisplayHighScore;
 
@@ -357,7 +332,6 @@ public class HUDManager : MonoBehaviour
         m_HighScoreNewPlayerEntry = m_HighScoreTableRoot.Find("NewPlayerEntry").transform;
 
         m_HighScoreNewPlayerEntryName = m_HighScoreNewPlayerEntry.Find("NameEntryPos").transform;
-        m_InputField = m_HighScoreNewPlayerEntry.Find("InputField").gameObject.GetComponent<InputField>();
 
         m_HighScoreEntryTemplate = m_HighScoreTableRoot.Find("NameEntryTemplate").transform;
 
@@ -384,7 +358,6 @@ public class HUDManager : MonoBehaviour
             {
                 SaveHighScore(initScores[i]);
             }
-            SortHighScoreList();
         }
 
 //#if DEBUG
@@ -395,13 +368,14 @@ public class HUDManager : MonoBehaviour
 //#endif
 
         m_HighScoreTransformList = new List<Transform>();
-        InitHighScoreEntryTable();
+        CreateHighScoreEntryTable();
     }
 
 
     public void SaveHighScore(HighScoreData scoreData)
     {
         m_HighScoreDataList.Add(scoreData);
+        SortHighScoreList();
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/SavedHighScores.grr"); //you can call it anything you want
         bf.Serialize(file, m_HighScoreDataList);
@@ -417,6 +391,7 @@ public class HUDManager : MonoBehaviour
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/SavedHighScores.grr", FileMode.Open);
+            m_HighScoreDataList.Clear();
             m_HighScoreDataList = (List<HighScoreData>)bf.Deserialize(file);
             file.Close();
         }
@@ -442,25 +417,50 @@ public class HUDManager : MonoBehaviour
             {
                 case EHighScoreState.ENTRY:
 
-                    if(m_HighScoreNewPlayerEntryName.gameObject.activeInHierarchy == false)
+                    if(m_HighScoreNewPlayerEntry.gameObject.activeInHierarchy == false)
                     {
                         m_HighScoreNewPlayerEntry.gameObject.SetActive(true);
                     }
-
                     if(m_HighScoreNewPlayerEntryName.gameObject.activeInHierarchy == false)
                     {
                         m_HighScoreNewPlayerEntryName.gameObject.SetActive(true);
                     }
 
-                    string hej = (string)Input.inputString;
-                    if (hej[0] >= 'a' &&
-                        hej[0] <= 'z')
-                    {
-                        //Debug.Log(hej);
-                    }
+                    // fuck c# and unity for making me do this to get a player highscore tag. nothing will be forgotten
+                    string krummelur = (string)Input.inputString;
+                    char tmpKrummelur = (char)krummelur[0];
 
-                    //m_UserInputName = m_InputField.text;
-                    //m_HighScoreNewPlayerEntryName.gameObject.GetComponent<Text>().text = m_UserInputName;
+                    if (m_UserInputName.Length < 4)
+                    {
+                        if ((tmpKrummelur >= 'a' && tmpKrummelur <= 'z') ||
+                            (tmpKrummelur >= 'A' && tmpKrummelur <= 'Z'))
+                        {
+                            m_UserInputName += tmpKrummelur.ToString().ToUpper();
+                        }
+                    }
+                    if(m_UserInputName.Length > 3)
+                    {
+                        int ogStrLength = m_UserInputName.Length;
+                        char[] fuckcsharp = new char[ogStrLength - 1];
+                        for(int i = 1; i < ogStrLength; ++i)
+                        {
+                            fuckcsharp[i - 1] = (char)m_UserInputName[i];
+                        }
+                        m_UserInputName = "";
+                        for (int i = 0; i < ogStrLength - 1; ++i)
+                        {
+                            m_UserInputName += fuckcsharp[i].ToString().ToUpper();
+                        }
+                    }
+                    m_HighScoreNewPlayerEntryName.GetComponent<Text>().text = m_UserInputName;
+
+                    if(Input.GetKeyDown(KeyCode.Return))
+                    {
+                        HighScoreData highScoreData = new HighScoreData { m_Name = m_UserInputName, m_Score = (int)m_ScoreManScr.GetPlayerScore };
+                        SaveHighScore(highScoreData);
+                        LoadHighScore();
+                        m_HighScoreState = EHighScoreState.TABLE;
+                    }
 
                     break;
                 case EHighScoreState.TABLE:
@@ -496,10 +496,25 @@ public class HUDManager : MonoBehaviour
                 }
             }
         }
+
+        // c# / unity bullshit
+        if(m_HighScoreDataList.Count > m_HighScoreMaxEntries)
+        {
+            HighScoreData[] tmp = new HighScoreData[m_HighScoreMaxEntries];
+            for(int i = 0; i < m_HighScoreMaxEntries; ++i)
+            {
+                tmp[i] = m_HighScoreDataList[i];
+            }
+            m_HighScoreDataList.Clear();
+            for (int i = 0; i < m_HighScoreMaxEntries; ++i)
+            {
+                m_HighScoreDataList.Add(tmp[i]);
+            }
+        }
     }
 
 
-    private void InitHighScoreEntryTable()
+    private void CreateHighScoreEntryTable()
     {
         float entryOffset = 60.0f;
         for (int i = 0; i < m_HighScoreDataList.Count; ++i)
