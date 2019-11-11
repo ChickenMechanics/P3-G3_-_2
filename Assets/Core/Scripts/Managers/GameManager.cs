@@ -24,13 +24,6 @@ public class GameManager : MonoBehaviour, IController
     //----------------------------------------------------------------------------------------------------
 
 
-    //private void Init()
-    //{
-    //    GetFsm = new FSM(this);
-    //    GetFsm.
-    //}
-
-
     private void Awake()
     {
         if (GetInstance != null && GetInstance != this)
@@ -46,8 +39,16 @@ public class GameManager : MonoBehaviour, IController
 
     private void Update()
     {
+        // highscore
+        if (Input.GetKeyDown(KeyCode.H))    // change this to trigger on player health when highscore is done
+        {
+            //Time.timeScale = (Time.timeScale == 0.0f) ? 1.0f : 0.0f;
+            //ScoreManager.GetInstance.m_GetBulletTimeEnabled = !ScoreManager.GetInstance.m_GetBulletTimeEnabled;
+            HUDManager.GetInstance.HighScoreEnable();
+        }
+
         // TODO. Move and clean this to game manager when/if that is up
-        if(PlayerManager.GetInstance != null)
+        if (PlayerManager.GetInstance != null)
         {
             if (PlayerManager.GetInstance.GetIsAlive == false &&
                 PlayerManager.GetInstance.GetIsGod == false)
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour, IController
                     ScoreManager.GetInstance.ResetPlayerStats();
                 }
             }
+
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);

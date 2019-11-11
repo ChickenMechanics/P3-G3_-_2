@@ -43,8 +43,9 @@ public class ScoreManager : MonoBehaviour
 
     //private float m_BulletTimeFreq;
     private float m_NowBulletTime;
-    private bool m_TriggerBulletTime;
     private int m_PreviousComboMulti;
+    private bool m_TriggerBulletTime;
+    [HideInInspector] public bool m_GetBulletTimeEnabled { get; set; }
 
 
     //----------------------------------------------------------------------------------------------------
@@ -170,8 +171,9 @@ public class ScoreManager : MonoBehaviour
         // bullettime
         m_BulletTimeActiveTime = 0.25f;
         m_NowBulletTime = m_BulletTimeActiveTime;
-        m_TriggerBulletTime = false;
         m_PreviousComboMulti = (int)GetCurrentComboMultiplier;
+        m_TriggerBulletTime = false;
+        m_GetBulletTimeEnabled = true;
 
         ResetPlayerStats();
 
@@ -188,9 +190,13 @@ public class ScoreManager : MonoBehaviour
     private void Update()
     {
         UpdatePoints();
-        if(PlayerManager.GetInstance.GetPlayer != null)
+
+        if(m_GetBulletTimeEnabled == true)
         {
-            BulletTime();
+            if (PlayerManager.GetInstance != null)
+            {
+                BulletTime();
+            }
         }
     }
 

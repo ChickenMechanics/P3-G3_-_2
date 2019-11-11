@@ -98,7 +98,8 @@ public class P_StateWalk : IState
         //    return;
         //}
 
-        if (currentInput.DashInput != 0.0f)
+        if (currentInput.DashInput != 0.0f &&
+            (currentInput.MoveInput.z != -1.0f))
         {
             if (m_Owner.GetFsm().GetState(PlayerCtrl.EPlayerState.DASH).GetIsAvailable() == true)
             {

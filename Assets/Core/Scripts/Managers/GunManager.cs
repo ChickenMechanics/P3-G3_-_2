@@ -95,6 +95,12 @@ public class GunManager : MonoBehaviour
 
     public void ScrollWeapons()
     {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            m_CurrentGunIdx = (m_CurrentGunIdx == 1) ? 0 : 1;
+            SetActiveGun(m_CurrentGunIdx);
+        }
+
         float wheelDir = Input.GetAxisRaw("Mouse ScrollWheel");
         if (wheelDir != 0.0f)
         {

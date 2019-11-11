@@ -10,7 +10,7 @@ public class P_StateDash : IState
         m_Owner = (PlayerCtrl)controller;
         m_DashTimePassed = 0.0f;
         m_DashCooldownTimePassed = 0.0f;
-        m_FovDecreaseTarget = 40.0f;
+        m_FovDecreaseTarget = 45.0f;
         m_FovIncreaseTarget = 60.0f;
         m_DashDecreaseLerp = 0.5f;
         m_DashIncreaseLerp = 0.05f;

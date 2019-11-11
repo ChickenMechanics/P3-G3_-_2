@@ -200,11 +200,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ForwardAcceleration: 100
   m_BackwardAcceleration: 50
-  m_MaxForwardSpeed: 10
+  m_MaxForwardSpeed: 15
   m_MaxBacwardSpeed: 6
   m_StrafeAcceleration: 100
   m_RunAcceleration: 500
-  m_DashAcceleration: 3000
+  m_DashAcceleration: 2500
   m_DashActiveTime: 0.25
   m_DashCooldown: 5
   m_PlayerGravity: -50
