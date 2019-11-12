@@ -2891,7 +2891,7 @@ MonoBehaviour:
   m_HelmetLightOnTime: 0.25
   m_HelmetLightOffTime: 2.5
   m_HelmetLightLerpTime: 0.015
-  m_VerticalNameSpacing: 50
+  m_VerticalNameSpacing: 55
 --- !u!1 &5632145753048617766
 GameObject:
   m_ObjectHideFlags: 0
