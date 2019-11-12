@@ -534,7 +534,6 @@ public class HUDManager : MonoBehaviour
     private void CreateHighScoreEntryTable()
     {
         m_HighScoreTransformList = new List<Transform>();
-        float entryOffset = 60.0f;
         for (int i = 0; i < m_HighScoreDataList.Count; ++i)
         {
             Transform entry = Instantiate(m_HighScoreEntryTemplate, m_HighScoreTableRoot);
