@@ -848,6 +848,12 @@ public class HUDManager : MonoBehaviour
         }
 
         m_PrevFrameScore = nowScore;
+
+        if (PlayerManager.GetInstance.GetIsAlive == false)
+        {
+            StopCoroutine("TxtRumblerFX");
+            StopCoroutine("TxtBouncerFX");
+        }
     }
 
 
