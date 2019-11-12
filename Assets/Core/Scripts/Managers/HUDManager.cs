@@ -430,6 +430,8 @@ public class HUDManager : MonoBehaviour
                     char tmpKrummelur = ' ';
                     if(krummelur.Length > 0)
                     {
+                        SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MENU_BUTTON_CLICK, transform.position);
+
                         tmpKrummelur = (char)krummelur[0];
                         if(m_HighScoreHeaderNamePos.gameObject.activeInHierarchy == true)
                         {
@@ -445,6 +447,7 @@ public class HUDManager : MonoBehaviour
                             m_UserInputName += tmpKrummelur.ToString().ToUpper();
                         }
                     }
+
                     if(m_UserInputName.Length > 3)
                     {
                         int ogStrLength = m_UserInputName.Length;
@@ -500,6 +503,8 @@ public class HUDManager : MonoBehaviour
 
                     if(Input.GetKeyDown(KeyCode.Return))
                     {
+                        SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MENU_BUTTON_CLICK, transform.position);
+
                         Time.timeScale = 1.0f;
                         Cursor.lockState = CursorLockMode.None;
                         Cursor.visible = true;
