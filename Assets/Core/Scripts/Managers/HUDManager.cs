@@ -473,15 +473,29 @@ public class HUDManager : MonoBehaviour
                     break;
                 case EHighScoreState.TABLE:
 
-                    m_HighScoreNewPlayerEntry.gameObject.SetActive(false);
-
-                    m_HighScoreHeaderHeader.gameObject.SetActive(true);
-                    m_HighScoreHeaderName.gameObject.SetActive(true);
-                    m_HighScoreHeaderScore.gameObject.SetActive(true);
+                    if(m_HighScoreNewPlayerEntry.gameObject.activeInHierarchy == true)
+                    {
+                        m_HighScoreNewPlayerEntry.gameObject.SetActive(false);
+                    }
+                    if(m_HighScoreHeaderHeader.gameObject.activeInHierarchy == false)
+                    {
+                        m_HighScoreHeaderHeader.gameObject.SetActive(true);
+                    }
+                    if(m_HighScoreHeaderName.gameObject.activeInHierarchy == false)
+                    {
+                        m_HighScoreHeaderName.gameObject.SetActive(true);
+                    }
+                    if(m_HighScoreHeaderScore.gameObject.activeInHierarchy == false)
+                    {
+                        m_HighScoreHeaderScore.gameObject.SetActive(true);
+                    }
 
                     for (int i = 0; i < m_HighScoreTransformList.Count; ++i)
                     {
-                        m_HighScoreTransformList[i].gameObject.SetActive(true);
+                        if(m_HighScoreTransformList[i].gameObject.activeInHierarchy == false)
+                        {
+                            m_HighScoreTransformList[i].gameObject.SetActive(true);
+                        }
                     }
 
                     if(Input.GetKeyDown(KeyCode.Return))
