@@ -165,3 +165,9 @@ MonoBehaviour:
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
+  - AliasName: Main Button Click
+    m_ESound: 22
+    m_SoundSource: {fileID: 201387992037937193, guid: 9f3d35b9b55a72b4d886e03645665310,
+      type: 3}
+    m_PitchRange: 1
+    m_PrevTime: 0

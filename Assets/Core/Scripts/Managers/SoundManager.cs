@@ -29,6 +29,7 @@ public class SoundManager : MonoBehaviour
         WAVE_COMPLETE,
         GUN_RELOAD_2,
         WAVE_BEGIN,
+        MENU_BUTTON_CLICK,
         SIZE
     }
 

@@ -24,8 +24,16 @@ public class MainMenuGUI : MonoBehaviour
     }
 
 
+    private void ButtonSound()
+    {
+        SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MENU_BUTTON_CLICK, transform.position);
+    }
+
+
     public void NewGame()
     {
+        ButtonSound();
+
         ScoreManager.GetInstance.ResetPlayerStats();
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -37,6 +45,8 @@ public class MainMenuGUI : MonoBehaviour
 
     public void HighScore()
     {
+        ButtonSound();
+
         if (m_HowToPlayTransform.gameObject.activeInHierarchy == true)
         {
             m_HowToPlayTransform.gameObject.SetActive(false);
@@ -65,6 +75,8 @@ public class MainMenuGUI : MonoBehaviour
 
     public void HowToPlay()
     {
+        ButtonSound();
+
         if (m_HighScoreTransform.gameObject.activeInHierarchy == true)
         {
             m_HighScoreTransform.gameObject.SetActive(false);
@@ -87,6 +99,8 @@ public class MainMenuGUI : MonoBehaviour
 
     public void Credits()
     {
+        ButtonSound();
+
         if (m_HighScoreTransform.gameObject.activeInHierarchy == true)
         {
             m_HighScoreTransform.gameObject.SetActive(false);
@@ -109,6 +123,8 @@ public class MainMenuGUI : MonoBehaviour
 
     public void QuitGame()
     {
+        ButtonSound();
+
         Application.Quit();
     }
 }
