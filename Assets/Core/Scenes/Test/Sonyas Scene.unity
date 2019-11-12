@@ -6413,7 +6413,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh19502
+  m_Name: pb_Mesh18396
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6973,10 +6973,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grunt_crawler_Strong Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8670910470693405805, guid: 0ff2afbeebd5a4d44a6a20e6e6ce4747,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5624462641842075262, guid: 0ff2afbeebd5a4d44a6a20e6e6ce4747,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.677866
+      value: -3.43
       objectReference: {fileID: 0}
     - target: {fileID: 5624462641842075262, guid: 0ff2afbeebd5a4d44a6a20e6e6ce4747,
         type: 3}
@@ -7045,7 +7050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1198107155
 Transform:
   m_ObjectHideFlags: 0
@@ -46140,10 +46145,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grunt_crawler_Speed Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6617926445487310942, guid: 9f53cad44c03c5e4d80b1ffad1e8a4d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7893896251215297101, guid: 9f53cad44c03c5e4d80b1ffad1e8a4d1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.429706
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 7893896251215297101, guid: 9f53cad44c03c5e4d80b1ffad1e8a4d1,
         type: 3}
@@ -46153,7 +46163,7 @@ PrefabInstance:
     - target: {fileID: 7893896251215297101, guid: 9f53cad44c03c5e4d80b1ffad1e8a4d1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.575478
+      value: 7.87
       objectReference: {fileID: 0}
     - target: {fileID: 7893896251215297101, guid: 9f53cad44c03c5e4d80b1ffad1e8a4d1,
         type: 3}
@@ -47236,10 +47246,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grunt_crawler Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5004918131831818032, guid: 56eaefa5b9f997348be7ca082451ae49,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8299662830746580259, guid: 56eaefa5b9f997348be7ca082451ae49,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.79
+      value: -7.52
       objectReference: {fileID: 0}
     - target: {fileID: 8299662830746580259, guid: 56eaefa5b9f997348be7ca082451ae49,
         type: 3}
@@ -47249,7 +47264,7 @@ PrefabInstance:
     - target: {fileID: 8299662830746580259, guid: 56eaefa5b9f997348be7ca082451ae49,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.11883
+      value: 7.7
       objectReference: {fileID: 0}
     - target: {fileID: 8299662830746580259, guid: 56eaefa5b9f997348be7ca082451ae49,
         type: 3}
@@ -48736,6 +48751,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawningBeam
       objectReference: {fileID: 0}
+    - target: {fileID: 7752833903104547814, guid: 38c81182a46ed3f4fb1715553f3bc21e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6758988810231491061, guid: 38c81182a46ed3f4fb1715553f3bc21e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -48879,20 +48899,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: SK_Bomber
       objectReference: {fileID: 0}
+    - target: {fileID: 6362477482018150642, guid: 665a4933ae1c41a4cb4772723118a0c0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 792097076824725365, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.72
+      value: -3.18
       objectReference: {fileID: 0}
     - target: {fileID: 792097076824725365, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.34
       objectReference: {fileID: 0}
     - target: {fileID: 792097076824725365, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.68
+      value: 8.86
       objectReference: {fileID: 0}
     - target: {fileID: 792097076824725365, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
@@ -48902,7 +48927,7 @@ PrefabInstance:
     - target: {fileID: 792097076824725365, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.97071266
+      value: -0.99995786
       objectReference: {fileID: 0}
     - target: {fileID: 792097076824725365, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
@@ -48912,7 +48937,7 @@ PrefabInstance:
     - target: {fileID: 792097076824725365, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.24024361
+      value: -0.009179226
       objectReference: {fileID: 0}
     - target: {fileID: 792097076824725365, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
@@ -48927,7 +48952,7 @@ PrefabInstance:
     - target: {fileID: 792097076824725365, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -152.19801
+      value: -181.05199
       objectReference: {fileID: 0}
     - target: {fileID: 792097076824725365, guid: 665a4933ae1c41a4cb4772723118a0c0,
         type: 3}

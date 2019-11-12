@@ -51,6 +51,9 @@ public class HUDManager : MonoBehaviour
     public float m_HelmetLightOnTime;
     public float m_HelmetLightOffTime;
     public float m_HelmetLightLerpTime;
+
+    [Header("Highscore")]
+    public float m_VerticalNameSpacing;
     #endregion
 
     public static HUDManager GetInstance { get; private set; }
@@ -164,6 +167,7 @@ public class HUDManager : MonoBehaviour
     private Transform m_HighScoreHeaderName;
     private Transform m_HighScoreHeaderScore;
     private Transform m_HighScoreNewPlayerEntry;
+    private Transform m_HighScoreHeaderNamePos;
     private Transform m_HighScoreNewPlayerEntryName;
     private Transform m_HighScoreEntryTemplate;
     private string m_UserInputName;
@@ -330,11 +334,9 @@ public class HUDManager : MonoBehaviour
         m_HighScoreHeaderName = m_HighScoreTableRoot.Find("Name").transform;
         m_HighScoreHeaderScore = m_HighScoreTableRoot.Find("Score").transform;
         m_HighScoreNewPlayerEntry = m_HighScoreTableRoot.Find("NewPlayerEntry").transform;
-
+        m_HighScoreHeaderNamePos = m_HighScoreNewPlayerEntry.Find("NameHeaderPos").transform; 
         m_HighScoreNewPlayerEntryName = m_HighScoreNewPlayerEntry.Find("NameEntryPos").transform;
-
         m_HighScoreEntryTemplate = m_HighScoreTableRoot.Find("NameEntryTemplate").transform;
-
 
         m_HighScoreBG.gameObject.SetActive(false);
         m_HighScoreTableRoot.gameObject.SetActive(false);
@@ -349,25 +351,17 @@ public class HUDManager : MonoBehaviour
         {
             m_HighScoreDataList.Clear();
             HighScoreData[] initScores = new HighScoreData[m_HighScoreMaxEntries];
-            initScores[0] = new HighScoreData { m_Name = "AAA", m_Score = 555 };
-            initScores[1] = new HighScoreData { m_Name = "BBB", m_Score = 444 };
-            initScores[2] = new HighScoreData { m_Name = "CCC", m_Score = 333 };
-            initScores[3] = new HighScoreData { m_Name = "DDD", m_Score = 222 };
-            initScores[4] = new HighScoreData { m_Name = "EEE", m_Score = 111 };
+            initScores[0] = new HighScoreData { m_Name = "AAA", m_Score = 5 };
+            initScores[1] = new HighScoreData { m_Name = "BBB", m_Score = 4 };
+            initScores[2] = new HighScoreData { m_Name = "CCC", m_Score = 3 };
+            initScores[3] = new HighScoreData { m_Name = "DDD", m_Score = 2 };
+            initScores[4] = new HighScoreData { m_Name = "EEE", m_Score = 1 };
             for (int i = 0; i < m_HighScoreMaxEntries; ++i)
             {
                 SaveHighScore(initScores[i]);
             }
         }
 
-//#if DEBUG
-//        for (int i = 0; i < m_HighScoreDataList.Count; ++i)
-//        {
-//            Debug.Log(m_HighScoreDataList[i].m_Name + " " + m_HighScoreDataList[i].m_Score);
-//        }
-//#endif
-
-        m_HighScoreTransformList = new List<Transform>();
         CreateHighScoreEntryTable();
     }
 
@@ -377,7 +371,7 @@ public class HUDManager : MonoBehaviour
         m_HighScoreDataList.Add(scoreData);
         SortHighScoreList();
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/SavedHighScores.grr"); //you can call it anything you want
+        FileStream file = File.Create(Application.persistentDataPath + "/SavedHighScores.grr");
         bf.Serialize(file, m_HighScoreDataList);
         file.Close();
 
@@ -400,12 +394,17 @@ public class HUDManager : MonoBehaviour
 
     public void HighScoreEnable()
     {
-        Time.timeScale = (Time.timeScale == 0.0f) ? 1.0f : 0.0f;
+        Time.timeScale = 0.0f;
         ScoreManager.GetInstance.m_GetBulletTimeEnabled = false;
         m_bDisplayHighScore = true;
 
         m_HighScoreBG.gameObject.SetActive(true);
         m_HighScoreTableRoot.gameObject.SetActive(true);
+
+        if((int)m_ScoreManScr.GetPlayerScore < m_HighScoreDataList[m_HighScoreDataList.Count - 1].m_Score)
+        {
+            m_HighScoreState = EHighScoreState.TABLE;
+        }
     }
 
 
@@ -428,7 +427,15 @@ public class HUDManager : MonoBehaviour
 
                     // fuck c# and unity for making me do this to get a player highscore tag. nothing will be forgotten
                     string krummelur = (string)Input.inputString;
-                    char tmpKrummelur = (char)krummelur[0];
+                    char tmpKrummelur = ' ';
+                    if(krummelur.Length > 0)
+                    {
+                        tmpKrummelur = (char)krummelur[0];
+                        if(m_HighScoreHeaderNamePos.gameObject.activeInHierarchy == true)
+                        {
+                            m_HighScoreHeaderNamePos.gameObject.SetActive(false);
+                        }
+                    }
 
                     if (m_UserInputName.Length < 4)
                     {
@@ -459,21 +466,45 @@ public class HUDManager : MonoBehaviour
                         HighScoreData highScoreData = new HighScoreData { m_Name = m_UserInputName, m_Score = (int)m_ScoreManScr.GetPlayerScore };
                         SaveHighScore(highScoreData);
                         LoadHighScore();
+                        CreateHighScoreEntryTable();
                         m_HighScoreState = EHighScoreState.TABLE;
                     }
 
                     break;
                 case EHighScoreState.TABLE:
 
-                    m_HighScoreNewPlayerEntry.gameObject.SetActive(false);
-
-                    m_HighScoreHeaderHeader.gameObject.SetActive(true);
-                    m_HighScoreHeaderName.gameObject.SetActive(true);
-                    m_HighScoreHeaderScore.gameObject.SetActive(true);
+                    if(m_HighScoreNewPlayerEntry.gameObject.activeInHierarchy == true)
+                    {
+                        m_HighScoreNewPlayerEntry.gameObject.SetActive(false);
+                    }
+                    if(m_HighScoreHeaderHeader.gameObject.activeInHierarchy == false)
+                    {
+                        m_HighScoreHeaderHeader.gameObject.SetActive(true);
+                    }
+                    if(m_HighScoreHeaderName.gameObject.activeInHierarchy == false)
+                    {
+                        m_HighScoreHeaderName.gameObject.SetActive(true);
+                    }
+                    if(m_HighScoreHeaderScore.gameObject.activeInHierarchy == false)
+                    {
+                        m_HighScoreHeaderScore.gameObject.SetActive(true);
+                    }
 
                     for (int i = 0; i < m_HighScoreTransformList.Count; ++i)
                     {
-                        m_HighScoreTransformList[i].gameObject.SetActive(true);
+                        if(m_HighScoreTransformList[i].gameObject.activeInHierarchy == false)
+                        {
+                            m_HighScoreTransformList[i].gameObject.SetActive(true);
+                        }
+                    }
+
+                    if(Input.GetKeyDown(KeyCode.Return))
+                    {
+                        Time.timeScale = 1.0f;
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                        PlayerManager.GetInstance.GetIsAlive = true;
+                        LevelManager.GetInstance.ChangeScene(LevelManager.EScene.MAIN);
                     }
 
                     break;
@@ -516,12 +547,12 @@ public class HUDManager : MonoBehaviour
 
     private void CreateHighScoreEntryTable()
     {
-        float entryOffset = 60.0f;
+        m_HighScoreTransformList = new List<Transform>();
         for (int i = 0; i < m_HighScoreDataList.Count; ++i)
         {
             Transform entry = Instantiate(m_HighScoreEntryTemplate, m_HighScoreTableRoot);
             RectTransform entryRect = entry.GetComponent<RectTransform>();
-            entryRect.anchoredPosition = new Vector2(0.0f, -entryOffset * i);
+            entryRect.anchoredPosition = new Vector2(0.0f, -m_VerticalNameSpacing * i);
             int place = i + 1;
             string rankNum = place.ToString();
             rankNum += ".";
@@ -831,6 +862,12 @@ public class HUDManager : MonoBehaviour
         }
 
         m_PrevFrameScore = nowScore;
+
+        if (PlayerManager.GetInstance.GetIsAlive == false)
+        {
+            StopCoroutine("TxtRumblerFX");
+            StopCoroutine("TxtBouncerFX");
+        }
     }
 
 

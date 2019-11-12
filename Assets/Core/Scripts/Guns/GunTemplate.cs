@@ -259,28 +259,50 @@ public class GunTemplate : MonoBehaviour
     public void AimPosUpdate()
     {
         // ads
-        if (Input.GetMouseButton(1) == true &&
-            GetIsReloading == false)
+        if (m_GunName != "Grenade")
         {
-            GetIsADS = true;
+            if ((int)m_CurrentGunState != (int)EGunState.FIRING)
+            {
+                m_GetAnimator.SetBool("Idle", false);
+                m_GetAnimator.SetBool("Stop", true);
+            }
+            else
+            {
+                m_GetAnimator.SetBool("Stop", false);
+            }
 
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 52.0f, 0.4f);
+            if (Input.GetMouseButton(1) == true &&
+                GetIsReloading == false)
+            {
+                GetIsADS = true;
 
-            m_BulletSpreadDirs.x = Random.Range(-m_AdsSpread, m_AdsSpread);
-            m_BulletSpreadDirs.y = Random.Range(-m_AdsSpread, m_AdsSpread);
+                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 52.0f, 0.4f);
 
-            Vector3 forward = transform.parent.forward * 1.45f;
-            Vector3 down = transform.parent.up * -0.272f;
+                m_BulletSpreadDirs.x = Random.Range(-m_AdsSpread, m_AdsSpread);
+                m_BulletSpreadDirs.y = Random.Range(-m_AdsSpread, m_AdsSpread);
 
-            transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
+                Vector3 forward = transform.parent.forward * 1.45f;
+                Vector3 down = transform.parent.up * -0.272f;
 
-            m_CrossHairObj.SetActive(false);
+                transform.position = Vector3.Lerp(transform.position, (transform.parent.position + down + forward), 0.6f);
+
+                m_CrossHairObj.SetActive(false);
+            }
         }
 
         // hip
         if (Input.GetMouseButton(1) == false ||
             GetIsReloading == true)
         {
+            if (m_GunName != "Grenade")
+            {
+                m_GetAnimator.SetBool("Stop", false);
+                if ((int)m_CurrentGunState != (int)EGunState.RELOADING)
+                {
+                    m_GetAnimator.SetBool("Idle", true);
+                }
+            }
+
             GetIsADS = false;
 
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60.0f, 0.075f);

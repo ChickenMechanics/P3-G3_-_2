@@ -39,39 +39,23 @@ public class GameManager : MonoBehaviour, IController
 
     private void Update()
     {
-        // highscore
-        if (Input.GetKeyDown(KeyCode.Delete))    // change this to trigger on player health when highscore is done
-        {
-            //Time.timeScale = (Time.timeScale == 0.0f) ? 1.0f : 0.0f;
-            //ScoreManager.GetInstance.m_GetBulletTimeEnabled = !ScoreManager.GetInstance.m_GetBulletTimeEnabled;
-            HUDManager.GetInstance.HighScoreEnable();
-        }
-
-        // TODO. Move and clean this to game manager when/if that is up
         if (PlayerManager.GetInstance != null)
         {
-            if (PlayerManager.GetInstance.GetIsAlive == false &&
-                PlayerManager.GetInstance.GetIsGod == false)
+#if DEBUG
+            if (Input.GetKeyDown(KeyCode.Delete))   // debug thing
             {
-                LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
+                PlayerManager.GetInstance.GetIsAlive = false;
+                HUDManager.GetInstance.HighScoreEnable();
+            }
+#endif
 
-                if (ScoreManager.GetInstance != null)
-                {
-                    ScoreManager.GetInstance.ResetPlayerStats();
-                }
+            if (PlayerManager.GetInstance.GetIsAlive == false)
+            {
+                HUDManager.GetInstance.HighScoreEnable();
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                LevelManager.GetInstance.ChangeScene(LevelManager.EScene.END);
-
-                if (ScoreManager.GetInstance != null)
-                {
-                    ScoreManager.GetInstance.ResetPlayerStats();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.G))
+            if (Input.GetKeyDown(KeyCode.G) &&
+                PlayerManager.GetInstance.GetIsAlive == true)
             {
                 PlayerManager.GetInstance.GetIsGod = !PlayerManager.GetInstance.GetIsGod;
 
