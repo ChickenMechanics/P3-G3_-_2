@@ -95,33 +95,36 @@ public class GunManager : MonoBehaviour
 
     public void ScrollWeapons()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if(PlayerManager.GetInstance.GetIsAlive == true)
         {
-            m_CurrentGunIdx = (m_CurrentGunIdx == 1) ? 0 : 1;
-            SetActiveGun(m_CurrentGunIdx);
-        }
-
-        float wheelDir = Input.GetAxisRaw("Mouse ScrollWheel");
-        if (wheelDir != 0.0f)
-        {
-            if (wheelDir == 0.1f)
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                //++m_CurrentGunIdx;
-                //if (m_CurrentGunIdx > m_NumOfGuns)
-                //    m_CurrentGunIdx = 0;
-
-                m_CurrentGunIdx = 0;
-            }
-            else
-            {
-                //--m_CurrentGunIdx;
-                //if (m_CurrentGunIdx < 0)
-                //    m_CurrentGunIdx = m_NumOfGuns;
-
-                m_CurrentGunIdx = 1;
+                m_CurrentGunIdx = (m_CurrentGunIdx == 1) ? 0 : 1;
+                SetActiveGun(m_CurrentGunIdx);
             }
 
-            SetActiveGun(m_CurrentGunIdx);
+            float wheelDir = Input.GetAxisRaw("Mouse ScrollWheel");
+            if (wheelDir != 0.0f)
+            {
+                if (wheelDir == 0.1f)
+                {
+                    //++m_CurrentGunIdx;
+                    //if (m_CurrentGunIdx > m_NumOfGuns)
+                    //    m_CurrentGunIdx = 0;
+
+                    m_CurrentGunIdx = 0;
+                }
+                else
+                {
+                    //--m_CurrentGunIdx;
+                    //if (m_CurrentGunIdx < 0)
+                    //    m_CurrentGunIdx = m_NumOfGuns;
+
+                    m_CurrentGunIdx = 1;
+                }
+
+                SetActiveGun(m_CurrentGunIdx);
+            }
         }
     }
 

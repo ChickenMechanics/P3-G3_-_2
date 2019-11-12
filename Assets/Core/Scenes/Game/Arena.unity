@@ -3725,19 +3725,13 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 309891612}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &588256413 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1188221708}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &588256414
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588256413}
+  m_GameObject: {fileID: 8296172668023835141}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
@@ -40040,110 +40034,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db52166b65de7b845b59620494e6a9a7, type: 3}
---- !u!1001 &1188221708
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_Name
-      value: navmesh
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4224801822505238522, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 9213534209490497708, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: -8684251187902555887, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -4.4
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -7808381318373605236, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -7521214134985992077, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7751636609773414102, guid: 72067a84bc3a57841a69f9b28bd03dd7,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 72067a84bc3a57841a69f9b28bd03dd7, type: 3}
 --- !u!1 &1200942175
 GameObject:
   m_ObjectHideFlags: 0
@@ -43162,13 +43052,30 @@ GameObject:
   - component: {fileID: 8653774803967520082}
   - component: {fileID: 3598772691164015654}
   - component: {fileID: 5715332690065173589}
-  m_Layer: 0
+  - component: {fileID: 404157917673403363}
+  m_Layer: 12
   m_Name: Torus.016
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!208 &404157917673403363
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404157917673403362}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.014, y: 0.014, z: 0.045}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.036000002}
+  m_TimeToStationary: 0.5
 --- !u!33 &497552226969208092
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -43620,13 +43527,30 @@ GameObject:
   - component: {fileID: 4455694866597638442}
   - component: {fileID: 5703078209482487606}
   - component: {fileID: 8230619419485179693}
-  m_Layer: 0
+  - component: {fileID: 2092203984606007890}
+  m_Layer: 12
   m_Name: Torus.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!208 &2092203984606007890
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092203984606007889}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.014, y: 0.014, z: 0.045}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.036000002}
+  m_TimeToStationary: 0.5
 --- !u!1 &2167621178796025180
 GameObject:
   m_ObjectHideFlags: 0
@@ -43638,13 +43562,30 @@ GameObject:
   - component: {fileID: 6836833093192734557}
   - component: {fileID: 2251112400609422537}
   - component: {fileID: 2266056345563940016}
-  m_Layer: 0
+  - component: {fileID: 2167621178796025181}
+  m_Layer: 12
   m_Name: Torus.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!208 &2167621178796025181
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2167621178796025180}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.014, y: 0.014, z: 0.045}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.036000002}
+  m_TimeToStationary: 0.5
 --- !u!1 &2183325530766713802
 GameObject:
   m_ObjectHideFlags: 0
@@ -43656,13 +43597,30 @@ GameObject:
   - component: {fileID: 3350720323162167018}
   - component: {fileID: 4413818480765312477}
   - component: {fileID: 313927448383581240}
-  m_Layer: 0
+  - component: {fileID: 2183325530766713803}
+  m_Layer: 12
   m_Name: Torus.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!208 &2183325530766713803
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2183325530766713802}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.014, y: 0.014, z: 0.045}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.036000002}
+  m_TimeToStationary: 0.5
 --- !u!33 &2202156097165775647
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -43797,13 +43755,30 @@ GameObject:
   - component: {fileID: 2067069499915017278}
   - component: {fileID: 6675584514998145331}
   - component: {fileID: 8844294719668384185}
-  m_Layer: 0
+  - component: {fileID: 2549813737312299548}
+  m_Layer: 12
   m_Name: Torus.017
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!208 &2549813737312299548
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2549813737312299547}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.014, y: 0.014, z: 0.045}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.036000002}
+  m_TimeToStationary: 0.5
 --- !u!1 &2647793579191689304
 GameObject:
   m_ObjectHideFlags: 0
@@ -43959,13 +43934,30 @@ GameObject:
   - component: {fileID: 3400278394176671044}
   - component: {fileID: 7635345764671410319}
   - component: {fileID: 579442021452690633}
-  m_Layer: 0
+  - component: {fileID: 3358488920473443745}
+  m_Layer: 12
   m_Name: Torus.018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!208 &3358488920473443745
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3358488920473443744}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.014, y: 0.014, z: 0.045}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.036000002}
+  m_TimeToStationary: 0.5
 --- !u!4 &3400278394176671044
 Transform:
   m_ObjectHideFlags: 0
@@ -44390,6 +44382,21 @@ Transform:
   m_Father: {fileID: 5790601280728401393}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &5006512735975602198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296172668023835141}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7838591195674310413}
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &5018594869094993453
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -44503,13 +44510,30 @@ GameObject:
   - component: {fileID: 7393885515383022007}
   - component: {fileID: 5220632044097653282}
   - component: {fileID: 5419870718322137560}
-  m_Layer: 0
+  - component: {fileID: 5317490446070853227}
+  m_Layer: 12
   m_Name: Torus.014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!208 &5317490446070853227
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5317490446070853226}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.014, y: 0.014, z: 0.045}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.036000002}
+  m_TimeToStationary: 0.5
 --- !u!1 &5325852402772956300
 GameObject:
   m_ObjectHideFlags: 0
@@ -44846,6 +44870,14 @@ Transform:
   m_Father: {fileID: 5790601280728401393}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6150376215360396706
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9213534208444982176}
+  m_Mesh: {fileID: -6889433062218291276, guid: 72067a84bc3a57841a69f9b28bd03dd7, type: 3}
 --- !u!23 &6367265655221022226
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -44909,13 +44941,30 @@ GameObject:
   - component: {fileID: 7590230810731207925}
   - component: {fileID: 8061010606081667457}
   - component: {fileID: 8852583939730744862}
-  m_Layer: 0
+  - component: {fileID: 6540679951412287312}
+  m_Layer: 12
   m_Name: Torus.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!208 &6540679951412287312
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6540679951412287311}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.014, y: 0.014, z: 0.045}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.036000002}
+  m_TimeToStationary: 0.5
 --- !u!33 &6558117114944173230
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -44971,13 +45020,30 @@ GameObject:
   - component: {fileID: 2425411267981213247}
   - component: {fileID: 109705888910090698}
   - component: {fileID: 4358694642910408723}
-  m_Layer: 0
+  - component: {fileID: 7090379046355769585}
+  m_Layer: 12
   m_Name: Torus.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!208 &7090379046355769585
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7090379046355769584}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.014, y: 0.014, z: 0.045}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.036000002}
+  m_TimeToStationary: 0.5
 --- !u!23 &7263276086363776563
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -45120,6 +45186,58 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3358488920473443744}
   m_Mesh: {fileID: 6967015779534184346, guid: b970372a2017b75409c25ea681f365ea, type: 3}
+--- !u!23 &7751636610951149018
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9213534208444982176}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 670224309865224971, guid: 72067a84bc3a57841a69f9b28bd03dd7, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!4 &7838591195674310413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9213534208444982176}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_Children: []
+  m_Father: {fileID: 5006512735975602198}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7856029788961654843
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -45269,6 +45387,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8663518176199436129}
   m_Mesh: {fileID: 2026425019520300902, guid: b970372a2017b75409c25ea681f365ea, type: 3}
+--- !u!1 &8296172668023835141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5006512735975602198}
+  - component: {fileID: 588256414}
+  m_Layer: 15
+  m_Name: navmesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &8653774803967520082
 Transform:
   m_ObjectHideFlags: 0
@@ -45326,13 +45461,30 @@ GameObject:
   - component: {fileID: 7594868599413859942}
   - component: {fileID: 4407246411179554077}
   - component: {fileID: 4403560629017190414}
-  m_Layer: 0
+  - component: {fileID: 8795383328797314713}
+  m_Layer: 12
   m_Name: Torus.015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!208 &8795383328797314713
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8795383328797314712}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.014, y: 0.014, z: 0.045}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.036000002}
+  m_TimeToStationary: 0.5
 --- !u!1 &8834569770085650343
 GameObject:
   m_ObjectHideFlags: 0
@@ -45544,3 +45696,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &9213534208444982176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7838591195674310413}
+  - component: {fileID: 6150376215360396706}
+  - component: {fileID: 7751636610951149018}
+  m_Layer: 15
+  m_Name: colFloor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
