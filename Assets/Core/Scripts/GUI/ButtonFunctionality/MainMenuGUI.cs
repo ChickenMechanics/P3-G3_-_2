@@ -67,12 +67,6 @@ public class MainMenuGUI : MonoBehaviour
     }
 
 
-    //public void Options()
-    //{
-    //    LevelManager.GetInstance.ChangeScene(LevelManager.EScene.OPTIONS);
-    //}
-
-
     public void HowToPlay()
     {
         ButtonSound();

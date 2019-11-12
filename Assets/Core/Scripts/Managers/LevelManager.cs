@@ -53,6 +53,7 @@ public class LevelManager : MonoBehaviour
             AudioSource source = SoundManager.GetInstance.GetAudioSourceByAlias("Main Menu Music 1");
             if(source == null)
             {
+                SoundManager.GetInstance.DestroySoundClip("Combat Music");
                 SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_MAIN_MENU, Vector3.zero);
             }
         }
@@ -61,16 +62,17 @@ public class LevelManager : MonoBehaviour
             SoundManager.GetInstance.DestroySoundClip("Main Menu Music 1");
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_COMBAT, Vector3.zero);
         }
-        if (m_CurrentSceneIdx == (int)EScene.END)
-        {
-            SoundManager.GetInstance.DestroySoundClip("Combat Music");
+        //// unused scene
+        //if (m_CurrentSceneIdx == (int)EScene.END)
+        //{
+        //    SoundManager.GetInstance.DestroySoundClip("Combat Music");
 
-            AudioSource source = SoundManager.GetInstance.GetAudioSourceByAlias("Main Menu Music 1");
-            if (source == null)
-            {
-                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_MAIN_MENU, Vector3.zero);
-            }
-        }
+        //    AudioSource source = SoundManager.GetInstance.GetAudioSourceByAlias("Main Menu Music 1");
+        //    if (source == null)
+        //    {
+        //        SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_MAIN_MENU, Vector3.zero);
+        //    }
+        //}
     }
 
 

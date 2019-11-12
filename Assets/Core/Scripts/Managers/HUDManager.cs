@@ -425,7 +425,6 @@ public class HUDManager : MonoBehaviour
                         m_HighScoreNewPlayerEntryName.gameObject.SetActive(true);
                     }
 
-                    // fuck c# and unity for making me do this to get a player highscore tag. nothing will be forgotten
                     string krummelur = (string)Input.inputString;
                     char tmpKrummelur = ' ';
                     if(krummelur.Length > 0)
