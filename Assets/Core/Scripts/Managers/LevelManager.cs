@@ -62,7 +62,7 @@ public class LevelManager : MonoBehaviour
             SoundManager.GetInstance.DestroySoundClip("Main Menu Music 1");
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_COMBAT, Vector3.zero);
         }
-        //// unused scene
+        //// unused scene delete or something
         //if (m_CurrentSceneIdx == (int)EScene.END)
         //{
         //    SoundManager.GetInstance.DestroySoundClip("Combat Music");
