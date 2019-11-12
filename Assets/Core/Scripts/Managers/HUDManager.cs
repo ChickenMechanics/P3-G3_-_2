@@ -164,6 +164,7 @@ public class HUDManager : MonoBehaviour
     private Transform m_HighScoreHeaderName;
     private Transform m_HighScoreHeaderScore;
     private Transform m_HighScoreNewPlayerEntry;
+    private Transform m_HighScoreHeaderNamePos;
     private Transform m_HighScoreNewPlayerEntryName;
     private Transform m_HighScoreEntryTemplate;
     private string m_UserInputName;
@@ -330,6 +331,7 @@ public class HUDManager : MonoBehaviour
         m_HighScoreHeaderName = m_HighScoreTableRoot.Find("Name").transform;
         m_HighScoreHeaderScore = m_HighScoreTableRoot.Find("Score").transform;
         m_HighScoreNewPlayerEntry = m_HighScoreTableRoot.Find("NewPlayerEntry").transform;
+        m_HighScoreHeaderNamePos = m_HighScoreNewPlayerEntry.Find("NameHeaderPos").transform; 
         m_HighScoreNewPlayerEntryName = m_HighScoreNewPlayerEntry.Find("NameEntryPos").transform;
         m_HighScoreEntryTemplate = m_HighScoreTableRoot.Find("NameEntryTemplate").transform;
 
@@ -366,7 +368,7 @@ public class HUDManager : MonoBehaviour
         m_HighScoreDataList.Add(scoreData);
         SortHighScoreList();
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/SavedHighScores.grr"); //you can call it anything you want
+        FileStream file = File.Create(Application.persistentDataPath + "/SavedHighScores.grr");
         bf.Serialize(file, m_HighScoreDataList);
         file.Close();
 
@@ -392,8 +394,6 @@ public class HUDManager : MonoBehaviour
         Time.timeScale = 0.0f;
         ScoreManager.GetInstance.m_GetBulletTimeEnabled = false;
         m_bDisplayHighScore = true;
-
-        //PlayerManager.GetInstance.GetIsAlive = true;
 
         m_HighScoreBG.gameObject.SetActive(true);
         m_HighScoreTableRoot.gameObject.SetActive(true);
@@ -428,6 +428,10 @@ public class HUDManager : MonoBehaviour
                     if(krummelur.Length > 0)
                     {
                         tmpKrummelur = (char)krummelur[0];
+                        if(m_HighScoreHeaderNamePos.gameObject.activeInHierarchy == true)
+                        {
+                            m_HighScoreHeaderNamePos.gameObject.SetActive(false);
+                        }
                     }
 
                     if (m_UserInputName.Length < 4)
