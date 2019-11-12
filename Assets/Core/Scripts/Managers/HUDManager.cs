@@ -330,11 +330,8 @@ public class HUDManager : MonoBehaviour
         m_HighScoreHeaderName = m_HighScoreTableRoot.Find("Name").transform;
         m_HighScoreHeaderScore = m_HighScoreTableRoot.Find("Score").transform;
         m_HighScoreNewPlayerEntry = m_HighScoreTableRoot.Find("NewPlayerEntry").transform;
-
         m_HighScoreNewPlayerEntryName = m_HighScoreNewPlayerEntry.Find("NameEntryPos").transform;
-
         m_HighScoreEntryTemplate = m_HighScoreTableRoot.Find("NameEntryTemplate").transform;
-
 
         m_HighScoreBG.gameObject.SetActive(false);
         m_HighScoreTableRoot.gameObject.SetActive(false);
@@ -349,25 +346,17 @@ public class HUDManager : MonoBehaviour
         {
             m_HighScoreDataList.Clear();
             HighScoreData[] initScores = new HighScoreData[m_HighScoreMaxEntries];
-            initScores[0] = new HighScoreData { m_Name = "AAA", m_Score = 555 };
-            initScores[1] = new HighScoreData { m_Name = "BBB", m_Score = 444 };
-            initScores[2] = new HighScoreData { m_Name = "CCC", m_Score = 333 };
-            initScores[3] = new HighScoreData { m_Name = "DDD", m_Score = 222 };
-            initScores[4] = new HighScoreData { m_Name = "EEE", m_Score = 111 };
+            initScores[0] = new HighScoreData { m_Name = "AAA", m_Score = 5 };
+            initScores[1] = new HighScoreData { m_Name = "BBB", m_Score = 4 };
+            initScores[2] = new HighScoreData { m_Name = "CCC", m_Score = 3 };
+            initScores[3] = new HighScoreData { m_Name = "DDD", m_Score = 2 };
+            initScores[4] = new HighScoreData { m_Name = "EEE", m_Score = 1 };
             for (int i = 0; i < m_HighScoreMaxEntries; ++i)
             {
                 SaveHighScore(initScores[i]);
             }
         }
 
-//#if DEBUG
-//        for (int i = 0; i < m_HighScoreDataList.Count; ++i)
-//        {
-//            Debug.Log(m_HighScoreDataList[i].m_Name + " " + m_HighScoreDataList[i].m_Score);
-//        }
-//#endif
-
-        m_HighScoreTransformList = new List<Transform>();
         CreateHighScoreEntryTable();
     }
 
@@ -470,6 +459,7 @@ public class HUDManager : MonoBehaviour
                         HighScoreData highScoreData = new HighScoreData { m_Name = m_UserInputName, m_Score = (int)m_ScoreManScr.GetPlayerScore };
                         SaveHighScore(highScoreData);
                         LoadHighScore();
+                        CreateHighScoreEntryTable();
                         m_HighScoreState = EHighScoreState.TABLE;
                     }
 
@@ -536,6 +526,7 @@ public class HUDManager : MonoBehaviour
 
     private void CreateHighScoreEntryTable()
     {
+        m_HighScoreTransformList = new List<Transform>();
         float entryOffset = 60.0f;
         for (int i = 0; i < m_HighScoreDataList.Count; ++i)
         {
