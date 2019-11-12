@@ -51,6 +51,9 @@ public class HUDManager : MonoBehaviour
     public float m_HelmetLightOnTime;
     public float m_HelmetLightOffTime;
     public float m_HelmetLightLerpTime;
+
+    [Header("Highscore")]
+    public float m_VerticalNameSpacing;
     #endregion
 
     public static HUDManager GetInstance { get; private set; }
@@ -536,7 +539,7 @@ public class HUDManager : MonoBehaviour
         {
             Transform entry = Instantiate(m_HighScoreEntryTemplate, m_HighScoreTableRoot);
             RectTransform entryRect = entry.GetComponent<RectTransform>();
-            entryRect.anchoredPosition = new Vector2(0.0f, -entryOffset * i);
+            entryRect.anchoredPosition = new Vector2(0.0f, -m_VerticalNameSpacing * i);
             int place = i + 1;
             string rankNum = place.ToString();
             rankNum += ".";
