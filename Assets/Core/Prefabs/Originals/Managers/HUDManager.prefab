@@ -2764,7 +2764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1484938972225058272
 Transform:
   m_ObjectHideFlags: 0
@@ -2814,6 +2814,7 @@ MonoBehaviour:
   m_HelmetLightOffTime: 2.5
   m_HelmetLightLerpTime: 0.015
   m_VerticalNameSpacing: 55
+  m_HighScoreState: 0
 --- !u!1 &5632145753048617766
 GameObject:
   m_ObjectHideFlags: 0

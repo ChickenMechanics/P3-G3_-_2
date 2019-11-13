@@ -167,6 +167,7 @@ public class HUDManager : MonoBehaviour
 
     private List<Transform> m_HighScoreTransformList;
     private List<HighScoreData> m_HighScoreDataList;
+    private List<Transform> m_FuckYouUnity;
     private Transform m_HighScoreTableRoot;
     private Transform m_HighScoreBG;
     private Transform m_HighScoreHeaderHeader;
@@ -178,26 +179,30 @@ public class HUDManager : MonoBehaviour
     private Transform m_HighScoreEntryTemplate;
     private string m_UserInputName;
     private int m_HighScoreMaxEntries;
-    private bool m_bDisplayHighScore;
+    [HideInInspector]
+    public bool m_bDisplayHighScore;
+
+    [HideInInspector]
+    public bool m_bEnablePlayerHUD { private set; get; }
 
 
     //----------------------------------------------------------------------------------------------------
 
 
-    private void Init()
+    public void Init()
     {
         Transform canvas = transform.Find("HUDCanvas");
 
         // player status
-        m_PlayerManScr = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        //m_PlayerManScr = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        //m_PrevHealth = m_PlayerManScr.GetCurrentHealth;
         m_HealthLeftImg = canvas.transform.Find("PlayerStatus").transform.Find("HealthLeftImg").GetComponent<Image>();
         m_HealthRightImg = canvas.transform.Find("PlayerStatus").transform.Find("HealthRightImg").GetComponent<Image>();
         m_DashSliderImg = canvas.transform.Find("PlayerStatus").transform.Find("WaveSliderImg").GetComponent<Image>();
 
-        m_PrevHealth = m_PlayerManScr.GetCurrentHealth;
 
         // guns / bulllets
-        m_GunManScr = GameObject.Find("GunManager").GetComponent<GunManager>();
+        //m_GunManScr = GameObject.Find("GunManager").GetComponent<GunManager>();
         m_GunBulletText = canvas.transform.Find("GunBullet").transform.Find("BulletCounterTxt").GetComponent<Text>();
         m_GrenadeBulletText = canvas.transform.Find("GunBullet").transform.Find("GrenadeCounterTxt").GetComponent<Text>();
         m_GunBulletIcon = canvas.transform.Find("GunBullet").transform.Find("BulletIcon").transform;
@@ -311,8 +316,8 @@ public class HUDManager : MonoBehaviour
         m_PlayerCracks[3] = canvas.transform.Find("PlayerCracks").transform.Find("Crack_4").GetComponent<Image>();
 
         // dash
-        m_DashCoolDownTimeTarget = PlayerManager.GetInstance.GetPlayerMoveScr.m_DashCooldown;
-        m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
+        //m_DashCoolDownTimeTarget = PlayerManager.GetInstance.GetPlayerMoveScr.m_DashCooldown;
+        //m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
 
         // helmet lights
         m_LeftLightImg = canvas.transform.Find("Statics").transform.Find("LeftLightImg").GetComponent<Image>();
@@ -330,7 +335,6 @@ public class HUDManager : MonoBehaviour
         }
 
         // highscore
-        m_HighScoreState = EHighScoreState.ENTRY;
         m_bDisplayHighScore = false;
         m_UserInputName = "";
 
@@ -349,6 +353,9 @@ public class HUDManager : MonoBehaviour
         m_HighScoreNewPlayerEntry.gameObject.SetActive(false);
         m_HighScoreEntryTemplate.gameObject.SetActive(false);
 
+        m_HighScoreTransformList = new List<Transform>();
+        m_FuckYouUnity = new List<Transform>();
+
         m_HighScoreDataList = new List<HighScoreData>();
         LoadHighScore();
 
@@ -357,11 +364,11 @@ public class HUDManager : MonoBehaviour
         {
             m_HighScoreDataList.Clear();
             HighScoreData[] initScores = new HighScoreData[m_HighScoreMaxEntries];
-            initScores[0] = new HighScoreData { m_Name = "", m_Score = 5 };
-            initScores[1] = new HighScoreData { m_Name = "", m_Score = 4 };
-            initScores[2] = new HighScoreData { m_Name = "", m_Score = 3 };
-            initScores[3] = new HighScoreData { m_Name = "", m_Score = 2 };
-            initScores[4] = new HighScoreData { m_Name = "", m_Score = 1 };
+            initScores[0] = new HighScoreData { m_Name = "DED", m_Score = 1 };
+            initScores[1] = new HighScoreData { m_Name = "DED", m_Score = 1 };
+            initScores[2] = new HighScoreData { m_Name = "DED", m_Score = 1 };
+            initScores[3] = new HighScoreData { m_Name = "DED", m_Score = 1 };
+            initScores[4] = new HighScoreData { m_Name = "DED", m_Score = 1 };
             for (int i = 0; i < m_HighScoreMaxEntries; ++i)
             {
                 SaveHighScore(initScores[i]);
@@ -369,13 +376,41 @@ public class HUDManager : MonoBehaviour
         }
 
         CreateHighScoreEntryTable();
+
+        m_HighScoreState = EHighScoreState.TABLE;
+    }
+
+
+    public void EnablePlayerHUD()
+    {
+        m_bEnablePlayerHUD = true;
+
+        Transform canvas = transform.Find("HUDCanvas");
+
+        canvas.transform.Find("PlayerCracks").gameObject.SetActive(true);
+        canvas.transform.Find("Statics").gameObject.SetActive(true);
+        canvas.transform.Find("ScoreCombo").gameObject.SetActive(true);
+        canvas.transform.Find("GunBullet").gameObject.SetActive(true);
+        canvas.transform.Find("Waves").gameObject.SetActive(true);
+        canvas.transform.Find("PlayerStatus").gameObject.SetActive(true);
+
+        m_PlayerManScr = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        m_PrevHealth = m_PlayerManScr.GetCurrentHealth;
+
+        m_GunManScr = GameObject.Find("GunManager").GetComponent<GunManager>();
+
+        m_DashCoolDownTimeTarget = PlayerManager.GetInstance.GetPlayerMoveScr.m_DashCooldown;
+        m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
     }
 
 
     public void DisablePlayerHUD()
     {
+        m_bEnablePlayerHUD = false;
+
         Transform canvas = transform.Find("HUDCanvas");
 
+        canvas.transform.Find("HighScoreTable").gameObject.SetActive(false);
         canvas.transform.Find("PlayerCracks").gameObject.SetActive(false);
         canvas.transform.Find("Statics").gameObject.SetActive(false);
         canvas.transform.Find("ScoreCombo").gameObject.SetActive(false);
@@ -385,46 +420,21 @@ public class HUDManager : MonoBehaviour
     }
 
 
-    private void EnablePlayerHUD()
+    public void HighScoreMainMenuEnable()
     {
-        Transform canvas = transform.Find("HUDCanvas");
-
-        canvas.transform.Find("PlayerCracks").gameObject.SetActive(true);
-        canvas.transform.Find("Statics").gameObject.SetActive(true);
-        canvas.transform.Find("ScoreCombo").gameObject.SetActive(true);
-        canvas.transform.Find("GunBullet").gameObject.SetActive(true);
-        canvas.transform.Find("Waves").gameObject.SetActive(true);
-        canvas.transform.Find("PlayerStatus").gameObject.SetActive(true);
+        m_bDisplayHighScore = true;
+        m_HighScoreTableRoot.gameObject.SetActive(true);
     }
 
 
-    public void SaveHighScore(HighScoreData scoreData)
+    public void HighScoreMainMenuDisable()
     {
-        m_HighScoreDataList.Add(scoreData);
-        SortHighScoreList();
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/SavedHighScores.grr");
-        bf.Serialize(file, m_HighScoreDataList);
-        file.Close();
-
-        //Debug.Log(Application.persistentDataPath);
+        m_bDisplayHighScore = false;
+        m_HighScoreTableRoot.gameObject.SetActive(false);
     }
 
 
-    public void LoadHighScore()
-    {
-        if (File.Exists(Application.persistentDataPath + "/SavedHighScores.grr"))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/SavedHighScores.grr", FileMode.Open);
-            m_HighScoreDataList.Clear();
-            m_HighScoreDataList = (List<HighScoreData>)bf.Deserialize(file);
-            file.Close();
-        }
-    }
-
-
-    public void HighScoreEnable()
+    public void HighScoreArenaEnable()
     {
         Time.timeScale = 0.0f;
         ScoreManager.GetInstance.m_GetBulletTimeEnabled = false;
@@ -433,10 +443,34 @@ public class HUDManager : MonoBehaviour
         m_HighScoreBG.gameObject.SetActive(true);
         m_HighScoreTableRoot.gameObject.SetActive(true);
 
-        if((int)m_ScoreManScr.GetPlayerScore < m_HighScoreDataList[m_HighScoreDataList.Count - 1].m_Score)
+        for (int i = 0; i < m_FuckYouUnity.Count; ++i)
+        {
+            m_FuckYouUnity[i].gameObject.SetActive(false);
+        }
+
+        m_HighScoreHeaderHeader.gameObject.SetActive(false);
+        m_HighScoreHeaderName.gameObject.SetActive(false);
+        m_HighScoreHeaderScore.gameObject.SetActive(false);
+        m_HighScoreHeaderNamePos.gameObject.SetActive(true);
+        m_UserInputName = "";
+
+        if ((int)m_ScoreManScr.GetPlayerScore > m_HighScoreDataList[m_HighScoreDataList.Count - 1].m_Score)
+        {
+            m_HighScoreState = EHighScoreState.ENTRY;
+        }
+        else
         {
             m_HighScoreState = EHighScoreState.TABLE;
         }
+    }
+
+
+    public void HighScoreArenaDisable()
+    {
+        m_bDisplayHighScore = false;
+
+        m_HighScoreBG.gameObject.SetActive(false);
+        m_HighScoreTableRoot.gameObject.SetActive(false);
     }
 
 
@@ -448,7 +482,6 @@ public class HUDManager : MonoBehaviour
             switch (m_HighScoreState)
             {
                 case EHighScoreState.ENTRY:
-
                     if(m_HighScoreNewPlayerEntry.gameObject.activeInHierarchy == false)
                     {
                         m_HighScoreNewPlayerEntry.gameObject.SetActive(true);
@@ -537,6 +570,8 @@ public class HUDManager : MonoBehaviour
                     {
                         SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MENU_BUTTON_CLICK, transform.position);
 
+                        DisablePlayerHUD();
+                        m_HighScoreBG.gameObject.SetActive(false);
                         Time.timeScale = 1.0f;
                         Cursor.lockState = CursorLockMode.None;
                         Cursor.visible = true;
@@ -546,6 +581,33 @@ public class HUDManager : MonoBehaviour
 
                     break;
             }
+        }
+    }
+
+
+    public void SaveHighScore(HighScoreData scoreData)
+    {
+        //m_HighScoreDataList.RemoveRange(m_HighScoreDataList.Count - 1, 1);
+        m_HighScoreDataList.Add(scoreData);
+        SortHighScoreList();
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/SavedHighScores.grr");
+        bf.Serialize(file, m_HighScoreDataList);
+        file.Close();
+
+        //Debug.Log(Application.persistentDataPath);
+    }
+
+
+    public void LoadHighScore()
+    {
+        if (File.Exists(Application.persistentDataPath + "/SavedHighScores.grr"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/SavedHighScores.grr", FileMode.Open);
+            m_HighScoreDataList.Clear();
+            m_HighScoreDataList = (List<HighScoreData>)bf.Deserialize(file);
+            file.Close();
         }
     }
 
@@ -584,16 +646,27 @@ public class HUDManager : MonoBehaviour
 
     private void CreateHighScoreEntryTable()
     {
-        m_HighScoreTransformList = new List<Transform>();
+        for(int i = 0; i < m_FuckYouUnity.Count; ++i)
+        {
+            Destroy(m_FuckYouUnity[i].gameObject);
+        }
+        m_FuckYouUnity.Clear();
+
+        for (int i = 0; i < m_HighScoreTransformList.Count; ++i)
+        {
+            Destroy(m_HighScoreTransformList[i].gameObject);
+        }
+        m_HighScoreTransformList.Clear();
+
         for (int i = 0; i < m_HighScoreDataList.Count; ++i)
         {
-            Transform entry = Instantiate(m_HighScoreEntryTemplate, m_HighScoreTableRoot);
-            RectTransform entryRect = entry.GetComponent<RectTransform>();
+            m_FuckYouUnity.Add(Instantiate(m_HighScoreEntryTemplate, m_HighScoreTableRoot));
+            RectTransform entryRect = m_FuckYouUnity[m_FuckYouUnity.Count - 1].GetComponent<RectTransform>();
             entryRect.anchoredPosition = new Vector2(0.0f, -m_VerticalNameSpacing * i);
             int place = i + 1;
             string rankNum = place.ToString();
             rankNum += ".";
-            Transform rank = entry.Find("RankPos").transform;
+            Transform rank = m_FuckYouUnity[m_FuckYouUnity.Count - 1].Find("RankPos").transform;
             Text rankTxt = rank.GetComponent<Text>();
             rankTxt.text = rankNum;
 
@@ -616,15 +689,60 @@ public class HUDManager : MonoBehaviour
 
             entryRect.gameObject.SetActive(true);
 
-            Text nameTxt = entry.transform.Find("NamePos").transform.GetComponent<Text>();
+            Text nameTxt = m_FuckYouUnity[m_FuckYouUnity.Count - 1].transform.Find("NamePos").transform.GetComponent<Text>();
             nameTxt.text = m_HighScoreDataList[i].m_Name;
 
-            Text scoreTxt = entry.transform.Find("ScorePos").transform.GetComponent<Text>();
+            Text scoreTxt = m_FuckYouUnity[m_FuckYouUnity.Count - 1].transform.Find("ScorePos").transform.GetComponent<Text>();
             scoreTxt.text = m_HighScoreDataList[i].m_Score.ToString();
 
-            m_HighScoreTransformList.Add(entry);
+            m_HighScoreTransformList.Add(m_FuckYouUnity[m_FuckYouUnity.Count - 1]);
             m_HighScoreTransformList[m_HighScoreTransformList.Count - 1].gameObject.SetActive(false);
         }
+
+
+
+
+        //m_HighScoreTransformList = new List<Transform>();
+        //for (int i = 0; i < m_HighScoreDataList.Count; ++i)
+        //{
+        //    Transform entry = Instantiate(m_HighScoreEntryTemplate, m_HighScoreTableRoot);
+        //    RectTransform entryRect = entry.GetComponent<RectTransform>();
+        //    entryRect.anchoredPosition = new Vector2(0.0f, -m_VerticalNameSpacing * i);
+        //    int place = i + 1;
+        //    string rankNum = place.ToString();
+        //    rankNum += ".";
+        //    Transform rank = entry.Find("RankPos").transform;
+        //    Text rankTxt = rank.GetComponent<Text>();
+        //    rankTxt.text = rankNum;
+
+        //    // if we wan't st, nd, rd, th
+        //    //int place = i;
+        //    //++place;
+        //    //string rankNum = place.ToString();
+        //    //string rankNumSuffix = "";
+        //    //switch (i)
+        //    //{
+        //    //    case 0:     rankNumSuffix = "st";  break;
+        //    //    case 1:     rankNumSuffix = "nd";  break;
+        //    //    case 2:     rankNumSuffix = "rd";  break;
+        //    //    default:    rankNumSuffix = "th";  break;
+        //    //}
+        //    //rankNum += rankNumSuffix;
+        //    //Transform rank = entry.Find("RankPos").transform;
+        //    //Text rankTxt = rank.GetComponent<Text>();
+        //    //rankTxt.text = rankNum;
+
+        //    entryRect.gameObject.SetActive(true);
+
+        //    Text nameTxt = entry.transform.Find("NamePos").transform.GetComponent<Text>();
+        //    nameTxt.text = m_HighScoreDataList[i].m_Name;
+
+        //    Text scoreTxt = entry.transform.Find("ScorePos").transform.GetComponent<Text>();
+        //    scoreTxt.text = m_HighScoreDataList[i].m_Score.ToString();
+
+        //    m_HighScoreTransformList.Add(entry);
+        //    m_HighScoreTransformList[m_HighScoreTransformList.Count - 1].gameObject.SetActive(false);
+        //}
     }
 
 
@@ -830,25 +948,6 @@ public class HUDManager : MonoBehaviour
 
     private void GunBulletUpdate()
     {
-        //if(m_GunManScr.m_ActiveGunIdx == 0)
-        //{
-        //    m_GunBulletIcon.gameObject.GetComponent<Image>().color = new Color(m_ActiveGunColor.r, m_ActiveGunColor.g, m_ActiveGunColor.b, m_ActiveGunColor.a);
-        //}
-        //else
-        //{
-        //    m_GunBulletIcon.GetComponent<Image>().color = Color.white;
-        //}
-
-        //if (m_GunManScr.m_ActiveGunIdx == 1)
-        //{
-        //    m_GrenadeBulletIcon.gameObject.GetComponent<Image>().color = m_ActiveGunColor;
-        //}
-        //else
-        //{
-        //    m_GrenadeBulletIcon.GetComponent<Image>().color = Color.white;
-        //}
-
-
         if (m_GunManScr.m_arrGunTemplateScr[0].GetIsReloading == false)  // 0 == auto gun
         {
             m_GunBulletText.text = m_GunManScr.m_arrGunTemplateScr[0].GetCurrentMagSize.ToString();
@@ -956,11 +1055,15 @@ public class HUDManager : MonoBehaviour
 
     private void Update()
     {
-        PlayerUpdate();
-        GunBulletUpdate();
-        ScoreUpdate();
-        WavesUpdate();
-        LeftRightLightBlink();
+        if(m_bEnablePlayerHUD == true)
+        {
+            PlayerUpdate();
+            GunBulletUpdate();
+            ScoreUpdate();
+            WavesUpdate();
+            LeftRightLightBlink();
+        }
+
         DisplayHighscore();
     }
 }

@@ -23,6 +23,11 @@ public class GameLoader : MonoBehaviour
         {
             Instantiate(Resources.Load("Prefabs/ScoreManagerResource"), new Vector3(0.0f, 10.0f, 0.0f), Quaternion.identity);
         }
+        if (HUDManager.GetInstance == null)
+        {
+            GameObject obj = (GameObject)Instantiate(Resources.Load("Prefabs/HUDManagerResource"), new Vector3(0.0f, 10.0f, 0.0f), Quaternion.identity);
+            obj.GetComponent<HUDManager>().DisablePlayerHUD();
+        }
 
 
         // set first scene
