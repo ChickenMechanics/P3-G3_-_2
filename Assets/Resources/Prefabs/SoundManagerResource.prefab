@@ -101,7 +101,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Enemy Attack
     m_ESound: 9
-    m_SoundSource: {fileID: 2781284180193060761, guid: acdc1539cd546bb4b885050ff19e2aaf,
+    m_SoundSource: {fileID: 2959443492554904283, guid: 28c5cdad7231e924ebb7b4c8278cefc2,
       type: 3}
     m_PitchRange: 1.06
     m_PrevTime: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Player Dash
     m_ESound: 15
-    m_SoundSource: {fileID: 6143285025531003423, guid: 120d23f30f8adfa4fa65d8f21d7dcfeb,
+    m_SoundSource: {fileID: 8963905760273189286, guid: f4f8de47d50be69418f00835fb5e0ebd,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
@@ -155,13 +155,13 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Reloading 1 (overheating)
     m_ESound: 20
-    m_SoundSource: {fileID: 4451854704653569981, guid: 176a0bb43f27e2a4e91462a34e41bc2d,
+    m_SoundSource: {fileID: 2474315500035877583, guid: c3c952101ebe0914492429b1fc5f0ba8,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
   - AliasName: Wave Begin
     m_ESound: 21
-    m_SoundSource: {fileID: 3742697351235669496, guid: 240d15fec5887c545bdf52b872d075be,
+    m_SoundSource: {fileID: 9097541540987450403, guid: fb69b6cea2106d14eb177ee099d8072f,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
