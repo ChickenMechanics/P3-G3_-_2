@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
 
+// this file is a piece of shit and not worth anyones time
 public class HUDManager : MonoBehaviour
 {
     #region design vars
@@ -364,11 +365,11 @@ public class HUDManager : MonoBehaviour
         {
             m_HighScoreDataList.Clear();
             HighScoreData[] initScores = new HighScoreData[m_HighScoreMaxEntries];
-            initScores[0] = new HighScoreData { m_Name = "DED", m_Score = 1 };
-            initScores[1] = new HighScoreData { m_Name = "DED", m_Score = 1 };
-            initScores[2] = new HighScoreData { m_Name = "DED", m_Score = 1 };
-            initScores[3] = new HighScoreData { m_Name = "DED", m_Score = 1 };
-            initScores[4] = new HighScoreData { m_Name = "DED", m_Score = 1 };
+            initScores[0] = new HighScoreData { m_Name = "DED", m_Score = 666 };
+            initScores[1] = new HighScoreData { m_Name = "DED", m_Score = 666 };
+            initScores[2] = new HighScoreData { m_Name = "DED", m_Score = 666 };
+            initScores[3] = new HighScoreData { m_Name = "DED", m_Score = 666 };
+            initScores[4] = new HighScoreData { m_Name = "DED", m_Score = 666 };
             for (int i = 0; i < m_HighScoreMaxEntries; ++i)
             {
                 SaveHighScore(initScores[i]);
@@ -453,12 +454,6 @@ public class HUDManager : MonoBehaviour
         m_HighScoreHeaderScore.gameObject.SetActive(false);
         m_HighScoreHeaderNamePos.gameObject.SetActive(true);
         m_UserInputName = "";
-
-        for (int i = 0; i < 4; ++i)
-        {
-            m_IsCrack[i] = false;
-            m_PlayerCracks[i].gameObject.SetActive(false);
-        }
 
         if ((int)m_ScoreManScr.GetPlayerScore > m_HighScoreDataList[m_HighScoreDataList.Count - 1].m_Score)
         {
@@ -583,6 +578,12 @@ public class HUDManager : MonoBehaviour
                         Cursor.visible = true;
                         PlayerManager.GetInstance.GetIsAlive = true;
                         LevelManager.GetInstance.ChangeScene(LevelManager.EScene.MAIN);
+
+                        for (int i = 0; i < 4; ++i)
+                        {
+                            m_IsCrack[i] = false;
+                            m_PlayerCracks[i].gameObject.SetActive(false);
+                        }
                     }
 
                     break;

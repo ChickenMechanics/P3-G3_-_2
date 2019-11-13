@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour
     {
         if (m_CurrentSceneIdx == (int)scene)
         {
-            Debug.LogError("LevelManager::ChangeScene(): Next scene index and current scene index are the same. No scene change made!");
+            Debug.LogWarning("LevelManager::ChangeScene(): Next scene index and current scene index are the same. No scene change made!");
             return;
         }
 
