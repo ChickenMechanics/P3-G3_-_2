@@ -101,7 +101,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Enemy Attack
     m_ESound: 9
-    m_SoundSource: {fileID: 8868211641095559375, guid: bc68cd9b499b04d48be955e8ae3bdc56,
+    m_SoundSource: {fileID: 2781284180193060761, guid: acdc1539cd546bb4b885050ff19e2aaf,
       type: 3}
     m_PitchRange: 1.06
     m_PrevTime: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
     m_PrevTime: 0
   - AliasName: Wave Begin
     m_ESound: 21
-    m_SoundSource: {fileID: 4905445988753585914, guid: ffb1439e5669fed4abf55afe8a13cd5d,
+    m_SoundSource: {fileID: 3742697351235669496, guid: 240d15fec5887c545bdf52b872d075be,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
