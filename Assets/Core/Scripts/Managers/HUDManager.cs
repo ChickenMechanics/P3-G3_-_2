@@ -412,6 +412,7 @@ public class HUDManager : MonoBehaviour
     {
         if(m_bDisplayHighScore == true)
         {
+            // fuck it
             switch (m_HighScoreState)
             {
                 case EHighScoreState.ENTRY:
