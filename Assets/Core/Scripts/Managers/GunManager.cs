@@ -20,7 +20,8 @@ public class GunManager : MonoBehaviour
     public GameObject ActiveGun { private set; get; }
     private GunTemplate m_ActiveGunScr;
     private Transform m_tParent;
-    private int m_ActiveGunIdx;
+    [HideInInspector]
+    public int m_ActiveGunIdx;
     private int m_NowGunIdx;
     private int m_PrevGunIdx;
     private int m_NumOfGuns;

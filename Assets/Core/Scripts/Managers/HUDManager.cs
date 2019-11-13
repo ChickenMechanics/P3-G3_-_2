@@ -77,6 +77,9 @@ public class HUDManager : MonoBehaviour
     private Text m_Multiplier;
     private Text m_GunBulletText;
     private Text m_GrenadeBulletText;
+    private Transform m_GunBulletIcon;
+    private Transform m_GrenadeBulletIcon;
+    private Color m_ActiveGunColor;
     private float m_PrevHealth;
     private int m_ScoreComboDecimalPoints;
 
@@ -195,6 +198,9 @@ public class HUDManager : MonoBehaviour
         m_GunManScr = GameObject.Find("GunManager").GetComponent<GunManager>();
         m_GunBulletText = canvas.transform.Find("GunBullet").transform.Find("BulletCounterTxt").GetComponent<Text>();
         m_GrenadeBulletText = canvas.transform.Find("GunBullet").transform.Find("GrenadeCounterTxt").GetComponent<Text>();
+        m_GunBulletIcon = canvas.transform.Find("GunBullet").transform.Find("BulletIcon").transform;
+        m_GrenadeBulletIcon = canvas.transform.Find("GunBullet").transform.Find("GranadeIcon").transform;
+        m_ActiveGunColor = new Color(21, 198, 231, 255);
 
         // score / combo
         m_ScoreManScr = ScoreManager.GetInstance.GetComponent<ScoreManager>();
@@ -800,6 +806,25 @@ public class HUDManager : MonoBehaviour
 
     private void GunBulletUpdate()
     {
+        //if(m_GunManScr.m_ActiveGunIdx == 0)
+        //{
+        //    m_GunBulletIcon.gameObject.GetComponent<Image>().color = new Color(m_ActiveGunColor.r, m_ActiveGunColor.g, m_ActiveGunColor.b, m_ActiveGunColor.a);
+        //}
+        //else
+        //{
+        //    m_GunBulletIcon.GetComponent<Image>().color = Color.white;
+        //}
+
+        //if (m_GunManScr.m_ActiveGunIdx == 1)
+        //{
+        //    m_GrenadeBulletIcon.gameObject.GetComponent<Image>().color = m_ActiveGunColor;
+        //}
+        //else
+        //{
+        //    m_GrenadeBulletIcon.GetComponent<Image>().color = Color.white;
+        //}
+
+
         if (m_GunManScr.m_arrGunTemplateScr[0].GetIsReloading == false)  // 0 == auto gun
         {
             m_GunBulletText.text = m_GunManScr.m_arrGunTemplateScr[0].GetCurrentMagSize.ToString();
@@ -817,33 +842,6 @@ public class HUDManager : MonoBehaviour
         {
             m_GrenadeBulletText.text = (FlasherThing(m_MagEmptyBlinkTime) == false) ? "OUT" : " ";
         }
-
-
-
-        //bool isReloading = m_GunManScr.ActiveGun.GetComponent<GunTemplate>().GetIsReloading;
-        //if (isReloading == false)
-        //{
-        //    if(m_GunManScr.ActiveGun.GetComponent<GunTemplate>().m_GunName != "Grenade")
-        //    {
-        //        m_GunBulletText.text = m_GunManScr.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize.ToString();
-        //    }
-        //    else
-        //    {
-        //        m_GrenadeBulletText.text = m_GunManScr.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize.ToString();
-        //    }
-
-        //}
-        //else
-        //{
-        //    if (m_GunManScr.ActiveGun.GetComponent<GunTemplate>().m_GunName != "Grenade")
-        //    {
-        //        m_GunBulletText.text = (FlasherThing(m_MagEmptyBlinkTime) == false) ? "OUT" : " ";
-        //    }
-        //    else
-        //    {
-        //        m_GrenadeBulletText.text = (FlasherThing(m_MagEmptyBlinkTime) == false) ? "OUT" : " ";
-        //    }
-        //}
     }
 
 
