@@ -454,6 +454,12 @@ public class HUDManager : MonoBehaviour
         m_HighScoreHeaderNamePos.gameObject.SetActive(true);
         m_UserInputName = "";
 
+        for (int i = 0; i < 4; ++i)
+        {
+            m_IsCrack[i] = false;
+            m_PlayerCracks[i].gameObject.SetActive(false);
+        }
+
         if ((int)m_ScoreManScr.GetPlayerScore > m_HighScoreDataList[m_HighScoreDataList.Count - 1].m_Score)
         {
             m_HighScoreState = EHighScoreState.ENTRY;
