@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DefaultGun: 0
-  m_GunPrefab:
+  m_arrGunPrefab:
   - {fileID: 5146065321511459240, guid: 2a61f14fde1507f43ad7413628f5db50, type: 3}
   - {fileID: 5500291387917463751, guid: bd40d362f69c33941a97aed6b5126d89, type: 3}
+  m_arrGunTemplateScr: []

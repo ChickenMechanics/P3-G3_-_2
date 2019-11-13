@@ -10,17 +10,19 @@ public class GunManager : MonoBehaviour
     #region design vars
     [Header("Gun Locker")]
     public int m_DefaultGun;
-    public GameObject[] m_GunPrefab;
+    public GameObject[] m_arrGunPrefab;
     #endregion
 
-    private GameObject[] m_GunPrefabClone;
-    private GunTemplate[] m_GunTempScrs;
+    private GameObject[] m_arrGunPrefabClone;
+    [HideInInspector]
+    public GunTemplate[] m_arrGunTemplateScr;
     [HideInInspector]
     public GameObject ActiveGun { private set; get; }
     private GunTemplate m_ActiveGunScr;
     private Transform m_tParent;
     private int m_ActiveGunIdx;
-    private int m_CurrentGunIdx;
+    private int m_NowGunIdx;
+    private int m_PrevGunIdx;
     private int m_NumOfGuns;
 
     private GameObject m_RumbleObj;
@@ -43,10 +45,38 @@ public class GunManager : MonoBehaviour
         CreateGunInstances();
 
         m_ActiveGunIdx = m_DefaultGun;
-        m_CurrentGunIdx = m_ActiveGunIdx;
-        ActiveGun = m_GunPrefabClone[m_ActiveGunIdx];
-        ActiveGun.SetActive(true);
+        m_NowGunIdx = m_ActiveGunIdx;
+        m_PrevGunIdx = m_ActiveGunIdx;
+        ActiveGun = m_arrGunPrefabClone[m_ActiveGunIdx];
+        //ActiveGun.SetActive(true);
         m_ActiveGunScr = ActiveGun.GetComponent<GunTemplate>();
+
+        for (int i = 0; i < m_arrGunTemplateScr.Length; ++i)
+        {
+            if (i != m_ActiveGunIdx)
+            {
+                m_arrGunTemplateScr[i].DisableGun();
+            }
+        }
+
+        //m_NumOfGuns = -1;
+
+        //CreateGunInstances();
+
+        //m_ActiveGunIdx = m_DefaultGun;
+        //m_NowGunIdx = m_ActiveGunIdx;
+        //m_PrevGunIdx = m_ActiveGunIdx;
+        //ActiveGun = m_arrGunPrefabClone[m_ActiveGunIdx];
+        //ActiveGun.SetActive(true);
+        //m_ActiveGunScr = ActiveGun.GetComponent<GunTemplate>();
+
+        //for (int i = 0; i < m_arrGunTemplateScr.Length; ++i)
+        //{
+        //    if (i != m_ActiveGunIdx)
+        //    {
+        //        m_arrGunTemplateScr[i].DisableGun();
+        //    }
+        //}
     }
 
 
@@ -56,15 +86,16 @@ public class GunManager : MonoBehaviour
         {
             m_ActiveGunIdx = idx;
 
-            ActiveGun.SetActive(false);
+            m_arrGunTemplateScr[m_PrevGunIdx].DisableGun();
+            ActiveGun = m_arrGunPrefabClone[m_ActiveGunIdx];
+            m_arrGunTemplateScr[m_ActiveGunIdx].EnableGun();
 
-            ActiveGun = m_GunPrefabClone[m_ActiveGunIdx];
-            ActiveGun.SetActive(true);
+            //ActiveGun.SetActive(false);
+            //ActiveGun = m_arrGunPrefabClone[m_ActiveGunIdx];
+            //ActiveGun.SetActive(true);
 
             m_ActiveGunScr.m_IsPaused = true;
-
             m_ActiveGunScr = ActiveGun.GetComponent<GunTemplate>();
-
             m_ActiveGunScr.m_IsPaused = false;
         }
     }
@@ -99,8 +130,9 @@ public class GunManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                m_CurrentGunIdx = (m_CurrentGunIdx == 1) ? 0 : 1;
-                SetActiveGun(m_CurrentGunIdx);
+                m_PrevGunIdx = m_NowGunIdx;
+                m_NowGunIdx = (m_NowGunIdx == 1) ? 0 : 1;
+                SetActiveGun(m_NowGunIdx);
             }
 
             float wheelDir = Input.GetAxisRaw("Mouse ScrollWheel");
@@ -112,7 +144,8 @@ public class GunManager : MonoBehaviour
                     //if (m_CurrentGunIdx > m_NumOfGuns)
                     //    m_CurrentGunIdx = 0;
 
-                    m_CurrentGunIdx = 0;
+                    m_PrevGunIdx = m_NowGunIdx;
+                    m_NowGunIdx = 0;
                 }
                 else
                 {
@@ -120,10 +153,11 @@ public class GunManager : MonoBehaviour
                     //if (m_CurrentGunIdx < 0)
                     //    m_CurrentGunIdx = m_NumOfGuns;
 
-                    m_CurrentGunIdx = 1;
+                    m_PrevGunIdx = m_NowGunIdx;
+                    m_NowGunIdx = 1;
                 }
 
-                SetActiveGun(m_CurrentGunIdx);
+                SetActiveGun(m_NowGunIdx);
             }
         }
     }
@@ -131,25 +165,45 @@ public class GunManager : MonoBehaviour
 
     private void CreateGunInstances()
     {
-        int size = m_GunPrefab.Length;
-        m_GunPrefabClone = new GameObject[size];
-        m_GunTempScrs = new GunTemplate[size];
+        int size = m_arrGunPrefab.Length;
+        m_arrGunPrefabClone = new GameObject[size];
+        m_arrGunTemplateScr = new GunTemplate[size];
 
         m_tParent = PlayerManager.GetInstance.GetPlayer.transform.Find("Look");
-        for (int i = 0; i < m_GunPrefab.Length; ++i)
+        for (int i = 0; i < m_arrGunPrefab.Length; ++i)
         {
-            m_GunPrefabClone[i] = Instantiate(m_GunPrefab[i], Vector3.zero, Quaternion.identity);
-            m_GunPrefabClone[i].SetActive(false);
-            m_GunTempScrs[i] = m_GunPrefabClone[i].GetComponent<GunTemplate>();
+            m_arrGunPrefabClone[i] = Instantiate(m_arrGunPrefab[i], Vector3.zero, Quaternion.identity);
+            //m_arrGunPrefabClone[i].SetActive(false);
+            m_arrGunTemplateScr[i] = m_arrGunPrefabClone[i].GetComponent<GunTemplate>();
 
-            Transform tForm = m_GunPrefabClone[i].transform;
-            m_GunPrefabClone[i].transform.position = m_tParent.transform.position + tForm.position;
+            Transform tForm = m_arrGunPrefabClone[i].transform;
+            m_arrGunPrefabClone[i].transform.position = m_tParent.transform.position + tForm.position;
 
-            m_GunPrefabClone[i].transform.SetParent(m_tParent);
-            m_GunTempScrs[i].InitGun();
+            m_arrGunPrefabClone[i].transform.SetParent(m_tParent);
+            m_arrGunTemplateScr[i].InitGun();
 
             ++m_NumOfGuns;
         }
+
+        //int size = m_arrGunPrefab.Length;
+        //m_arrGunPrefabClone = new GameObject[size];
+        //m_arrGunTemplateScr = new GunTemplate[size];
+
+        //m_tParent = PlayerManager.GetInstance.GetPlayer.transform.Find("Look");
+        //for (int i = 0; i < m_arrGunPrefab.Length; ++i)
+        //{
+        //    m_arrGunPrefabClone[i] = Instantiate(m_arrGunPrefab[i], Vector3.zero, Quaternion.identity);
+        //    m_arrGunPrefabClone[i].SetActive(false);
+        //    m_arrGunTemplateScr[i] = m_arrGunPrefabClone[i].GetComponent<GunTemplate>();
+
+        //    Transform tForm = m_arrGunPrefabClone[i].transform;
+        //    m_arrGunPrefabClone[i].transform.position = m_tParent.transform.position + tForm.position;
+
+        //    m_arrGunPrefabClone[i].transform.SetParent(m_tParent);
+        //    m_arrGunTemplateScr[i].InitGun();
+
+        //    ++m_NumOfGuns;
+        //}
     }
 
 

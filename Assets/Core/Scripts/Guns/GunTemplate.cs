@@ -371,6 +371,18 @@ public class GunTemplate : MonoBehaviour
     }
 
 
+    public void DisableGun()
+    {
+        transform.position = m_SecretSpot;
+    }
+
+
+    public void EnableGun()
+    {
+        UpdateTransform();
+    }
+
+
     private void OnEnable()
     {
         UpdateTransform();
@@ -389,10 +401,13 @@ public class GunTemplate : MonoBehaviour
         Debug.DrawLine(m_RayOriginPoint.position, m_RayOriginPoint.position + (m_RayOriginPoint.forward * 100.0f), Color.green);
 #endif
 
-        if(m_IsPaused == false)
-        {
-            GunStateUpdate();
-            MagUpdate();
-        }
+        GunStateUpdate();
+        MagUpdate();
+
+        //if(m_IsPaused == false)
+        //{
+        //    GunStateUpdate();
+        //    MagUpdate();
+        //}
     }
 }

@@ -76,6 +76,7 @@ public class HUDManager : MonoBehaviour
     private Text m_ChainTxt;
     private Text m_Multiplier;
     private Text m_GunBulletText;
+    private Text m_GrenadeBulletText;
     private float m_PrevHealth;
     private int m_ScoreComboDecimalPoints;
 
@@ -193,6 +194,7 @@ public class HUDManager : MonoBehaviour
         // guns / bulllets
         m_GunManScr = GameObject.Find("GunManager").GetComponent<GunManager>();
         m_GunBulletText = canvas.transform.Find("GunBullet").transform.Find("BulletCounterTxt").GetComponent<Text>();
+        m_GrenadeBulletText = canvas.transform.Find("GunBullet").transform.Find("GrenadeCounterTxt").GetComponent<Text>();
 
         // score / combo
         m_ScoreManScr = ScoreManager.GetInstance.GetComponent<ScoreManager>();
@@ -798,15 +800,50 @@ public class HUDManager : MonoBehaviour
 
     private void GunBulletUpdate()
     {
-        bool isReloading = m_GunManScr.ActiveGun.GetComponent<GunTemplate>().GetIsReloading;
-        if (isReloading == false)
+        if (m_GunManScr.m_arrGunTemplateScr[0].GetIsReloading == false)  // 0 == auto gun
         {
-            m_GunBulletText.text = m_GunManScr.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize.ToString();
+            m_GunBulletText.text = m_GunManScr.m_arrGunTemplateScr[0].GetCurrentMagSize.ToString();
         }
         else
         {
             m_GunBulletText.text = (FlasherThing(m_MagEmptyBlinkTime) == false) ? "OUT" : " ";
         }
+
+        if (m_GunManScr.m_arrGunTemplateScr[1].GetIsReloading == false) // 1 == grenade gun
+        {
+            m_GrenadeBulletText.text = m_GunManScr.m_arrGunTemplateScr[1].GetCurrentMagSize.ToString();
+        }
+        else
+        {
+            m_GrenadeBulletText.text = (FlasherThing(m_MagEmptyBlinkTime) == false) ? "OUT" : " ";
+        }
+
+
+
+        //bool isReloading = m_GunManScr.ActiveGun.GetComponent<GunTemplate>().GetIsReloading;
+        //if (isReloading == false)
+        //{
+        //    if(m_GunManScr.ActiveGun.GetComponent<GunTemplate>().m_GunName != "Grenade")
+        //    {
+        //        m_GunBulletText.text = m_GunManScr.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize.ToString();
+        //    }
+        //    else
+        //    {
+        //        m_GrenadeBulletText.text = m_GunManScr.ActiveGun.GetComponent<GunTemplate>().GetCurrentMagSize.ToString();
+        //    }
+
+        //}
+        //else
+        //{
+        //    if (m_GunManScr.ActiveGun.GetComponent<GunTemplate>().m_GunName != "Grenade")
+        //    {
+        //        m_GunBulletText.text = (FlasherThing(m_MagEmptyBlinkTime) == false) ? "OUT" : " ";
+        //    }
+        //    else
+        //    {
+        //        m_GrenadeBulletText.text = (FlasherThing(m_MagEmptyBlinkTime) == false) ? "OUT" : " ";
+        //    }
+        //}
     }
 
 
