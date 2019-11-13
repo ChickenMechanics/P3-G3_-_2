@@ -149,12 +149,14 @@ public class HUDManager : MonoBehaviour
     private Color m_LeftRightHelmetLightBaseColor;
 
     // highscore
-    private enum EHighScoreState
+    [HideInInspector]
+    public enum EHighScoreState
     {
         ENTRY,
         TABLE
     }
-    private EHighScoreState m_HighScoreState;
+    [HideInInspector]
+    public EHighScoreState m_HighScoreState;
 
     [System.Serializable, HideInInspector]
     public class HighScoreData
@@ -227,10 +229,6 @@ public class HUDManager : MonoBehaviour
             m_LongestChain = canvas.transform.Find("ScoreCombo").transform.Find("EndScreen").transform.Find("LongestChainNum").GetComponent<Text>();
             m_LongestChain.text = " ";
         }
-
-        // waves
-        //m_WaveMeterImg = canvas.transform.Find("Waves").transform.Find("WaveSliderImage").GetComponent<Image>();
-        //m_WaveMeterImg.fillAmount = 1.0f;
 
         // randoms
         m_ScoreComboDecimalPoints = 2;
@@ -371,6 +369,32 @@ public class HUDManager : MonoBehaviour
         }
 
         CreateHighScoreEntryTable();
+    }
+
+
+    public void DisablePlayerHUD()
+    {
+        Transform canvas = transform.Find("HUDCanvas");
+
+        canvas.transform.Find("PlayerCracks").gameObject.SetActive(false);
+        canvas.transform.Find("Statics").gameObject.SetActive(false);
+        canvas.transform.Find("ScoreCombo").gameObject.SetActive(false);
+        canvas.transform.Find("GunBullet").gameObject.SetActive(false);
+        canvas.transform.Find("Waves").gameObject.SetActive(false);
+        canvas.transform.Find("PlayerStatus").gameObject.SetActive(false);
+    }
+
+
+    private void EnablePlayerHUD()
+    {
+        Transform canvas = transform.Find("HUDCanvas");
+
+        canvas.transform.Find("PlayerCracks").gameObject.SetActive(true);
+        canvas.transform.Find("Statics").gameObject.SetActive(true);
+        canvas.transform.Find("ScoreCombo").gameObject.SetActive(true);
+        canvas.transform.Find("GunBullet").gameObject.SetActive(true);
+        canvas.transform.Find("Waves").gameObject.SetActive(true);
+        canvas.transform.Find("PlayerStatus").gameObject.SetActive(true);
     }
 
 
