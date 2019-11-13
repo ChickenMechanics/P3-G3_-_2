@@ -44,22 +44,22 @@ public class MainMenuGUI : MonoBehaviour
 
 
 
-        m_HighScoreTableRoot = transform.Find("HighScoreButton").gameObject.transform.Find("HighScoreTable").transform;
-        m_HighScoreTableRoot.gameObject.SetActive(false);
-        m_HighScoreEntryTemplate = m_HighScoreTableRoot.Find("NameEntryTemplate").transform;
-        m_HighScoreHeaderHeader = m_HighScoreTableRoot.Find("Header").transform;
-        m_HighScoreHeaderName = m_HighScoreTableRoot.Find("Name").transform;
-        m_HighScoreHeaderScore = m_HighScoreTableRoot.Find("Score").transform;
+        //m_HighScoreTableRoot = transform.Find("HighScoreButton").gameObject.transform.Find("HighScoreTable").transform;
+        //m_HighScoreTableRoot.gameObject.SetActive(false);
+        //m_HighScoreEntryTemplate = m_HighScoreTableRoot.Find("NameEntryTemplate").transform;
+        //m_HighScoreHeaderHeader = m_HighScoreTableRoot.Find("Header").transform;
+        //m_HighScoreHeaderName = m_HighScoreTableRoot.Find("Name").transform;
+        //m_HighScoreHeaderScore = m_HighScoreTableRoot.Find("Score").transform;
 
-        m_HighScoreTableRoot.gameObject.SetActive(false);
-        m_HighScoreEntryTemplate.gameObject.SetActive(false);
+        //m_HighScoreTableRoot.gameObject.SetActive(false);
+        //m_HighScoreEntryTemplate.gameObject.SetActive(false);
 
-        m_HighScoreTransformList = new List<Transform>();
-        m_HighScoreDataList = new List<HighScoreData>();
-        LoadHighScore();
+        //m_HighScoreTransformList = new List<Transform>();
+        //m_HighScoreDataList = new List<HighScoreData>();
+        //LoadHighScore();
 
-        m_VerticalNameSpacing = 55.0f;
-        CreateHighScoreEntryTable();
+        //m_VerticalNameSpacing = 55.0f;
+        //CreateHighScoreEntryTable();
     }
 
 
@@ -95,65 +95,65 @@ public class MainMenuGUI : MonoBehaviour
             m_CreditsTransform.gameObject.SetActive(false);
         }
 
-        if (m_HighScoreTransform.gameObject.activeInHierarchy == false)
-        {
-            m_HighScoreTableRoot.gameObject.SetActive(true);
-        }
-        else
-        {
-            m_HighScoreTableRoot.gameObject.SetActive(false);
-        }
+        //if (m_HighScoreTransform.gameObject.activeInHierarchy == false)
+        //{
+        //    m_HighScoreTableRoot.gameObject.SetActive(true);
+        //}
+        //else
+        //{
+        //    m_HighScoreTableRoot.gameObject.SetActive(false);
+        //}
 
 
 
-        {
-            if (m_HighScoreHeaderHeader.gameObject.activeInHierarchy == false)
-            {
-                m_HighScoreHeaderHeader.gameObject.SetActive(true);
-            }
-            if (m_HighScoreHeaderName.gameObject.activeInHierarchy == false)
-            {
-                m_HighScoreHeaderName.gameObject.SetActive(true);
-            }
-            if (m_HighScoreHeaderScore.gameObject.activeInHierarchy == false)
-            {
-                m_HighScoreHeaderScore.gameObject.SetActive(true);
-            }
+        //{
+        //    if (m_HighScoreHeaderHeader.gameObject.activeInHierarchy == false)
+        //    {
+        //        m_HighScoreHeaderHeader.gameObject.SetActive(true);
+        //    }
+        //    if (m_HighScoreHeaderName.gameObject.activeInHierarchy == false)
+        //    {
+        //        m_HighScoreHeaderName.gameObject.SetActive(true);
+        //    }
+        //    if (m_HighScoreHeaderScore.gameObject.activeInHierarchy == false)
+        //    {
+        //        m_HighScoreHeaderScore.gameObject.SetActive(true);
+        //    }
 
-            for (int i = 0; i < m_HighScoreTransformList.Count; ++i)
-            {
-                if (m_HighScoreTransformList[i].gameObject.activeInHierarchy == false)
-                {
-                    m_HighScoreTransformList[i].gameObject.SetActive(true);
-                }
-            }
-        }
+        //    for (int i = 0; i < m_HighScoreTransformList.Count; ++i)
+        //    {
+        //        if (m_HighScoreTransformList[i].gameObject.activeInHierarchy == false)
+        //        {
+        //            m_HighScoreTransformList[i].gameObject.SetActive(true);
+        //        }
+        //    }
+        //}
     }
 
 
     public void HowToPlay()
     {
-        {
-            if (m_HighScoreHeaderHeader.gameObject.activeInHierarchy == true)
-            {
-                m_HighScoreHeaderHeader.gameObject.SetActive(false);
-            }
-            if (m_HighScoreHeaderName.gameObject.activeInHierarchy == true)
-            {
-                m_HighScoreHeaderName.gameObject.SetActive(false);
-            }
-            if (m_HighScoreHeaderScore.gameObject.activeInHierarchy == true)
-            {
-                m_HighScoreHeaderScore.gameObject.SetActive(false);
-            }
-        }
+        //{
+        //    if (m_HighScoreHeaderHeader.gameObject.activeInHierarchy == true)
+        //    {
+        //        m_HighScoreHeaderHeader.gameObject.SetActive(false);
+        //    }
+        //    if (m_HighScoreHeaderName.gameObject.activeInHierarchy == true)
+        //    {
+        //        m_HighScoreHeaderName.gameObject.SetActive(false);
+        //    }
+        //    if (m_HighScoreHeaderScore.gameObject.activeInHierarchy == true)
+        //    {
+        //        m_HighScoreHeaderScore.gameObject.SetActive(false);
+        //    }
+        //}
 
         ButtonSound();
 
-        if (m_HighScoreTransform.gameObject.activeInHierarchy == true)
-        {
-            m_HighScoreTransform.gameObject.SetActive(false);
-        }
+        //if (m_HighScoreTransform.gameObject.activeInHierarchy == true)
+        //{
+        //    m_HighScoreTransform.gameObject.SetActive(false);
+        //}
         if (m_CreditsTransform.gameObject.activeInHierarchy == true)
         {
             m_CreditsTransform.gameObject.SetActive(false);
@@ -172,27 +172,27 @@ public class MainMenuGUI : MonoBehaviour
 
     public void Credits()
     {
-        {
-            if (m_HighScoreHeaderHeader.gameObject.activeInHierarchy == true)
-            {
-                m_HighScoreHeaderHeader.gameObject.SetActive(false);
-            }
-            if (m_HighScoreHeaderName.gameObject.activeInHierarchy == true)
-            {
-                m_HighScoreHeaderName.gameObject.SetActive(false);
-            }
-            if (m_HighScoreHeaderScore.gameObject.activeInHierarchy == true)
-            {
-                m_HighScoreHeaderScore.gameObject.SetActive(false);
-            }
-        }
+        //{
+        //    if (m_HighScoreHeaderHeader.gameObject.activeInHierarchy == true)
+        //    {
+        //        m_HighScoreHeaderHeader.gameObject.SetActive(false);
+        //    }
+        //    if (m_HighScoreHeaderName.gameObject.activeInHierarchy == true)
+        //    {
+        //        m_HighScoreHeaderName.gameObject.SetActive(false);
+        //    }
+        //    if (m_HighScoreHeaderScore.gameObject.activeInHierarchy == true)
+        //    {
+        //        m_HighScoreHeaderScore.gameObject.SetActive(false);
+        //    }
+        //}
 
         ButtonSound();
 
-        if (m_HighScoreTransform.gameObject.activeInHierarchy == true)
-        {
-            m_HighScoreTransform.gameObject.SetActive(false);
-        }
+        //if (m_HighScoreTransform.gameObject.activeInHierarchy == true)
+        //{
+        //    m_HighScoreTransform.gameObject.SetActive(false);
+        //}
         if (m_HowToPlayTransform.gameObject.activeInHierarchy == true)
         {
             m_HowToPlayTransform.gameObject.SetActive(false);
