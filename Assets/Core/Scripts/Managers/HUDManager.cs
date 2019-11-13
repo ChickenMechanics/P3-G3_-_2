@@ -331,46 +331,46 @@ public class HUDManager : MonoBehaviour
             m_IsCrack[i] = false;
         }
 
-        // highscore
-        m_HighScoreState = EHighScoreState.ENTRY;
-        m_bDisplayHighScore = false;
-        m_UserInputName = "";
+        //// highscore
+        //m_HighScoreState = EHighScoreState.ENTRY;
+        //m_bDisplayHighScore = false;
+        //m_UserInputName = "";
 
-        m_HighScoreTableRoot = canvas.transform.Find("HighScoreTable").transform;
-        m_HighScoreBG = m_HighScoreTableRoot.Find("BG").transform;
-        m_HighScoreHeaderHeader = m_HighScoreTableRoot.Find("Header").transform;
-        m_HighScoreHeaderName = m_HighScoreTableRoot.Find("Name").transform;
-        m_HighScoreHeaderScore = m_HighScoreTableRoot.Find("Score").transform;
-        m_HighScoreNewPlayerEntry = m_HighScoreTableRoot.Find("NewPlayerEntry").transform;
-        m_HighScoreHeaderNamePos = m_HighScoreNewPlayerEntry.Find("NameHeaderPos").transform; 
-        m_HighScoreNewPlayerEntryName = m_HighScoreNewPlayerEntry.Find("NameEntryPos").transform;
-        m_HighScoreEntryTemplate = m_HighScoreTableRoot.Find("NameEntryTemplate").transform;
+        //m_HighScoreTableRoot = canvas.transform.Find("HighScoreTable").transform;
+        //m_HighScoreBG = m_HighScoreTableRoot.Find("BG").transform;
+        //m_HighScoreHeaderHeader = m_HighScoreTableRoot.Find("Header").transform;
+        //m_HighScoreHeaderName = m_HighScoreTableRoot.Find("Name").transform;
+        //m_HighScoreHeaderScore = m_HighScoreTableRoot.Find("Score").transform;
+        //m_HighScoreNewPlayerEntry = m_HighScoreTableRoot.Find("NewPlayerEntry").transform;
+        //m_HighScoreHeaderNamePos = m_HighScoreNewPlayerEntry.Find("NameHeaderPos").transform; 
+        //m_HighScoreNewPlayerEntryName = m_HighScoreNewPlayerEntry.Find("NameEntryPos").transform;
+        //m_HighScoreEntryTemplate = m_HighScoreTableRoot.Find("NameEntryTemplate").transform;
 
-        m_HighScoreBG.gameObject.SetActive(false);
-        m_HighScoreTableRoot.gameObject.SetActive(false);
-        m_HighScoreNewPlayerEntry.gameObject.SetActive(false);
-        m_HighScoreEntryTemplate.gameObject.SetActive(false);
+        //m_HighScoreBG.gameObject.SetActive(false);
+        //m_HighScoreTableRoot.gameObject.SetActive(false);
+        //m_HighScoreNewPlayerEntry.gameObject.SetActive(false);
+        //m_HighScoreEntryTemplate.gameObject.SetActive(false);
 
-        m_HighScoreDataList = new List<HighScoreData>();
-        LoadHighScore();
+        //m_HighScoreDataList = new List<HighScoreData>();
+        //LoadHighScore();
 
-        m_HighScoreMaxEntries = 5;
-        if (m_HighScoreDataList.Count != m_HighScoreMaxEntries)
-        {
-            m_HighScoreDataList.Clear();
-            HighScoreData[] initScores = new HighScoreData[m_HighScoreMaxEntries];
-            initScores[0] = new HighScoreData { m_Name = "AAA", m_Score = 5 };
-            initScores[1] = new HighScoreData { m_Name = "BBB", m_Score = 4 };
-            initScores[2] = new HighScoreData { m_Name = "CCC", m_Score = 3 };
-            initScores[3] = new HighScoreData { m_Name = "DDD", m_Score = 2 };
-            initScores[4] = new HighScoreData { m_Name = "EEE", m_Score = 1 };
-            for (int i = 0; i < m_HighScoreMaxEntries; ++i)
-            {
-                SaveHighScore(initScores[i]);
-            }
-        }
+        //m_HighScoreMaxEntries = 5;
+        //if (m_HighScoreDataList.Count != m_HighScoreMaxEntries)
+        //{
+        //    m_HighScoreDataList.Clear();
+        //    HighScoreData[] initScores = new HighScoreData[m_HighScoreMaxEntries];
+        //    initScores[0] = new HighScoreData { m_Name = "", m_Score = 5 };
+        //    initScores[1] = new HighScoreData { m_Name = "", m_Score = 4 };
+        //    initScores[2] = new HighScoreData { m_Name = "", m_Score = 3 };
+        //    initScores[3] = new HighScoreData { m_Name = "", m_Score = 2 };
+        //    initScores[4] = new HighScoreData { m_Name = "", m_Score = 1 };
+        //    for (int i = 0; i < m_HighScoreMaxEntries; ++i)
+        //    {
+        //        SaveHighScore(initScores[i]);
+        //    }
+        //}
 
-        CreateHighScoreEntryTable();
+        //CreateHighScoreEntryTable();
     }
 
 

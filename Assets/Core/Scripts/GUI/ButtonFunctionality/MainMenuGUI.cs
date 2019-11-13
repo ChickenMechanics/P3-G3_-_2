@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,9 @@ public class MainMenuGUI : MonoBehaviour
     private List<HighScoreData> m_HighScoreDataList;
     private Transform m_HighScoreTableRoot;
     private Transform m_HighScoreEntryTemplate;
+    private Transform m_HighScoreHeaderHeader;
+    private Transform m_HighScoreHeaderName;
+    private Transform m_HighScoreHeaderScore;
     private float m_VerticalNameSpacing;
 
     private Transform m_HighScoreTransform;
@@ -40,14 +44,22 @@ public class MainMenuGUI : MonoBehaviour
 
 
 
-        //m_HighScoreTableRoot = transform.Find("HighScoreButton").gameObject.transform.Find("HighScoreTable").transform;
-        //m_HighScoreTableRoot.gameObject.SetActive(false);
-        //m_HighScoreEntryTemplate = m_HighScoreTableRoot.Find("NameEntryTemplate").transform;
+        m_HighScoreTableRoot = transform.Find("HighScoreButton").gameObject.transform.Find("HighScoreTable").transform;
+        m_HighScoreTableRoot.gameObject.SetActive(false);
+        m_HighScoreEntryTemplate = m_HighScoreTableRoot.Find("NameEntryTemplate").transform;
+        m_HighScoreHeaderHeader = m_HighScoreTableRoot.Find("Header").transform;
+        m_HighScoreHeaderName = m_HighScoreTableRoot.Find("Name").transform;
+        m_HighScoreHeaderScore = m_HighScoreTableRoot.Find("Score").transform;
 
-        //m_HighScoreDataList = new List<HighScoreData>();
-        //m_VerticalNameSpacing = 55.0f;
-        //LoadHighScore();
-        //CreateHighScoreEntryTable();
+        m_HighScoreTableRoot.gameObject.SetActive(false);
+        m_HighScoreEntryTemplate.gameObject.SetActive(false);
+
+        m_HighScoreTransformList = new List<Transform>();
+        m_HighScoreDataList = new List<HighScoreData>();
+        LoadHighScore();
+
+        m_VerticalNameSpacing = 55.0f;
+        CreateHighScoreEntryTable();
     }
 
 
@@ -72,32 +84,70 @@ public class MainMenuGUI : MonoBehaviour
 
     public void HighScore()
     {
-        //ButtonSound();
+        ButtonSound();
 
-        //if (m_HowToPlayTransform.gameObject.activeInHierarchy == true)
-        //{
-        //    m_HowToPlayTransform.gameObject.SetActive(false);
-        //}
-        //if (m_CreditsTransform.gameObject.activeInHierarchy == true)
-        //{
-        //    m_CreditsTransform.gameObject.SetActive(false);
-        //}
+        if (m_HowToPlayTransform.gameObject.activeInHierarchy == true)
+        {
+            m_HowToPlayTransform.gameObject.SetActive(false);
+        }
+        if (m_CreditsTransform.gameObject.activeInHierarchy == true)
+        {
+            m_CreditsTransform.gameObject.SetActive(false);
+        }
 
-        //if (m_HighScoreTransform.gameObject.activeInHierarchy == false)
-        //{
-        //    m_HighScoreTableRoot.gameObject.SetActive(true);
-        //    //m_HighScoreTransform.gameObject.SetActive(true);
-        //}
-        //else
-        //{
-        //    m_HighScoreTableRoot.gameObject.SetActive(false);
-        //    //m_HighScoreTransform.gameObject.SetActive(false);
-        //}
+        if (m_HighScoreTransform.gameObject.activeInHierarchy == false)
+        {
+            m_HighScoreTableRoot.gameObject.SetActive(true);
+        }
+        else
+        {
+            m_HighScoreTableRoot.gameObject.SetActive(false);
+        }
+
+
+
+        {
+            if (m_HighScoreHeaderHeader.gameObject.activeInHierarchy == false)
+            {
+                m_HighScoreHeaderHeader.gameObject.SetActive(true);
+            }
+            if (m_HighScoreHeaderName.gameObject.activeInHierarchy == false)
+            {
+                m_HighScoreHeaderName.gameObject.SetActive(true);
+            }
+            if (m_HighScoreHeaderScore.gameObject.activeInHierarchy == false)
+            {
+                m_HighScoreHeaderScore.gameObject.SetActive(true);
+            }
+
+            for (int i = 0; i < m_HighScoreTransformList.Count; ++i)
+            {
+                if (m_HighScoreTransformList[i].gameObject.activeInHierarchy == false)
+                {
+                    m_HighScoreTransformList[i].gameObject.SetActive(true);
+                }
+            }
+        }
     }
 
 
     public void HowToPlay()
     {
+        {
+            if (m_HighScoreHeaderHeader.gameObject.activeInHierarchy == true)
+            {
+                m_HighScoreHeaderHeader.gameObject.SetActive(false);
+            }
+            if (m_HighScoreHeaderName.gameObject.activeInHierarchy == true)
+            {
+                m_HighScoreHeaderName.gameObject.SetActive(false);
+            }
+            if (m_HighScoreHeaderScore.gameObject.activeInHierarchy == true)
+            {
+                m_HighScoreHeaderScore.gameObject.SetActive(false);
+            }
+        }
+
         ButtonSound();
 
         if (m_HighScoreTransform.gameObject.activeInHierarchy == true)
@@ -122,6 +172,21 @@ public class MainMenuGUI : MonoBehaviour
 
     public void Credits()
     {
+        {
+            if (m_HighScoreHeaderHeader.gameObject.activeInHierarchy == true)
+            {
+                m_HighScoreHeaderHeader.gameObject.SetActive(false);
+            }
+            if (m_HighScoreHeaderName.gameObject.activeInHierarchy == true)
+            {
+                m_HighScoreHeaderName.gameObject.SetActive(false);
+            }
+            if (m_HighScoreHeaderScore.gameObject.activeInHierarchy == true)
+            {
+                m_HighScoreHeaderScore.gameObject.SetActive(false);
+            }
+        }
+
         ButtonSound();
 
         if (m_HighScoreTransform.gameObject.activeInHierarchy == true)
@@ -160,6 +225,7 @@ public class MainMenuGUI : MonoBehaviour
             FileStream file = File.Open(Application.persistentDataPath + "/SavedHighScores.grr", FileMode.Open);
             m_HighScoreDataList.Clear();
             m_HighScoreDataList = (List<HighScoreData>)bf.Deserialize(file);
+
             file.Close();
         }
     }
@@ -167,7 +233,7 @@ public class MainMenuGUI : MonoBehaviour
 
     private void CreateHighScoreEntryTable()
     {
-        m_HighScoreTransformList = new List<Transform>();
+        //m_HighScoreTransformList = new List<Transform>();
         for (int i = 0; i < m_HighScoreDataList.Count; ++i)
         {
             Transform entry = Instantiate(m_HighScoreEntryTemplate, m_HighScoreTableRoot);
