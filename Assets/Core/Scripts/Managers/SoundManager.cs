@@ -243,7 +243,7 @@ public class SoundManager : MonoBehaviour
             AudioSource source = go.AddComponent<AudioSource>();
             source.clip = (AudioClip)Resources.Load(path + names[i]);
             source.playOnAwake = false;
-            source.volume = 0.25f;
+            source.volume = 0.3f;
             source.loop = false;
             source.maxDistance = 100.0f;
             source.rolloffMode = AudioRolloffMode.Linear;
