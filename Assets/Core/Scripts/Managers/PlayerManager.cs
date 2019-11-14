@@ -36,6 +36,9 @@ public class PlayerManager : MonoBehaviour
     private float m_ShakePrevHealth;
     private float m_ShakeStartTime;
 
+    // stupid hud callback thing
+    private bool m_bEnableHUD;
+
 
     //----------------------------------------------------------------------------------------------------
 
@@ -69,8 +72,6 @@ public class PlayerManager : MonoBehaviour
         GetPlayerLookScr = GetPlayer.GetComponent<PlayerLook>();
         GetPlayerMoveScr = GetPlayer.GetComponent<PlayerMove>();
 
-        //GetPlayerLookScr.transform.rotation.
-
         GetBaseHealth = m_BaseHealth;
         GetCurrentHealth = GetBaseHealth;
 
@@ -79,6 +80,8 @@ public class PlayerManager : MonoBehaviour
 
         m_ShakePrevHealth = GetCurrentHealth;
         m_ShakeStartTime = Time.time;
+
+        m_bEnableHUD = true;
     }
 
 
@@ -129,6 +132,12 @@ public class PlayerManager : MonoBehaviour
         if (GetIsAlive == false)
         {
             StopCoroutine("PlayerScreenShake");
+        }
+
+        if(m_bEnableHUD == true)
+        {
+            m_bEnableHUD = false;
+            HUDManager.GetInstance.EnablePlayerHUD();
         }
     }
 }

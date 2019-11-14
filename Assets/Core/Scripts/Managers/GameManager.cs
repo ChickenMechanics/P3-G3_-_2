@@ -41,17 +41,18 @@ public class GameManager : MonoBehaviour, IController
     {
         if (PlayerManager.GetInstance != null)
         {
-//#if DEBUG
+            //#if DEBUG
             if (Input.GetKeyDown(KeyCode.Delete))
             {
                 PlayerManager.GetInstance.GetIsAlive = false;
-                HUDManager.GetInstance.HighScoreEnable();
+                HUDManager.GetInstance.HighScoreArenaEnable();
             }
-//#endif
+            //#endif
 
-            if (PlayerManager.GetInstance.GetIsAlive == false)
+            if (PlayerManager.GetInstance.GetIsAlive == false &&
+                HUDManager.GetInstance.m_bDisplayHighScore == false)
             {
-                HUDManager.GetInstance.HighScoreEnable();
+                HUDManager.GetInstance.HighScoreArenaEnable();
             }
 
             if (Input.GetKeyDown(KeyCode.G) &&

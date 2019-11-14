@@ -153,7 +153,7 @@ MonoBehaviour:
       type: 3}
     m_PitchRange: 1.07
     m_PrevTime: 0
-  - AliasName: Reloading 1 (overheating)
+  - AliasName: Reloading 2 (overheating)
     m_ESound: 20
     m_SoundSource: {fileID: 2474315500035877583, guid: c3c952101ebe0914492429b1fc5f0ba8,
       type: 3}
@@ -168,6 +168,18 @@ MonoBehaviour:
   - AliasName: Main Button Click
     m_ESound: 22
     m_SoundSource: {fileID: 201387992037937193, guid: 9f3d35b9b55a72b4d886e03645665310,
+      type: 3}
+    m_PitchRange: 1
+    m_PrevTime: 0
+  - AliasName: Player Dash Recharge
+    m_ESound: 23
+    m_SoundSource: {fileID: 4261547128363043614, guid: d250f51ff8d1e574086437e7ee9d1dae,
+      type: 3}
+    m_PitchRange: 1
+    m_PrevTime: 0
+  - AliasName: Gun Ads
+    m_ESound: 24
+    m_SoundSource: {fileID: 2778572162932178992, guid: 0ac3dc5f13be4324f86993e64337e16b,
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0

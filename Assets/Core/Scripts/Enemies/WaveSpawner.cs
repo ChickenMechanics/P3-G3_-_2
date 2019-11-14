@@ -5,12 +5,9 @@ using System.Linq;
 using UnityEngine;
 using Random = System.Random;
 
-[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-[SuppressMessage("ReSharper", "UnassignedField.Global")]
-[SuppressMessage("ReSharper", "UnusedMember.Global")]
 public class WaveSpawner : MonoBehaviour
 {
-    public GameObject m_SpawnEffect;
+    public GameObject spawnEffect;
 
     public enum SpawnState
     {
@@ -55,7 +52,7 @@ public class WaveSpawner : MonoBehaviour
     public float waveTextX;
     public float waveTextY;
     public float showWaveNumberTime;
-    public int TextWidth;
+    public int textWidth;
 
     private Transform m_Player;
     private int m_CurrentWaveIndex;
@@ -86,7 +83,7 @@ public class WaveSpawner : MonoBehaviour
         m_CurrentWaveDuration += Time.deltaTime;
     }
 
-    void OnGUI()
+    private void OnGUI()
     {
         if (m_SpawnState == SpawnState.SPAWN && m_CurrentSubWaveIndex == 0)
             m_BeginShowingWaveNumber = true;
@@ -95,15 +92,15 @@ public class WaveSpawner : MonoBehaviour
 
         if (m_TempShowWaveNumberTime > 0)
         {
-            var rect = new Rect(waveTextX, waveTextY, Screen.width, TextWidth);
+            var rect = new Rect(waveTextX, waveTextY, Screen.width, textWidth);
 
-            var text = $"Wave: {m_CurrentWaveIndex + 1:0.}";
+            var text = $"Wave: {m_CurrentWaveIndex+1 :0.}";
 
             var style = new GUIStyle
             {
                 alignment = TextAnchor.UpperLeft,
-                fontSize = TextWidth,
-                normal = { textColor = new Color(1.0f, 1.0f, 1.0f, 1.0f) }
+                fontSize = textWidth,
+                normal = { textColor = Color.white }
             };
 
             GUI.Label(rect, text, style);
@@ -251,7 +248,7 @@ public class WaveSpawner : MonoBehaviour
 
             if (distanceToPlayer.magnitude < safeSpawnDistance) continue;
 
-            GameObject go = Instantiate(m_SpawnEffect, spawnPoint.position, Quaternion.identity);
+            var go = Instantiate(spawnEffect, spawnPoint.position, Quaternion.identity);
             Destroy(go, 0.75f);
 
             Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
