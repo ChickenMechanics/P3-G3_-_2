@@ -10,7 +10,7 @@ using Random = System.Random;
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 public class WaveSpawner : MonoBehaviour
 {
-    public GameObject m_SpawnEffect;
+    public GameObject spawnEffect;
 
     public enum SpawnState
     {
@@ -251,7 +251,7 @@ public class WaveSpawner : MonoBehaviour
 
             if (distanceToPlayer.magnitude < safeSpawnDistance) continue;
 
-            GameObject go = Instantiate(m_SpawnEffect, spawnPoint.position, Quaternion.identity);
+            var go = Instantiate(spawnEffect, spawnPoint.position, Quaternion.identity);
             Destroy(go, 0.75f);
 
             Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
