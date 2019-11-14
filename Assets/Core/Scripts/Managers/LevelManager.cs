@@ -56,7 +56,9 @@ public class LevelManager : MonoBehaviour
                 SoundManager.GetInstance.DestroySoundClip("Combat Music");
                 SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_MAIN_MENU, Vector3.zero);
 
+                // ljudnisse
                 //SoundManager.GetInstance.StopRandomShit();
+                //
             }
         }
         if (m_CurrentSceneIdx == (int)EScene.ARENA)
@@ -64,7 +66,10 @@ public class LevelManager : MonoBehaviour
             SoundManager.GetInstance.DestroySoundClip("Main Menu Music 1");
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MUSIC_COMBAT, Vector3.zero);
 
+            // ljudnisse
             //SoundManager.GetInstance.PlayRandomShit();
+            //SoundManager.GetInstance.WriteBitrateFile();
+            //
         }
     }
 

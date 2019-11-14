@@ -1,0 +1,5 @@
+Bitrates
+
+1. CML 48 kbps
+2. CML 8 kbps
+3. CML 32 kbps

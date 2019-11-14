@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 
 public class SoundManager : MonoBehaviour
@@ -219,12 +220,15 @@ public class SoundManager : MonoBehaviour
 
     private List<GameObject> m_BitrateObjs;
     private AudioSource m_BitrateSources;
+    private List<string> m_BitNames;
+    string m_Path = "Prefabs/BitrateExperiment/";
+    private int m_BitrateNum;
     private int m_NowBitrateIdx;
 
     private void DoSomethingAudio()
     {
         m_BitrateObjs = new List<GameObject>();
-        List<string> names = new List<string>
+        m_BitNames = new List<string>
         {
             "CML 8 kbps",
             "CML 32 kbps",
@@ -233,15 +237,15 @@ public class SoundManager : MonoBehaviour
             "CML 320 kbps"
         };
 
-        string path = "Prefabs/BitrateExperiment/";
-        for (int i = 0; i < names.Count; ++i)
+        
+        for (int i = 0; i < m_BitNames.Count; ++i)
         {
             GameObject go = new GameObject("tunes");
             m_BitrateObjs.Add(go);
             go.transform.position = Vector3.zero;
             go.transform.parent = m_AudioFolder.transform;
             AudioSource source = go.AddComponent<AudioSource>();
-            source.clip = (AudioClip)Resources.Load(path + names[i]);
+            source.clip = (AudioClip)Resources.Load(m_Path + m_BitNames[i]);
             source.playOnAwake = false;
             source.volume = 0.3f;
             source.loop = false;
@@ -249,6 +253,8 @@ public class SoundManager : MonoBehaviour
             source.rolloffMode = AudioRolloffMode.Linear;
             source.dopplerLevel = 0.0f;
         }
+
+        m_BitrateNum = 0;
     }
 
     public void PlayRandomShit()
@@ -262,6 +268,22 @@ public class SoundManager : MonoBehaviour
     public void StopRandomShit()
     {
         m_BitrateObjs[m_NowBitrateIdx].GetComponent<AudioSource>().Stop();
+    }
+
+
+    public void WriteBitrateFile()
+    {
+        ++m_BitrateNum;
+        string path = Application.dataPath + "/Bitrates.txt";
+        if(File.Exists(path) == false)
+        {
+            File.WriteAllText(path, "Bitrates\n\n" );
+        }
+
+        if(m_BitNames != null)
+        {
+            File.AppendAllText(path, m_BitrateNum.ToString() + ". " + m_BitNames[m_NowBitrateIdx] + "\n");
+        }
     }
 
 
