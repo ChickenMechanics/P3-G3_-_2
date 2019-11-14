@@ -899,15 +899,11 @@ public class HUDManager : MonoBehaviour
         {
             if (m_NowDashCoolDownTime < m_DashCoolDownTimeTarget)
             {
-                if(m_NowDashCoolDownTime == 0.0f)
-                {
-                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_DASH_RECHARGE, PlayerManager.GetInstance.GetPlayer.transform.position);
-                }
-
                 m_NowDashCoolDownTime += Time.deltaTime;
                 if (m_NowDashCoolDownTime > m_DashCoolDownTimeTarget)
                 {
                     m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
+                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_DASH_RECHARGE, PlayerManager.GetInstance.GetPlayer.transform.position);
                 }
             }
 
