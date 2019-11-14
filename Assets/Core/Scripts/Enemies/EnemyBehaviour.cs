@@ -162,12 +162,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnTriggerStay(Component other)
     {
-        if (m_IsTakingGrenade == false &&
-            other.gameObject.layer == 17 /*grenade*/ &&
+        //if (m_IsTakingGrenade == false &&
+        //    other.gameObject.layer == 17 /*grenade*/ &&
+        //    other.gameObject.GetComponent<BulletGrenadeAOE>() != null)
+        if (other.gameObject.layer == 17 /*grenade*/ &&
             other.gameObject.GetComponent<BulletGrenadeAOE>() != null)
         {
             TakeDamage(other.GetComponent<BulletGrenadeAOE>().GetDmgValue());
-            m_IsTakingGrenade = true;
 
 #if DEBUG
             if (SoundManager.GetInstance != null)

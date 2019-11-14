@@ -67,11 +67,13 @@ public class BulletGrenadeAOE : MonoBehaviour
         Destroy(effect1, effect1.GetComponent<ParticleSystem>().main.duration);
         Destroy(effect2, effect2.GetComponent<ParticleSystem>().main.duration);
         Destroy(gameObject, m_GrenadeImpactLifetime);
+
+        transform.localScale = m_TargetScale;
     }
 
 
     private void Update()
     {
-        StateUpdate();
+        //StateUpdate();
     }
 }

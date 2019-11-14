@@ -17,16 +17,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 17
       objectReference: {fileID: 0}
-    - target: {fileID: -3714977004230487700, guid: a7daf822f92486d46b25f65da1fa819a,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -3714977004230487700, guid: a7daf822f92486d46b25f65da1fa819a,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8511834678116280728, guid: a7daf822f92486d46b25f65da1fa819a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -87,6 +77,16 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3714977004230487700, guid: a7daf822f92486d46b25f65da1fa819a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3714977004230487700, guid: a7daf822f92486d46b25f65da1fa819a,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -6895311752275026024, guid: a7daf822f92486d46b25f65da1fa819a,
         type: 3}
       propertyPath: m_DropOff
@@ -141,7 +141,7 @@ PrefabInstance:
     - target: {fileID: -6895311752275026024, guid: a7daf822f92486d46b25f65da1fa819a,
         type: 3}
       propertyPath: m_GrenadeImpactLifetime
-      value: 0.5
+      value: 0.025
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7daf822f92486d46b25f65da1fa819a, type: 3}
