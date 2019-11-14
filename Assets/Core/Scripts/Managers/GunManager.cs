@@ -134,6 +134,8 @@ public class GunManager : MonoBehaviour
                 m_PrevGunIdx = m_NowGunIdx;
                 m_NowGunIdx = (m_NowGunIdx == 1) ? 0 : 1;
                 SetActiveGun(m_NowGunIdx);
+
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_SWAPPING, transform.position);
             }
 
             float wheelDir = Input.GetAxisRaw("Mouse ScrollWheel");
@@ -156,6 +158,11 @@ public class GunManager : MonoBehaviour
 
                     m_PrevGunIdx = m_NowGunIdx;
                     m_NowGunIdx = 1;
+                }
+
+                if(m_PrevGunIdx != m_NowGunIdx)
+                {
+                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_SWAPPING, transform.position);
                 }
 
                 SetActiveGun(m_NowGunIdx);

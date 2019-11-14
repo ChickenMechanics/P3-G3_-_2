@@ -183,3 +183,9 @@ MonoBehaviour:
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
+  - AliasName: Gun Swapping
+    m_ESound: 25
+    m_SoundSource: {fileID: 7444581513835504760, guid: 6129f9cbbe15adc40952207d8e17cb5e,
+      type: 3}
+    m_PitchRange: 1
+    m_PrevTime: 0
