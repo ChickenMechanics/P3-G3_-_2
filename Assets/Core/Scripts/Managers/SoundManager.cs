@@ -30,6 +30,10 @@ public class SoundManager : MonoBehaviour
         GUN_RELOAD_2,
         WAVE_BEGIN,
         MENU_BUTTON_CLICK,
+        PLAYER_DASH_RECHARGE,
+        GUN_ADS,
+        GUN_SWAPPING,
+        GAME_OVER,
         SIZE
     }
 
