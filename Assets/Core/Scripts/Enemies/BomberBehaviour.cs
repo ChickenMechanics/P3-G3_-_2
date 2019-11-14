@@ -61,6 +61,8 @@ public class BomberBehaviour : EnemyBehaviour
         if (SoundManager.GetInstance != null)
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_DEATH, transform.position);
 
+        SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.BOMBER_DETONATION, transform.position);
+
         Destroy(transform.gameObject);
     }
 

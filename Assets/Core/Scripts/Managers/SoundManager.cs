@@ -34,6 +34,7 @@ public class SoundManager : MonoBehaviour
         GUN_ADS,
         GUN_SWAPPING,
         GAME_OVER,
+        BOMBER_DETONATION,
         SIZE
     }
 

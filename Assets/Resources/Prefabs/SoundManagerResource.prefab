@@ -195,3 +195,9 @@ MonoBehaviour:
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
+  - AliasName: Bomber Detonation
+    m_ESound: 27
+    m_SoundSource: {fileID: 3893907363139903287, guid: 1134bcfe3b9f5fd41a5903ad74728ec9,
+      type: 3}
+    m_PitchRange: 1
+    m_PrevTime: 0
