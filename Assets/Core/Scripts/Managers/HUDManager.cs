@@ -903,6 +903,7 @@ public class HUDManager : MonoBehaviour
                 if (m_NowDashCoolDownTime > m_DashCoolDownTimeTarget)
                 {
                     m_NowDashCoolDownTime = m_DashCoolDownTimeTarget;
+                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.PLAYER_DASH_RECHARGE, PlayerManager.GetInstance.GetPlayer.transform.position);
                 }
             }
 

@@ -2083,6 +2083,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7752833903104547814, guid: 38c81182a46ed3f4fb1715553f3bc21e,
         type: 3}
+    - target: {fileID: 3691301364954643396, guid: d03bc41eb27611c48a226960895a7d0a,
+        type: 3}
+      propertyPath: textWidth
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 24281327387835911, guid: d03bc41eb27611c48a226960895a7d0a,
         type: 3}
       propertyPath: m_IsActive

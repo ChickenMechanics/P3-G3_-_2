@@ -274,6 +274,11 @@ public class GunTemplate : MonoBehaviour
             if (Input.GetMouseButton(1) == true &&
                 GetIsReloading == false)
             {
+                if(GetIsADS == false)
+                {
+                    SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GUN_ADS, transform.position);
+                }
+
                 GetIsADS = true;
 
                 Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 52.0f, 0.4f);
