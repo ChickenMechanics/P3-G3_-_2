@@ -570,6 +570,7 @@ public class HUDManager : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.Return))
                     {
                         SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.MENU_BUTTON_CLICK, transform.position);
+                        ScoreManager.GetInstance.m_GetBulletTimeEnabled = true;
 
                         DisablePlayerHUD();
                         m_HighScoreBG.gameObject.SetActive(false);
