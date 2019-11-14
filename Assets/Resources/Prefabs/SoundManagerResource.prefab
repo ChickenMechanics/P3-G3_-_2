@@ -177,3 +177,9 @@ MonoBehaviour:
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
+  - AliasName: Gun Ads
+    m_ESound: 24
+    m_SoundSource: {fileID: 2778572162932178992, guid: 0ac3dc5f13be4324f86993e64337e16b,
+      type: 3}
+    m_PitchRange: 1
+    m_PrevTime: 0
