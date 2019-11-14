@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour, IController
             {
                 PlayerManager.GetInstance.GetIsAlive = false;
                 HUDManager.GetInstance.HighScoreArenaEnable();
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GAME_OVER, Vector3.zero);
             }
             //#endif
 
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour, IController
                 HUDManager.GetInstance.m_bDisplayHighScore == false)
             {
                 HUDManager.GetInstance.HighScoreArenaEnable();
+                SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.GAME_OVER, Vector3.zero);
             }
 
             if (Input.GetKeyDown(KeyCode.G) &&

@@ -189,3 +189,9 @@ MonoBehaviour:
       type: 3}
     m_PitchRange: 1
     m_PrevTime: 0
+  - AliasName: Game Over
+    m_ESound: 26
+    m_SoundSource: {fileID: 5752223700646162539, guid: de6746a2b331de7439270f13487c4d5a,
+      type: 3}
+    m_PitchRange: 1
+    m_PrevTime: 0
