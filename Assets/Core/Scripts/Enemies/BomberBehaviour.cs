@@ -10,16 +10,11 @@ public class BomberBehaviour : EnemyBehaviour
     public float attackRange;
     public float health;
 
-    //private EnemyBomberAnimation m_Anims;
-
     // Start is called before the first frame update
     private void Start()
     {
         currentState = State.MOVE;
-        //m_Anims = gameObject.GetComponent<EnemyBomberAnimation>();
         hp = health;
-
-        //SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.ENEMY_SPAWN, transform.position);
     }
 
     // Update is called once per frame
@@ -39,8 +34,6 @@ public class BomberBehaviour : EnemyBehaviour
 
     private IEnumerator Attack()
     {
-        //m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.EXPLODE);
-
         SetHasAttacked(true);
 
         agent.isStopped = true;
@@ -65,14 +58,8 @@ public class BomberBehaviour : EnemyBehaviour
     {
         ScoreManager.GetInstance.AddComboPoints(scoreAmount);
 
-#if DEBUG
         if (SoundManager.GetInstance != null)
-#endif
-        {
             SoundManager.GetInstance.PlaySoundClip(SoundManager.ESoundClip.CRAWLER_DEATH, transform.position);
-        }
-
-        //m_Anims.SetAnim(EnemyBomberAnimation.EAnimBomber.EXPLODE);
 
         Destroy(transform.gameObject);
     }
