@@ -200,13 +200,77 @@ public class SoundManager : MonoBehaviour
             }
         }
 
-//#if DEBUG
+
+        // ljudnisse
+        DoSomethingAudio();
+
+
+        // special
         WhatsThis();
-//#endif
     }
 
+
+
+
+
+
+
+
+    private List<GameObject> m_BitrateObjs;
+    private AudioSource m_BitrateSources;
+    private int m_NowBitrateIdx;
+
+    private void DoSomethingAudio()
+    {
+        m_BitrateObjs = new List<GameObject>();
+        List<string> names = new List<string>
+        {
+            "CML 8 kbps",
+            "CML 32 kbps",
+            "CML 48 kbps",
+            "CML 80 kbps",
+            "CML 320 kbps"
+        };
+
+        string path = "Prefabs/BitrateExperiment/";
+        for (int i = 0; i < names.Count; ++i)
+        {
+            GameObject go = new GameObject("tunes");
+            m_BitrateObjs.Add(go);
+            go.transform.position = Vector3.zero;
+            go.transform.parent = m_AudioFolder.transform;
+            AudioSource source = go.AddComponent<AudioSource>();
+            source.clip = (AudioClip)Resources.Load(path + names[i]);
+            source.playOnAwake = false;
+            source.volume = 0.25f;
+            source.loop = false;
+            source.maxDistance = 100.0f;
+            source.rolloffMode = AudioRolloffMode.Linear;
+            source.dopplerLevel = 0.0f;
+        }
+    }
+
+    public void PlayRandomShit()
+    {
+        m_NowBitrateIdx = Random.Range(0, m_BitrateObjs.Count - 1);
+        m_BitrateSources = m_BitrateObjs[m_NowBitrateIdx].GetComponent<AudioSource>();
+        m_BitrateSources.Play();
+    }
+
+
+    public void StopRandomShit()
+    {
+        m_BitrateObjs[m_NowBitrateIdx].GetComponent<AudioSource>().Stop();
+    }
+
+
+
+
+
+
+
     #region the stash
-//#if DEBUG
+    //#if DEBUG
     private List<GameObject> m_SuperSecret;
     private AudioSource m_NowSource;
     private int nowIdx;
